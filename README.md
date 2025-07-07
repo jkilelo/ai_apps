@@ -8,6 +8,14 @@ A modern web application suite featuring AI-powered tools with a sleek, native-a
 - **AI-Powered Tools**: Web automation testing, data processing, and more
 - **Single Port Deployment**: Frontend served by FastAPI backend
 - **Responsive Design**: Works seamlessly across devices
+- **Cross-Platform**: Works on Windows, macOS, and Linux
+
+## Platform Compatibility
+
+✅ **Windows**: Full support (without uvloop)  
+✅ **macOS**: Full support with performance optimizations  
+✅ **Linux**: Full support with best performance  
+✅ **Docker**: Platform-independent deployment
 
 ## Prerequisites
 
@@ -37,6 +45,9 @@ source venv/bin/activate
 # venv\Scripts\activate
 
 # Install backend dependencies
+# For Windows:
+pip install -r requirements_platform_agnostic.txt
+# For macOS/Linux:
 pip install -r requirements.txt
 
 # Install Playwright browsers (for web automation features)
@@ -73,7 +84,20 @@ VITE_API_URL=/api/v1
 
 ## Running the Application
 
-### Production Mode (Single Port)
+### Quick Start (All Platforms)
+
+**Windows:**
+```cmd
+run_cross_platform.bat
+```
+
+**macOS/Linux:**
+```bash
+chmod +x run_cross_platform.sh
+./run_cross_platform.sh
+```
+
+### Manual Start
 
 ```bash
 # Activate virtual environment if not already activated
