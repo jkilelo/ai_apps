@@ -25,50 +25,47 @@ export const WorkflowProgress: React.FC<WorkflowProgressProps> = ({
     switch (status) {
       case 'completed':
         return (
-          <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
           </svg>
         )
       case 'in_progress':
         return (
-          <svg className="animate-spin h-5 w-5 text-primary-500" viewBox="0 0 24 24" fill="none">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-          </svg>
+          <div className="spinner"></div>
         )
       case 'failed':
         return (
-          <svg className="w-5 h-5 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         )
       case 'locked':
         return (
-          <svg className="w-5 h-5" style={{ color: 'var(--color-text-muted)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5" style={{ color: 'var(--text-tertiary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
         )
       default:
-        return <span className="text-2xl font-bold" style={{ color: 'var(--color-text-tertiary)' }}>{status === 'pending' ? '•' : ''}</span>
+        return <span className="text-2xl font-bold" style={{ color: 'var(--text-tertiary)' }}>{status === 'pending' ? '•' : ''}</span>
     }
   }
 
   const getStatusColor = (status: StepStatus, isActive: boolean) => {
-    if (isActive) return 'border-primary-500 bg-primary-500/10'
+    if (isActive) return 'scale-[1.02] shadow-lg'
     
     switch (status) {
       case 'completed':
-        return 'border-green-500 bg-green-500/10'
+        return 'hover:scale-[1.01]'
       case 'in_progress':
-        return 'border-primary-500 bg-primary-500/10'
+        return 'animate-pulse'
       case 'failed':
-        return 'border-accent-500 bg-accent-500/10'
+        return ''
       case 'pending':
-        return 'hover:border-opacity-70'
+        return 'hover:scale-[1.01]'
       case 'locked':
         return 'opacity-50'
       default:
-        return 'border-gray-700'
+        return ''
     }
   }
 
@@ -76,21 +73,21 @@ export const WorkflowProgress: React.FC<WorkflowProgressProps> = ({
   const progressPercentage = (completedSteps / steps.length) * 100
 
   return (
-    <div className="card-elevated p-6">
+    <div>
       <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-lg font-medium" style={{ color: 'var(--color-text-primary)' }}>Workflow Progress</h3>
-          <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-            {completedSteps} of {steps.length} steps completed
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-lg font-medium" style={{ color: 'var(--text-primary)' }}>Workflow Progress</h3>
+          <span className="badge badge-blue">
+            {completedSteps} of {steps.length}
           </span>
         </div>
         
-        <div className="w-full rounded-full h-3 overflow-hidden shadow-inner" style={{ background: 'var(--color-bg-tertiary)' }}>
+        <div className="w-full rounded-full h-3 overflow-hidden glass" style={{ background: 'var(--bg-tertiary)' }}>
           <div
-            className="h-full bg-primary-500 transition-all duration-700 ease-out shadow-sm relative"
+            className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-700 ease-out relative"
             style={{ width: `${progressPercentage}%` }}
           >
-            <div className="absolute inset-0 bg-white/20 animate-pulse" />
+            <div className="absolute inset-0 bg-white/20 animate-shimmer" />
           </div>
         </div>
       </div>
@@ -104,42 +101,42 @@ export const WorkflowProgress: React.FC<WorkflowProgressProps> = ({
           return (
             <div key={step.id} className="relative">
               {index < steps.length - 1 && (
-                <div className={`absolute left-6 top-14 w-0.5 h-16 transition-colors duration-300`} style={{ 
-                  background: status === 'completed' ? '#22c55e' : 'var(--color-border-primary)'
+                <div className={`absolute left-6 top-16 w-0.5 h-14 transition-all duration-300`} style={{ 
+                  background: status === 'completed' ? 'linear-gradient(to bottom, var(--color-green), transparent)' : 'var(--border-primary)',
+                  opacity: status === 'completed' ? 1 : 0.3
                 }} />
               )}
               
               <div
                 onClick={() => status !== 'locked' && onStepClick(step.id)}
-                className={`w-full p-4 rounded-lg border transition-all duration-200 ${
+                className={`glass rounded-xl p-4 transition-all duration-300 animate-slideInLeft ${
                   getStatusColor(status, isActive)
                 } ${status !== 'locked' ? 'cursor-pointer' : 'cursor-not-allowed'}`}
                 style={{ 
-                  borderColor: isActive ? '' : 'var(--color-border-primary)',
-                  background: isActive ? '' : 'var(--color-bg-secondary)'
+                  animationDelay: `${index * 100}ms`,
+                  background: isActive ? 'var(--glass-bg)' : '',
+                  borderColor: isActive ? 'var(--color-blue)' : ''
                 }}
               >
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
-                    isActive ? 'border-primary-500 bg-primary-500/10' : 
-                    status === 'completed' ? 'border-green-500 bg-green-500/10' :
-                    status === 'failed' ? 'border-accent-500 bg-accent-500/10' :
-                    ''
-                  }`} style={{
-                    borderColor: (isActive || status === 'completed' || status === 'failed') ? '' : 'var(--color-border-secondary)',
-                    background: (isActive || status === 'completed' || status === 'failed') ? '' : 'var(--color-bg-tertiary)'
-                  }}>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                    isActive ? 'bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg' : 
+                    status === 'completed' ? 'bg-gradient-to-br from-green-500 to-green-600' :
+                    status === 'failed' ? 'bg-gradient-to-br from-red-500 to-red-600' :
+                    status === 'in_progress' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                    'neumorphic'
+                  }`}>
                     {getStatusIcon(status)}
                   </div>
                   
                   <div className="flex-1 text-left">
-                    <h4 className="font-medium" style={{ color: 'var(--color-text-primary)' }}>
+                    <h4 className="font-medium" style={{ color: 'var(--text-primary)' }}>
                       {step.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                     </h4>
-                    <p className="text-sm line-clamp-1" style={{ color: 'var(--color-text-secondary)' }}>{step.Description}</p>
+                    <p className="text-sm line-clamp-1" style={{ color: 'var(--text-secondary)' }}>{step.Description}</p>
                     
                     {workflowStep?.completedAt && (
-                      <p className="text-xs mt-1" style={{ color: 'var(--color-text-tertiary)' }}>
+                      <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
                         Completed at {new Date(workflowStep.completedAt).toLocaleTimeString()}
                       </p>
                     )}
@@ -152,15 +149,15 @@ export const WorkflowProgress: React.FC<WorkflowProgressProps> = ({
                           e.stopPropagation()
                           onViewResults(step.id)
                         }}
-                        className="px-3 py-1 text-xs bg-green-500/10 hover:bg-green-500/20 text-green-600 rounded-lg transition-colors duration-200 border border-green-500/20"
+                        className="btn btn-success py-1 px-3 text-xs"
                       >
                         View Results
                       </button>
                     )}
                     
-                    <svg className={`w-5 h-5 transition-transform duration-200 ${
+                    <svg className={`w-5 h-5 transition-transform duration-300 ${
                       isActive ? 'rotate-90' : ''
-                    }`} style={{ color: 'var(--color-text-tertiary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    }`} style={{ color: 'var(--text-tertiary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>

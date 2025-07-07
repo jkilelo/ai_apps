@@ -108,17 +108,27 @@ body {
 
 /* Modern Card Component */
 .card {
-  @apply glass;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.3s var(--ease-out);
 }
 
 .card-interactive {
-  @apply card;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s var(--ease-out);
   cursor: pointer;
   position: relative;
-  overflow: hidden;
 }
 
 .card-interactive::before {
@@ -166,7 +176,10 @@ body {
 
 /* Modern Button Styles */
 .btn {
-  @apply inline-flex items-center justify-center font-medium;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
   padding: 10px 20px;
   border-radius: 12px;
   transition: all 0.2s var(--ease-out);
@@ -206,7 +219,11 @@ body {
 }
 
 .btn-secondary {
-  @apply glass;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
   color: var(--text-primary);
 }
 
@@ -254,8 +271,11 @@ body {
 }
 
 .input-glass {
-  @apply glass;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
   border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
 }
 
 /* Toggle Switch */

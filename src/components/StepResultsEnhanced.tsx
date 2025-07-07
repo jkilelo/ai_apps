@@ -44,24 +44,27 @@ export const StepResultsEnhanced: React.FC<StepResultsEnhancedProps> = ({
 
   if (result.status === 'error') {
     return (
-      <div className="card p-6" style={{ background: 'rgba(255, 60, 40, 0.05)', borderColor: 'rgba(255, 60, 40, 0.2)' }}>
+      <div className="glass rounded-2xl p-6 animate-slideUp" style={{ 
+        background: 'linear-gradient(135deg, rgba(255, 59, 48, 0.1) 0%, rgba(255, 59, 48, 0.05) 100%)',
+        borderColor: 'rgba(255, 59, 48, 0.3)' 
+      }}>
         <div className="flex items-start gap-3 mb-4">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255, 60, 40, 0.1)' }}>
-            <svg className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center flex-shrink-0 animate-bounce">
+            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-medium text-accent-500">Execution Failed</h3>
-            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+            <h3 className="text-lg font-medium" style={{ color: 'var(--color-red)' }}>Execution Failed</h3>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               {new Date(result.timestamp).toLocaleString()}
             </p>
           </div>
         </div>
         
-        <div className="rounded-lg p-4 font-mono text-sm" style={{ 
-          background: 'var(--color-bg-tertiary)', 
-          color: 'var(--color-text-primary)' 
+        <div className="glass rounded-xl p-4 font-mono text-sm" style={{ 
+          background: 'var(--bg-tertiary)', 
+          color: 'var(--text-primary)' 
         }}>
           {result.error || 'An unknown error occurred'}
         </div>
@@ -99,25 +102,28 @@ export const StepResultsEnhanced: React.FC<StepResultsEnhancedProps> = ({
   
   // Generic successful result view
   return (
-    <div className="card p-6" style={{ background: 'rgba(34, 197, 94, 0.05)', borderColor: 'rgba(34, 197, 94, 0.2)' }}>
+    <div className="glass rounded-2xl p-6 animate-slideUp" style={{ 
+      background: 'linear-gradient(135deg, rgba(52, 199, 89, 0.1) 0%, rgba(52, 199, 89, 0.05) 100%)',
+      borderColor: 'rgba(52, 199, 89, 0.3)' 
+    }}>
       <div className="flex items-start gap-3 mb-4">
-        <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(34, 197, 94, 0.1)' }}>
-          <svg className="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 animate-bounce">
+          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium text-green-500">Execution Successful</h3>
-          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <h3 className="text-lg font-medium" style={{ color: 'var(--color-green)' }}>Execution Successful</h3>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             {new Date(result.timestamp).toLocaleString()}
           </p>
         </div>
       </div>
 
       {result.data && (
-        <pre className="rounded-lg p-4 text-sm overflow-x-auto" style={{ 
-          background: 'var(--color-bg-tertiary)', 
-          color: 'var(--color-text-primary)' 
+        <pre className="glass rounded-xl p-4 text-sm overflow-x-auto font-mono" style={{ 
+          background: 'var(--bg-tertiary)', 
+          color: 'var(--text-primary)' 
         }}>
           {formatValue(result.data)}
         </pre>
@@ -132,16 +138,19 @@ const ElementExtractionResults: React.FC<{ result: StepExecutionResult }> = ({ r
   const metadata = result.data?.metadata || {}
   
   return (
-    <div className="card p-6" style={{ background: 'rgba(34, 197, 94, 0.05)', borderColor: 'rgba(34, 197, 94, 0.2)' }}>
+    <div className="glass rounded-2xl p-6 animate-slideUp" style={{ 
+      background: 'linear-gradient(135deg, rgba(52, 199, 89, 0.1) 0%, rgba(52, 199, 89, 0.05) 100%)',
+      borderColor: 'rgba(52, 199, 89, 0.3)' 
+    }}>
       <div className="flex items-start gap-3 mb-6">
-        <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(34, 197, 94, 0.1)' }}>
-          <svg className="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 animate-bounce">
+          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium text-green-500">Element Extraction Complete</h3>
-          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <h3 className="text-lg font-medium" style={{ color: 'var(--color-green)' }}>Element Extraction Complete</h3>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Found {elements.length} elements across {metadata.pages_crawled || 1} page(s)
           </p>
         </div>
@@ -149,34 +158,42 @@ const ElementExtractionResults: React.FC<{ result: StepExecutionResult }> = ({ r
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {['button', 'input', 'link', 'form'].map((type) => {
+          {['button', 'input', 'link', 'form'].map((type, index) => {
             const count = elements.filter(e => e.type === type).length
+            const colors = [
+              { bg: 'from-blue-500 to-blue-600' },
+              { bg: 'from-purple-500 to-purple-600' },
+              { bg: 'from-orange-500 to-orange-600' },
+              { bg: 'from-pink-500 to-pink-600' }
+            ]
             return (
-              <div key={type} className="card p-3 text-center">
-                <p className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{count}</p>
-                <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>{type}s</p>
+              <div key={type} className="glass rounded-xl p-4 text-center animate-scaleIn" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colors[index].bg} flex items-center justify-center mx-auto mb-2`}>
+                  <span className="text-white font-bold text-lg">{count}</span>
+                </div>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{type}s</p>
               </div>
             )
           })}
         </div>
 
-        <div className="space-y-2 max-h-96 overflow-y-auto">
+        <div className="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
           {elements.map((element, index) => (
-            <div key={element.id || index} className="card p-3 hover:shadow-sm transition-shadow">
+            <div key={element.id || index} className="glass rounded-xl p-4 hover:scale-[1.02] transition-all duration-200 animate-slideInLeft" style={{ animationDelay: `${index * 30}ms` }}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="badge badge-primary">{element.type}</span>
-                  <code className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>{element.tag}</code>
+                  <span className="badge badge-blue">{element.type}</span>
+                  <code className="text-xs px-2 py-1 glass rounded" style={{ color: 'var(--text-tertiary)' }}>{element.tag}</code>
                   {element.text && (
-                    <span className="text-sm" style={{ color: 'var(--color-text-primary)' }}>{element.text}</span>
+                    <span className="text-sm" style={{ color: 'var(--text-primary)' }}>{element.text}</span>
                   )}
                 </div>
                 {element.is_interactive && (
-                  <span className="text-xs text-green-500">Interactive</span>
+                  <span className="badge badge-green">Interactive</span>
                 )}
               </div>
               {element.selector && (
-                <p className="text-xs mt-2 font-mono" style={{ color: 'var(--color-text-muted)' }}>{element.selector}</p>
+                <p className="text-xs mt-2 font-mono" style={{ color: 'var(--text-tertiary)' }}>{element.selector}</p>
               )}
             </div>
           ))}
@@ -193,40 +210,44 @@ const TestGenerationResults: React.FC<{ result: StepExecutionResult }> = ({ resu
   const [selectedTest, setSelectedTest] = useState<any>(null)
   
   return (
-    <div className="card p-6" style={{ background: 'rgba(34, 197, 94, 0.05)', borderColor: 'rgba(34, 197, 94, 0.2)' }}>
+    <div className="glass rounded-2xl p-6 animate-slideUp" style={{ 
+      background: 'linear-gradient(135deg, rgba(52, 199, 89, 0.1) 0%, rgba(52, 199, 89, 0.05) 100%)',
+      borderColor: 'rgba(52, 199, 89, 0.3)' 
+    }}>
       <div className="flex items-start gap-3 mb-6">
-        <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(34, 197, 94, 0.1)' }}>
-          <svg className="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 animate-bounce">
+          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium text-green-500">Test Generation Complete</h3>
-          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <h3 className="text-lg font-medium" style={{ color: 'var(--color-green)' }}>Test Generation Complete</h3>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Generated {testCases.length} test cases for {metadata.total_elements || 0} elements
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="space-y-2 max-h-96 overflow-y-auto">
+        <div className="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
           {testCases.map((test, index) => (
             <div
               key={test.id || index}
               onClick={() => setSelectedTest(test)}
-              className={`card p-3 cursor-pointer transition-all ${
-                selectedTest?.id === test.id ? 'ring-2 ring-primary-500' : 'hover:shadow-sm'
+              className={`glass rounded-xl p-4 cursor-pointer transition-all duration-200 animate-slideInLeft ${
+                selectedTest?.id === test.id ? 'ring-2 ring-blue-500 scale-[1.02]' : 'hover:scale-[1.01]'
               }`}
+              style={{ animationDelay: `${index * 30}ms` }}
             >
               <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>
+                <h4 className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                   {test.name}
                 </h4>
-                <span className={`badge ${test.type === 'negative' ? 'badge-accent' : 'badge-primary'}`}>
+                <span className={`badge ${test.type === 'negative' ? 'badge-red' : 'badge-blue'}`}>
                   {test.type}
                 </span>
               </div>
-              <p className="text-xs mt-1" style={{ color: 'var(--color-text-secondary)' }}>
+              <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>
                 {test.expected_result}
               </p>
             </div>
@@ -234,16 +255,19 @@ const TestGenerationResults: React.FC<{ result: StepExecutionResult }> = ({ resu
         </div>
 
         {selectedTest && (
-          <div className="card p-4">
-            <h4 className="font-medium mb-3" style={{ color: 'var(--color-text-primary)' }}>
+          <div className="glass rounded-xl p-6 animate-slideInRight">
+            <h4 className="font-medium mb-4" style={{ color: 'var(--text-primary)' }}>
               Test Details: {selectedTest.name}
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <p className="text-xs font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>Steps:</p>
-                <ol className="list-decimal list-inside space-y-1">
+                <p className="text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Steps:</p>
+                <ol className="list-decimal list-inside space-y-2">
                   {selectedTest.steps.map((step: string, i: number) => (
-                    <li key={i} className="text-sm" style={{ color: 'var(--color-text-primary)' }}>
+                    <li key={i} className="text-sm glass rounded-lg p-3 animate-fadeIn" style={{ 
+                      color: 'var(--text-primary)',
+                      animationDelay: `${i * 100}ms`
+                    }}>
                       {step}
                     </li>
                   ))}
@@ -251,10 +275,9 @@ const TestGenerationResults: React.FC<{ result: StepExecutionResult }> = ({ resu
               </div>
               {selectedTest.selector && (
                 <div>
-                  <p className="text-xs font-medium mb-1" style={{ color: 'var(--color-text-secondary)' }}>Selector:</p>
-                  <code className="text-xs block p-2 rounded" style={{ 
-                    background: 'var(--color-bg-tertiary)', 
-                    color: 'var(--color-text-primary)' 
+                  <p className="text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Selector:</p>
+                  <code className="text-xs block glass rounded-lg p-4 font-mono" style={{ 
+                    color: 'var(--text-primary)' 
                   }}>
                     {selectedTest.selector}
                   </code>
@@ -274,16 +297,19 @@ const TestExecutionResults: React.FC<{ result: StepExecutionResult }> = ({ resul
   const summary = result.data?.summary || {}
   
   return (
-    <div className="card p-6" style={{ background: 'rgba(34, 197, 94, 0.05)', borderColor: 'rgba(34, 197, 94, 0.2)' }}>
+    <div className="glass rounded-2xl p-6 animate-slideUp" style={{ 
+      background: 'linear-gradient(135deg, rgba(52, 199, 89, 0.1) 0%, rgba(52, 199, 89, 0.05) 100%)',
+      borderColor: 'rgba(52, 199, 89, 0.3)' 
+    }}>
       <div className="flex items-start gap-3 mb-6">
-        <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(34, 197, 94, 0.1)' }}>
-          <svg className="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 animate-bounce">
+          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-medium text-green-500">Test Execution Complete</h3>
-          <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+          <h3 className="text-lg font-medium" style={{ color: 'var(--color-green)' }}>Test Execution Complete</h3>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             Pass rate: {summary.pass_rate?.toFixed(1) || 0}% ({summary.passed || 0}/{summary.total || 0} tests)
           </p>
         </div>
@@ -291,44 +317,52 @@ const TestExecutionResults: React.FC<{ result: StepExecutionResult }> = ({ resul
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div className="card p-3 text-center">
-            <p className="text-2xl font-bold text-green-500">{summary.passed || 0}</p>
-            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Passed</p>
+          <div className="glass rounded-xl p-4 text-center animate-scaleIn">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mx-auto mb-2">
+              <span className="text-white font-bold text-lg">{summary.passed || 0}</span>
+            </div>
+            <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Passed</p>
           </div>
-          <div className="card p-3 text-center">
-            <p className="text-2xl font-bold text-accent-500">{summary.failed || 0}</p>
-            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Failed</p>
+          <div className="glass rounded-xl p-4 text-center animate-scaleIn" style={{ animationDelay: '100ms' }}>
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mx-auto mb-2">
+              <span className="text-white font-bold text-lg">{summary.failed || 0}</span>
+            </div>
+            <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Failed</p>
           </div>
-          <div className="card p-3 text-center">
-            <p className="text-2xl font-bold text-yellow-500">{summary.skipped || 0}</p>
-            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Skipped</p>
+          <div className="glass rounded-xl p-4 text-center animate-scaleIn" style={{ animationDelay: '200ms' }}>
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center mx-auto mb-2">
+              <span className="text-white font-bold text-lg">{summary.skipped || 0}</span>
+            </div>
+            <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Skipped</p>
           </div>
-          <div className="card p-3 text-center">
-            <p className="text-2xl font-bold text-primary-500">{summary.total || 0}</p>
-            <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Total</p>
+          <div className="glass rounded-xl p-4 text-center animate-scaleIn" style={{ animationDelay: '300ms' }}>
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mx-auto mb-2">
+              <span className="text-white font-bold text-lg">{summary.total || 0}</span>
+            </div>
+            <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Total</p>
           </div>
         </div>
 
-        <div className="space-y-2 max-h-96 overflow-y-auto">
+        <div className="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
           {testResults.map((test, index) => (
-            <div key={test.test_id || index} className="card p-3">
+            <div key={test.test_id || index} className="glass rounded-xl p-4 animate-slideInLeft" style={{ animationDelay: `${index * 30}ms` }}>
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <h4 className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>
+                  <h4 className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                     {test.test_name}
                   </h4>
                   {test.error && (
-                    <p className="text-xs mt-1 text-accent-500">{test.error}</p>
+                    <p className="text-xs mt-1" style={{ color: 'var(--color-red)' }}>{test.error}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
+                  <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
                     {test.duration?.toFixed(2)}s
                   </span>
                   <span className={`badge ${
-                    test.status === 'passed' ? 'badge-primary' : 
-                    test.status === 'failed' ? 'badge-accent' : 
-                    'badge-neutral'
+                    test.status === 'passed' ? 'badge-green' : 
+                    test.status === 'failed' ? 'badge-red' : 
+                    'badge-purple'
                   }`}>
                     {test.status}
                   </span>

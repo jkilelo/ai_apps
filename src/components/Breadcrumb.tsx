@@ -15,22 +15,26 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
       {items.map((item, index) => (
         <React.Fragment key={index}>
           {index > 0 && (
-            <svg className="w-4 h-4" style={{ color: 'var(--color-text-tertiary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 animate-fadeIn" style={{ color: 'var(--text-tertiary)', animationDelay: `${index * 50}ms` }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           )}
           {item.onClick ? (
             <button
               onClick={item.onClick}
-              className="transition-colors duration-200"
-              style={{ color: 'var(--color-text-secondary)' }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}
+              className="px-3 py-1 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 animate-fadeIn"
+              style={{ 
+                color: 'var(--text-secondary)',
+                animationDelay: `${index * 50}ms`
+              }}
             >
               {item.label}
             </button>
           ) : (
-            <span style={{ color: 'var(--color-text-primary)' }}>{item.label}</span>
+            <span className="font-semibold animate-fadeIn" style={{ 
+              color: 'var(--text-primary)',
+              animationDelay: `${index * 50}ms`
+            }}>{item.label}</span>
           )}
         </React.Fragment>
       ))}
