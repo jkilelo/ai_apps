@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Import FastAPI app
-from apps.ui_web_auto_testing.api.main import app
+from apps.ui_web_auto_testing.api.main_platform_agnostic import app
 
 
 def get_server_config():
