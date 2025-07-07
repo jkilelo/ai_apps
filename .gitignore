@@ -1,0 +1,301 @@
+# Environment variables and sensitive configuration
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+.envrc
+
+# API Keys and credentials
+config/secrets.json
+secrets/
+credentials/
+*.pem
+*.key
+*.crt
+*.p12
+
+# Database files and dumps
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.dump
+*.sql
+database_backup/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Python testing
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Python profiling
+.prof
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Node.js runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Node.js coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Node.js nyc test coverage
+.nyc_output
+
+# Node.js dependency directories
+jspm_packages/
+
+# Node.js TypeScript cache
+*.tsbuildinfo
+
+# Node.js Optional npm cache directory
+.npm
+
+# Node.js Optional eslint cache
+.eslintcache
+
+# Node.js Optional stylelint cache
+.stylelintcache
+
+# Node.js Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Node.js Optional REPL history
+.node_repl_history
+
+# Node.js Output of 'npm pack'
+*.tgz
+
+# Node.js Yarn Integrity file
+.yarn-integrity
+
+# Node.js dotenv environment variables file
+.env.npm
+
+# Node.js parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Node.js Next.js build output
+.next
+
+# Node.js Nuxt.js build / generate output
+.nuxt
+dist
+
+# Node.js Gatsby files
+.cache/
+public
+
+# Node.js Vuepress build output
+.vuepress/dist
+
+# Node.js Serverless directories
+.serverless/
+
+# Node.js FuseBox cache
+.fusebox/
+
+# Node.js DynamoDB Local files
+.dynamodb/
+
+# Node.js TernJS port file
+.tern-port
+
+# Node.js Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# React/Vite build output
+dist/
+build/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log.*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.metadata
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+.tmp/
+
+# Test output and screenshots
+test-results/
+screenshots/
+test-artifacts/
+playwright-report/
+test-output/
+
+# Playwright specific
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# AI/ML model files and large datasets
+*.model
+*.h5
+*.pkl
+*.joblib
+*.weights
+models/
+checkpoints/
+datasets/
+data/raw/
+data/processed/
+*.csv
+*.json.gz
+*.parquet
+
+# Backup files
+*.bak
+*.backup
+*.old
+*~
+*.orig
+
+# Large binary files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+*.exe
+*.msi
+*.dmg
+*.pkg
+
+# Cache directories
+.cache/
+cache/
+.sass-cache/
+.postcss-cache/
+
+# Package manager lock files (optional - uncomment if you want to ignore them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Local development files
+local/
+.local/
+dev/
+.dev/
+
+# Documentation build output
+docs/_build/
+site/
+
+# Profiling and performance files
+profile/
+*.prof
+*.perf
+
+# Application specific
+apps_map_generated.json
+test_results_*
+performance_logs/
+debug_output/
+crawl_results/
+ui_test_artifacts/
+
+# MongoDB dumps
+*.bson
+mongo_dumps/
+
+# Security scan results
+security_reports/
+vulnerability_reports/
+
+# Miscellaneous
+.well-known/
+.git-blame-ignore-revs

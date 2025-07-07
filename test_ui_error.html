@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test UI Error</title>
+</head>
+<body>
+    <h1>Test Element Extraction</h1>
+    <input type="text" id="url" value="https://example.com" />
+    <button onclick="testExtraction()">Test Extraction</button>
+    <pre id="output"></pre>
+
+    <script>
+        const API_BASE = 'http://localhost:8002/api/v1';
+        const output = document.getElementById('output');
+
+        function log(message) {
+            output.textContent += message + '\n';
+            console.log(message);
+        }
+
+        async function testExtraction() {
+            const url = document.getElementById('url').value;
+            log('Testing element extraction for: ' + url);
+            
+            try {
+                // Test 1: Start extraction
+                log('\n1. Starting extraction...');
+                const response = await fetch(`${API_BASE}/element-extraction/extract`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        web_page_url: url,
+                        profile: 'qa_manual_tester',
+                        include_screenshots: false,
+                        max_depth: 1
+                    })
+                });
+                
+                log(`Response status: ${response.status} ${response.statusText}`);
+                
+                if (!response.ok) {
+                    const text = await response.text();
+                    log(`Error response: ${text}`);
+                    return;
+                }
+                
+                const data = await response.json();
+                log(`Job ID: ${data.job_id}`);
+                
+                // Test 2: Poll status
+                log('\n2. Polling status...');
+                let attempts = 0;
+                while (attempts < 10) {
+                    const statusResponse = await fetch(`${API_BASE}/element-extraction/extract/${data.job_id}`);
+                    log(`Status response: ${statusResponse.status} ${statusResponse.statusText}`);
+                    
+                    if (!statusResponse.ok) {
+                        const text = await statusResponse.text();
+                        log(`Status error: ${text}`);
+                        break;
+                    }
+                    
+                    const statusData = await statusResponse.json();
+                    log(`Job status: ${statusData.status}`);
+                    
+                    if (statusData.status === 'completed') {
+                        log('\nExtraction completed!');
+                        log(`Elements found: ${statusData.extracted_elements?.length || 0}`);
+                        log('Full response:');
+                        log(JSON.stringify(statusData, null, 2));
+                        break;
+                    } else if (statusData.status === 'failed') {
+                        log(`\nExtraction failed: ${statusData.error}`);
+                        break;
+                    }
+                    
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    attempts++;
+                }
+                
+            } catch (error) {
+                log(`\nError: ${error.message}`);
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

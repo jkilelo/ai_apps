@@ -1,0 +1,66 @@
+{
+    "name": "ai-apps-project",
+    "version": "1.0.0",
+    "description": "AI applications project with React 19.1, Tailwind CSS 4.1, and Node.js 22.16.0",
+    "main": "index.js",
+    "type": "module",
+    "engines": {
+        "node": ">=22.16.0"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
+        "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\"",
+        "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,md,json}\"",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@tailwindcss/postcss": "^4.1.11",
+        "@tailwindcss/vite": "^4.1.11",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19.0.1",
+        "@types/react-dom": "^19.0.1",
+        "@typescript-eslint/eslint-plugin": "^8.15.0",
+        "@typescript-eslint/parser": "^8.15.0",
+        "@vitejs/plugin-react": "^4.3.4",
+        "autoprefixer": "^10.4.20",
+        "eslint": "^9.15.0",
+        "eslint-plugin-react": "^7.37.2",
+        "eslint-plugin-react-hooks": "^5.0.0",
+        "eslint-plugin-react-refresh": "^0.4.14",
+        "postcss": "^8.4.49",
+        "prettier": "^3.3.3",
+        "prettier-plugin-tailwindcss": "^0.6.8",
+        "tailwindcss": "^4.1.11",
+        "typescript": "^5.7.2",
+        "vite": "^6.0.2"
+    },
+    "keywords": [
+        "react",
+        "vite",
+        "typescript",
+        "tailwindcss",
+        "ai",
+        "frontend"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
