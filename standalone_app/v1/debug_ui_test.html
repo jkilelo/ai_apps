@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UI Web Testing Debug</title>
+</head>
+<body>
+    <h1>UI Web Testing API Debug</h1>
+    <button onclick="testWorkflow()">Test Full Workflow</button>
+    <pre id="output"></pre>
+
+    <script>
+        const API_BASE = 'http://localhost:8002/api/v1';
+        const output = document.getElementById('output');
+
+        function log(message) {
+            output.textContent += message + '\n';
+            console.log(message);
+        }
+
+        async function pollJob(jobId, endpoint) {
+            while (true) {
+                const response = await fetch(`${API_BASE}/${endpoint}/${jobId}`);
+                const data = await response.json();
+                log(`Status: ${data.status}`);
+                
+                if (data.status === 'completed' || data.status === 'failed') {
+                    return data;
+                }
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+
+        async function testWorkflow() {
+            try {
+                log('Starting workflow test...');
+
+                // Step 1: Element Extraction
+                log('\n=== Element Extraction ===');
+                const extractRes = await fetch(`${API_BASE}/element-extraction/extract`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        web_page_url: 'https://example.com',
+                        profile_type: 'qa_manual_tester',
+                        max_depth: 1,
+                        max_pages: 1
+                    })
+                });
+                const extractData = await extractRes.json();
+                log(`Started job: ${extractData.job_id}`);
+
+                const extractResult = await pollJob(extractData.job_id, 'element-extraction/extract');
+                log(`Extracted ${extractResult.extracted_elements?.length || 0} elements`);
+
+                // Step 2: Test Generation
+                log('\n=== Test Generation ===');
+                const genRes = await fetch(`${API_BASE}/test-generation/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        extracted_elements: extractResult.extracted_elements,
+                        test_type: 'functional',
+                        framework: 'playwright_pytest',
+                        include_negative_tests: false
+                    })
+                });
+                const genData = await genRes.json();
+                log(`Started job: ${genData.job_id}`);
+
+                const genResult = await pollJob(genData.job_id, 'test-generation/generate');
+                log(`Generated ${genResult.test_cases?.length || 0} test cases`);
+
+                // Step 3: Test Execution
+                log('\n=== Test Execution ===');
+                log('Test cases to execute:');
+                log(JSON.stringify(genResult.test_cases, null, 2));
+                
+                const execRes = await fetch(`${API_BASE}/test-execution/execute`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        test_cases: genResult.test_cases,
+                        test_files: genResult.test_files,
+                        execution_mode: 'sequential',
+                        timeout: 300,
+                        browser: 'chromium'
+                    })
+                });
+                
+                if (!execRes.ok) {
+                    const error = await execRes.text();
+                    log(`Error starting test execution: ${execRes.status} - ${error}`);
+                    return;
+                }
+                
+                const execData = await execRes.json();
+                log(`Started job: ${execData.job_id}`);
+
+                const execResult = await pollJob(execData.job_id, 'test-execution/execute');
+                log(`\nTest Results:`);
+                log(`- Total: ${execResult.summary?.total || 0}`);
+                log(`- Passed: ${execResult.summary?.passed || 0}`);
+                log(`- Failed: ${execResult.summary?.failed || 0}`);
+                log(`- Pass rate: ${execResult.summary?.pass_rate || 0}%`);
+
+                log('\n=== Workflow Complete ===');
+
+            } catch (error) {
+                log(`\nError: ${error.message}`);
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

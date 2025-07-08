@@ -1,0 +1,148 @@
+{
+  "databases": [
+    {
+      "name": "production_warehouse",
+      "display_name": "Production Data Warehouse",
+      "type": "PostgreSQL",
+      "tables": [
+        {
+          "name": "customer_transactions",
+          "display_name": "Customer Transactions",
+          "row_count": 1250000,
+          "columns": [
+            {
+              "name": "transaction_id",
+              "type": "UUID",
+              "nullable": false,
+              "is_primary": true
+            },
+            {
+              "name": "customer_id",
+              "type": "INTEGER",
+              "nullable": false
+            },
+            {
+              "name": "amount",
+              "type": "DECIMAL(10,2)",
+              "nullable": false
+            },
+            {
+              "name": "transaction_date",
+              "type": "TIMESTAMP",
+              "nullable": false
+            },
+            {
+              "name": "status",
+              "type": "VARCHAR(20)",
+              "nullable": false
+            },
+            {
+              "name": "payment_method",
+              "type": "VARCHAR(50)",
+              "nullable": true
+            }
+          ]
+        },
+        {
+          "name": "product_inventory",
+          "display_name": "Product Inventory",
+          "row_count": 45000,
+          "columns": [
+            {
+              "name": "product_id",
+              "type": "INTEGER",
+              "nullable": false,
+              "is_primary": true
+            },
+            {
+              "name": "product_name",
+              "type": "VARCHAR(255)",
+              "nullable": false
+            },
+            {
+              "name": "quantity",
+              "type": "INTEGER",
+              "nullable": false
+            },
+            {
+              "name": "unit_price",
+              "type": "DECIMAL(10,2)",
+              "nullable": false
+            },
+            {
+              "name": "last_updated",
+              "type": "TIMESTAMP",
+              "nullable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "analytics_db",
+      "display_name": "Analytics Database",
+      "type": "Snowflake",
+      "tables": [
+        {
+          "name": "user_behavior",
+          "display_name": "User Behavior Analytics",
+          "row_count": 5600000,
+          "columns": [
+            {
+              "name": "event_id",
+              "type": "STRING",
+              "nullable": false
+            },
+            {
+              "name": "user_id",
+              "type": "NUMBER",
+              "nullable": false
+            },
+            {
+              "name": "event_type",
+              "type": "STRING",
+              "nullable": false
+            },
+            {
+              "name": "timestamp",
+              "type": "TIMESTAMP_NTZ",
+              "nullable": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "savedProfiles": [
+    {
+      "id": "prof_001",
+      "name": "E-commerce Transaction Quality",
+      "database": "production_warehouse",
+      "table": "customer_transactions",
+      "columns": ["amount", "transaction_date", "status"],
+      "created_at": "2024-01-15T10:30:00Z",
+      "last_used": "2024-01-20T14:22:00Z"
+    },
+    {
+      "id": "prof_002",
+      "name": "Inventory Health Check",
+      "database": "production_warehouse",
+      "table": "product_inventory",
+      "columns": ["quantity", "unit_price", "last_updated"],
+      "created_at": "2024-01-10T09:15:00Z",
+      "last_used": "2024-01-19T16:45:00Z"
+    }
+  ],
+  "executionHistory": [
+    {
+      "id": "exec_001",
+      "app": "data_quality",
+      "sub_app": "dq_profiling",
+      "started_at": "2024-01-20T14:22:00Z",
+      "completed_at": "2024-01-20T14:25:30Z",
+      "status": "completed",
+      "steps_completed": 5,
+      "total_steps": 5
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# React build
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+*.log
+app.log
+frontend.log
+react.log
+logs/
+*.log.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Sensitive files
+*.env
+*.env.*
+!.env.example
+secrets/
+credentials/
+*.key
+*.pem
+*.cert
+
+# MongoDB
+*.db
+mongodb_data/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+tmp/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Process files
+*.pid
+nohup.out
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+coverage.xml
+*.cover
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Common modules (don't commit duplicates)
+/common/
+/shared/
+
+# Server configuration
+nginx.conf
+server.js
+
+# Documentation drafts
+*.draft.md
+TODO.md
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Package lock files (keep package.json)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
