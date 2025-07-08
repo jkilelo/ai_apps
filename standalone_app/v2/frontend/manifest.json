@@ -1,0 +1,42 @@
+{
+  "name": "AI Apps v2 - Pure Web Technologies",
+  "short_name": "AI Apps v2",
+  "description": "Modern AI application built with pure web technologies",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#667eea",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "LLM Query",
+      "url": "/#llm",
+      "description": "Open LLM Query interface"
+    },
+    {
+      "name": "Web Automation",
+      "url": "/#automation",
+      "description": "Start web automation"
+    },
+    {
+      "name": "Data Profiling",
+      "url": "/#profiling",
+      "description": "Begin data profiling"
+    }
+  ]
+}
