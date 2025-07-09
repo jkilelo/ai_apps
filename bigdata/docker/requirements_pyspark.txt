@@ -1,0 +1,16 @@
+# PySpark 3.3.2 Requirements (matching Cloudera CDH setup)
+pyspark==3.3.2
+
+# Essential data processing libraries
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Jupyter for interactive development
+jupyter>=1.0.0
+jupyterlab>=4.0.0
+
+# Basic visualization
+matplotlib>=3.7.0
+
+# Development tools
+pytest>=7.0.0

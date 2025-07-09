@@ -20,6 +20,12 @@ from slowapi.middleware import SlowAPIMiddleware
 
 from .routers import element_extraction, test_generation, test_execution
 
+# Import data quality router
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from data_quality.api.router import router as data_quality_router
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -103,8 +109,11 @@ app.include_router(
     tags=["test-execution"]
 )
 
+# Include data quality router
+app.include_router(data_quality_router)
+
 # Serve static files from React build
-static_dir = Path(__file__).parent.parent.parent.parent / "dist"
+static_dir = Path(__file__).parent.parent.parent.parent / "ui" / "dist"
 if static_dir.exists():
     app.mount("/assets", StaticFiles(directory=str(static_dir / "assets")), name="static")
 
@@ -140,7 +149,7 @@ async def health_check():
 @app.get("/{path:path}")
 async def serve_react_app(path: str):
     """Serve the React app for all non-API routes"""
-    static_dir = Path(__file__).parent.parent.parent.parent / "dist"
+    static_dir = Path(__file__).parent.parent.parent.parent / "ui" / "dist"
     index_file = static_dir / "index.html"
     
     # Try to serve the requested file if it exists

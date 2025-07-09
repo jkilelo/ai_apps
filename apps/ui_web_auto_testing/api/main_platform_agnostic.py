@@ -129,7 +129,7 @@ app.include_router(
 )
 
 # Serve static files from React build
-static_dir = Path(__file__).parent.parent.parent.parent / "dist"
+static_dir = Path(__file__).parent.parent.parent.parent / "ui" / "dist"
 if static_dir.exists():
     # Normalize path for platform
     static_path = str(static_dir / "assets")
@@ -194,7 +194,7 @@ async def platform_details():
 @app.get("/{path:path}")
 async def serve_react_app(path: str):
     """Serve the React app for all non-API routes"""
-    static_dir = Path(__file__).parent.parent.parent.parent / "dist"
+    static_dir = Path(__file__).parent.parent.parent.parent / "ui" / "dist"
     
     # Normalize paths for platform
     if platform.system() == "Windows":

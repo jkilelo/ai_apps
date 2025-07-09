@@ -288,6 +288,34 @@ debug_output/
 crawl_results/
 ui_test_artifacts/
 
+# Test reports and artifacts
+test_reports/
+*.webm
+test_summary.txt
+evidence/
+
+# Generated data files
+*.parquet
+*.parquet.*
+.*.parquet.crc
+_SUCCESS
+generated_data/
+
+# Generated HTML files from demos
+order_form.html
+registration_form.html
+
+# Claude AI assistant files
+.claude/
+
+# Vite build cache
+.vite/
+
+# Local test and debug files
+test_*.py
+verify_*.py
+demo_server.log
+
 # MongoDB dumps
 *.bson
 mongo_dumps/
@@ -299,3 +327,4 @@ vulnerability_reports/
 # Miscellaneous
 .well-known/
 .git-blame-ignore-revs
+

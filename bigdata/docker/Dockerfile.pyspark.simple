@@ -1,0 +1,53 @@
+# Simple PySpark 3.3.2 Container with Python 3.9.20
+FROM python:3.9.20-slim
+
+# Set environment variables
+ENV SPARK_VERSION=3.3.2
+ENV HADOOP_VERSION=3
+ENV SPARK_HOME=/opt/spark
+ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+ENV PYSPARK_PYTHON=python3
+ENV PYSPARK_DRIVER_PYTHON=python3
+
+# Install Java and system dependencies (Python 3.9.20 is already in base image)
+RUN apt-get update && apt-get install -y \
+    openjdk-11-jre-headless \
+    wget \
+    curl \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and install Spark
+RUN cd /opt && \
+    wget -q https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    tar -xzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark && \
+    rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
+
+# Set PYTHONPATH
+ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9.5-src.zip:$PYTHONPATH
+
+# Install Python dependencies
+RUN pip install --upgrade pip && \
+    pip install \
+        pyspark==3.3.2 \
+        pandas==2.0.3 \
+        numpy==1.24.3 \
+        pyarrow==12.0.1 \
+        faker==20.1.0 \
+        jupyter \
+        jupyterlab \
+        matplotlib \
+        seaborn
+
+# Create working directory
+WORKDIR /workspace
+
+# Create directories
+RUN mkdir -p /workspace/data /workspace/notebooks /workspace/logs
+
+# Expose ports
+EXPOSE 4040 7077 8080 8081 8888
+
+# Default command
+CMD ["python", "-c", "import pyspark; print(f'PySpark {pyspark.__version__} is ready!')"]

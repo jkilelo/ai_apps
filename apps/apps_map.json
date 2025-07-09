@@ -292,6 +292,13 @@
                         ]
                     }
                 ]
+            },
+            {
+                "id": 3,
+                "name": "ai",
+                "Description": "AI-Powered Data Profiler with ML insights and real-time monitoring",
+                "version": "2.0.0",
+                "steps": []
             }
         ]
     },

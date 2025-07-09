@@ -16,6 +16,9 @@ sys.path.insert(0, str(Path(__file__).parent))
 # Import FastAPI app
 from apps.ui_web_auto_testing.api.main_platform_agnostic import app
 
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
 
 def get_server_config():
     """Get platform-appropriate server configuration"""
