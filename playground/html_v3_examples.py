@@ -12,6 +12,7 @@ from enum import Enum
 from pydantic import BaseModel, Field, validator
 import asyncio
 import random
+import json
 
 from html_v3 import (
     FormChainEngine, FormStep, FormStepProcessor, FormFieldSpec,
@@ -227,17 +228,21 @@ def create_data_quality_chain() -> FormChainEngine:
     
     # Define custom field injection for step 2
     def inject_column_selection(response: DataSourceResponse) -> List[FormFieldSpec]:
-        # Create checkboxes for each column
-        return [
+        # Don't inject individual checkboxes - the columns_to_check field handles this
+        # Instead, we could inject other fields based on the response
+        fields = []
+        
+        # Add a hidden field with available columns for JavaScript to use
+        fields.append(
             FormFieldSpec(
-                name=f"column_{col['name']}",
-                field_type=FieldType.CHECKBOX,
-                label=f"{col['name']} ({col['type']})",
-                default=True,
-                help_text=f"Nullable: {col['nullable']}"
+                name="available_columns",
+                field_type=FieldType.HIDDEN,
+                label="Available Columns",
+                default=json.dumps([col['name'] for col in response.columns])
             )
-            for col in response.columns
-        ]
+        )
+        
+        return fields
     
     # Define conditional next step (could route based on quality score)
     def determine_next_step(response: QualityCheckResponse) -> str:
