@@ -35,8 +35,11 @@ try:
         # Pydantic v2 - check for v2-specific attribute
         from pydantic import __version__
         PYDANTIC_V2 = int(__version__.split('.')[0]) >= 2
+        if PYDANTIC_V2:
+            from pydantic_core import PydanticUndefined
     except:
         PYDANTIC_V2 = False
+        PydanticUndefined = None
 except ImportError:
     raise ImportError("html_v3.py requires Pydantic. Install with: pip install pydantic")
 
@@ -185,6 +188,9 @@ class FormChainEngine:
                 field_type = field_info.annotation
                 is_required = field_info.is_required()
                 default_value = field_info.default
+                # Handle PydanticUndefined
+                if PydanticUndefined and default_value is PydanticUndefined:
+                    default_value = None
                 field_description = field_info.description
             else:
                 # Pydantic v1 - field_info is a ModelField
@@ -215,7 +221,7 @@ class FormChainEngine:
                 field_type=html_field_type,
                 label=field_name.replace("_", " ").title(),
                 required=is_required,
-                default=defaults.get(full_name, default_value),
+                default=defaults.get(full_name, default_value if default_value is not None else None),
                 help_text=field_description,
                 options=options
             )
@@ -357,10 +363,19 @@ class FormChainEngine:
 """
         return html
     
+    def _safe_default(self, value: Any) -> Any:
+        """Safely handle default values, converting PydanticUndefined to None"""
+        if PYDANTIC_V2 and PydanticUndefined and value is PydanticUndefined:
+            return None
+        return value
+    
     def _render_field(self, field: FormFieldSpec) -> str:
         """Render a single form field"""
         field_id = f"field_{field.name}"
         required_attr = "required" if field.required else ""
+        
+        # Safely get default value
+        safe_default = self._safe_default(field.default)
         
         # Base attributes
         attrs = {
@@ -384,16 +399,16 @@ class FormChainEngine:
         if field.field_type == FieldType.SELECT and field.options:
             options_html = ""
             for opt in field.options:
-                selected = "selected" if opt["value"] == field.default else ""
+                selected = "selected" if opt["value"] == safe_default else ""
                 options_html += f'<option value="{opt["value"]}" {selected}>{opt["label"]}</option>'
             
             field_html = f'<select {attrs_str} {required_attr}>{options_html}</select>'
             
         elif field.field_type == FieldType.TEXTAREA:
-            field_html = f'<textarea {attrs_str} rows="4" {required_attr}>{field.default or ""}</textarea>'
+            field_html = f'<textarea {attrs_str} rows="4" {required_attr}>{safe_default or ""}</textarea>'
             
         elif field.field_type == FieldType.CHECKBOX:
-            checked = "checked" if field.default else ""
+            checked = "checked" if safe_default else ""
             field_html = f'<input type="checkbox" {attrs_str} {checked}>'
             
         elif field.field_type == FieldType.ARRAY:
@@ -402,17 +417,17 @@ class FormChainEngine:
                     <div class="array-items"></div>
                     <button type="button" class="btn-add-item" onclick="addArrayItem('{field.name}')">Add Item</button>
                 </div>
-                <input type="hidden" name="{field.name}" id="{field_id}" value='{json.dumps(field.default or [])}'>
+                <input type="hidden" name="{field.name}" id="{field_id}" value='{json.dumps(safe_default or [])}'>
             """
             
         elif field.field_type == FieldType.JSON:
             field_html = f"""
-                <textarea {attrs_str} rows="6" {required_attr} class="json-editor">{json.dumps(field.default or {}, indent=2)}</textarea>
+                <textarea {attrs_str} rows="6" {required_attr} class="json-editor">{json.dumps(safe_default or {}, indent=2)}</textarea>
             """
             
         else:
             input_type = field.field_type.value
-            value_attr = f'value="{field.default}"' if field.default is not None else ""
+            value_attr = f'value="{safe_default}"' if safe_default is not None else ""
             field_html = f'<input type="{input_type}" {attrs_str} {value_attr} {required_attr}>'
         
         # Wrap in field container
