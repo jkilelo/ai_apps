@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Interests & Skills</h2>
+
+<!-- Step indicator -->
+<div class="step-indicator">
+    <div class="step completed">Step 1</div>
+    <div class="step completed">Step 2</div>
+    <div class="step completed">Step 3</div>
+    <div class="step active">Step 4</div>
+    <div class="step">Step 5</div>
+</div>
+
+{% if show_data %}
+<div class="data-display">
+    <h5>Your Submitted Information:</h5>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="data-item"><span class="data-label">Name:</span> {{ data.name }}</div>
+            <div class="data-item"><span class="data-label">Email:</span> {{ data.email }}</div>
+            <div class="data-item"><span class="data-label">Phone:</span> {{ data.phone }}</div>
+        </div>
+        <div class="col-md-4">
+            <div class="data-item"><span class="data-label">Address:</span> {{ data.address }}</div>
+            <div class="data-item"><span class="data-label">City:</span> {{ data.city }}</div>
+            <div class="data-item"><span class="data-label">Zip:</span> {{ data.zipcode }}</div>
+        </div>
+        <div class="col-md-4">
+            <div class="data-item"><span class="data-label">Occupation:</span> {{ data.occupation }}</div>
+            <div class="data-item"><span class="data-label">Company:</span> {{ data.company }}</div>
+            <div class="data-item"><span class="data-label">Experience:</span> {{ data.experience }}</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<form method="post" action="/form/4/submit">
+    <div class="mb-3">
+        <label for="interests" class="form-label">Interests</label>
+        <textarea class="form-control" id="interests" name="interests" rows="2" readonly>{{ data.interests }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="skills" class="form-label">Skills</label>
+        <textarea class="form-control" id="skills" name="skills" rows="2" readonly>{{ data.skills }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="goals" class="form-label">Goals</label>
+        <textarea class="form-control" id="goals" name="goals" rows="2" readonly>{{ data.goals }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
+{% endblock %}

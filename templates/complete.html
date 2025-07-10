@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-success mb-4">🎉 Form Completed!</h1>
+    <p class="lead">Thank you for completing the multi-step form.</p>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Your Complete Submission</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-primary">Personal Information</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Name:</strong> {{ data.name }}</li>
+                    <li><strong>Email:</strong> {{ data.email }}</li>
+                    <li><strong>Phone:</strong> {{ data.phone }}</li>
+                    <li><strong>Address:</strong> {{ data.address }}</li>
+                    <li><strong>City:</strong> {{ data.city }}</li>
+                    <li><strong>Zip Code:</strong> {{ data.zipcode }}</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-primary">Professional Information</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Occupation:</strong> {{ data.occupation }}</li>
+                    <li><strong>Company:</strong> {{ data.company }}</li>
+                    <li><strong>Experience:</strong> {{ data.experience }}</li>
+                    <li><strong>Interests:</strong> {{ data.interests }}</li>
+                    <li><strong>Skills:</strong> {{ data.skills }}</li>
+                    <li><strong>Goals:</strong> {{ data.goals }}</li>
+                </ul>
+                <h5 class="text-primary mt-3">Feedback</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Feedback:</strong> {{ data.feedback }}</li>
+                    <li><strong>Rating:</strong> {{ data.rating }}</li>
+                    <li><strong>Would Recommend:</strong> {{ data.recommend }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="/" class="btn btn-primary">Start New Form</a>
+    <a href="/reset" class="btn btn-secondary">Reset Data</a>
+</div>
+{% endblock %}

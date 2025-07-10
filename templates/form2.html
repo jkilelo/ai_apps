@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Address Information</h2>
+
+<!-- Step indicator -->
+<div class="step-indicator">
+    <div class="step completed">Step 1</div>
+    <div class="step active">Step 2</div>
+    <div class="step">Step 3</div>
+    <div class="step">Step 4</div>
+    <div class="step">Step 5</div>
+</div>
+
+{% if show_data %}
+<div class="data-display">
+    <h5>Your Submitted Information:</h5>
+    <div class="data-item"><span class="data-label">Name:</span> {{ data.name }}</div>
+    <div class="data-item"><span class="data-label">Email:</span> {{ data.email }}</div>
+    <div class="data-item"><span class="data-label">Phone:</span> {{ data.phone }}</div>
+</div>
+{% endif %}
+
+<form method="post" action="/form/2/submit">
+    <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="address" name="address" value="{{ data.address }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" class="form-control" id="city" name="city" value="{{ data.city }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="zipcode" class="form-label">Zip Code</label>
+        <input type="text" class="form-control" id="zipcode" name="zipcode" value="{{ data.zipcode }}" readonly>
+    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
+{% endblock %}

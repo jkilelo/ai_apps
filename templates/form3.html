@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Professional Information</h2>
+
+<!-- Step indicator -->
+<div class="step-indicator">
+    <div class="step completed">Step 1</div>
+    <div class="step completed">Step 2</div>
+    <div class="step active">Step 3</div>
+    <div class="step">Step 4</div>
+    <div class="step">Step 5</div>
+</div>
+
+{% if show_data %}
+<div class="data-display">
+    <h5>Your Submitted Information:</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="data-item"><span class="data-label">Name:</span> {{ data.name }}</div>
+            <div class="data-item"><span class="data-label">Email:</span> {{ data.email }}</div>
+            <div class="data-item"><span class="data-label">Phone:</span> {{ data.phone }}</div>
+        </div>
+        <div class="col-md-6">
+            <div class="data-item"><span class="data-label">Address:</span> {{ data.address }}</div>
+            <div class="data-item"><span class="data-label">City:</span> {{ data.city }}</div>
+            <div class="data-item"><span class="data-label">Zip:</span> {{ data.zipcode }}</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<form method="post" action="/form/3/submit">
+    <div class="mb-3">
+        <label for="occupation" class="form-label">Occupation</label>
+        <input type="text" class="form-control" id="occupation" name="occupation" value="{{ data.occupation }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="company" class="form-label">Company</label>
+        <input type="text" class="form-control" id="company" name="company" value="{{ data.company }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="experience" class="form-label">Years of Experience</label>
+        <input type="text" class="form-control" id="experience" name="experience" value="{{ data.experience }}" readonly>
+    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
+{% endblock %}

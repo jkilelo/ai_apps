@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Feedback</h2>
+
+<!-- Step indicator -->
+<div class="step-indicator">
+    <div class="step completed">Step 1</div>
+    <div class="step completed">Step 2</div>
+    <div class="step completed">Step 3</div>
+    <div class="step completed">Step 4</div>
+    <div class="step active">Step 5</div>
+</div>
+
+{% if show_data %}
+<div class="data-display">
+    <h5>Your Complete Information:</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <h6 class="text-primary">Personal Info</h6>
+            <div class="data-item"><span class="data-label">Name:</span> {{ data.name }}</div>
+            <div class="data-item"><span class="data-label">Email:</span> {{ data.email }}</div>
+            <div class="data-item"><span class="data-label">Phone:</span> {{ data.phone }}</div>
+            <div class="data-item"><span class="data-label">Address:</span> {{ data.address }}</div>
+            <div class="data-item"><span class="data-label">City:</span> {{ data.city }}</div>
+            <div class="data-item"><span class="data-label">Zip:</span> {{ data.zipcode }}</div>
+        </div>
+        <div class="col-md-6">
+            <h6 class="text-primary">Professional Info</h6>
+            <div class="data-item"><span class="data-label">Occupation:</span> {{ data.occupation }}</div>
+            <div class="data-item"><span class="data-label">Company:</span> {{ data.company }}</div>
+            <div class="data-item"><span class="data-label">Experience:</span> {{ data.experience }}</div>
+            <div class="data-item"><span class="data-label">Interests:</span> {{ data.interests }}</div>
+            <div class="data-item"><span class="data-label">Skills:</span> {{ data.skills }}</div>
+            <div class="data-item"><span class="data-label">Goals:</span> {{ data.goals }}</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<form method="post" action="/form/5/submit">
+    <div class="mb-3">
+        <label for="feedback" class="form-label">Your Feedback</label>
+        <textarea class="form-control" id="feedback" name="feedback" rows="3" readonly>{{ data.feedback }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <select class="form-control" id="rating" name="rating" disabled>
+            <option value="">Select rating</option>
+            <option value="5" {% if data.rating == "5" %}selected{% endif %}>5 - Excellent</option>
+            <option value="4" {% if data.rating == "4" %}selected{% endif %}>4 - Good</option>
+            <option value="3" {% if data.rating == "3" %}selected{% endif %}>3 - Average</option>
+            <option value="2" {% if data.rating == "2" %}selected{% endif %}>2 - Poor</option>
+            <option value="1" {% if data.rating == "1" %}selected{% endif %}>1 - Very Poor</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="recommend" class="form-label">Would you recommend?</label>
+        <select class="form-control" id="recommend" name="recommend" disabled>
+            <option value="">Select option</option>
+            <option value="yes" {% if data.recommend == "yes" %}selected{% endif %}>Yes</option>
+            <option value="no" {% if data.recommend == "no" %}selected{% endif %}>No</option>
+            <option value="maybe" {% if data.recommend == "maybe" %}selected{% endif %}>Maybe</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Complete Form</button>
+</form>
+{% endblock %}
