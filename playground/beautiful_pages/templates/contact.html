@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Form - Beautiful Forms{% endblock %}
+
+{% block header_title %}Contact Us{% endblock %}
+{% block header_subtitle %}We'd love to hear from you. Send us a message!{% endblock %}
+
+{% block content %}
+{% if response_data %}
+<div class="response-container">
+    <h3><i class="fas fa-check-circle"></i> Message Sent Successfully!</h3>
+    <p style="margin-bottom: 15px;">Here's what we received (all values are capitalized for demonstration):</p>
+
+    <div class="response-item">
+        <strong>Name:</strong> {{ response_data.name }}
+    </div>
+    <div class="response-item">
+        <strong>Email:</strong> {{ response_data.email }}
+    </div>
+    <div class="response-item">
+        <strong>Subject:</strong> {{ response_data.subject }}
+    </div>
+    <div class="response-item">
+        <strong>Message:</strong> {{ response_data.message }}
+    </div>
+
+    <div style="margin-top: 20px; text-align: center;">
+        <button onclick="location.reload()" class="btn">
+            <i class="fas fa-plus"></i> Send Another Message
+        </button>
+    </div>
+</div>
+{% else %}
+<form method="post" action="/contact" style="max-width: 600px; margin: 0 auto;">
+    <div class="form-group">
+        <label for="name">
+            <i class="fas fa-user"></i> Full Name
+        </label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">
+            <i class="fas fa-envelope"></i> Email Address
+        </label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com" required>
+    </div>
+
+    <div class="form-group">
+        <label for="subject">
+            <i class="fas fa-tag"></i> Subject
+        </label>
+        <input type="text" id="subject" name="subject" class="form-control" placeholder="What's this about?" required>
+    </div>
+
+    <div class="form-group">
+        <label for="message">
+            <i class="fas fa-comment"></i> Message
+        </label>
+        <textarea id="message" name="message" class="form-control" placeholder="Tell us more about your inquiry..."
+            required></textarea>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <button type="submit" class="btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+    </div>
+</form>
+
+<div
+    style="text-align: center; margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); border-radius: 15px;">
+    <h3 style="color: #333; margin-bottom: 15px;">
+        <i class="fas fa-info-circle"></i> Get in Touch
+    </h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+            <i class="fas fa-phone" style="color: #4facfe; font-size: 1.5rem;"></i>
+            <p style="margin: 10px 0 0 0; color: #666;">+1 (555) 123-4567</p>
+        </div>
+        <div>
+            <i class="fas fa-envelope" style="color: #4facfe; font-size: 1.5rem;"></i>
+            <p style="margin: 10px 0 0 0; color: #666;">hello@beautifulforms.com</p>
+        </div>
+        <div>
+            <i class="fas fa-map-marker-alt" style="color: #4facfe; font-size: 1.5rem;"></i>
+            <p style="margin: 10px 0 0 0; color: #666;">123 Design Street, Web City</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                const btn = form.querySelector('.btn');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    btn.disabled = true;
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
