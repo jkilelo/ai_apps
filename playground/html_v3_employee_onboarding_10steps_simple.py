@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
-10-Step Employee Onboarding Form Chain
-Demonstrates a comprehensive onboarding process with conditional routing,
-field injection, and complex validation using Pydantic v2 and html_v3.py
+Simplified 10-step employee onboarding form chain with navigation and no validation
+Compatible with existing FormStep structure
 """
 
 import sys
@@ -10,11 +9,10 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import List, Optional, Dict, Any
 from enum import Enum
-import asyncio
 
 sys.path.insert(0, '/var/www/ai_apps/playground')
 
-from pydantic import BaseModel, Field, EmailStr, field_validator, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict
 from html_v3 import FormChainEngine, FormStep, FormFieldSpec, FieldType
 from pydantic import __version__ as pydantic_version
 
@@ -66,69 +64,51 @@ class TrainingTrack(str, Enum):
     SALES = "sales"
     GENERAL = "general"
 
-# Step 1: Basic Information
+# Step 1: Basic Information - NO VALIDATION
 class BasicInfoRequest(BaseModel):
-    model_config = ConfigDict(extra='ignore')  # Changed from forbid to ignore
+    model_config = ConfigDict(extra='ignore')
     
-    first_name: str = Field(..., min_length=1, max_length=50, description="First name")
-    last_name: str = Field(..., min_length=1, max_length=50, description="Last name")
-    email: EmailStr = Field(..., description="Work email address")
-    phone: str = Field(..., min_length=5, description="Phone number")  # Removed strict pattern
-    date_of_birth: date = Field(..., description="Date of birth")
-    
-    @field_validator('date_of_birth')
-    def validate_age(cls, v):
-        today = date.today()
-        age = today.year - v.year - ((today.month, today.day) < (v.month, v.day))
-        if age < 16:  # Reduced from 18 to 16 for testing
-            raise ValueError('Employee must be at least 16 years old')
-        if age > 100:
-            raise ValueError('Invalid date of birth')
-        return v
+    first_name: Optional[str] = Field(default="", description="First name")
+    last_name: Optional[str] = Field(default="", description="Last name") 
+    email: Optional[str] = Field(default="", description="Work email address")
+    phone: Optional[str] = Field(default="", description="Phone number")
+    date_of_birth: Optional[str] = Field(default="", description="Date of birth")
 
 class BasicInfoResponse(BaseModel):
     employee_id: str
     full_name: str
-    age: int
+    age: Optional[int] = None
     email_verified: bool = False
 
-# Step 2: Employment Details
+# Step 2: Employment Details - NO VALIDATION
 class EmploymentDetailsRequest(BaseModel):
-    model_config = ConfigDict(extra='ignore')  # Changed from forbid to ignore
+    model_config = ConfigDict(extra='ignore')
     
-    employee_id: str = Field(..., description="Employee ID")
-    employment_type: EmploymentType = Field(..., description="Type of employment")
-    department: Department = Field(..., description="Department")
-    job_title: str = Field(..., min_length=3, max_length=100, description="Job title")
-    start_date: date = Field(..., description="Start date")
-    manager_email: EmailStr = Field(..., description="Manager's email")
-    salary: Decimal = Field(..., gt=0, le=1000000, description="Annual salary")
-    
-    @field_validator('start_date')
-    def validate_start_date(cls, v):
-        if v < date.today():
-            raise ValueError('Start date cannot be in the past')
-        if v > date.today().replace(year=date.today().year + 1):
-            raise ValueError('Start date must be within one year')
-        return v
+    employee_id: Optional[str] = Field(default="", description="Employee ID")
+    employment_type: Optional[str] = Field(default="", description="Type of employment")
+    department: Optional[str] = Field(default="", description="Department")
+    job_title: Optional[str] = Field(default="", description="Job title")
+    start_date: Optional[str] = Field(default="", description="Start date")
+    manager_email: Optional[str] = Field(default="", description="Manager's email")
+    salary: Optional[str] = Field(default="", description="Annual salary")
 
 class EmploymentDetailsResponse(BaseModel):
     compensation_package_id: str
-    requires_equipment: bool
-    requires_visa: bool
-    probation_period_days: int
+    requires_equipment: bool = False
+    requires_visa: bool = False
+    probation_period_days: int = 90
 
-# Step 3: Address Information
+# Step 3: Address Information - NO VALIDATION
 class AddressInfoRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    street_address: str = Field(..., min_length=5, max_length=200)
-    city: str = Field(..., min_length=2, max_length=100)
-    state: str = Field(..., min_length=2, max_length=50)
-    zip_code: str = Field(..., pattern=r"^\d{5}(-\d{4})?$")
-    country: str = Field(..., min_length=2, max_length=100)
-    work_location: WorkLocation = Field(..., description="Primary work location")
+    employee_id: Optional[str] = Field(default="")
+    street_address: Optional[str] = Field(default="")
+    city: Optional[str] = Field(default="")
+    state: Optional[str] = Field(default="")
+    zip_code: Optional[str] = Field(default="")
+    country: Optional[str] = Field(default="USA")
+    work_location: Optional[str] = Field(default="", description="Primary work location")
     
 class AddressInfoResponse(BaseModel):
     address_id: str
@@ -136,52 +116,52 @@ class AddressInfoResponse(BaseModel):
     commute_eligible: bool
     remote_setup_required: bool
 
-# Step 4: Emergency Contact
+# Step 4: Emergency Contact - NO VALIDATION
 class EmergencyContactRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    contact_name: str = Field(..., min_length=2, max_length=100)
-    relationship: str = Field(..., min_length=2, max_length=50)
-    contact_phone: str = Field(..., pattern=r"^\+?1?\d{10,14}$")
-    contact_email: Optional[EmailStr] = Field(None)
-    alternate_phone: Optional[str] = Field(None, pattern=r"^\+?1?\d{10,14}$")
+    employee_id: Optional[str] = Field(default="")
+    contact_name: Optional[str] = Field(default="")
+    relationship: Optional[str] = Field(default="")
+    contact_phone: Optional[str] = Field(default="")
+    contact_email: Optional[str] = Field(default="")
+    alternate_phone: Optional[str] = Field(default="")
     
 class EmergencyContactResponse(BaseModel):
     contact_id: str
     verified: bool
 
-# Step 5: Education & Experience
+# Step 5: Education & Experience - NO VALIDATION
 class EducationExperienceRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    highest_education: EducationLevel
-    field_of_study: str = Field(..., min_length=2, max_length=100)
-    university: str = Field(..., min_length=2, max_length=200)
-    graduation_year: int = Field(..., ge=1950, le=date.today().year)
-    years_of_experience: int = Field(..., ge=0, le=50)
-    previous_companies: List[str] = Field(..., min_items=0, max_items=10)
-    certifications: List[str] = Field(default_factory=list, max_items=20)
-    skills: List[str] = Field(..., min_items=1, max_items=50)
-    
+    employee_id: Optional[str] = Field(default="")
+    highest_education: Optional[str] = Field(default="")
+    field_of_study: Optional[str] = Field(default="")
+    university: Optional[str] = Field(default="")
+    graduation_year: Optional[str] = Field(default="")
+    years_of_experience: Optional[str] = Field(default="0")
+    previous_companies: Optional[List[str]] = Field(default_factory=list)
+    certifications: Optional[List[str]] = Field(default_factory=list)
+    skills: Optional[List[str]] = Field(default_factory=list)
+
 class EducationExperienceResponse(BaseModel):
     profile_id: str
     skill_level: str
     training_recommendations: List[str]
 
-# Step 6: Benefits Selection
+# Step 6: Benefits Selection - NO VALIDATION
 class BenefitsSelectionRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    health_plan: BenefitPlan
-    dental_plan: BenefitPlan
-    vision_plan: BenefitPlan
-    retirement_401k_percentage: int = Field(..., ge=0, le=100)
-    life_insurance_multiplier: int = Field(..., ge=0, le=10)
-    dependent_count: int = Field(..., ge=0, le=20)
-    fsa_contribution: Decimal = Field(default=Decimal('0'), ge=0, le=5000)
+    employee_id: Optional[str] = Field(default="")
+    health_plan: Optional[str] = Field(default="")
+    dental_plan: Optional[str] = Field(default="")
+    vision_plan: Optional[str] = Field(default="")
+    retirement_401k_percentage: Optional[str] = Field(default="0")
+    life_insurance_multiplier: Optional[str] = Field(default="1")
+    dependent_count: Optional[str] = Field(default="0")
+    fsa_contribution: Optional[str] = Field(default="0")
     
 class BenefitsSelectionResponse(BaseModel):
     benefits_package_id: str
@@ -189,65 +169,53 @@ class BenefitsSelectionResponse(BaseModel):
     employee_contribution: Decimal
     effective_date: date
 
-# Step 7: IT Equipment (Conditional - only if requires_equipment)
+# Step 7: IT Equipment (Conditional) - NO VALIDATION
 class ITEquipmentRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    laptop_type: str = Field(..., description="Laptop preference")
-    needs_monitor: bool = Field(default=True)
-    monitor_count: int = Field(default=1, ge=0, le=3)
-    needs_keyboard: bool = Field(default=True)
-    needs_mouse: bool = Field(default=True)
-    special_software: List[str] = Field(default_factory=list, max_items=20)
-    additional_requests: Optional[str] = Field(None, max_length=500)
+    employee_id: Optional[str] = Field(default="")
+    laptop_type: Optional[str] = Field(default="", description="Laptop preference")
+    needs_monitor: Optional[bool] = Field(default=False)
+    monitor_count: Optional[str] = Field(default="1")
+    needs_keyboard: Optional[bool] = Field(default=False)
+    needs_mouse: Optional[bool] = Field(default=False)
+    special_software: Optional[List[str]] = Field(default_factory=list)
+    additional_requests: Optional[str] = Field(default="")
     
 class ITEquipmentResponse(BaseModel):
     equipment_request_id: str
     estimated_ready_date: date
     total_cost: Decimal
 
-# Step 8: Access & Security
+# Step 8: Access & Security - NO VALIDATION
 class AccessSecurityRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    needs_building_access: bool
-    building_locations: List[str] = Field(default_factory=list, max_items=10)
-    needs_parking: bool
-    vehicle_license: Optional[str] = Field(None, max_length=20)
-    security_clearance_required: bool
-    background_check_consent: bool = Field(..., description="Must consent")
-    systems_access: List[str] = Field(..., min_items=1, max_items=50)
-    
-    @field_validator('background_check_consent')
-    def must_consent(cls, v):
-        if not v:
-            raise ValueError('Background check consent is required')
-        return v
+    employee_id: Optional[str] = Field(default="")
+    needs_building_access: Optional[bool] = Field(default=False)
+    building_locations: Optional[List[str]] = Field(default_factory=list)
+    needs_parking: Optional[bool] = Field(default=False)
+    vehicle_license: Optional[str] = Field(default="")
+    security_clearance_required: Optional[bool] = Field(default=False)
+    background_check_consent: Optional[bool] = Field(default=False)
+    systems_access: Optional[List[str]] = Field(default_factory=list)
     
 class AccessSecurityResponse(BaseModel):
     access_request_id: str
     badge_number: str
     security_training_required: bool
 
-# Step 9: Training & Orientation
+# Step 9: Training & Orientation - NO VALIDATION
 class TrainingOrientationRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    preferred_training_track: TrainingTrack
-    orientation_date: date = Field(..., description="Preferred orientation date")
-    training_schedule_preference: str = Field(..., description="morning/afternoon/flexible")
-    mentor_preference: Optional[str] = Field(None, max_length=100)
-    accessibility_needs: Optional[str] = Field(None, max_length=500)
-    dietary_restrictions: Optional[str] = Field(None, max_length=200)
-    
-    @field_validator('orientation_date')
-    def validate_orientation_date(cls, v):
-        if v < date.today():
-            raise ValueError('Orientation date cannot be in the past')
-        return v
+    employee_id: Optional[str] = Field(default="")
+    preferred_training_track: Optional[str] = Field(default="")
+    orientation_date: Optional[str] = Field(default="", description="Preferred orientation date")
+    training_schedule_preference: Optional[str] = Field(default="flexible", description="morning/afternoon/flexible")
+    mentor_preference: Optional[str] = Field(default="")
+    accessibility_needs: Optional[str] = Field(default="")
+    dietary_restrictions: Optional[str] = Field(default="")
     
 class TrainingOrientationResponse(BaseModel):
     training_plan_id: str
@@ -255,23 +223,17 @@ class TrainingOrientationResponse(BaseModel):
     mentor_assigned: str
     first_week_schedule: Dict[str, str]
 
-# Step 10: Final Review & Welcome Kit
+# Step 10: Final Review & Welcome Kit - NO VALIDATION
 class FinalReviewRequest(BaseModel):
     model_config = ConfigDict(extra='ignore')
     
-    employee_id: str
-    tshirt_size: TShirtSize
-    welcome_kit_address: str = Field(..., description="same/different")
-    alternate_address: Optional[str] = Field(None, max_length=500)
-    start_date_confirmed: bool = Field(..., description="Confirm start date")
-    information_accurate: bool = Field(..., description="Confirm all information")
-    questions_comments: Optional[str] = Field(None, max_length=1000)
-    
-    @field_validator('start_date_confirmed', 'information_accurate')
-    def must_confirm(cls, v):
-        if not v:
-            raise ValueError('Confirmation required')
-        return v
+    employee_id: Optional[str] = Field(default="")
+    tshirt_size: Optional[str] = Field(default="")
+    welcome_kit_address: Optional[str] = Field(default="same", description="same/different")
+    alternate_address: Optional[str] = Field(default="")
+    start_date_confirmed: Optional[bool] = Field(default=False, description="Confirm start date")
+    information_accurate: Optional[bool] = Field(default=False, description="Confirm all information")
+    questions_comments: Optional[str] = Field(default="")
     
 class FinalReviewResponse(BaseModel):
     onboarding_complete: bool
@@ -281,16 +243,16 @@ class FinalReviewResponse(BaseModel):
     welcome_kit_tracking: str
 
 
-# Create the 10-step onboarding chain
+# Create the 10-step onboarding chain with navigation support
 def create_employee_onboarding_chain() -> FormChainEngine:
-    """Create the 10-step employee onboarding form chain"""
+    """Create the 10-step employee onboarding form chain with navigation support"""
     
     steps = []
     
     # Step 1: Basic Information
     steps.append(FormStep(
         id="basic_info",
-        title="Basic Information",
+        title="Step 1 of 10: Basic Information",
         description="Let's start with your basic information",
         request_model=BasicInfoRequest,
         response_model=BasicInfoResponse,
@@ -302,7 +264,7 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 2: Employment Details
     steps.append(FormStep(
         id="employment_details",
-        title="Employment Details",
+        title="Step 2 of 10: Employment Details",
         description="Tell us about your role and compensation",
         request_model=EmploymentDetailsRequest,
         response_model=EmploymentDetailsResponse,
@@ -314,7 +276,7 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 3: Address Information
     steps.append(FormStep(
         id="address_info",
-        title="Address Information",
+        title="Step 3 of 10: Address Information",
         description="Where are you located?",
         request_model=AddressInfoRequest,
         response_model=AddressInfoResponse,
@@ -325,7 +287,7 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 4: Emergency Contact
     steps.append(FormStep(
         id="emergency_contact",
-        title="Emergency Contact",
+        title="Step 4 of 10: Emergency Contact",
         description="Who should we contact in case of emergency?",
         request_model=EmergencyContactRequest,
         response_model=EmergencyContactResponse,
@@ -336,7 +298,7 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 5: Education & Experience
     steps.append(FormStep(
         id="education_experience",
-        title="Education & Experience",
+        title="Step 5 of 10: Education & Experience",
         description="Tell us about your background",
         request_model=EducationExperienceRequest,
         response_model=EducationExperienceResponse,
@@ -347,7 +309,7 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 6: Benefits Selection
     steps.append(FormStep(
         id="benefits_selection",
-        title="Benefits Selection",
+        title="Step 6 of 10: Benefits Selection",
         description="Choose your benefits package",
         request_model=BenefitsSelectionRequest,
         response_model=BenefitsSelectionResponse,
@@ -358,7 +320,7 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 7: IT Equipment (Conditional)
     steps.append(FormStep(
         id="it_equipment",
-        title="IT Equipment Request",
+        title="Step 7 of 10: IT Equipment Request",
         description="Select your IT equipment needs",
         request_model=ITEquipmentRequest,
         response_model=ITEquipmentResponse,
@@ -369,7 +331,7 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 8: Access & Security
     steps.append(FormStep(
         id="access_security",
-        title="Access & Security",
+        title="Step 8 of 10: Access & Security",
         description="Set up your access and security requirements",
         request_model=AccessSecurityRequest,
         response_model=AccessSecurityResponse,
@@ -380,27 +342,18 @@ def create_employee_onboarding_chain() -> FormChainEngine:
     # Step 9: Training & Orientation
     steps.append(FormStep(
         id="training_orientation",
-        title="Training & Orientation",
+        title="Step 9 of 10: Training & Orientation",
         description="Schedule your training and orientation",
         request_model=TrainingOrientationRequest,
         response_model=TrainingOrientationResponse,
         processor=None,
-        next_step_id="final_review",
-        # Inject fields based on previous responses
-        inject_fields=lambda response: [
-            FormFieldSpec(
-                name="buddy_program",
-                field_type=FieldType.CHECKBOX,
-                label="Would you like to join the buddy program?",
-                required=False
-            )
-        ] if response.get('step_basic_info_response', {}).get('age', 30) < 25 else []
+        next_step_id="final_review"
     ))
     
     # Step 10: Final Review
     steps.append(FormStep(
         id="final_review",
-        title="Final Review & Welcome Kit",
+        title="Step 10 of 10: Final Review & Welcome Kit",
         description="Review your information and complete onboarding",
         request_model=FinalReviewRequest,
         response_model=FinalReviewResponse,
