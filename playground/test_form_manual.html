@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manual Form Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        .success {
+            color: green;
+            margin-top: 10px;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manual Form Submission Test</h1>
+    <p>Update the session ID and port, then test form submission:</p>
+    
+    <div class="form-group">
+        <label>Server Port:</label>
+        <input type="text" id="port" value="8117" placeholder="Enter server port">
+    </div>
+    
+    <div class="form-group">
+        <label>Session ID:</label>
+        <input type="text" id="sessionId" placeholder="Paste session ID from URL">
+        <small>Get this from the form action URL after starting onboarding</small>
+    </div>
+    
+    <div class="form-group">
+        <label>CSRF Token:</label>
+        <input type="text" id="csrfToken" placeholder="Paste CSRF token from form">
+        <small>Get this from the hidden csrf_token field in the form</small>
+    </div>
+    
+    <hr>
+    
+    <form id="testForm">
+        <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" name="first_name" value="John" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" name="last_name" value="Doe" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="john.doe@example.com" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Phone:</label>
+            <input type="tel" name="phone" value="+15551234567" required>
+            <small>Format: +15551234567</small>
+        </div>
+        
+        <div class="form-group">
+            <label>Date of Birth:</label>
+            <input type="date" name="date_of_birth" value="1990-01-15" required>
+        </div>
+        
+        <button type="submit">Submit Test</button>
+    </form>
+    
+    <div id="response"></div>
+    
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const port = document.getElementById('port').value;
+            const sessionId = document.getElementById('sessionId').value;
+            const csrfToken = document.getElementById('csrfToken').value;
+            
+            if (!sessionId) {
+                alert('Please enter a session ID');
+                return;
+            }
+            
+            const formData = new FormData(e.target);
+            formData.append('csrf_token', csrfToken);
+            formData.append('chain_state', '');
+            
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = 'Submitting...';
+            
+            try {
+                const response = await fetch(`http://localhost:${port}/api/onboarding/${sessionId}/process/basic_info`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                responseDiv.innerHTML = `Status: ${response.status}\n\n${JSON.stringify(result, null, 2)}`;
+                
+                if (response.status === 200) {
+                    responseDiv.className = 'success';
+                } else {
+                    responseDiv.className = 'error';
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `Error: ${error.message}`;
+                responseDiv.className = 'error';
+            }
+        });
+    </script>
+</body>
+</html>

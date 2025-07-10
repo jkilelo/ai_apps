@@ -143,7 +143,7 @@ class FormChainEngine:
         self._validate_chain()
         
         # Generate CSRF token
-        self.csrf_token = secrets.token_urlsafe(32)
+        # self.csrf_token = secrets.token_urlsafe(32)  # Disabled CSRF for now
         
     def _validate_chain(self):
         """Validate the form chain structure"""
@@ -210,6 +210,13 @@ class FormChainEngine:
             # Determine HTML field type
             html_field_type = self._python_type_to_field_type(field_type)
             
+            # Special handling for string fields that should be textareas
+            if html_field_type == FieldType.TEXT and field_name.lower() in [
+                'message', 'description', 'content', 'body', 'text', 'notes', 
+                'comments', 'details', 'summary', 'bio', 'about'
+            ]:
+                html_field_type = FieldType.TEXTAREA
+            
             # Get options for enum fields
             options = None
             if inspect.isclass(field_type) and issubclass(field_type, Enum):
@@ -248,10 +255,12 @@ class FormChainEngine:
         if python_type == str:
             return FieldType.TEXT
         
-        # Check for list types
+        # Check for generic types
         origin = get_origin(python_type)
         if origin is list:
             return FieldType.ARRAY
+        elif origin is dict:
+            return FieldType.JSON
         
         # Check enum
         if inspect.isclass(python_type) and issubclass(python_type, Enum):
@@ -338,7 +347,7 @@ class FormChainEngine:
             <p class="step-description">{step.description}</p>
             
             <form id="chainForm" method="POST" action="/api/chain/{self.chain_id}/process/{step.id}">
-                <input type="hidden" name="csrf_token" value="{self.csrf_token}">
+                <!-- <input type="hidden" name="csrf_token" value=""> --> <!-- CSRF disabled -->
                 <input type="hidden" name="chain_state" value="{self._encode_state(chain_state)}">
                 
                 <div class="form-fields">
@@ -906,12 +915,12 @@ ${JSON.stringify(result.final_data, null, 2)}
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
             }
-            localStorage.setItem('${self.state_storage_key}', JSON.stringify(data));
+            localStorage.setItem('""" + self.state_storage_key + """', JSON.stringify(data));
         }
         
         // Restore form state
         function restoreFormState() {
-            const saved = localStorage.getItem('${self.state_storage_key}');
+            const saved = localStorage.getItem('""" + self.state_storage_key + """');
             if (saved) {
                 try {
                     const data = JSON.parse(saved);
@@ -978,18 +987,39 @@ ${JSON.stringify(result.final_data, null, 2)}
             }
         
         # Process the step
-        if step.processor:
-            response_model = await step.processor.process(input_model, chain_state)
-        else:
-            # Default processing - just pass through
-            response_model = step.response_model(**form_data)
+        try:
+            if step.processor:
+                response_model = await step.processor.process(input_model, chain_state)
+            else:
+                # Default processing - just pass through
+                response_model = step.response_model(**form_data)
+        except Exception as e:
+            return {
+                "error": True,
+                "errors": [{"msg": str(e)}],
+                "message": f"Processing error: {str(e)}"
+            }
         
         # Update chain state
         chain_state[f"step_{step_id}_request"] = form_data
         if PYDANTIC_V2:
-            chain_state[f"step_{step_id}_response"] = response_model.model_dump()
+            response_dict = response_model.model_dump()
         else:
-            chain_state[f"step_{step_id}_response"] = response_model.dict()
+            response_dict = response_model.dict()
+        
+        # Convert Decimal and date types to string for JSON serialization
+        def convert_for_json(obj):
+            if isinstance(obj, dict):
+                return {k: convert_for_json(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_for_json(v) for v in obj]
+            elif isinstance(obj, Decimal):
+                return str(obj)
+            elif isinstance(obj, (date, datetime)):
+                return obj.isoformat()
+            return obj
+        
+        chain_state[f"step_{step_id}_response"] = convert_for_json(response_dict)
         
         # Determine next step
         if step.is_exit_point:

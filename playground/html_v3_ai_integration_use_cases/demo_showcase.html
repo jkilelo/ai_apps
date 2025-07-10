@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML v3 AI Integration Showcase</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><circle cx="600" cy="400" r="300" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* Use Case Grid */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .use-case {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .use-case:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+        
+        .use-case-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .use-case h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .use-case p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .features li {
+            padding: 5px 0;
+            color: #aaa;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+        }
+        
+        /* Demo Section */
+        .demo-section {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 60px 0;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .demo-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Conversation Demo */
+        .conversation-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .chat-window {
+            background: #0a0a0a;
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: #333;
+        }
+        
+        .message.user .message-bubble {
+            background: #667eea;
+        }
+        
+        .timestamp {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Generated Form */
+        .generated-form {
+            background: #0a0a0a;
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .form-field {
+            margin-bottom: 20px;
+        }
+        
+        .form-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-weight: 500;
+        }
+        
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .checkbox-item:hover {
+            background: #252525;
+        }
+        
+        .checkbox-item input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        /* Process Flow */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 60px 0;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .step-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Arrow between steps */
+        .process-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 35px;
+            font-size: 2rem;
+            color: #667eea;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 30px;
+            background: #1a1a1a;
+            border-radius: 12px;
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: #aaa;
+            margin-top: 10px;
+        }
+        
+        /* CTA */
+        .cta {
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .button:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .conversation-demo {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>🚀 HTML v3 AI Integration Platform</h1>
+        <p>Transform natural language conversations into structured, actionable workflows using the power of AI and dynamic form generation</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Process Flow -->
+        <div class="process-flow">
+            <div class="process-step">
+                <div class="step-icon">💬</div>
+                <div class="step-title">Natural Conversation</div>
+                <div class="step-desc">Users communicate naturally</div>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">🤖</div>
+                <div class="step-title">AI Analysis</div>
+                <div class="step-desc">Extract intent & entities</div>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">📝</div>
+                <div class="step-title">Dynamic Forms</div>
+                <div class="step-desc">Generate smart workflows</div>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">✅</div>
+                <div class="step-title">Action Execution</div>
+                <div class="step-desc">Complete the task</div>
+            </div>
+        </div>
+
+        <!-- Use Cases -->
+        <h2 style="text-align: center; margin: 60px 0 20px;">Real-World Applications</h2>
+        <div class="use-cases">
+            <div class="use-case">
+                <span class="use-case-icon">🛒</span>
+                <h3>Smart Shopping Assistant</h3>
+                <p>Convert WhatsApp grocery lists into organized shopping workflows</p>
+                <ul class="features">
+                    <li>Item categorization</li>
+                    <li>Recipe matching</li>
+                    <li>Store recommendations</li>
+                    <li>Cost estimation</li>
+                </ul>
+            </div>
+
+            <div class="use-case">
+                <span class="use-case-icon">🏥</span>
+                <h3>Medical Intake System</h3>
+                <p>Transform symptom descriptions into structured medical assessments</p>
+                <ul class="features">
+                    <li>Symptom triage</li>
+                    <li>Risk assessment</li>
+                    <li>Dynamic questioning</li>
+                    <li>Appointment routing</li>
+                </ul>
+            </div>
+
+            <div class="use-case">
+                <span class="use-case-icon">✈️</span>
+                <h3>Travel Planning</h3>
+                <p>Create complete itineraries from casual travel conversations</p>
+                <ul class="features">
+                    <li>Destination extraction</li>
+                    <li>Budget optimization</li>
+                    <li>Activity matching</li>
+                    <li>Day-by-day planning</li>
+                </ul>
+            </div>
+
+            <div class="use-case">
+                <span class="use-case-icon">💰</span>
+                <h3>Financial Advisory</h3>
+                <p>Generate personalized investment plans from financial goals</p>
+                <ul class="features">
+                    <li>Risk assessment</li>
+                    <li>Portfolio design</li>
+                    <li>Tax optimization</li>
+                    <li>Retirement planning</li>
+                </ul>
+            </div>
+
+            <div class="use-case">
+                <span class="use-case-icon">🎓</span>
+                <h3>Education Tutor</h3>
+                <p>Build adaptive learning paths from student conversations</p>
+                <ul class="features">
+                    <li>Skill assessment</li>
+                    <li>Curriculum generation</li>
+                    <li>Progress tracking</li>
+                    <li>Resource matching</li>
+                </ul>
+            </div>
+
+            <div class="use-case">
+                <span class="use-case-icon">🎧</span>
+                <h3>Customer Support</h3>
+                <p>Route and resolve support tickets intelligently</p>
+                <ul class="features">
+                    <li>Issue categorization</li>
+                    <li>Priority detection</li>
+                    <li>Sentiment analysis</li>
+                    <li>Solution workflows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Demo Section -->
+        <div class="demo-section">
+            <div class="demo-header">
+                <h2>See It In Action</h2>
+                <p>From WhatsApp conversation to smart shopping workflow</p>
+            </div>
+
+            <div class="conversation-demo">
+                <!-- Chat Window -->
+                <div>
+                    <h3 style="margin-bottom: 20px;">💬 WhatsApp Conversation</h3>
+                    <div class="chat-window">
+                        <div class="message">
+                            <div class="message-bubble">
+                                <strong>Mom</strong><br>
+                                Cabbage, tomato paste, celery, red & green bell pepper
+                                <div class="timestamp">5:00 PM</div>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="message-bubble">
+                                <strong>Mom</strong><br>
+                                Anything else you want in the soup
+                                <div class="timestamp">5:02 PM</div>
+                            </div>
+                        </div>
+                        <div class="message user">
+                            <div class="message-bubble">
+                                Maybe some onions and garlic?
+                                <div class="timestamp">5:05 PM</div>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <div class="message-bubble">
+                                <strong>Mom</strong><br>
+                                Yogurt & milk please
+                                <div class="timestamp">5:08 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generated Form -->
+                <div>
+                    <h3 style="margin-bottom: 20px;">📝 AI-Generated Smart Form</h3>
+                    <div class="generated-form">
+                        <h4 style="margin-bottom: 20px; color: #667eea;">Your Shopping List</h4>
+                        
+                        <div class="form-field">
+                            <label>🥬 Produce Items</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" checked> Cabbage
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" checked> Celery
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" checked> Red Bell Pepper
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" checked> Green Bell Pepper
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>🥛 Dairy Items</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" checked> Yogurt
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" checked> Milk
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>🥫 Pantry Items</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" checked> Tomato Paste
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label>💡 AI Suggestions (for soup)</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox"> Onions
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox"> Garlic
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox"> Vegetable Broth
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 30px; padding: 20px; background: #252525; border-radius: 8px;">
+                            <p style="margin-bottom: 10px;"><strong>📊 Estimated Cost:</strong> $22.50 - $28.00</p>
+                            <p style="margin-bottom: 10px;"><strong>🏪 Recommended Store:</strong> Local Farmers Market</p>
+                            <p><strong>🍲 Recipe Match:</strong> Classic Vegetable Soup (85% ingredients)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value">< 100ms</div>
+                <div class="stat-label">Response Time</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">95%+</div>
+                <div class="stat-label">Entity Extraction</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Use Cases</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Possibilities</div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <h2>Ready to Transform Your User Experience?</h2>
+            <p>Integrate conversational AI with structured workflows today</p>
+            <a href="#" class="button">Get Started →</a>
+        </div>
+    </div>
+</body>
+</html>

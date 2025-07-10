@@ -65,6 +65,7 @@ class QualityCheckRequest(BaseModel):
 
 
 class QualityCheckResponse(BaseModel):
+    table_name: str  # Added to pass to next step
     columns_checked: List[str]
     quality_issues: List[Dict[str, Any]]  # column, issue_type, count, examples
     quality_score: float
@@ -95,7 +96,7 @@ class QualityActionResponse(BaseModel):
     report_url: Optional[str]
     cleaned_table_name: Optional[str]
     monitoring_job_id: Optional[str]
-    completion_time: datetime
+    completion_time: str  # ISO format datetime string
 
 
 # Processors
@@ -187,7 +188,11 @@ class QualityCheckProcessor(FormStepProcessor):
         if any(i["issue_type"] == "invalid_format" for i in issues):
             recommendations.append("Implement data validation at the application level")
         
+        # Get table name from chain state
+        table_name = chain_context.get("step_step_1_response", {}).get("table_name", "unknown")
+        
         return QualityCheckResponse(
+            table_name=table_name,
             columns_checked=input_data.columns_to_check,
             quality_issues=issues,
             quality_score=round(quality_score, 2),
@@ -219,7 +224,7 @@ class QualityActionProcessor(FormStepProcessor):
             report_url=report_url,
             cleaned_table_name=cleaned_table,
             monitoring_job_id=monitoring_job_id,
-            completion_time=datetime.now()
+            completion_time=datetime.now().isoformat()
         )
 
 
