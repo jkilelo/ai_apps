@@ -141,6 +141,24 @@ ai_apps/
 │       │   ├── routers/       # API route handlers
 │       │   └── services/      # Business logic
 │       └── tests/             # Backend tests
+├── dynamic_forms_streaming/   # 🆕 Dynamic Forms FastAPI Application
+│   ├── main.py                # FastAPI app with WebSocket support
+│   ├── requirements.txt       # Python dependencies
+│   ├── static/                # Frontend assets
+│   │   ├── app.js             # ES6 JavaScript client
+│   │   └── styles.css         # Modern CSS3 styles
+│   ├── templates/             # HTML templates
+│   │   └── dashboard.html     # Main dashboard
+│   ├── README.md              # Comprehensive documentation
+│   ├── CONTRIBUTING.md        # Development guidelines
+│   ├── CHANGELOG.md           # Version history
+│   └── .github/workflows/     # CI/CD pipeline
+├── playground/                # 🆕 Experimental and demo applications
+│   ├── beautiful_pages/       # Real-time console streaming app
+│   │   ├── realtime_console.py
+│   │   ├── static/
+│   │   └── templates/
+│   └── dynamic_forms_app/     # Alternative forms implementation
 ├── src/                       # Frontend React application
 │   ├── components/            # React components
 │   ├── hooks/                 # Custom React hooks
@@ -178,11 +196,51 @@ When running the application, API documentation is available at:
 
 ## Features Overview
 
-### UI Web Auto Testing
+### 🎯 Available Applications
+
+#### 1. UI Web Auto Testing (`/apps/ui_web_auto_testing/`)
 - Extract web elements using Playwright
 - Generate test cases with AI
 - Execute automated tests
 - View detailed test results
+
+#### 2. Dynamic Forms Streaming API (`/dynamic_forms_streaming/`)
+- **🚀 Real-time form generation** from FastAPI endpoints
+- **📡 WebSocket streaming** for live updates and notifications
+- **🎨 Beautiful, responsive UI** with modern CSS3 animations
+- **✅ Comprehensive validation** (client-side and server-side)
+- **📱 Mobile-responsive** design that works on all devices
+- **🔧 5 Built-in form types**:
+  - User Profile Management
+  - Product Catalog Entry
+  - Contact Message System
+  - Feedback & Rating System
+  - Newsletter Subscription
+
+**Quick Start for Dynamic Forms:**
+```bash
+cd dynamic_forms_streaming
+pip install -r requirements.txt
+python main.py
+# Visit http://localhost:8000
+```
+
+#### 3. Real-time Console Streaming (`/playground/beautiful_pages/`)
+- Stream Python console output in real-time
+- WebSocket-powered live updates
+- Beautiful dashboard interface
+- Code execution examples
+
+**Features of Dynamic Forms App:**
+- 🎨 Modern glassmorphic design with gradient backgrounds
+- 📡 Real-time WebSocket streaming for live form submissions
+- 🚀 Automatic form generation from Pydantic models
+- ✅ Smart validation with visual feedback
+- 📱 Fully responsive design (mobile, tablet, desktop)
+- 🔄 Auto-reconnecting WebSocket connections
+- 🎪 Toast notifications and loading states
+- 🎯 In-form response display with enhanced backend data
+- ♿ Accessibility features with ARIA support
 
 ## Deployment
 
