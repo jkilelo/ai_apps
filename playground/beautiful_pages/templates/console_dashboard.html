@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Python Console Streamer</title>
+    <meta name="description" content="Stream Python console output in real-time with WebSocket technology">
+    <meta name="author" content="Console Streaming App">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+
+    <!-- Favicons and Meta Tags -->
+    <meta name="theme-color" content="#0f172a">
+    <meta property="og:title" content="Real-time Python Console Streamer">
+    <meta property="og:description" content="Execute Python code and see output streamed in real-time">
+    <meta property="og:type" content="website">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="{{ url_for('static', path='/app.js') }}" as="script">
+
+    <style>
+        /* Critical CSS for above-the-fold content */
+        .critical-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="critical-loading" id="loading-screen">
+        <div>
+            <div class="loading-spinner"></div>
+            <p style="color: #cbd5e1; margin-top: 1rem; text-align: center;">Initializing Console Streamer...</p>
+        </div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                Real-time Console Streamer
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot disconnected"></div>
+                <span>Connecting...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Control Panel -->
+        <aside class="control-panel">
+            <h2 class="panel-title">🎛️ Control Panel</h2>
+
+            <!-- Code Editor -->
+            <div class="code-editor">
+                <label for="code-input">Python Code:</label>
+                <textarea id="code-input" class="code-input" placeholder="# Enter your Python code here
+# Example:
+import time
+for i in range(5):
+    print(f'Hello World {i+1}!')
+    time.sleep(1)
+print('Done!')" spellcheck="false" autocomplete="off"></textarea>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="button-group">
+                <button id="execute-btn" class="btn btn-primary" title="Execute Code (Ctrl+Enter)">
+                    ▶️ Execute Code
+                </button>
+                <button id="clear-btn" class="btn btn-secondary" title="Clear Output (Ctrl+K)">
+                    🧹 Clear Output
+                </button>
+            </div>
+
+            <!-- Options -->
+            <div class="options-section">
+                <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <input type="checkbox" id="auto-scroll" checked>
+                    <span>Auto-scroll to bottom</span>
+                </label>
+
+                <button id="theme-toggle" class="btn btn-secondary" style="width: 100%;" title="Toggle Theme">
+                    🌙 Toggle Theme
+                </button>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="metrics" id="metrics">
+                <div class="metric">
+                    <div class="metric-value">0</div>
+                    <div class="metric-label">Executions</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">0</div>
+                    <div class="metric-label">Lines Output</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">0s</div>
+                    <div class="metric-label">Uptime</div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <div class="examples-section">
+                <h3 class="panel-title">📚 Code Examples</h3>
+                <div class="examples-grid" id="examples-list">
+                    <!-- Examples will be loaded dynamically -->
+                    <div class="example-item" style="text-align: center; padding: 2rem;">
+                        <div style="color: #64748b;">Loading examples...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keyboard Shortcuts Help -->
+            <div class="shortcuts-help"
+                style="margin-top: 1.5rem; padding: 1rem; background: rgba(51, 65, 85, 0.3); border-radius: 0.5rem; font-size: 0.8rem;">
+                <h4 style="margin-bottom: 0.5rem; color: #cbd5e1;">⌨️ Keyboard Shortcuts:</h4>
+                <div style="color: #94a3b8;">
+                    <div><kbd>Ctrl + Enter</kbd> - Execute code</div>
+                    <div><kbd>Ctrl + K</kbd> - Clear output</div>
+                    <div><kbd>Ctrl + R</kbd> - Reload page</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Console Output -->
+        <section class="console-container">
+            <div class="console-header">
+                <div class="console-title">
+                    Python Console Output
+                </div>
+                <div class="console-controls">
+                    <button class="console-btn close" title="Close"></button>
+                    <button class="console-btn minimize" title="Minimize"></button>
+                    <button class="console-btn maximize" title="Maximize"></button>
+                </div>
+            </div>
+
+            <div id="console-output" class="console-output">
+                <!-- Output will be displayed here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 2rem; color: #64748b; font-size: 0.9rem;">
+        <div>
+            <p>🚀 Real-time Python Console Streamer - Built with FastAPI, WebSockets, and Modern Web Technologies</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+                Made with ❤️ for real-time code execution and streaming
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', path='/app.js') }}" defer></script>
+
+    <!-- Remove loading screen when page is fully loaded -->
+    <script>
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    loadingScreen.remove();
+                }, 500);
+            }
+        });
+
+        // Handle keyboard shortcuts for accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && !e.shiftKey) {
+                // Enhance tab navigation
+                const focusableElements = document.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            } else if (e.key === 'Tab' && e.shiftKey) {
+                const focusableElements = document.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                const firstElement = focusableElements[0];
+
+                if (document.activeElement === firstElement) {
+                    e.preventDefault();
+                    focusableElements[focusableElements.length - 1].focus();
+                }
+            }
+        });
+    </script>
+
+    <!-- Service Worker for offline functionality (optional) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Uncomment if you want to add offline functionality
+                // navigator.serviceWorker.register('/sw.js')
+                //     .then(registration => console.log('SW registered'))
+                //     .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+
+</html>

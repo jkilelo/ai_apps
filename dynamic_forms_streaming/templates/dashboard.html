@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Forms API Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Dynamic Forms</h1>
+                <p>Real-time API Form Generator</p>
+            </div>
+
+            <div class="endpoints-list">
+                <div id="endpoints-container">
+                    <!-- Endpoints will be loaded dynamically -->
+                </div>
+            </div>
+
+            <div class="connection-status">
+                <div class="status-indicator" id="connection-status"></div>
+                <span id="connection-text">Connecting...</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h2 id="page-title">Welcome to Dynamic Forms</h2>
+                <p id="page-description">Select an API endpoint from the sidebar to generate and interact with dynamic
+                    forms</p>
+            </div>
+
+            <div class="content-body">
+                <!-- Welcome Screen -->
+                <div id="welcome-screen" class="welcome-screen">
+                    <i data-feather="zap" class="welcome-icon"></i>
+                    <h2 class="welcome-title">Dynamic API Forms</h2>
+                    <p class="welcome-description">
+                        This application automatically generates beautiful, responsive forms from your FastAPI
+                        endpoints.
+                        Select an endpoint from the sidebar to see the magic happen. All forms include real-time
+                        validation,
+                        WebSocket streaming, and instant feedback.
+                    </p>
+                </div>
+
+                <!-- Form Container -->
+                <div id="form-container" style="display: none;">
+                    <div class="form-container">
+                        <div class="form-title" id="form-title">
+                            <i data-feather="edit" class="form-title-icon"></i>
+                            Form Title
+                        </div>
+                        <form id="dynamic-form">
+                            <div class="form-grid" id="form-fields">
+                                <!-- Form fields will be generated dynamically -->
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="submit-btn">
+                                    <i data-feather="send"></i>
+                                    Submit
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="reset-btn">
+                                    <i data-feather="refresh-cw"></i>
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Response Area -->
+                <div id="response-area" class="response-area" style="display: none;">
+                    <div class="response-title">
+                        <i data-feather="check-circle"></i>
+                        Response
+                    </div>
+                    <div class="response-content" id="response-content">
+                        <!-- Response will be displayed here -->
+                    </div>
+                </div>
+
+                <!-- Real-time Updates -->
+                <div class="realtime-updates">
+                    <div class="updates-header">
+                        <div class="updates-title">
+                            <i data-feather="activity"></i>
+                            Real-time Updates
+                        </div>
+                        <div class="updates-count" id="updates-count">0</div>
+                    </div>
+                    <div class="updates-list" id="updates-list">
+                        <!-- Updates will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container">
+        <!-- Toasts will be dynamically added here -->
+    </div>
+
+    <!-- Loading Overlay Template -->
+    <template id="loading-overlay-template">
+        <div class="loading-overlay">
+            <div class="loading-spinner"></div>
+        </div>
+    </template>
+
+    <!-- Toast Template -->
+    <template id="toast-template">
+        <div class="toast">
+            <div class="toast-header">
+                <div class="toast-title"></div>
+                <button class="toast-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="toast-message"></div>
+        </div>
+    </template>
+
+    <!-- Error Message Template -->
+    <template id="error-message-template">
+        <div class="error-message">
+            <i data-feather="alert-circle" style="width: 16px; height: 16px;"></i>
+            <span></span>
+        </div>
+    </template>
+
+    <!-- Main JavaScript -->
+    <script src="{{ url_for('static', path='/app.js') }}"></script>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
+</body>
+
+</html>
