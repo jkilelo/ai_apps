@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Testing Platform</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background: #f9fafb;
+            --card-background: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .version-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .features h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* API Endpoints Section */
+        .api-section {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .api-section h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .endpoint-card {
+            background: var(--background);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .method-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .endpoint-url {
+            font-family: 'Monaco', 'Consolas', monospace;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--card-background);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Status Indicators */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .status-card {
+            background: var(--card-background);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .status-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .status-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .features h3 {
+                font-size: 2rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <div>
+                        <h1>AI-Powered Testing Platform</h1>
+                        <p style="font-size: 0.9rem; opacity: 0.9;">Next-generation testing system</p>
+                    </div>
+                </div>
+                <div class="version-badge">
+                    Version {{ app_version }}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2 class="fade-in-up">Welcome to the Future of Testing</h2>
+            <p class="fade-in-up">Harness the power of AI to revolutionize your data quality and testing workflows with
+                intelligent automation and real-time insights.</p>
+
+            <div class="actions fade-in-up">
+                <a href="/api/docs" class="btn btn-primary">
+                    📚 API Documentation
+                </a>
+                <a href="/metadata" class="btn btn-secondary">
+                    🔍 Data Profiling
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h3>Platform Features</h3>
+
+            <div class="features-grid">
+                {% for feature in features %}
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🧠</div>
+                    <h4>{{ feature }}</h4>
+                    <p>Advanced artificial intelligence capabilities for automated testing, data quality profiling, and
+                        intelligent insights generation.</p>
+                </div>
+                {% endfor %}
+
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">📊</div>
+                    <h4>Data Quality Profiling</h4>
+                    <p>Comprehensive data analysis with automated profiling, quality metrics, and anomaly detection
+                        across your datasets.</p>
+                </div>
+
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Real-time Processing</h4>
+                    <p>WebSocket-powered real-time updates and streaming data processing for immediate insights and
+                        notifications.</p>
+                </div>
+
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🔧</div>
+                    <h4>Modern API</h4>
+                    <p>RESTful API built with FastAPI, featuring automatic documentation, validation, and interactive
+                        testing interfaces.</p>
+                </div>
+
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🚀</div>
+                    <h4>Performance Optimized</h4>
+                    <p>High-performance architecture with async processing, connection pooling, and optimized data
+                        handling.</p>
+                </div>
+
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Enterprise Ready</h4>
+                    <p>Production-ready with comprehensive logging, error handling, monitoring, and scalable deployment
+                        options.</p>
+                </div>
+            </div>
+
+            <!-- API Endpoints -->
+            <div class="api-section">
+                <h4>🔗 Available API Endpoints</h4>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge">POST</span>
+                        <code class="endpoint-url">/api/metadata</code>
+                    </div>
+                    <p><strong>Get Metadata</strong> - Retrieve comprehensive metadata for database tables and columns
+                        with advanced profiling capabilities.</p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge">GET</span>
+                        <code class="endpoint-url">/api/endpoints</code>
+                    </div>
+                    <p><strong>API Discovery</strong> - Explore all available endpoints with interactive schemas and
+                        testing capabilities.</p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-header">
+                        <span class="method-badge">WS</span>
+                        <code class="endpoint-url">/ws/{client_id}</code>
+                    </div>
+                    <p><strong>WebSocket Connection</strong> - Real-time bidirectional communication for live updates
+                        and streaming data.</p>
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="api-section">
+                <h4>📈 System Status</h4>
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-value">🟢</div>
+                        <div class="status-label">System Status</div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-value" id="connections">0</div>
+                        <div class="status-label">Active Connections</div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-value">{{ app_version }}</div>
+                        <div class="status-label">API Version</div>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-value">✨</div>
+                        <div class="status-label">AI Ready</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 AI-Powered Testing Platform. Built with FastAPI, Pydantic V2, and modern web technologies.
+            </p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Empowering intelligent data quality and testing workflows.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for WebSocket connection and real-time updates -->
+    <script>
+        // WebSocket connection for real-time updates
+        const clientId = 'web-' + Math.random().toString(36).substr(2, 9);
+        let ws = null;
+
+        function connectWebSocket() {
+            try {
+                ws = new WebSocket(`ws://${window.location.host}/ws/${clientId}`);
+
+                ws.onopen = function (event) {
+                    console.log('Connected to WebSocket');
+                    updateConnectionStatus('🟢 Connected');
+                };
+
+                ws.onmessage = function (event) {
+                    const data = JSON.parse(event.data);
+                    console.log('WebSocket message:', data);
+
+                    if (data.type === 'stats_update') {
+                        // Update connection count or other stats
+                        if (data.active_connections !== undefined) {
+                            document.getElementById('connections').textContent = data.active_connections;
+                        }
+                    }
+                };
+
+                ws.onclose = function (event) {
+                    console.log('WebSocket disconnected');
+                    updateConnectionStatus('🔴 Disconnected');
+                    // Attempt to reconnect after 3 seconds
+                    setTimeout(connectWebSocket, 3000);
+                };
+
+                ws.onerror = function (error) {
+                    console.error('WebSocket error:', error);
+                    updateConnectionStatus('🟡 Error');
+                };
+            } catch (error) {
+                console.error('Failed to connect WebSocket:', error);
+                updateConnectionStatus('🔴 Failed');
+            }
+        }
+
+        function updateConnectionStatus(status) {
+            // Update status in the UI if there's a status element
+            const statusElement = document.querySelector('.status-value');
+            if (statusElement) {
+                statusElement.textContent = status;
+            }
+        }
+
+        // Initialize WebSocket connection
+        connectWebSocket();
+
+        // Send periodic ping to keep connection alive
+        setInterval(() => {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'ping',
+                    timestamp: new Date().toISOString()
+                }));
+            }
+        }, 30000);
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1632 @@
+{
+  "profiling_sessions": {
+    "fghj.fghjk": {
+      "key": "fghj.fghjk",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T09:25:33.775826",
+      "updated_at": "2025-07-13T09:25:37.133240",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:25:33.775842"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:25:34.891879"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/fghj\") \\\n    .option(\"dbtable\", \"fghjk\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"fghjk_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM fghjk_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM fghjk_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM fghjk_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T09:25:36.009867"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:25:37.133228"
+        }
+      }
+    },
+    "test.test": {
+      "key": "test.test",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T09:26:10.052806",
+      "updated_at": "2025-07-13T11:08:43.196023",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:08:16.977453"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:08:19.913953"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/test\") \\\n    .option(\"dbtable\", \"test\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"test_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM test_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM test_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM test_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T11:08:30.024968"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:08:43.196011"
+        }
+      }
+    },
+    "ass.ass": {
+      "key": "ass.ass",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T09:44:50.747020",
+      "updated_at": "2025-07-13T09:44:54.223140",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:44:50.747034"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:44:51.982213"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/ass\") \\\n    .option(\"dbtable\", \"ass\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"ass_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM ass_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM ass_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM ass_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T09:44:53.108284"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:44:54.223127"
+        }
+      }
+    },
+    "23.rt": {
+      "key": "23.rt",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T10:00:38.646222",
+      "updated_at": "2025-07-13T10:00:44.509004",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:00:39.179384"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:00:40.866962"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/23\") \\\n    .option(\"dbtable\", \"rt\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"rt_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM rt_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM rt_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM rt_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:00:42.342011"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:00:44.508993"
+        }
+      }
+    },
+    "tes.tes": {
+      "key": "tes.tes",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T10:24:43.267831",
+      "updated_at": "2025-07-13T10:24:53.218712",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:24:43.267842"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:24:48.589729"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/tes\") \\\n    .option(\"dbtable\", \"tes\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"tes_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM tes_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM tes_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM tes_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:24:50.188959"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:24:53.218701"
+        }
+      }
+    },
+    "db.bf": {
+      "key": "db.bf",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T10:40:36.303484",
+      "updated_at": "2025-07-13T10:40:47.184288",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:40:36.325915"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:40:40.455513"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/db\") \\\n    .option(\"dbtable\", \"bf\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"bf_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM bf_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM bf_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM bf_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:40:44.346849"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:40:47.184276"
+        }
+      }
+    },
+    "dv.tr": {
+      "key": "dv.tr",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T10:47:27.454671",
+      "updated_at": "2025-07-13T10:47:51.080867",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "dv",
+            "table": "tr",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:47:27.987882"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "dv",
+            "table": "tr",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:47:37.655015"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "dv",
+            "table": "tr",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/dv\") \\\n    .option(\"dbtable\", \"tr\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"tr_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM tr_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM tr_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM tr_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:47:44.322900"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "dv",
+            "table": "tr",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:47:51.080798"
+        }
+      }
+    },
+    "test.tes": {
+      "key": "test.tes",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T10:53:25.013151",
+      "updated_at": "2025-07-13T10:53:37.373921",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "test",
+            "table": "tes",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:53:25.013163"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "test",
+            "table": "tes",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:53:29.420191"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "test",
+            "table": "tes",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/test\") \\\n    .option(\"dbtable\", \"tes\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"tes_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM tes_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM tes_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM tes_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:53:32.681217"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "test",
+            "table": "tes",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:53:37.373910"
+        }
+      }
+    },
+    "err.wwe": {
+      "key": "err.wwe",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T11:13:09.932504",
+      "updated_at": "2025-07-13T11:13:28.233610",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:13:09.945555"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:13:17.076901"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/err\") \\\n    .option(\"dbtable\", \"wwe\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"wwe_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM wwe_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM wwe_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM wwe_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T11:13:22.023371"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:13:28.233597"
+        }
+      }
+    },
+    "fghj.fghjkl": {
+      "key": "fghj.fghjkl",
+      "session_type": "profiling",
+      "created_at": "2025-07-13T11:32:45.260552",
+      "updated_at": "2025-07-13T11:33:19.791782",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Add index on primary key"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Normalize data structure"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Implement foreign key constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:32:45.270606"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:33:18.396008"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Profiling\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/fghj\") \\\n    .option(\"dbtable\", \"fghjkl\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"fghjkl_view\")\n\nprint(\"=== Data Profiling Results ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM fghjkl_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM fghjkl_view WHERE `id` IS NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM fghjkl_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T11:33:19.791769"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:33:05.797616"
+        }
+      }
+    }
+  },
+  "dq_sessions": {
+    "fghj.fghjk": {
+      "key": "fghj.fghjk",
+      "session_type": "dq",
+      "created_at": "2025-07-13T09:25:38.307103",
+      "updated_at": "2025-07-13T09:25:41.667014",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:25:38.307116"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:25:39.421175"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/fghj\") \\\n    .option(\"dbtable\", \"fghjk\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"fghjk_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM fghjk_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM fghjk_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM fghjk_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM fghjk_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM fghjk_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T09:25:40.547848"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjk",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:25:41.667002"
+        }
+      }
+    },
+    "test.test": {
+      "key": "test.test",
+      "session_type": "dq",
+      "created_at": "2025-07-13T09:26:14.319848",
+      "updated_at": "2025-07-13T11:08:56.525316",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:08:47.054402"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:08:50.847182"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/test\") \\\n    .option(\"dbtable\", \"test\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"test_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM test_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM test_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM test_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM test_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM test_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T11:08:53.535229"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "test",
+            "table": "test",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:08:56.525301"
+        }
+      }
+    },
+    "ass.ass": {
+      "key": "ass.ass",
+      "session_type": "dq",
+      "created_at": "2025-07-13T09:44:55.343078",
+      "updated_at": "2025-07-13T09:44:58.749012",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:44:55.343095"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:44:56.470275"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/ass\") \\\n    .option(\"dbtable\", \"ass\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"ass_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM ass_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM ass_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM ass_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM ass_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM ass_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T09:44:57.619102"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "ass",
+            "table": "ass",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T09:44:58.748998"
+        }
+      }
+    },
+    "23.rt": {
+      "key": "23.rt",
+      "session_type": "dq",
+      "created_at": "2025-07-13T10:00:45.549409",
+      "updated_at": "2025-07-13T10:01:15.624094",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:00:46.067375"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:00:47.520903"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/23\") \\\n    .option(\"dbtable\", \"rt\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"rt_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM rt_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM rt_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM rt_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM rt_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM rt_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:00:49.022103"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "23",
+            "table": "rt",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:01:15.624083"
+        }
+      }
+    },
+    "tes.tes": {
+      "key": "tes.tes",
+      "session_type": "dq",
+      "created_at": "2025-07-13T10:24:55.080929",
+      "updated_at": "2025-07-13T10:25:01.285373",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:24:55.080941"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:24:56.942856"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/tes\") \\\n    .option(\"dbtable\", \"tes\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"tes_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM tes_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM tes_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM tes_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM tes_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM tes_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:24:58.035943"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "tes",
+            "table": "tes",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:25:01.285360"
+        }
+      }
+    },
+    "db.bf": {
+      "key": "db.bf",
+      "session_type": "dq",
+      "created_at": "2025-07-13T10:40:49.099551",
+      "updated_at": "2025-07-13T10:40:56.800061",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:40:49.114744"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:40:52.210333"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/db\") \\\n    .option(\"dbtable\", \"bf\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"bf_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM bf_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM bf_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM bf_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM bf_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM bf_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:40:53.982230"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "db",
+            "table": "bf",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:40:56.800050"
+        }
+      }
+    },
+    "dv.tr": {
+      "key": "dv.tr",
+      "session_type": "dq",
+      "created_at": "2025-07-13T10:47:58.235622",
+      "updated_at": "2025-07-13T10:48:07.704777",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "dv",
+            "table": "tr",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:47:58.753021"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "dv",
+            "table": "tr",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:48:03.272688"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "dv",
+            "table": "tr",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/dv\") \\\n    .option(\"dbtable\", \"tr\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"tr_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM tr_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM tr_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM tr_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM tr_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM tr_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T10:48:07.704764"
+        }
+      }
+    },
+    "test.tes": {
+      "key": "test.tes",
+      "session_type": "dq",
+      "created_at": "2025-07-13T10:53:50.119943",
+      "updated_at": "2025-07-13T10:53:53.529104",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "test",
+            "table": "tes",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:53:50.119954"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "test",
+            "table": "tes",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T10:53:53.529091"
+        }
+      }
+    },
+    "err.wwe": {
+      "key": "err.wwe",
+      "session_type": "dq",
+      "created_at": "2025-07-13T11:13:36.471457",
+      "updated_at": "2025-07-13T11:13:52.982432",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:13:36.514910"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:13:44.739894"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/err\") \\\n    .option(\"dbtable\", \"wwe\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"wwe_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM wwe_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM wwe_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM wwe_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM wwe_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM wwe_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T11:13:51.203122"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "err",
+            "table": "wwe",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:13:52.982419"
+        }
+      }
+    },
+    "fghj.fghjkl": {
+      "key": "fghj.fghjkl",
+      "session_type": "dq",
+      "created_at": "2025-07-13T11:33:25.409233",
+      "updated_at": "2025-07-13T11:33:31.635373",
+      "data": {
+        "suggestions": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "suggestions": [
+              {
+                "suggestion_id": 1,
+                "description": "Check for duplicate records"
+              },
+              {
+                "suggestion_id": 2,
+                "description": "Validate email formats"
+              },
+              {
+                "suggestion_id": 3,
+                "description": "Ensure mandatory fields are filled"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:33:25.415582"
+        },
+        "testcases": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "test_cases": [
+              {
+                "case_id": 1,
+                "description": "Check for null values"
+              },
+              {
+                "case_id": 2,
+                "description": "Validate data types"
+              },
+              {
+                "case_id": 3,
+                "description": "Ensure unique constraints"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:33:27.777884"
+        },
+        "pyspark_code": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "pyspark_code": "\nfrom pyspark.sql import SparkSession\n\n# Initialize Spark Session\nspark = SparkSession.builder.appName(\"Data Quality Analysis\").getOrCreate()\n\n# Read data from database\ndf = spark.read.format(\"jdbc\") \\\n    .option(\"url\", \"jdbc:mysql://localhost:3306/fghj\") \\\n    .option(\"dbtable\", \"fghjkl\") \\\n    .option(\"user\", \"root\") \\\n    .option(\"password\", \"password\") \\\n    .load()\n\n# Basic data profiling\nprint(\"=== Schema Information ===\")\ndf.printSchema()\n\nprint(\"=== Basic Statistics ===\")\ndf.describe(*).show()\n\n# Create temporary view for SQL queries\ndf.createOrReplaceTempView(\"fghjkl_view\")\n\nprint(\"=== Data Quality Checks ===\")\n\n# Total record count\nprint(\"Total Records:\")\nspark.sql(\"SELECT COUNT(*) as total_records FROM fghjkl_view\").show()\n\n# Null value analysis for first column\nprint(f\"Null values in id:\")\nspark.sql(\"SELECT COUNT(*) as null_count FROM fghjkl_view WHERE `id` IS NULL\").show()\n\nprint(f\"Non-null values in id:\")\nspark.sql(\"SELECT COUNT(*) as non_null_count FROM fghjkl_view WHERE `id` IS NOT NULL\").show()\n\n# Data completeness check\nif len([]) > 1:\n    print(f\"Complete records (id and id not null):\")\n    spark.sql(\"SELECT COUNT(*) as complete_records FROM fghjkl_view WHERE `id` IS NOT NULL AND `id` IS NOT NULL\").show()\n\nprint(\"=== Sample Data ===\")\nspark.sql(\"SELECT * FROM fghjkl_view LIMIT 10\").show()\n\n# Stop Spark session\nspark.stop()\n"
+          },
+          "timestamp": "2025-07-13T11:33:29.178642"
+        },
+        "code_execution": {
+          "step_data": {
+            "database": "fghj",
+            "table": "fghjkl",
+            "columns": null,
+            "execution_result": "Code executed successfully",
+            "details": [
+              {
+                "step": 1,
+                "result": "Schema printed"
+              },
+              {
+                "step": 2,
+                "result": "Data described"
+              },
+              {
+                "step": 3,
+                "result": "Null values checked"
+              }
+            ]
+          },
+          "timestamp": "2025-07-13T11:33:31.635358"
+        }
+      }
+    }
+  },
+  "ui_sessions": {}
+}
