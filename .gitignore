@@ -324,6 +324,31 @@ mongo_dumps/
 security_reports/
 vulnerability_reports/
 
+# MCP Configuration with credentials
+claude_desktop_config.json
+mcp-config.json
+.mcp.json
+
+# Generated test files with potential credentials
+test_mongo_connection.py
+test_internet_mongodb_access.py
+test_compass_connection.py
+
+# MongoDB configuration files
+mongod_ssl.conf
+mongodb_ssh_tunnel_guide.sh
+mongodb_proxy.py
+
+# Demo and temporary files
+demo_summary_report.json
+shopping_workflow_report.json
+port_finder.py
+
+# Generated form files
+order_form.html
+registration_form.html
+shopping_form_demo.html
+
 # Miscellaneous
 .well-known/
 .git-blame-ignore-revs

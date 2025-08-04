@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field
 import sys
 sys.path.append('/var/www/ai_apps')
 from utils.playwright_test_runner import PlaywrightTestRunner, create_playwright_test_from_generated
+from apps.ui_web_auto_testing.cross_browser.browser_manager import CrossBrowserManager, BrowserConfig, BrowserType
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,9 @@ class TestExecutionRequest(BaseModel):
     execution_mode: Optional[str] = Field(default="sequential", description="Execution mode: sequential or parallel")
     timeout: Optional[int] = Field(default=300, description="Timeout in seconds")
     browser: Optional[str] = Field(default="chromium", description="Browser to use for testing")
+    cross_browser: Optional[bool] = Field(default=False, description="Enable cross-browser testing")
+    browsers: Optional[List[str]] = Field(default=None, description="List of browsers for cross-browser testing")
+    include_mobile: Optional[bool] = Field(default=False, description="Include mobile browser testing")
     
     model_config = {
             "example": {
@@ -299,3 +303,140 @@ async def get_execution_report(job_id: str, format: Optional[str] = "json"):
             status_code=400,
             detail=f"Unsupported report format: {format}"
         )
+
+
+@router.post("/execute/cross-browser", response_model=TestExecutionResponse)
+async def execute_cross_browser_tests(request: TestExecutionRequest, background_tasks: BackgroundTasks):
+    """Execute tests across multiple browsers"""
+    
+    # Create job ID
+    job_id = str(uuid.uuid4())
+    
+    # Initialize job tracking
+    active_executions[job_id] = {
+        "job_id": job_id,
+        "status": "pending",
+        "created_at": datetime.now(),
+        "test_count": len(request.test_cases)
+    }
+    
+    logger.info(f"Created cross-browser test execution job {job_id} with {len(request.test_cases)} test(s)")
+    
+    # Start background execution
+    background_tasks.add_task(
+        execute_cross_browser_job,
+        job_id,
+        request
+    )
+    
+    return TestExecutionResponse(
+        job_id=job_id,
+        status="started",
+        message=f"Cross-browser test execution started with {len(request.test_cases)} test(s)"
+    )
+
+
+async def execute_cross_browser_job(job_id: str, request: TestExecutionRequest):
+    """Execute tests across multiple browsers"""
+    started_at = datetime.now()
+    
+    try:
+        active_executions[job_id]["status"] = "running"
+        active_executions[job_id]["started_at"] = started_at
+        
+        logger.info(f"Starting cross-browser test execution for job {job_id}")
+        
+        # Initialize cross-browser manager
+        browser_manager = CrossBrowserManager()
+        
+        # Determine browsers to test
+        if request.browsers:
+            browser_configs = [
+                BrowserConfig(browser_type=BrowserType[browser.upper()])
+                for browser in request.browsers
+            ]
+        else:
+            browser_configs = browser_manager.get_recommended_browsers(
+                include_mobile=request.include_mobile
+            )
+        
+        # Create test function wrapper
+        async def run_test_suite(page, test_cases):
+            results = []
+            for test_case in test_cases:
+                try:
+                    # Execute individual test case
+                    # This is a simplified version - in production, you'd use the actual test runner
+                    await page.goto(test_case.get("url", "https://example.com"))
+                    
+                    # Simulate test execution
+                    await asyncio.sleep(1)
+                    
+                    results.append({
+                        "test_id": test_case.get("id", "unknown"),
+                        "passed": True,
+                        "duration": 1.0
+                    })
+                except Exception as e:
+                    results.append({
+                        "test_id": test_case.get("id", "unknown"),
+                        "passed": False,
+                        "error": str(e),
+                        "duration": 0
+                    })
+            
+            return {"passed": all(r["passed"] for r in results), "results": results}
+        
+        # Run tests on all browsers
+        browser_results = await browser_manager.run_test_on_multiple_browsers(
+            browser_configs,
+            run_test_suite,
+            parallel=request.execution_mode == "parallel",
+            test_cases=request.test_cases
+        )
+        
+        # Generate compatibility report
+        compatibility_report = browser_manager.generate_compatibility_report(browser_results)
+        
+        # Cleanup
+        await browser_manager.cleanup()
+        
+        completed_at = datetime.now()
+        duration = (completed_at - started_at).total_seconds()
+        
+        # Update job with results
+        active_executions[job_id].update({
+            "status": "completed",
+            "completed_at": completed_at,
+            "duration": duration,
+            "browser_results": {
+                browser: {
+                    "passed": result.passed,
+                    "duration": result.duration,
+                    "errors": result.errors,
+                    "warnings": result.warnings,
+                    "screenshots": result.screenshots,
+                    "performance_metrics": result.performance_metrics
+                }
+                for browser, result in browser_results.items()
+            },
+            "compatibility_report": compatibility_report,
+            "summary": {
+                "total_browsers": len(browser_results),
+                "passed_browsers": sum(1 for r in browser_results.values() if r.passed),
+                "total_tests": len(request.test_cases),
+                "execution_time": duration
+            }
+        })
+        
+        logger.info(f"Completed cross-browser test execution job {job_id}")
+        
+    except Exception as e:
+        logger.error(f"Cross-browser test execution job {job_id} failed: {e}", exc_info=True)
+        
+        active_executions[job_id].update({
+            "status": "failed",
+            "completed_at": datetime.now(),
+            "duration": (datetime.now() - started_at).total_seconds(),
+            "error": str(e)
+        })

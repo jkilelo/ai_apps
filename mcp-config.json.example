@@ -1,0 +1,63 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/var/www/ai_apps"
+      ],
+      "description": "Secure file operations for the AI Apps project"
+    },
+    "git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@cyanheads/git-mcp-server",
+        "--repository",
+        "/var/www/ai_apps"
+      ],
+      "description": "Git operations for version control"
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-sqlite",
+        "--db-paths",
+        "/var/www/ai_apps/app.db,/var/www/ai_apps/app_v2.db,/var/www/ai_apps/evolving_apps_v3.db"
+      ],
+      "description": "SQLite database interactions for existing databases"
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@henkey/postgres-mcp-server"
+      ],
+      "env": {
+        "POSTGRES_HOST": "your_postgres_host",
+        "POSTGRES_PORT": "5432",
+        "POSTGRES_DATABASE": "your_database_name",
+        "POSTGRES_USER": "your_postgres_user",
+        "POSTGRES_PASSWORD": "your_postgres_password"
+      },
+      "description": "PostgreSQL database management"
+    },
+    "fetch": {
+      "command": "node",
+      "args": [
+        "/usr/lib/node_modules/@mokei/mcp-fetch/lib/index.js"
+      ],
+      "description": "Web content fetching for web automation testing"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/playwright-mcp-server"
+      ],
+      "description": "Browser automation for UI testing"
+    }
+  }
+}

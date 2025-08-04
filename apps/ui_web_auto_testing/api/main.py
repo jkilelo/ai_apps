@@ -9,6 +9,13 @@ from datetime import datetime
 from typing import Dict, Any
 from pathlib import Path
 
+# Configure logging first
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -18,20 +25,28 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-from .routers import element_extraction, test_generation, test_execution
-
-# Import data quality router
+# Add the apps directory to path for imports
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from data_quality.api.router import router as data_quality_router
+sys.path.append('/var/www/ai_apps')
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from apps.ui_web_auto_testing.api.routers import element_extraction, test_generation, test_execution, web_automation
+
+# Note: visual_regression and parallel_execution routers are imported but may not exist yet
+try:
+    from apps.ui_web_auto_testing.api.routers import visual_regression, parallel_execution
+    has_extra_routers = True
+except ImportError:
+    has_extra_routers = False
+    logger.warning("Visual regression and parallel execution routers not found")
+
+# Import data quality router if available
+try:
+    from data_quality.api.router import router as data_quality_router
+    has_data_quality = True
+except ImportError:
+    has_data_quality = False
+    logger.warning("Data quality router not found")
 
 # Rate limiting
 limiter = Limiter(key_func=get_remote_address)
@@ -109,8 +124,31 @@ app.include_router(
     tags=["test-execution"]
 )
 
-# Include data quality router
-app.include_router(data_quality_router)
+app.include_router(
+    web_automation.router,
+    prefix="/api/v1/web-automation",
+    tags=["web-automation"]
+)
+
+# Include data quality router if available
+if has_data_quality:
+    app.include_router(data_quality_router)
+
+# Include extra routers if available
+if has_extra_routers:
+    # Include visual regression router
+    app.include_router(
+        visual_regression.router,
+        prefix="/api/v1/visual-regression",
+        tags=["visual-regression"]
+    )
+
+    # Include parallel execution router
+    app.include_router(
+        parallel_execution.router,
+        prefix="/api/v1/parallel-execution",
+        tags=["parallel-execution"]
+    )
 
 # Serve static files from React build
 static_dir = Path(__file__).parent.parent.parent.parent / "ui" / "dist"

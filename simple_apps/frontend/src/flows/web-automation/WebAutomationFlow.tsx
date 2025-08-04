@@ -35,7 +35,12 @@ export function WebAutomationFlow() {
         setWorkflow,
         results,
         isLoading,
-        executeWorkflow,
+        stepStatus,
+        sessionId,
+        executeTargetSetup,
+        executeWorkflowBuild,
+        executeTests,
+        getResults,
         resetFlow
     } = useWebAutomation();
 
@@ -51,6 +56,39 @@ export function WebAutomationFlow() {
         }
     };
 
+    // Step-specific execution handlers
+    const handleStep1Execute = async () => {
+        try {
+            await executeTargetSetup();
+        } catch (error) {
+            console.error('Step 1 failed:', error);
+        }
+    };
+
+    const handleStep2Execute = async () => {
+        try {
+            await executeWorkflowBuild();
+        } catch (error) {
+            console.error('Step 2 failed:', error);
+        }
+    };
+
+    const handleStep3Execute = async () => {
+        try {
+            await executeTests();
+        } catch (error) {
+            console.error('Step 3 failed:', error);
+        }
+    };
+
+    const handleStep4Execute = async () => {
+        try {
+            await getResults();
+        } catch (error) {
+            console.error('Step 4 failed:', error);
+        }
+    };
+
     const renderStepContent = () => {
         switch (currentStep) {
             case 1:
@@ -58,7 +96,7 @@ export function WebAutomationFlow() {
                     <AutomationForm
                         data={formData}
                         onChange={setFormData}
-                        onNext={handleNext}
+                        onNext={handleStep1Execute}
                     />
                 );
             case 2:
@@ -67,7 +105,7 @@ export function WebAutomationFlow() {
                         workflow={workflow}
                         onChange={setWorkflow}
                         targetUrl={formData.targetUrl}
-                        onNext={handleNext}
+                        onNext={handleStep2Execute}
                         onBack={handleBack}
                     />
                 );
@@ -75,8 +113,7 @@ export function WebAutomationFlow() {
                 return (
                     <TestExecution
                         workflow={workflow}
-                        onExecute={executeWorkflow}
-                        onNext={handleNext}
+                        onExecute={handleStep3Execute}
                         onBack={handleBack}
                         isLoading={isLoading}
                     />
