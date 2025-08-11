@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+"""
+Generated test code from Gherkin scenarios
+"""
+
+import pytest
+import asyncio
+import logging
+from pathlib import Path
+from typing import Optional
+from datetime import datetime
+from playwright.async_api import async_playwright, Page, Browser, BrowserContext
+from playwright.async_api import expect
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class BasePage:
+    """Base page class for Page Object Model"""
+    
+    def __init__(self, page: Page):
+        self.page = page
+        self.logger = logging.getLogger(self.__class__.__name__)
+    
+    async def navigate_to(self, url: str):
+        """Navigate to URL"""
+        await self.page.goto(url)
+        self.logger.info(f"Navigated to: {url}")
+    
+    async def click_element(self, selector: str):
+        """Click an element"""
+        await self.page.click(selector)
+        self.logger.info(f"Clicked: {selector}")
+    
+    async def fill_field(self, selector: str, value: str):
+        """Fill a form field"""
+        await self.page.fill(selector, value)
+        self.logger.info(f"Filled {selector} with: {value}")
+    
+    async def get_text(self, selector: str) -> str:
+        """Get element text"""
+        return await self.page.text_content(selector)
+    
+    async def is_visible(self, selector: str) -> bool:
+        """Check if element is visible"""
+        return await self.page.is_visible(selector)
+    
+    async def wait_for_element(self, selector: str, timeout: int = 30000):
+        """Wait for element to appear"""
+        await self.page.wait_for_selector(selector, timeout=timeout)
+    
+    async def assert_title(self, expected_title: str):
+        """Assert page title"""
+        actual_title = await self.page.title()
+        assert actual_title == expected_title, f"Title mismatch: {actual_title} != {expected_title}"
+    
+    async def assert_visible(self, selector: str):
+        """Assert element is visible"""
+        is_visible = await self.is_visible(selector)
+        assert is_visible, f"Element not visible: {selector}"
+    
+    async def assert_text_present(self, text: str):
+        """Assert text is present on page"""
+        content = await self.page.content()
+        assert text in content, f"Text not found: {text}"
+    
+    async def assert_url(self, expected_url: str):
+        """Assert current URL"""
+        current_url = self.page.url
+        assert current_url == expected_url, f"URL mismatch: {current_url} != {expected_url}"
+    
+    async def assert_url_contains(self, partial_url: str):
+        """Assert URL contains string"""
+        current_url = self.page.url
+        assert partial_url in current_url, f"URL does not contain: {partial_url}"
+    
+    async def press_key(self, key: str):
+        """Press a keyboard key"""
+        await self.page.keyboard.press(key)
+        self.logger.info(f"Pressed key: {key}")
+    
+    async def take_screenshot(self, name: str):
+        """Take a screenshot"""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        path = f"screenshots/{name}_{timestamp}.png"
+        await self.page.screenshot(path=path)
+        self.logger.info(f"Screenshot saved: {path}")
+
+
+class SupremeWebsiteNavigationPage(BasePage):
+    """Page Object for Supreme Website Navigation"""
+
+    # Locators
+    shop = "a"
+
+    # Custom actions
+    async def i_should_see_product_listings(self):
+        """Action: I should see product listings"""
+        # TODO: Implement custom
+        pass
+
+    async def i_am_on_the_supreme_homepage(self):
+        """Action: I am on the Supreme homepage"""
+        # TODO: Implement custom
+        pass
+
+    async def i_click_on_spring_summer_2025_(self):
+        """Action: I click on "spring/summer 2025 preview""""
+        # TODO: Implement click
+        pass
+
+    async def i_should_see_the_preview_page(self):
+        """Action: I should see the preview page"""
+        # TODO: Implement custom
+        pass
+
+    async def i_click_on_the_shop_link(self):
+        """Action: I click on the "shop" link"""
+        # TODO: Implement click
+        pass
+
+    async def the_page_should_display_collec(self):
+        """Action: the page should display collection items"""
+        # TODO: Implement custom
+        pass
+

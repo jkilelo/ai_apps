@@ -1,61 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react'
 
 interface TooltipProps {
-  children: React.ReactNode;
+  content: string
+  children: ReactNode
+  position?: 'top' | 'bottom' | 'left' | 'right'
+  delay?: number
 }
 
-interface TooltipContextType {
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
-}
+export const Tooltip: React.FC<TooltipProps> = ({ 
+  content, 
+  children, 
+  position = 'top',
+  delay = 500 
+}) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
 
-const TooltipContext = React.createContext<TooltipContextType | undefined>(undefined);
+  const showTooltip = () => {
+    const id = setTimeout(() => setIsVisible(true), delay)
+    setTimeoutId(id)
+  }
 
-export const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <>{children}</>;
-};
+  const hideTooltip = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+      setTimeoutId(null)
+    }
+    setIsVisible(false)
+  }
 
-export const Tooltip: React.FC<TooltipProps> = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  
+  const positionClasses = {
+    top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
+    bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
+    left: 'right-full top-1/2 -translate-y-1/2 mr-2',
+    right: 'left-full top-1/2 -translate-y-1/2 ml-2',
+  }
+
+  const arrowClasses = {
+    top: 'top-full left-1/2 -translate-x-1/2 border-t-gray-800',
+    bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-gray-800',
+    left: 'left-full top-1/2 -translate-y-1/2 border-l-gray-800',
+    right: 'right-full top-1/2 -translate-y-1/2 border-r-gray-800',
+  }
+
   return (
-    <TooltipContext.Provider value={{ isOpen, setIsOpen }}>
-      <div className="relative inline-block">
+    <div className="relative inline-block">
+      <div
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+        onFocus={showTooltip}
+        onBlur={hideTooltip}
+      >
         {children}
       </div>
-    </TooltipContext.Provider>
-  );
-};
-
-export const TooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const context = React.useContext(TooltipContext);
-  if (!context) throw new Error('TooltipTrigger must be used within Tooltip');
-  
-  return (
-    <div
-      onMouseEnter={() => context.setIsOpen(true)}
-      onMouseLeave={() => context.setIsOpen(false)}
-    >
-      {children}
+      
+      {isVisible && (
+        <div className={`absolute z-50 ${positionClasses[position]} pointer-events-none`}>
+          <div className="relative">
+            <div className="px-3 py-2 text-xs font-medium text-white bg-gray-800 rounded-lg shadow-lg whitespace-nowrap animate-fade-in">
+              {content}
+            </div>
+            <div className={`absolute w-0 h-0 border-4 border-transparent ${arrowClasses[position]}`} />
+          </div>
+        </div>
+      )}
     </div>
-  );
-};
-
-export const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
-  children, 
-  className = '' 
-}) => {
-  const context = React.useContext(TooltipContext);
-  if (!context) throw new Error('TooltipContent must be used within Tooltip');
-  
-  if (!context.isOpen) return null;
-  
-  return (
-    <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs bg-gray-900 text-white rounded whitespace-nowrap ${className}`}>
-      {children}
-      <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-px">
-        <div className="border-4 border-transparent border-t-gray-900" />
-      </div>
-    </div>
-  );
-};
+  )
+}

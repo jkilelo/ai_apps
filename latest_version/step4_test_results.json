@@ -1,0 +1,33 @@
+{
+  "suite": {
+    "name": "UI Test Suite",
+    "total": 1,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 1,
+    "duration": 0.21676,
+    "pass_rate": 0.0
+  },
+  "reports": {
+    "json": "test_results/test_report.json",
+    "html": "test_results/test_report.html"
+  },
+  "results": [
+    {
+      "test_name": "test_supreme_website_navigation",
+      "test_file": "generated_tests/test_supreme_website_navigation.py",
+      "status": "error",
+      "duration": 0.216714,
+      "start_time": "2025-08-08T10:51:44.201209",
+      "end_time": "2025-08-08T10:51:44.417923",
+      "error_message": "Process exited with code 4",
+      "stack_trace": null,
+      "screenshots": [],
+      "logs": [],
+      "assertions": 0,
+      "retries": 0
+    }
+  ],
+  "exit_code": 1
+}
