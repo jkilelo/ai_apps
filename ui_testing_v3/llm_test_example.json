@@ -1,0 +1,132 @@
+{
+  "url": "https://example.com/",
+  "title": "Example Domain",
+  "page_type": "homepage",
+  "description": "",
+  "business_purpose": "Entry point and navigation hub",
+  "elements_by_category": {
+    "action": [
+      {
+        "element_id": "183d9c36",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a",
+          "xpath": "/html/body/div/p[2]/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: More information...",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "information",
+            "more"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "More information...",
+          "href": "https://www.iana.org/domains/example"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 660,
+          "y": 256,
+          "width": 135,
+          "height": 21,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:51.736808",
+        "page_context": {
+          "url": "https://example.com/",
+          "page_title": "Example Domain",
+          "page_type": "homepage"
+        }
+      }
+    ]
+  },
+  "user_journeys": [],
+  "page_validations": [],
+  "critical_paths": [],
+  "performance_requirements": {},
+  "security_considerations": []
+}

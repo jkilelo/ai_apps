@@ -1,0 +1,2898 @@
+{
+  "url": "https://www.google.com/",
+  "title": "Google",
+  "page_type": "homepage",
+  "description": "",
+  "business_purpose": "Entry point and navigation hub",
+  "elements_by_category": {
+    "navigation": [
+      {
+        "element_id": "dff304c1",
+        "tag_name": "div",
+        "element_category": "navigation",
+        "selectors": {
+          "css": "div.o3j99.n1xJcf.Ne6nSd",
+          "xpath": "/html/body/div/div"
+        },
+        "semantic": {
+          "primary_purpose": "Authentication: .Ne6nSd{display:flex;align-items:center;padding:6px}a.MV3Tnb{display:inline-block;padding:5px;margin",
+          "business_function": "authentication",
+          "user_intent": "Authenticate to access account",
+          "related_features": [],
+          "keywords": [
+            "display",
+            "items",
+            "align",
+            "ne6nsd",
+            "flex"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "hover",
+          "alternative_interactions": [],
+          "prerequisites": [
+            "User must be on login page"
+          ],
+          "expected_outcomes": [],
+          "common_flows": [
+            "Login \u2192 Dashboard"
+          ],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": ".Ne6nSd{display:flex;align-items:center;padding:6px}a.MV3Tnb{display:inline-block;padding:5px;margin:0 5px;color:var(--YLNNHc)}a.MV3Tnb:first-of-type{margin-left:15px}.LX3sZb{display:inline-block;flex"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "navigation",
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": false,
+          "tab_index": -1,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [
+            "style",
+            "a",
+            "a",
+            "div"
+          ],
+          "navigation_order": -1,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 60,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.499674",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      }
+    ],
+    "action": [
+      {
+        "element_id": "8428d465",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.MV3Tnb",
+          "xpath": "/html/body/div/div/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: About",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "about"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "About",
+          "href": "https://about.google/?fg=1&utm_source=google-US&utm_medium=referral&utm_campaign=hp-header"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [
+            "Store"
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 21,
+          "y": 17,
+          "width": 47,
+          "height": 27,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.499852",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "742d5263",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.MV3Tnb",
+          "xpath": "/html/body/div/div/a[2]"
+        },
+        "semantic": {
+          "primary_purpose": "a: Store",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "store"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Store",
+          "href": "https://store.google.com/US?utm_source=hp_header&utm_medium=google_ooo&utm_campaign=GS100042&hl=en-US"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [
+            "About"
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 78,
+          "y": 17,
+          "width": 43,
+          "height": 27,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.499980",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "995a356e",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.gb_X",
+          "xpath": "/html/body/div/div/div/div/header/div/div/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: Gmail",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "gmail"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Gmail",
+          "href": "https://mail.google.com/mail/&ogbl"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": "Gmail ",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Gmail ",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": "header",
+          "parent_form": null,
+          "siblings": [],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1670,
+          "y": 16,
+          "width": 34,
+          "height": 24,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500148",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "2a241221",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.gb_X",
+          "xpath": "/html/body/div/div/div/div/header/div/div[2]/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: Images",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "images"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Images",
+          "href": "https://www.google.com/imghp?hl=en&ogbl"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": "Search for Images ",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Search for Images ",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": "header",
+          "parent_form": null,
+          "siblings": [],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1719,
+          "y": 16,
+          "width": 43,
+          "height": 24,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500366",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "3825ae94",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.gb_B",
+          "xpath": "/html/body/div/div/div/div/header/div[2]/div/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: Interactive element",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [
+            "accordion"
+          ],
+          "keywords": [],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "href": "https://www.google.com/intl/en/about/products"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": "Google apps",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": "false",
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Google apps",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": "header",
+          "parent_form": null,
+          "siblings": [],
+          "children": [
+            "svg"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1777,
+          "y": 8,
+          "width": 40,
+          "height": 40,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500509",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "8cf2b40c",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.gb_A",
+          "xpath": "/html/body/div/div/div/div/header/div[3]/a"
+        },
+        "semantic": {
+          "primary_purpose": "Authentication: Sign in",
+          "business_function": "authentication",
+          "user_intent": "Authenticate to access account",
+          "related_features": [],
+          "keywords": [
+            "sign"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [
+            "User must be on login page"
+          ],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [
+            "Login \u2192 Dashboard"
+          ],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Sign in",
+          "href": "https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/&ec=futura_exp_og_so_72776762_e"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": "Sign in",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Sign in",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": "header",
+          "parent_form": null,
+          "siblings": [],
+          "children": [
+            "span"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1825,
+          "y": 8,
+          "width": 85,
+          "height": 40,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500642",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "5fd60709",
+        "tag_name": "div",
+        "element_category": "action",
+        "selectors": {
+          "css": "div.XDyW0e",
+          "xpath": "/html/body/div/div[3]/form/div/div/div/div/div[3]/div[2]/div"
+        },
+        "semantic": {
+          "primary_purpose": "div: Interactive element",
+          "business_function": null,
+          "user_intent": "Interact with element",
+          "related_features": [],
+          "keywords": [],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {},
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": "Search by voice",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Search by voice",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": "",
+          "siblings": [],
+          "children": [
+            "svg"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1109,
+          "y": 377,
+          "width": 40,
+          "height": 50,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500750",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "6d3181a1",
+        "tag_name": "div",
+        "element_category": "action",
+        "selectors": {
+          "css": "div.nDcEnd",
+          "xpath": "/html/body/div/div[3]/form/div/div/div/div/div[3]/div[2]/div[2]"
+        },
+        "semantic": {
+          "primary_purpose": "div: Interactive element",
+          "business_function": null,
+          "user_intent": "Interact with element",
+          "related_features": [],
+          "keywords": [],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {},
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": "Search by image",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Search by image",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": "",
+          "siblings": [],
+          "children": [
+            "svg"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1149,
+          "y": 377,
+          "width": 40,
+          "height": 50,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500794",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "cf427e8f",
+        "tag_name": "button",
+        "element_category": "action",
+        "selectors": {
+          "css": "button.plR5qb.Y5MKCd",
+          "xpath": "/html/body/div/div[3]/form/div/div/div/div/div[3]/button"
+        },
+        "semantic": {
+          "primary_purpose": "Payment: .plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin",
+          "business_function": "feedback",
+          "user_intent": "Interact with element",
+          "related_features": [],
+          "keywords": [
+            "background",
+            "center",
+            "self",
+            "plr5qb",
+            "align"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [
+            "Add to Cart \u2192 Checkout \u2192 Payment \u2192 Confirmation"
+          ],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;font-family:Google Sans,Roboto,Arial,sans-serif;fo"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "link",
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": "",
+          "siblings": [],
+          "children": [
+            "style",
+            "div",
+            "div",
+            "div",
+            "div"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1197,
+          "y": 384,
+          "width": 98,
+          "height": 36,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "high",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "security",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500877",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "5d2f4d03",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.pHiOh",
+          "xpath": "/html/body/div/div[6]/div/div/div/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: Advertising",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "advertising"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Advertising",
+          "href": "https://www.google.com/intl/en_us/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [
+            "Business",
+            " How Search works "
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 20,
+          "y": 1033,
+          "width": 100,
+          "height": 47,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501036",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "bb7213bd",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.pHiOh",
+          "xpath": "/html/body/div/div[6]/div/div/div/a[2]"
+        },
+        "semantic": {
+          "primary_purpose": "a: Business",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "business"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Business",
+          "href": "https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [
+            "Advertising",
+            " How Search works "
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 120,
+          "y": 1033,
+          "width": 87,
+          "height": 47,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501155",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "afdc20e0",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.pHiOh",
+          "xpath": "/html/body/div/div[6]/div/div/div/a[3]"
+        },
+        "semantic": {
+          "primary_purpose": "Search: How Search works",
+          "business_function": "search_and_discovery",
+          "user_intent": "Search for information",
+          "related_features": [],
+          "keywords": [
+            "search",
+            "works"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "How Search works",
+          "href": "https://google.com/search/howsearchworks/?fg=1"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [
+            "Advertising",
+            "Business"
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 207,
+          "y": 1033,
+          "width": 146,
+          "height": 47,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501203",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "fa355193",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.pHiOh",
+          "xpath": "/html/body/div/div[6]/div/div/div[2]/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: Applying AI towards science and the environment",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "towards",
+            "science",
+            "environment",
+            "applying"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Applying AI towards science and the environment",
+          "href": "https://ai.google/societal-impact/?utm_source=googlehpfooter&utm_medium=housepromos&utm_campaign=bottom-footer"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [
+            "img",
+            "span"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 783,
+          "y": 1033,
+          "width": 354,
+          "height": 47,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501250",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "ca736125",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.pHiOh",
+          "xpath": "/html/body/div/div[6]/div/div/div[3]/a"
+        },
+        "semantic": {
+          "primary_purpose": "a: Privacy",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "privacy"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Privacy",
+          "href": "https://policies.google.com/privacy?hl=en&fg=1"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [
+            "Terms"
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1674,
+          "y": 1033,
+          "width": 75,
+          "height": 47,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501367",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "d285bc89",
+        "tag_name": "a",
+        "element_category": "action",
+        "selectors": {
+          "css": "a.pHiOh",
+          "xpath": "/html/body/div/div[6]/div/div/div[3]/a[2]"
+        },
+        "semantic": {
+          "primary_purpose": "a: Terms",
+          "business_function": null,
+          "user_intent": "Navigate to linked page",
+          "related_features": [],
+          "keywords": [
+            "terms"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Navigation to linked page"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Terms",
+          "href": "https://policies.google.com/terms?hl=en&fg=1"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [
+            "Privacy"
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1750,
+          "y": 1033,
+          "width": 69,
+          "height": 47,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501464",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "07ed65d6",
+        "tag_name": "div",
+        "element_category": "action",
+        "selectors": {
+          "css": "div.CcNe6e",
+          "xpath": "/html/body/div/div[6]/div/div/div[3]/span/span/g-popup/div"
+        },
+        "semantic": {
+          "primary_purpose": "div: Settings",
+          "business_function": null,
+          "user_intent": "Interact with element",
+          "related_features": [
+            "accordion"
+          ],
+          "keywords": [
+            "settings"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Settings"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": "false",
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [
+            "div"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1819,
+          "y": 1033,
+          "width": 81,
+          "height": 47,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501566",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "f2bb5282",
+        "tag_name": "div",
+        "element_category": "action",
+        "selectors": {
+          "css": "div.cvSVBe.btku5b.fCrZyc.NQYJvc.FR7ZSc.qVhvac",
+          "xpath": "/html/body/div[4]/div/div[2]/div/div/div/div[2]/div/promo-button-text/div"
+        },
+        "semantic": {
+          "primary_purpose": "div: Stay signed out",
+          "business_function": null,
+          "user_intent": "Interact with element",
+          "related_features": [],
+          "keywords": [
+            "signed",
+            "stay"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Stay signed out"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [
+            "div"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1566,
+          "y": 952,
+          "width": 160,
+          "height": 44,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501763",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "780d5001",
+        "tag_name": "div",
+        "element_category": "action",
+        "selectors": {
+          "css": "div.cvSVBe.btku5b.fCrZyc.NQYJvc.qVhvac.expUPd",
+          "xpath": "/html/body/div[4]/div/div[2]/div/div/div/div[2]/div/promo-button-text[2]/div"
+        },
+        "semantic": {
+          "primary_purpose": "Authentication: Sign in",
+          "business_function": "authentication",
+          "user_intent": "Authenticate to access account",
+          "related_features": [],
+          "keywords": [
+            "sign"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [
+            "User must be on login page"
+          ],
+          "expected_outcomes": [],
+          "common_flows": [
+            "Login \u2192 Dashboard"
+          ],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "text": "Sign in"
+        },
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [
+            "div"
+          ],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1742,
+          "y": 952,
+          "width": 106,
+          "height": 44,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501860",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      }
+    ],
+    "form_input": [
+      {
+        "element_id": "APjFqb",
+        "tag_name": "textarea",
+        "element_category": "form_input",
+        "selectors": {
+          "id": "APjFqb",
+          "css": "#APjFqb",
+          "xpath": "/html/body/div/div[3]/form/div/div/div/div/div[2]/textarea"
+        },
+        "semantic": {
+          "primary_purpose": "textarea: Interactive element",
+          "business_function": "feedback",
+          "user_intent": "Interact with element",
+          "related_features": [
+            "dropdown"
+          ],
+          "keywords": [
+            "search"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "hover",
+          "alternative_interactions": [
+            "hover"
+          ],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {},
+        "validation": {
+          "rules": [
+            "length"
+          ],
+          "constraints": {
+            "minLength": -1,
+            "maxLength": 2048
+          },
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [
+            "Maximum length input",
+            "One character over maximum"
+          ],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "combobox",
+          "aria_label": "Search",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": "false",
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Search",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": "",
+          "siblings": [],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 664,
+          "y": 377,
+          "width": 442,
+          "height": 50,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "medium",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500708",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "e2c585b7",
+        "tag_name": "input",
+        "element_category": "form_input",
+        "selectors": {
+          "css": "input.gNO89b",
+          "xpath": "/html/body/div/div[3]/form/div/div/div[3]/center/input"
+        },
+        "semantic": {
+          "primary_purpose": "Action button: Submit",
+          "business_function": "feedback",
+          "user_intent": "Complete and submit form",
+          "related_features": [],
+          "keywords": [
+            "btnk"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Form submission",
+            "Validation messages if errors",
+            "Navigation to next page if successful"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "value": "Google Search"
+        },
+        "validation": {
+          "rules": [
+            "length"
+          ],
+          "constraints": {
+            "minLength": -1,
+            "maxLength": -1
+          },
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [
+            "Maximum length input",
+            "One character over maximum"
+          ],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": "Google Search",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "Google Search",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": "",
+          "siblings": [
+            "gbqfbb"
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 823,
+          "y": 456,
+          "width": 124,
+          "height": 36,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "critical",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500935",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "gbqfbb",
+        "tag_name": "input",
+        "element_category": "form_input",
+        "selectors": {
+          "id": "gbqfbb",
+          "css": "#gbqfbb",
+          "xpath": "/html/body/div/div[3]/form/div/div/div[3]/center/input[2]"
+        },
+        "semantic": {
+          "primary_purpose": "Action button: Submit",
+          "business_function": "feedback",
+          "user_intent": "Complete and submit form",
+          "related_features": [],
+          "keywords": [
+            "btni"
+          ],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "click",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [
+            "Form submission",
+            "Validation messages if errors",
+            "Navigation to next page if successful"
+          ],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {
+          "value": "I'm Feeling Lucky"
+        },
+        "validation": {
+          "rules": [
+            "length"
+          ],
+          "constraints": {
+            "minLength": -1,
+            "maxLength": -1
+          },
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [
+            "Maximum length input",
+            "One character over maximum"
+          ],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": "button",
+          "aria_label": "I'm Feeling Lucky",
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": true,
+          "tab_index": 0,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": "I'm Feeling Lucky",
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": "",
+          "siblings": [
+            ""
+          ],
+          "children": [],
+          "navigation_order": 0,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 958,
+          "y": 456,
+          "width": 139,
+          "height": 36,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "critical",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.500982",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      }
+    ],
+    "media": [
+      {
+        "element_id": "8158ad6d",
+        "tag_name": "img",
+        "element_category": "media",
+        "selectors": {
+          "css": "img.Pb9hCb",
+          "xpath": "/html/body/div/div[6]/div/div/div[2]/a/img"
+        },
+        "semantic": {
+          "primary_purpose": "img: Interactive element",
+          "business_function": null,
+          "user_intent": "Interact with element",
+          "related_features": [],
+          "keywords": [],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "drag_drop",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {},
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": false,
+          "tab_index": -1,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [],
+          "navigation_order": -1,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 798,
+          "y": 1048,
+          "width": 12,
+          "height": 14,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501290",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      },
+      {
+        "element_id": "dimg_x6ebaNn9HMqmqtsPh4ro0AY_1",
+        "tag_name": "img",
+        "element_category": "media",
+        "selectors": {
+          "id": "dimg_x6ebaNn9HMqmqtsPh4ro0AY_1",
+          "css": "#dimg_x6ebaNn9HMqmqtsPh4ro0AY_1",
+          "xpath": "/html/body/div[4]/div/div[2]/div/div/div/div/basic-promo-image/div/div/img"
+        },
+        "semantic": {
+          "primary_purpose": "img: Interactive element",
+          "business_function": null,
+          "user_intent": "Interact with element",
+          "related_features": [],
+          "keywords": [],
+          "domain_tags": []
+        },
+        "interaction": {
+          "primary_interaction": "drag_drop",
+          "alternative_interactions": [],
+          "prerequisites": [],
+          "expected_outcomes": [],
+          "common_flows": [],
+          "error_scenarios": [],
+          "timing_constraints": null
+        },
+        "content": {},
+        "validation": {
+          "rules": [],
+          "constraints": {},
+          "valid_values": [
+            "Valid input",
+            "Test data"
+          ],
+          "invalid_values": [
+            "",
+            "<script>alert(\"XSS\")</script>"
+          ],
+          "edge_cases": [],
+          "error_messages": {}
+        },
+        "accessibility": {
+          "aria_role": null,
+          "aria_label": null,
+          "aria_description": null,
+          "aria_properties": {
+            "expanded": null,
+            "selected": null,
+            "checked": null
+          },
+          "keyboard_accessible": false,
+          "tab_index": -1,
+          "keyboard_shortcuts": [],
+          "screen_reader_text": null,
+          "wcag_level": null,
+          "wcag_issues": []
+        },
+        "hierarchy": {
+          "parent_section": null,
+          "parent_form": null,
+          "siblings": [],
+          "children": [],
+          "navigation_order": -1,
+          "element_group": null,
+          "group_role": null
+        },
+        "visual": {
+          "x": 1416,
+          "y": 868,
+          "width": 48,
+          "height": 48,
+          "is_visible": true,
+          "is_above_fold": true,
+          "z_index": null,
+          "is_highlighted": false,
+          "has_error_styling": false,
+          "responsive_behavior": {
+            "breakpoint": "xl"
+          }
+        },
+        "state": {
+          "is_enabled": true,
+          "is_readonly": false,
+          "is_required": false,
+          "is_selected": false,
+          "is_checked": false,
+          "possible_states": [],
+          "state_triggers": {},
+          "updates_dynamically": false,
+          "update_triggers": [],
+          "depends_on": [],
+          "affects": []
+        },
+        "test_priority": "low",
+        "suggested_test_types": [
+          "functional",
+          "validation",
+          "accessibility",
+          "responsive"
+        ],
+        "test_data_examples": [],
+        "confidence_score": 1.0,
+        "extraction_timestamp": "2025-08-12 15:44:57.501654",
+        "page_context": {
+          "url": "https://www.google.com/",
+          "page_title": "Google",
+          "page_type": "homepage"
+        }
+      }
+    ]
+  },
+  "user_journeys": [
+    {
+      "name": "User Authentication",
+      "steps": [
+        "Enter credentials",
+        "Submit login form",
+        "Verify successful login"
+      ],
+      "critical": true
+    },
+    {
+      "name": "Search and Discovery",
+      "steps": [
+        "Enter search terms",
+        "Submit search",
+        "Review results",
+        "Select item"
+      ],
+      "critical": false
+    },
+    {
+      "name": "Payment Processing",
+      "steps": [
+        "Enter payment details",
+        "Verify information",
+        "Submit payment",
+        "Confirm transaction"
+      ],
+      "critical": true
+    }
+  ],
+  "page_validations": [
+    "Length validation: q has length constraints",
+    "Length validation: btnI has length constraints",
+    "Length validation: btnK has length constraints"
+  ],
+  "critical_paths": [
+    {
+      "element": "",
+      "action": "click",
+      "prerequisites": [],
+      "expected_outcome": "Form submission or critical action completion"
+    },
+    {
+      "element": "gbqfbb",
+      "action": "click",
+      "prerequisites": [],
+      "expected_outcome": "Form submission or critical action completion"
+    }
+  ],
+  "performance_requirements": {},
+  "security_considerations": [
+    "Payment data encryption",
+    "PCI compliance",
+    "Secure payment gateway integration",
+    "XSS prevention in input fields",
+    "SQL injection prevention"
+  ]
+}

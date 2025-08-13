@@ -1,0 +1,577 @@
+{
+  "timestamp": "2025-08-12T17:41:03.657535",
+  "models_tested": [],
+  "test_sites": [
+    "Cloudflare",
+    "PayPal",
+    "Supreme"
+  ],
+  "detailed_results": [
+    {
+      "site": "Cloudflare",
+      "model": "gemini/gemini-2.5-pro",
+      "results": [
+        {
+          "success": true,
+          "provider": "gemini",
+          "model": "gemini-2.5-pro",
+          "site": "Cloudflare",
+          "strategy": "happy_path",
+          "scenarios": [
+            {
+              "title": "Verify User Can Successfully Perform a Search",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "type",
+                  "element": "search",
+                  "data": "Cloudflare Zero Trust",
+                  "expected": "The search input field should be populated with 'Cloudflare Zero Trust'."
+                },
+                {
+                  "action": "click",
+                  "element": "submit",
+                  "data": null,
+                  "expected": "The user should be redirected to a search results page displaying results for 'Cloudflare Zero Trust'."
+                }
+              ],
+              "tags": [
+                "search",
+                "core_functionality"
+              ]
+            },
+            {
+              "title": "Verify Navigation to the Home Page",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "click",
+                  "element": "nav_home",
+                  "data": null,
+                  "expected": "The user should be successfully navigated to the main home page."
+                }
+              ],
+              "tags": [
+                "navigation",
+                "header"
+              ]
+            },
+            {
+              "title": "Verify Navigation to the Contact Page",
+              "priority": "medium",
+              "steps": [
+                {
+                  "action": "click",
+                  "element": "contact",
+                  "data": null,
+                  "expected": "The user should be successfully navigated to the 'Contact Us' page."
+                }
+              ],
+              "tags": [
+                "navigation",
+                "contact"
+              ]
+            }
+          ],
+          "time": 14.632335186004639
+        },
+        {
+          "success": true,
+          "provider": "gemini",
+          "model": "gemini-2.5-pro",
+          "site": "Cloudflare",
+          "strategy": "negative",
+          "scenarios": [
+            {
+              "title": "Trigger Rate Limiting with Rapid, Repetitive Actions",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "Click",
+                  "element": "submit",
+                  "data": "Execute 20 times in 3 seconds",
+                  "expected": "Cloudflare Bot Protection is triggered, presenting a CAPTCHA, a JavaScript challenge page, or an HTTP 429 'Too Many Requests' error."
+                }
+              ],
+              "tags": [
+                "rate_limiting",
+                "behavioral_analysis",
+                "bot_detection"
+              ]
+            },
+            {
+              "title": "Bypass Client-Side Execution with Direct Endpoint Request",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "Send Request",
+                  "element": "form_endpoint",
+                  "data": "Attempt to POST form data directly to the action URL without loading the page or executing Cloudflare's client-side JavaScript.",
+                  "expected": "The request is blocked by Cloudflare with a 403 Forbidden error, as the required 'cf-turnstile' or other challenge tokens are missing or invalid."
+                }
+              ],
+              "tags": [
+                "js_challenge",
+                "headless_browser",
+                "anti_automation"
+              ]
+            },
+            {
+              "title": "Malicious Payload Injection to Trigger Security Heuristics",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "Input Text",
+                  "element": "search",
+                  "data": "' OR 1=1 --",
+                  "expected": "The input text is entered into the search field."
+                },
+                {
+                  "action": "Click",
+                  "element": "submit",
+                  "data": "",
+                  "expected": "The request is blocked by Cloudflare's WAF/Bot Protection rules. A block page with a security event ID is displayed to the user."
+                }
+              ],
+              "tags": [
+                "waf",
+                "sqli",
+                "payload_detection",
+                "security"
+              ]
+            }
+          ],
+          "time": 26.781386137008667
+        },
+        {
+          "success": true,
+          "provider": "gemini",
+          "model": "gemini-2.5-pro",
+          "site": "Cloudflare",
+          "strategy": "security",
+          "scenarios": [
+            {
+              "title": "Basic Automated Script Detection (Headless Browser)",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "run_script_headless",
+                  "element": "search",
+                  "data": "automated security test",
+                  "expected": "The script execution should be intercepted by a Cloudflare challenge (e.g., CAPTCHA, JavaScript challenge, or a managed challenge page), preventing the script from successfully typing into the search input."
+                }
+              ],
+              "tags": [
+                "bot_protection",
+                "automation_detection",
+                "headless_browser"
+              ]
+            },
+            {
+              "title": "Rate Limit Evasion via Rapid Form Submission",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "loop_submit",
+                  "element": "submit",
+                  "data": "Execute a script that types a random string into the 'search' input and clicks 'submit' in a rapid loop (e.g., 5 times in 1 second).",
+                  "expected": "After a small number of submissions (e.g., 2-3), Cloudflare should trigger its rate-limiting or bot protection rules, blocking subsequent requests or presenting a challenge."
+                }
+              ],
+              "tags": [
+                "bot_protection",
+                "rate_limiting",
+                "brute_force"
+              ]
+            },
+            {
+              "title": "Bot Evasion via User-Agent Spoofing",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "set_header_and_navigate",
+                  "element": "nav_home",
+                  "data": "User-Agent: Googlebot/2.1 (+http://www.google.com/bot.html)",
+                  "expected": "While the initial navigation might succeed, subsequent automated actions (like rapidly interacting with the search bar) should still be challenged, indicating that Cloudflare's protection relies on more than just the User-Agent string (e.g., behavioral analysis, TLS fingerprinting)."
+                }
+              ],
+              "tags": [
+                "bot_protection",
+                "spoofing",
+                "evasion_techniques"
+              ]
+            }
+          ],
+          "time": 20.891712427139282
+        }
+      ]
+    },
+    {
+      "site": "PayPal",
+      "model": "openai/gpt-5",
+      "results": [
+        {
+          "success": true,
+          "provider": "openai",
+          "model": "gpt-5",
+          "site": "PayPal",
+          "strategy": "happy_path",
+          "scenarios": [
+            {
+              "title": "Successful sign in with valid credentials",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "Navigate to URL",
+                  "element": "URL",
+                  "data": "https://www.paypal.com",
+                  "expected": "Login page loads with username and password fields visible"
+                },
+                {
+                  "action": "Type",
+                  "element": "username",
+                  "data": "valid_user@example.com",
+                  "expected": "Username/email is entered into the username field"
+                },
+                {
+                  "action": "Type",
+                  "element": "password",
+                  "data": "ValidPassw0rd!",
+                  "expected": "Password is entered into the password field"
+                },
+                {
+                  "action": "Click",
+                  "element": "login_btn",
+                  "data": "",
+                  "expected": "User is authenticated and redirected to the account overview/dashboard"
+                }
+              ],
+              "tags": [
+                "login",
+                "smoke",
+                "happy_path",
+                "financial"
+              ]
+            },
+            {
+              "title": "Sign in with Remember Me and verify username is pre-filled on return",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "Navigate to URL",
+                  "element": "URL",
+                  "data": "https://www.paypal.com",
+                  "expected": "Login page loads with username and password fields visible"
+                },
+                {
+                  "action": "Type",
+                  "element": "username",
+                  "data": "remember_user@example.com",
+                  "expected": "Username/email is entered into the username field"
+                },
+                {
+                  "action": "Type",
+                  "element": "password",
+                  "data": "RememberMePass1!",
+                  "expected": "Password is entered into the password field"
+                },
+                {
+                  "action": "Check",
+                  "element": "remember_me",
+                  "data": "",
+                  "expected": "Remember Me checkbox is selected"
+                },
+                {
+                  "action": "Click",
+                  "element": "login_btn",
+                  "data": "",
+                  "expected": "User is authenticated and redirected to the account overview/dashboard"
+                },
+                {
+                  "action": "Navigate to URL",
+                  "element": "URL",
+                  "data": "https://www.paypal.com",
+                  "expected": "Login page is displayed again"
+                },
+                {
+                  "action": "Verify value",
+                  "element": "username",
+                  "data": "remember_user@example.com",
+                  "expected": "Username field is pre-filled with the previously used email"
+                }
+              ],
+              "tags": [
+                "remember_me",
+                "login",
+                "usability",
+                "happy_path"
+              ]
+            },
+            {
+              "title": "Start password recovery via 'Forgot Password?' link",
+              "priority": "medium",
+              "steps": [
+                {
+                  "action": "Navigate to URL",
+                  "element": "URL",
+                  "data": "https://www.paypal.com",
+                  "expected": "Login page loads with username and password fields visible"
+                },
+                {
+                  "action": "Click",
+                  "element": "forgot_link",
+                  "data": "",
+                  "expected": "User is redirected to the password recovery/reset page"
+                }
+              ],
+              "tags": [
+                "forgot_password",
+                "navigation",
+                "happy_path"
+              ]
+            }
+          ],
+          "time": 70.2319598197937
+        },
+        {
+          "success": true,
+          "provider": "openai",
+          "model": "gpt-5",
+          "site": "PayPal",
+          "strategy": "negative",
+          "scenarios": [
+            {
+              "title": "Submit with empty username and password",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "clear",
+                  "element": "username",
+                  "data": "",
+                  "expected": "Username input is empty"
+                },
+                {
+                  "action": "clear",
+                  "element": "password",
+                  "data": "",
+                  "expected": "Password input is empty"
+                },
+                {
+                  "action": "click",
+                  "element": "login_btn",
+                  "data": "",
+                  "expected": "Inline validation indicates required fields; sign-in is not attempted; user remains on the login page"
+                }
+              ],
+              "tags": [
+                "login",
+                "validation",
+                "negative",
+                "ui"
+              ]
+            },
+            {
+              "title": "SQL injection payload in credentials is blocked/rejected",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "type",
+                  "element": "username",
+                  "data": "' OR '1'='1' --",
+                  "expected": "Value is accepted into the input without breaking the UI"
+                },
+                {
+                  "action": "type",
+                  "element": "password",
+                  "data": "' OR '1'='1' --",
+                  "expected": "Value is accepted into the input without breaking the UI"
+                },
+                {
+                  "action": "click",
+                  "element": "login_btn",
+                  "data": "",
+                  "expected": "Authentication is rejected with a generic error or protective block; no account access; no detailed system errors are revealed"
+                }
+              ],
+              "tags": [
+                "security",
+                "waf",
+                "injection",
+                "auth"
+              ]
+            },
+            {
+              "title": "XSS payload in username is safely handled",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "type",
+                  "element": "username",
+                  "data": "<script>alert('xss')</script>",
+                  "expected": "Value appears in the input; no script executes on typing"
+                },
+                {
+                  "action": "type",
+                  "element": "password",
+                  "data": "InvalidPass123!",
+                  "expected": "Password is entered"
+                },
+                {
+                  "action": "click",
+                  "element": "login_btn",
+                  "data": "",
+                  "expected": "No script executes; either a generic error is shown or the input is safely escaped; user remains on the login page"
+                }
+              ],
+              "tags": [
+                "security",
+                "xss",
+                "waf",
+                "auth"
+              ]
+            }
+          ],
+          "time": 53.91467809677124
+        },
+        {
+          "success": true,
+          "provider": "openai",
+          "model": "gpt-5",
+          "site": "PayPal",
+          "strategy": "security",
+          "scenarios": [
+            {
+              "title": "Brute-force and bot-detection resilience on login (Akamai + Custom)",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "Enter username",
+                  "element": "username",
+                  "data": "attacker1@example.com",
+                  "expected": "Username field accepts input without client-side disclosure of account validity"
+                },
+                {
+                  "action": "Enter password",
+                  "element": "password",
+                  "data": "WrongPass!1",
+                  "expected": "Password field accepts input; no strength or hinting shown on login form"
+                },
+                {
+                  "action": "Submit login",
+                  "element": "login_btn",
+                  "data": "",
+                  "expected": "Generic authentication failure message without indicating whether the username or password is wrong"
+                },
+                {
+                  "action": "Rapidly repeat failed logins with varying usernames",
+                  "element": "login_btn",
+                  "data": "user{1..20}@example.com / WrongPass!1 at <1s intervals",
+                  "expected": "Akamai/custom protections enforce throttling or challenge (e.g., 429, CAPTCHA, temporary IP/device block). Subsequent attempts are blocked or challenged; no account lockout enumeration leaks"
+                }
+              ],
+              "tags": [
+                "authentication",
+                "rate-limiting",
+                "bot-detection",
+                "Akamai",
+                "WAF",
+                "brute-force"
+              ]
+            },
+            {
+              "title": "Username/account enumeration resistance via error parity and recovery flow",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "Enter non-existent username",
+                  "element": "username",
+                  "data": "nonexistent_user_qa@example.com",
+                  "expected": "Field accepts input"
+                },
+                {
+                  "action": "Enter incorrect password",
+                  "element": "password",
+                  "data": "AnyWrongPass!2",
+                  "expected": "Field accepts input"
+                },
+                {
+                  "action": "Submit login",
+                  "element": "login_btn",
+                  "data": "",
+                  "expected": "Generic failure message (no mention of unrecognized email/user). Record response time"
+                },
+                {
+                  "action": "Retry with known valid test account but wrong password",
+                  "element": "username",
+                  "data": "registered_tester@example.com",
+                  "expected": "On submit, error text and status codes are identical to previous attempt; response time within similar range (\u00b110%) to avoid timing-based enumeration"
+                },
+                {
+                  "action": "Invoke recovery flow for invalid account",
+                  "element": "forgot_link",
+                  "data": "",
+                  "expected": "Recovery page/message is generic (e.g., 'If an account exists, we\u2019ll send instructions') without confirming account existence"
+                },
+                {
+                  "action": "Repeat recovery submission multiple times",
+                  "element": "forgot_link",
+                  "data": "Trigger flow 5\u201310 times for the same email within a short window",
+                  "expected": "Rate-limiting or challenge is applied without revealing whether the email exists; no email flooding or detailed error reasons"
+                }
+              ],
+              "tags": [
+                "enumeration",
+                "error-handling",
+                "privacy",
+                "authentication",
+                "rate-limiting",
+                "OWASP-ASR"
+              ]
+            },
+            {
+              "title": "Input validation and WAF efficacy against injection payloads at login",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "Enter SQLi-style payload in username",
+                  "element": "username",
+                  "data": "' OR '1'='1",
+                  "expected": "Submission results in a generic authentication failure or safe block page; no stack traces, unhandled exceptions, or verbose error details"
+                },
+                {
+                  "action": "Enter XSS-style payload in username",
+                  "element": "username",
+                  "data": "<img src=x onerror=alert(1)>",
+                  "expected": "Client renders no script execution or DOM injection; output is encoded/sanitized and error remains generic"
+                },
+                {
+                  "action": "Enter password for injection attempts",
+                  "element": "password",
+                  "data": "DummyPass!3",
+                  "expected": "Password accepted as opaque input; no client-side reflection"
+                },
+                {
+                  "action": "Submit login with oversized input",
+                  "element": "login_btn",
+                  "data": "username length ~5000 chars; password length ~5000 chars",
+                  "expected": "Request is rejected gracefully (HTTP 4xx or validation message). No server errors, timeouts, or WAF bypass; Akamai/custom rules may trigger anomaly detection"
+                }
+              ],
+              "tags": [
+                "input-validation",
+                "WAF",
+                "Akamai",
+                "injection",
+                "XSS",
+                "SQLi",
+                "hardening"
+              ]
+            }
+          ],
+          "time": 41.98025178909302
+        }
+      ]
+    }
+  ],
+  "summary": {}
+}

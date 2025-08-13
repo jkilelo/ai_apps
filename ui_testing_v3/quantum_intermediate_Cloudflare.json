@@ -1,0 +1,211 @@
+{
+  "timestamp": "2025-08-12T17:41:03.657535",
+  "models_tested": [],
+  "test_sites": [
+    "Cloudflare",
+    "PayPal",
+    "Supreme"
+  ],
+  "detailed_results": [
+    {
+      "site": "Cloudflare",
+      "model": "gemini/gemini-2.5-pro",
+      "results": [
+        {
+          "success": true,
+          "provider": "gemini",
+          "model": "gemini-2.5-pro",
+          "site": "Cloudflare",
+          "strategy": "happy_path",
+          "scenarios": [
+            {
+              "title": "Verify User Can Successfully Perform a Search",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "type",
+                  "element": "search",
+                  "data": "Cloudflare Zero Trust",
+                  "expected": "The search input field should be populated with 'Cloudflare Zero Trust'."
+                },
+                {
+                  "action": "click",
+                  "element": "submit",
+                  "data": null,
+                  "expected": "The user should be redirected to a search results page displaying results for 'Cloudflare Zero Trust'."
+                }
+              ],
+              "tags": [
+                "search",
+                "core_functionality"
+              ]
+            },
+            {
+              "title": "Verify Navigation to the Home Page",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "click",
+                  "element": "nav_home",
+                  "data": null,
+                  "expected": "The user should be successfully navigated to the main home page."
+                }
+              ],
+              "tags": [
+                "navigation",
+                "header"
+              ]
+            },
+            {
+              "title": "Verify Navigation to the Contact Page",
+              "priority": "medium",
+              "steps": [
+                {
+                  "action": "click",
+                  "element": "contact",
+                  "data": null,
+                  "expected": "The user should be successfully navigated to the 'Contact Us' page."
+                }
+              ],
+              "tags": [
+                "navigation",
+                "contact"
+              ]
+            }
+          ],
+          "time": 14.632335186004639
+        },
+        {
+          "success": true,
+          "provider": "gemini",
+          "model": "gemini-2.5-pro",
+          "site": "Cloudflare",
+          "strategy": "negative",
+          "scenarios": [
+            {
+              "title": "Trigger Rate Limiting with Rapid, Repetitive Actions",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "Click",
+                  "element": "submit",
+                  "data": "Execute 20 times in 3 seconds",
+                  "expected": "Cloudflare Bot Protection is triggered, presenting a CAPTCHA, a JavaScript challenge page, or an HTTP 429 'Too Many Requests' error."
+                }
+              ],
+              "tags": [
+                "rate_limiting",
+                "behavioral_analysis",
+                "bot_detection"
+              ]
+            },
+            {
+              "title": "Bypass Client-Side Execution with Direct Endpoint Request",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "Send Request",
+                  "element": "form_endpoint",
+                  "data": "Attempt to POST form data directly to the action URL without loading the page or executing Cloudflare's client-side JavaScript.",
+                  "expected": "The request is blocked by Cloudflare with a 403 Forbidden error, as the required 'cf-turnstile' or other challenge tokens are missing or invalid."
+                }
+              ],
+              "tags": [
+                "js_challenge",
+                "headless_browser",
+                "anti_automation"
+              ]
+            },
+            {
+              "title": "Malicious Payload Injection to Trigger Security Heuristics",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "Input Text",
+                  "element": "search",
+                  "data": "' OR 1=1 --",
+                  "expected": "The input text is entered into the search field."
+                },
+                {
+                  "action": "Click",
+                  "element": "submit",
+                  "data": "",
+                  "expected": "The request is blocked by Cloudflare's WAF/Bot Protection rules. A block page with a security event ID is displayed to the user."
+                }
+              ],
+              "tags": [
+                "waf",
+                "sqli",
+                "payload_detection",
+                "security"
+              ]
+            }
+          ],
+          "time": 26.781386137008667
+        },
+        {
+          "success": true,
+          "provider": "gemini",
+          "model": "gemini-2.5-pro",
+          "site": "Cloudflare",
+          "strategy": "security",
+          "scenarios": [
+            {
+              "title": "Basic Automated Script Detection (Headless Browser)",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "run_script_headless",
+                  "element": "search",
+                  "data": "automated security test",
+                  "expected": "The script execution should be intercepted by a Cloudflare challenge (e.g., CAPTCHA, JavaScript challenge, or a managed challenge page), preventing the script from successfully typing into the search input."
+                }
+              ],
+              "tags": [
+                "bot_protection",
+                "automation_detection",
+                "headless_browser"
+              ]
+            },
+            {
+              "title": "Rate Limit Evasion via Rapid Form Submission",
+              "priority": "critical",
+              "steps": [
+                {
+                  "action": "loop_submit",
+                  "element": "submit",
+                  "data": "Execute a script that types a random string into the 'search' input and clicks 'submit' in a rapid loop (e.g., 5 times in 1 second).",
+                  "expected": "After a small number of submissions (e.g., 2-3), Cloudflare should trigger its rate-limiting or bot protection rules, blocking subsequent requests or presenting a challenge."
+                }
+              ],
+              "tags": [
+                "bot_protection",
+                "rate_limiting",
+                "brute_force"
+              ]
+            },
+            {
+              "title": "Bot Evasion via User-Agent Spoofing",
+              "priority": "high",
+              "steps": [
+                {
+                  "action": "set_header_and_navigate",
+                  "element": "nav_home",
+                  "data": "User-Agent: Googlebot/2.1 (+http://www.google.com/bot.html)",
+                  "expected": "While the initial navigation might succeed, subsequent automated actions (like rapidly interacting with the search bar) should still be challenged, indicating that Cloudflare's protection relies on more than just the User-Agent string (e.g., behavioral analysis, TLS fingerprinting)."
+                }
+              ],
+              "tags": [
+                "bot_protection",
+                "spoofing",
+                "evasion_techniques"
+              ]
+            }
+          ],
+          "time": 20.891712427139282
+        }
+      ]
+    }
+  ],
+  "summary": {}
+}

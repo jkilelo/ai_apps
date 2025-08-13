@@ -1,0 +1,108 @@
+{
+  "test_info": {
+    "timestamp": "2025-08-12T14:57:59.261424",
+    "stealth_level": "maximum",
+    "total_sites": 6,
+    "browser": "Chrome (via platform_utils)",
+    "platform": "nt"
+  },
+  "sites_tested": [
+    {
+      "name": "Example.com",
+      "url": "https://example.com",
+      "category": "Testing",
+      "difficulty": "low",
+      "success": true,
+      "elements_extracted": 9,
+      "page_title": "Example Domain",
+      "framework_detected": null,
+      "captcha_detected": false,
+      "captcha_type": null,
+      "extraction_time": 6.49,
+      "errors": [],
+      "timestamp": "2025-08-12T14:58:06.715552"
+    },
+    {
+      "name": "Google",
+      "url": "https://www.google.com",
+      "category": "Search",
+      "difficulty": "medium",
+      "success": true,
+      "elements_extracted": 125,
+      "page_title": "Google",
+      "framework_detected": null,
+      "captcha_detected": false,
+      "captcha_type": null,
+      "extraction_time": 7.14,
+      "errors": [],
+      "timestamp": "2025-08-12T14:58:15.863008"
+    },
+    {
+      "name": "Bot Test",
+      "url": "https://bot.sannysoft.com",
+      "category": "Testing",
+      "difficulty": "medium",
+      "success": true,
+      "elements_extracted": 52,
+      "page_title": "Antibot",
+      "framework_detected": "jquery",
+      "captcha_detected": false,
+      "captcha_type": null,
+      "extraction_time": 7.13,
+      "errors": [],
+      "timestamp": "2025-08-12T14:58:24.999971"
+    },
+    {
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com",
+      "category": "Bot Protection",
+      "difficulty": "high",
+      "success": true,
+      "elements_extracted": 154,
+      "page_title": "Connect, protect, and build everywhere | Cloudflare",
+      "framework_detected": null,
+      "captcha_detected": false,
+      "captcha_type": null,
+      "extraction_time": 7.97,
+      "errors": [],
+      "timestamp": "2025-08-12T14:58:34.981160"
+    },
+    {
+      "name": "Nike",
+      "url": "https://www.nike.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "success": true,
+      "elements_extracted": 200,
+      "page_title": "Nike. Just Do It. Nike.com",
+      "framework_detected": "react",
+      "captcha_detected": false,
+      "captcha_type": null,
+      "extraction_time": 9.74,
+      "errors": [],
+      "timestamp": "2025-08-12T14:58:46.726728"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "success": true,
+      "elements_extracted": 136,
+      "page_title": "Instagram",
+      "framework_detected": null,
+      "captcha_detected": false,
+      "captcha_type": null,
+      "extraction_time": 9.08,
+      "errors": [],
+      "timestamp": "2025-08-12T14:58:57.818876"
+    }
+  ],
+  "summary": {
+    "successful": 6,
+    "failed": 0,
+    "total_elements": 676,
+    "total_time": 47.55,
+    "success_rate": 100.0
+  }
+}

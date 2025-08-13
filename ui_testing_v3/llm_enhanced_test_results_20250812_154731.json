@@ -1,0 +1,256 @@
+{
+  "test_info": {
+    "timestamp": "2025-08-12T15:45:06.088067",
+    "test_type": "LLM Enhanced Extraction",
+    "browser": "Ultimate Stealth Browser LLM Enhanced"
+  },
+  "sites_tested": [
+    {
+      "name": "DataDome",
+      "url": "https://www.datadome.co",
+      "category": "Bot Protection",
+      "difficulty": "very_high",
+      "protection_system": "DataDome",
+      "success": true,
+      "extraction_time": 4.31,
+      "error": null,
+      "metrics": {
+        "total_elements": 0,
+        "elements_by_category": {},
+        "page_type": "homepage",
+        "business_purpose": "Entry point and navigation hub",
+        "user_journeys": 0,
+        "critical_paths": 0,
+        "page_validations": 0,
+        "security_considerations": 0
+      },
+      "feature_analysis": {
+        "semantic_context": {
+          "found": 0,
+          "quality": "none"
+        },
+        "business_context": {
+          "found": 0,
+          "quality": "none"
+        },
+        "hierarchy": {
+          "found": 0,
+          "quality": "none"
+        },
+        "validation_rules": {
+          "found": 0,
+          "quality": "none"
+        },
+        "accessibility": {
+          "found": 0,
+          "quality": "none"
+        },
+        "interaction_patterns": {
+          "found": 0,
+          "quality": "none"
+        },
+        "form_relationships": {
+          "found": 0,
+          "quality": "none"
+        },
+        "visual_context": {
+          "found": 0,
+          "quality": "none"
+        },
+        "state_context": {
+          "found": 0,
+          "quality": "none"
+        }
+      }
+    },
+    {
+      "name": "Imperva",
+      "url": "https://www.imperva.com",
+      "category": "Bot Protection",
+      "difficulty": "very_high",
+      "protection_system": "Imperva Incapsula",
+      "success": false,
+      "extraction_time": 13.59,
+      "error": "'NoneType' object has no attribute 'get'",
+      "metrics": {}
+    },
+    {
+      "name": "Supreme",
+      "url": "https://www.supreme.com",
+      "category": "E-commerce",
+      "difficulty": "extreme",
+      "protection_system": "PerimeterX",
+      "success": false,
+      "extraction_time": 9.38,
+      "error": "'NoneType' object has no attribute 'get'",
+      "metrics": {}
+    },
+    {
+      "name": "Nike",
+      "url": "https://www.nike.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "protection_system": "Akamai + Custom",
+      "success": false,
+      "extraction_time": 36.03,
+      "error": "'NoneType' object has no attribute 'get'",
+      "metrics": {}
+    },
+    {
+      "name": "Ticketmaster",
+      "url": "https://www.ticketmaster.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "protection_system": "Queue-it + Custom",
+      "success": false,
+      "extraction_time": 4.39,
+      "error": "Failed to navigate to https://www.ticketmaster.com",
+      "metrics": {}
+    },
+    {
+      "name": "Chase Bank",
+      "url": "https://www.chase.com",
+      "category": "Financial",
+      "difficulty": "very_high",
+      "protection_system": "F5 Networks",
+      "success": false,
+      "extraction_time": 3.68,
+      "error": "Failed to navigate to https://www.chase.com",
+      "metrics": {}
+    },
+    {
+      "name": "PayPal",
+      "url": "https://www.paypal.com",
+      "category": "Financial",
+      "difficulty": "high",
+      "protection_system": "Akamai + Custom",
+      "success": false,
+      "extraction_time": 5.23,
+      "error": "Failed to navigate to https://www.paypal.com",
+      "metrics": {}
+    },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "success": false,
+      "extraction_time": 6.19,
+      "error": "Failed to navigate to https://www.instagram.com",
+      "metrics": {}
+    },
+    {
+      "name": "Facebook",
+      "url": "https://www.facebook.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "success": false,
+      "extraction_time": 4.87,
+      "error": "Failed to navigate to https://www.facebook.com",
+      "metrics": {}
+    },
+    {
+      "name": "FingerprintJS",
+      "url": "https://fingerprint.com/demo",
+      "category": "Testing",
+      "difficulty": "high",
+      "protection_system": "FingerprintJS",
+      "success": false,
+      "extraction_time": 5.59,
+      "error": "Failed to navigate to https://fingerprint.com/demo",
+      "metrics": {}
+    },
+    {
+      "name": "PixelScan",
+      "url": "https://pixelscan.net",
+      "category": "Testing",
+      "difficulty": "high",
+      "protection_system": "Comprehensive Detection",
+      "success": false,
+      "extraction_time": 4.67,
+      "error": "Failed to navigate to https://pixelscan.net",
+      "metrics": {}
+    },
+    {
+      "name": "IRS",
+      "url": "https://www.irs.gov",
+      "category": "Government",
+      "difficulty": "high",
+      "protection_system": "Akamai + Gov Standards",
+      "success": false,
+      "extraction_time": 4.26,
+      "error": "Failed to navigate to https://www.irs.gov",
+      "metrics": {}
+    },
+    {
+      "name": "Google Search",
+      "url": "https://www.google.com/search?q=test",
+      "category": "Search",
+      "difficulty": "high",
+      "protection_system": "Google Custom",
+      "success": false,
+      "extraction_time": 5.25,
+      "error": "Failed to navigate to https://www.google.com/search?q=test",
+      "metrics": {}
+    }
+  ],
+  "feature_coverage": {
+    "semantic_context": {
+      "tested": 1,
+      "found": 0
+    },
+    "business_context": {
+      "tested": 1,
+      "found": 0
+    },
+    "hierarchy": {
+      "tested": 1,
+      "found": 0
+    },
+    "validation_rules": {
+      "tested": 1,
+      "found": 0
+    },
+    "accessibility": {
+      "tested": 1,
+      "found": 0
+    },
+    "interaction_patterns": {
+      "tested": 1,
+      "found": 0
+    },
+    "form_relationships": {
+      "tested": 1,
+      "found": 0
+    },
+    "visual_context": {
+      "tested": 1,
+      "found": 0
+    },
+    "state_context": {
+      "tested": 1,
+      "found": 0
+    },
+    "user_journeys": {
+      "tested": 0,
+      "found": 0
+    },
+    "critical_paths": {
+      "tested": 0,
+      "found": 0
+    },
+    "security_considerations": {
+      "tested": 0,
+      "found": 0
+    }
+  },
+  "summary": {
+    "total_sites": 13,
+    "successful": 1,
+    "failed": 12,
+    "total_elements": 0,
+    "total_time": 107.44000000000003
+  }
+}

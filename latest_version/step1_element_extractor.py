@@ -15,6 +15,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 from urllib.parse import urlparse
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 from playwright.async_api import (
@@ -24,6 +27,7 @@ from playwright.async_api import (
     Page,
     async_playwright
 )
+from utils.platform_utils import get_chrome_executable_path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -227,11 +231,24 @@ class BrowserManager:
             '--disable-dev-tools'
         ]
         
+        # Get Chrome executable path from platform_utils
+        chrome_path = get_chrome_executable_path()
+        
         playwright = await async_playwright().start()
-        self.browser = await playwright.chromium.launch(
-            headless=self.config.headless,
-            args=browser_args
-        )
+        
+        launch_options = {
+            'headless': self.config.headless,
+            'args': browser_args
+        }
+        
+        # Add executable path if Chrome is found
+        if chrome_path:
+            launch_options['executable_path'] = chrome_path
+            logger.info(f"Using Chrome at: {chrome_path}")
+        else:
+            logger.warning("Chrome not found, using Playwright's bundled Chromium")
+        
+        self.browser = await playwright.chromium.launch(**launch_options)
         return self.browser
     
     async def create_context(self, browser: Browser) -> BrowserContext:
