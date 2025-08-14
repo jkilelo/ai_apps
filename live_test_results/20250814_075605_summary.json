@@ -1,0 +1,92 @@
+{
+  "stats": {
+    "runtime_seconds": 75.171856,
+    "sites_processed": 3,
+    "elements_extracted": 72,
+    "test_cases_generated": 18,
+    "llm_calls": 9,
+    "avg_elements_per_site": 24.0,
+    "avg_cases_per_site": 6.0
+  },
+  "results": [
+    {
+      "url": "https://example.com",
+      "success": true,
+      "extraction": {
+        "total_elements": 1,
+        "categories": [
+          "action"
+        ],
+        "page_type": "homepage",
+        "file": "live_test_results\\20250814_075605_example_com_extraction.json"
+      },
+      "test_cases": {
+        "total": 6,
+        "by_strategy": {
+          "critical_path": 2,
+          "validation": 2,
+          "security": 2
+        },
+        "file": "live_test_results\\20250814_075605_example_com_tests.json"
+      },
+      "errors": []
+    },
+    {
+      "url": "https://quotes.toscrape.com",
+      "success": true,
+      "extraction": {
+        "total_elements": 56,
+        "categories": [
+          "action",
+          "navigation"
+        ],
+        "page_type": "homepage",
+        "file": "live_test_results\\20250814_075605_quotes_toscrape_com_extraction.json"
+      },
+      "test_cases": {
+        "total": 6,
+        "by_strategy": {
+          "critical_path": 2,
+          "validation": 2,
+          "security": 2
+        },
+        "file": "live_test_results\\20250814_075605_quotes_toscrape_com_tests.json"
+      },
+      "errors": []
+    },
+    {
+      "url": "https://github.com/login",
+      "success": true,
+      "extraction": {
+        "total_elements": 15,
+        "categories": [
+          "action",
+          "content",
+          "form_input",
+          "authentication"
+        ],
+        "page_type": "login",
+        "file": "live_test_results\\20250814_075605_github_com_extraction.json"
+      },
+      "test_cases": {
+        "total": 6,
+        "by_strategy": {
+          "critical_path": 2,
+          "validation": 2,
+          "security": 2
+        },
+        "file": "live_test_results\\20250814_075605_github_com_tests.json"
+      },
+      "errors": []
+    }
+  ],
+  "config": {
+    "headless": false,
+    "stealth_level": "maximum",
+    "strategies": [
+      "critical_path",
+      "validation",
+      "security"
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "url": "https://github.com/login",
+  "timestamp": "2025-08-14T07:34:46.951481",
+  "element_count": 5,
+  "elements": [
+    {
+      "element_id": "username_field",
+      "tag": "input",
+      "element_type": "text",
+      "text": null,
+      "name": "username",
+      "placeholder": "Username or Email",
+      "label": null,
+      "required": true,
+      "visible": true,
+      "enabled": true,
+      "validation": {},
+      "selector": "#username",
+      "aria_label": "Username input",
+      "role": null
+    },
+    {
+      "element_id": "password_field",
+      "tag": "input",
+      "element_type": "password",
+      "text": null,
+      "name": "password",
+      "placeholder": "Password",
+      "label": null,
+      "required": true,
+      "visible": true,
+      "enabled": true,
+      "validation": {
+        "minLength": 8,
+        "pattern": "^(?=.*[A-Za-z])(?=.*\\d)"
+      },
+      "selector": "#password",
+      "aria_label": null,
+      "role": null
+    },
+    {
+      "element_id": "submit_btn",
+      "tag": "button",
+      "element_type": "submit",
+      "text": "Sign In",
+      "name": null,
+      "placeholder": null,
+      "label": null,
+      "required": false,
+      "visible": true,
+      "enabled": true,
+      "validation": {},
+      "selector": "button[type='submit']",
+      "aria_label": null,
+      "role": "button"
+    },
+    {
+      "element_id": "remember_checkbox",
+      "tag": "input",
+      "element_type": "checkbox",
+      "text": null,
+      "name": "remember",
+      "placeholder": null,
+      "label": "Remember me",
+      "required": false,
+      "visible": true,
+      "enabled": true,
+      "validation": {},
+      "selector": "#remember",
+      "aria_label": null,
+      "role": null
+    },
+    {
+      "element_id": "forgot_link",
+      "tag": "a",
+      "element_type": null,
+      "text": "Forgot password?",
+      "name": null,
+      "placeholder": null,
+      "label": null,
+      "required": false,
+      "visible": true,
+      "enabled": true,
+      "validation": {},
+      "selector": "a.forgot-password",
+      "aria_label": null,
+      "role": null
+    }
+  ]
+}

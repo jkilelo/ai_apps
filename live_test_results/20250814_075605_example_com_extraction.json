@@ -1,0 +1,14 @@
+{
+  "url": "https://example.com/",
+  "timestamp": "2025-08-14T07:56:15.495415",
+  "page_type": "homepage",
+  "business_purpose": "Entry point and navigation hub",
+  "total_elements": 1,
+  "categories": {
+    "action": 1
+  },
+  "user_journeys": [],
+  "critical_paths": [],
+  "page_validations": [],
+  "security_considerations": []
+}

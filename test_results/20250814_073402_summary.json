@@ -1,0 +1,147 @@
+{
+  "stats": {
+    "runtime_seconds": 67.920259,
+    "sites_processed": 3,
+    "elements_extracted": 12,
+    "llm_calls": 6,
+    "test_cases_generated": 18,
+    "avg_elements_per_site": 4.0,
+    "avg_cases_per_site": 6.0
+  },
+  "results": [
+    {
+      "url": "https://example.com",
+      "success": true,
+      "extraction": {
+        "element_count": 2,
+        "file": "test_results\\20250814_073402_example_extraction.json"
+      },
+      "optimization": {
+        "insights": {
+          "critical_flows": [
+            "Verify page load: Ensure the main heading is displayed correctly.",
+            "Verify 'More Information' link navigates to the expected external resource.",
+            "Basic Accessibility: Check if heading structure is logical (H1 is present)"
+          ],
+          "validations": [
+            "Verify the text content of the main heading matches 'Example Domain'.",
+            "Verify the 'More Information' link's href attribute contains 'iana' and the page loads the IANA website.",
+            "Verify link is focusable and keyboard navigable."
+          ],
+          "test_focus": [
+            "Link URL redirection accuracy.",
+            "Basic page load and element rendering."
+          ],
+          "risks": [
+            "Broken link: 'More Information' link may lead to a 404 or incorrect page.",
+            "Incorrect heading text: Mismatch between expected and actual heading text.",
+            "Third-party Dependency: Page relies on IANA website availability."
+          ]
+        },
+        "file": "test_results\\20250814_073402_example_optimization.json"
+      },
+      "test_cases": {
+        "total": 6,
+        "by_strategy": {
+          "critical_path": 2,
+          "validation": 2,
+          "error_handling": 2
+        },
+        "file": "test_results\\20250814_073402_example_test_cases.json"
+      },
+      "errors": [
+        "'charmap' codec can't encode character '\\u2713' in position 2: character maps to <undefined>"
+      ]
+    },
+    {
+      "url": "https://quotes.toscrape.com",
+      "success": true,
+      "extraction": {
+        "element_count": 5,
+        "file": "test_results\\20250814_073402_quotes_extraction.json"
+      },
+      "optimization": {
+        "insights": {
+          "critical_flows": [
+            "Navigate to the next page using the 'Next' button.",
+            "Click on a tag link to filter quotes by that tag.",
+            "Verify quote and author display within quote container."
+          ],
+          "validations": [
+            "Verify 'Next' button redirects to the correct page.",
+            "Verify tag link filters quotes and displays the tag name in the URL/page title.",
+            "Verify that author name displayed within the quote container matches the actual author of the quote."
+          ],
+          "test_focus": [
+            "Pagination: Ensure correct navigation and data display across multiple pages.",
+            "Tag Filtering: Correct filtering and display of quotes based on selected tags.",
+            "Data Integrity: Correctness and consistency of quote and author information."
+          ],
+          "risks": [
+            "Pagination issues: Incorrect page navigation, missing or duplicate data.",
+            "Tag link errors: Incorrect filtering, broken links, or security vulnerabilities related to URL manipulation.",
+            "XSS vulnerability: Potential for malicious code injection through quote text or author names, especially if user-generated content is involved."
+          ]
+        },
+        "file": "test_results\\20250814_073402_quotes_optimization.json"
+      },
+      "test_cases": {
+        "total": 6,
+        "by_strategy": {
+          "critical_path": 2,
+          "validation": 2,
+          "error_handling": 2
+        },
+        "file": "test_results\\20250814_073402_quotes_test_cases.json"
+      },
+      "errors": [
+        "'charmap' codec can't encode character '\\u2713' in position 2: character maps to <undefined>"
+      ]
+    },
+    {
+      "url": "https://github.com/login",
+      "success": true,
+      "extraction": {
+        "element_count": 5,
+        "file": "test_results\\20250814_073402_github_extraction.json"
+      },
+      "optimization": {
+        "insights": {
+          "critical_flows": [
+            "Successful login with valid credentials.",
+            "Unsuccessful login with invalid credentials.",
+            "Password reset flow via 'Forgot password?' link."
+          ],
+          "validations": [
+            "Username field: Required input.",
+            "Password field: Required, minLength 8, alphanumeric pattern.",
+            "Submit button: Enabled only with valid username and password."
+          ],
+          "test_focus": [
+            "Authentication with valid/invalid credentials (positive and negative tests).",
+            "Password reset flow functionality.",
+            "Remember me checkbox persistence."
+          ],
+          "risks": [
+            "Account lockout after multiple failed login attempts.",
+            "Security vulnerabilities related to password handling (storage, transmission).",
+            "Broken password reset flow."
+          ]
+        },
+        "file": "test_results\\20250814_073402_github_optimization.json"
+      },
+      "test_cases": {
+        "total": 6,
+        "by_strategy": {
+          "critical_path": 2,
+          "validation": 2,
+          "error_handling": 2
+        },
+        "file": "test_results\\20250814_073402_github_test_cases.json"
+      },
+      "errors": [
+        "'charmap' codec can't encode character '\\u2713' in position 2: character maps to <undefined>"
+      ]
+    }
+  ]
+}

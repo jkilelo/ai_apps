@@ -1,0 +1,25 @@
+{
+  "url": "https://quotes.toscrape.com/",
+  "timestamp": "2025-08-14T07:56:37.582689",
+  "page_type": "homepage",
+  "business_purpose": "Entry point and navigation hub",
+  "total_elements": 56,
+  "categories": {
+    "action": 55,
+    "navigation": 1
+  },
+  "user_journeys": [
+    {
+      "name": "User Authentication",
+      "steps": [
+        "Enter credentials",
+        "Submit login form",
+        "Verify successful login"
+      ],
+      "critical": true
+    }
+  ],
+  "critical_paths": [],
+  "page_validations": [],
+  "security_considerations": []
+}

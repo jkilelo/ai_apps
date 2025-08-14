@@ -1,0 +1,131 @@
+{
+  "url": "https://quotes.toscrape.com",
+  "timestamp": "2025-08-14T07:56:50.018923",
+  "total_cases": 6,
+  "test_cases": {
+    "critical_path": [
+      {
+        "title": "Navigate to Login Page",
+        "description": "Verify the user can navigate to the login page from the homepage.",
+        "priority": "critical",
+        "steps": [
+          {
+            "action": "Click the 'Authentication: Login' link",
+            "selector": "xpath: /html/body/div/div/div[2]/p/a",
+            "expected": "User is redirected to the login page."
+          }
+        ],
+        "assertions": [
+          "Page URL changes to the login page URL (e.g., /login)"
+        ],
+        "test_data": {}
+      },
+      {
+        "title": "Navigate to Author About Page",
+        "description": "Verify the user can navigate to an author's about page when clicking the '(about)' link.",
+        "priority": "high",
+        "steps": [
+          {
+            "action": "Click the '(about)' link",
+            "selector": "xpath: /html/body/div/div[2]/div/div/span[2]/a",
+            "expected": "User is redirected to the author's about page."
+          }
+        ],
+        "assertions": [
+          "Page URL changes to the author's about page URL (e.g., /author/Thomas-A-Edison)",
+          "The about page contains information related to the respective author."
+        ],
+        "test_data": {}
+      }
+    ],
+    "validation": [
+      {
+        "title": "Verify 'Quotes to Scrape' link navigates to the homepage",
+        "description": "This test verifies that clicking the 'Quotes to Scrape' link in the header navigates the user back to the homepage.",
+        "priority": "high",
+        "steps": [
+          {
+            "action": "Click 'Quotes to Scrape' link",
+            "selector": "css: a",
+            "expected": "User should be navigated to the homepage."
+          }
+        ],
+        "assertions": [
+          "Verify the page URL matches the homepage URL"
+        ],
+        "test_data": {}
+      },
+      {
+        "title": "Verify 'Login' link navigates to the login page",
+        "description": "This test verifies that clicking the 'Login' link navigates the user to the login page.",
+        "priority": "high",
+        "steps": [
+          {
+            "action": "Click the Authentication: Login link",
+            "selector": "css: a",
+            "expected": "User should be navigated to the login page."
+          }
+        ],
+        "assertions": [
+          "Verify the page URL matches the login page URL"
+        ],
+        "test_data": {}
+      }
+    ],
+    "security": [
+      {
+        "title": "XSS Vulnerability Check on Login Link",
+        "description": "This test case checks for a potential XSS vulnerability through the 'Login' link.  It attempts to inject malicious JavaScript code into the link's 'href' attribute or during the processing of that link which may exist on other pages linked to from here.",
+        "priority": "high",
+        "steps": [
+          {
+            "action": "Click the 'Authentication: Login' link.",
+            "selector": "b95d7e7a",
+            "expected": "Navigation to the login page or the page attempting to handle injected code"
+          },
+          {
+            "action": "Check for execution of Javascript Alert",
+            "selector": "none",
+            "expected": "No Javascript alert should pop up which means the code was not executed."
+          }
+        ],
+        "assertions": [
+          "Ensure no JavaScript alert box appears, indicating successful XSS prevention.  Inspect the login page source code to verify proper input sanitization if accessible.  Inspect HTTP Headers to ensure X-XSS-Protection is enabled and properly configured."
+        ],
+        "test_data": {
+          "xss_payload": "<script>alert('XSS')</script>",
+          "xss_payload_url": "https://quotes.toscrape.com/<script>alert('XSS')</script>"
+        }
+      },
+      {
+        "title": "URL Injection Vulnerability Check on Quotes Link",
+        "description": "This test case attempts to exploit a potential URL injection vulnerability by modifying the URL associated with the 'Quotes to Scrape' link (homepage link). The goal is to redirect the user to a malicious website when clicking this link, or to cause unexpected behavior on the current site, demonstrating improper URL validation.",
+        "priority": "medium",
+        "steps": [
+          {
+            "action": "Attempt to modify the URL of the Quotes link",
+            "selector": "9851694e",
+            "expected": "Successful update of 'href' attribute or inability to change URL, indicating protection."
+          },
+          {
+            "action": "Click the 'Quotes to Scrape' link.",
+            "selector": "9851694e",
+            "expected": "Navigation to the legitimate homepage, NOT a malicious site."
+          },
+          {
+            "action": "Check the final destination URL",
+            "selector": "none",
+            "expected": "The user should be redirected to 'https://quotes.toscrape.com/'. Or whatever legitimate URL this points to."
+          }
+        ],
+        "assertions": [
+          "Verify that the user is not redirected to any external or unexpected URL after clicking the 'Quotes to Scrape' link. The test should also check if an attacker can insert arbitrary javascript into the 'href' of the anchor tag.  A valid 'href' property should be set if the link target is correct."
+        ],
+        "test_data": {
+          "malicious_url": "http://evil.com",
+          "malicious_url_js": "javascript:alert('xss')"
+        }
+      }
+    ]
+  }
+}

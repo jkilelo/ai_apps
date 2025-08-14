@@ -1,0 +1,57 @@
+{
+  "url": "https://github.com/login",
+  "timestamp": "2025-08-14T07:57:03.573258",
+  "page_type": "login",
+  "business_purpose": "User authentication and access control",
+  "total_elements": 15,
+  "categories": {
+    "action": 11,
+    "content": 1,
+    "form_input": 2,
+    "authentication": 1
+  },
+  "user_journeys": [
+    {
+      "name": "User Authentication",
+      "steps": [
+        "Enter credentials",
+        "Submit login form",
+        "Verify successful login"
+      ],
+      "critical": true
+    }
+  ],
+  "critical_paths": [
+    {
+      "element": "",
+      "action": "click",
+      "prerequisites": [
+        "login_field",
+        "password"
+      ],
+      "expected_outcome": "Form submission or critical action completion"
+    },
+    {
+      "element": "Continue with Google",
+      "action": "click",
+      "prerequisites": [
+        "login_field",
+        "password"
+      ],
+      "expected_outcome": "Form submission or critical action completion"
+    }
+  ],
+  "page_validations": [
+    "Required field: password",
+    "Required field: login",
+    "Length validation: login has length constraints",
+    "Length validation: password has length constraints",
+    "Length validation: commit has length constraints"
+  ],
+  "security_considerations": [
+    "Password field security and encryption",
+    "Brute force protection",
+    "XSS prevention in input fields",
+    "SQL injection prevention"
+  ]
+}

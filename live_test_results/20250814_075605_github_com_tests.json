@@ -1,0 +1,194 @@
+{
+  "url": "https://github.com/login",
+  "timestamp": "2025-08-14T07:57:17.854714",
+  "total_cases": 6,
+  "test_cases": {
+    "critical_path": [
+      {
+        "title": "Successful Login with Valid Credentials",
+        "description": "Tests the successful login flow with valid username and password.",
+        "priority": "critical",
+        "steps": [
+          {
+            "action": "Enter valid username",
+            "selector": "#login_field",
+            "expected": "Username field populated"
+          },
+          {
+            "action": "Enter valid password",
+            "selector": "#password",
+            "expected": "Password field populated"
+          },
+          {
+            "action": "Click Sign in button",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "expected": "User redirected to authenticated area"
+          }
+        ],
+        "assertions": [
+          "User is successfully logged in and redirected to their dashboard or profile page."
+        ],
+        "test_data": {
+          "login_field": "valid_username",
+          "password": "valid_password"
+        }
+      },
+      {
+        "title": "Login Attempt with Invalid Password",
+        "description": "Tests the login failure scenario with an invalid password.",
+        "priority": "high",
+        "steps": [
+          {
+            "action": "Enter valid username",
+            "selector": "#login_field",
+            "expected": "Username field populated"
+          },
+          {
+            "action": "Enter invalid password",
+            "selector": "#password",
+            "expected": "Password field populated"
+          },
+          {
+            "action": "Click Sign in button",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "expected": "Error message displayed"
+          }
+        ],
+        "assertions": [
+          "Error message is displayed indicating incorrect password or username. User remains on the login page."
+        ],
+        "test_data": {
+          "login_field": "valid_username",
+          "password": "invalid_password"
+        }
+      }
+    ],
+    "validation": [
+      {
+        "title": "Login with Valid Username and Password",
+        "description": "Tests successful login with valid username and password.",
+        "priority": "critical",
+        "steps": [
+          {
+            "action": "Enter valid username",
+            "selector": "#login_field",
+            "expected": "Username field populated with valid username"
+          },
+          {
+            "action": "Enter valid password",
+            "selector": "#password",
+            "expected": "Password field populated with valid password"
+          },
+          {
+            "action": "Click Submit",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "expected": "User is redirected to the authenticated homepage or dashboard."
+          }
+        ],
+        "assertions": [
+          "User is successfully logged in.",
+          "No error messages are displayed."
+        ],
+        "test_data": {
+          "login_field": "testuser",
+          "password": "Testpassword123!"
+        }
+      },
+      {
+        "title": "Login with Empty Username and Password Fields",
+        "description": "Tests the validation of required fields for username and password, triggering error messages when submitted empty.",
+        "priority": "high",
+        "steps": [
+          {
+            "action": "Leave username field empty",
+            "selector": "#login_field",
+            "expected": "Username field remains empty"
+          },
+          {
+            "action": "Leave password field empty",
+            "selector": "#password",
+            "expected": "Password field remains empty"
+          },
+          {
+            "action": "Click Submit",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "expected": "Form submission is prevented, and error messages are displayed."
+          }
+        ],
+        "assertions": [
+          "Error messages are displayed indicating that both username and password are required.",
+          "The user remains on the login page.",
+          "Focus is set to first field (username) in error."
+        ],
+        "test_data": {
+          "login_field": "",
+          "password": ""
+        }
+      }
+    ],
+    "security": [
+      {
+        "title": "XSS Vulnerability in Username Field",
+        "description": "This test attempts to inject a malicious JavaScript payload into the 'login_field' input to verify that the application properly sanitizes user inputs to prevent XSS attacks.",
+        "priority": "critical",
+        "steps": [
+          {
+            "action": "Enter a JavaScript payload into the username field",
+            "selector": "#login_field",
+            "expected": "The application should not execute the JavaScript code. The input should be properly escaped or sanitized."
+          },
+          {
+            "action": "Enter a valid password",
+            "selector": "#password",
+            "expected": "The password field accepts and stores the value securely."
+          },
+          {
+            "action": "Submit the login form",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "expected": "The login attempt should fail or be handled gracefully without executing the injected JavaScript."
+          }
+        ],
+        "assertions": [
+          "No JavaScript code is executed.",
+          "The injected payload is not reflected in the DOM or any other part of the application's interface.",
+          "Login fails gracefully without any indication of successful injection or malicious code execution."
+        ],
+        "test_data": {
+          "login_field": "<script>alert('XSS')</script>",
+          "password": "valid_password"
+        }
+      },
+      {
+        "title": "Authentication Bypass via SQL Injection in Username Field",
+        "description": "This test attempts to bypass authentication by injecting a SQL injection payload into the 'login_field' input to check for vulnerabilities in the authentication process.",
+        "priority": "critical",
+        "steps": [
+          {
+            "action": "Enter a SQL injection payload into the username field",
+            "selector": "#login_field",
+            "expected": "The application should not allow SQL injection. The input should be properly sanitized or parameterized."
+          },
+          {
+            "action": "Enter a dummy password",
+            "selector": "#password",
+            "expected": "The password field accepts any value (dummy)."
+          },
+          {
+            "action": "Submit the login form",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "expected": "The login attempt should fail and the application should not be vulnerable to SQL injection. It must not allow login."
+          }
+        ],
+        "assertions": [
+          "Login attempt fails.",
+          "No sensitive data is exposed.",
+          "The system does not grant access based on the injection payload."
+        ],
+        "test_data": {
+          "login_field": "admin' OR '1'='1",
+          "password": "dummy_password"
+        }
+      }
+    ]
+  }
+}
