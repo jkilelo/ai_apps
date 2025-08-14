@@ -29,6 +29,11 @@ class StrategyType(Enum):
     ZERO_SHOT = "zero_shot"
     OPRO = "opro"
     MIXTURE_OF_EXPERTS = "mixture_of_experts"
+    PROGRESSIVE_HINTING = "progressive_hinting"
+    ANALOGICAL_REASONING = "analogical_reasoning"
+    ROLE_PLAYING = "role_playing"
+    DSPY_REFINEMENT = "dspy_refinement"
+    MAJORITY_VOTING = "majority_voting"
 
 
 @dataclass
@@ -72,6 +77,12 @@ class StrategyLoader:
             StrategyType.CONSTITUTIONAL_AI: "04_constitutional_ai.md",
             StrategyType.SELF_CONSISTENCY: "05_self_consistency.md",
             StrategyType.META_PROMPTING: "06_meta_prompting.md",
+            StrategyType.DEBATE: "07_debate.md",
+            StrategyType.REFLEXION: "08_reflexion.md",
+            StrategyType.SCRATCHPAD: "09_scratchpad.md",
+            StrategyType.FEW_SHOT: "10_few_shot.md",
+            StrategyType.ZERO_SHOT: "11_zero_shot.md",
+            StrategyType.OPRO: "12_opro.md",
         }
         
         for strategy_type, filename in strategy_files.items():
