@@ -64,7 +64,16 @@ class LiveProductionConfig:
     enable_tree_of_thoughts: bool = True
     enable_self_consistency: bool = True
     enable_meta_prompting: bool = True
+    enable_react: bool = True  # ReAct: Reasoning + Acting
+    enable_constitutional_ai: bool = True  # Constitutional AI for safety
+    enable_debate: bool = True  # Multi-agent debate
+    enable_reflexion: bool = True  # Self-reflection and improvement
+    enable_scratchpad: bool = True  # Scratchpad reasoning
+    enable_few_shot: bool = True  # Few-shot examples
+    enable_opro_optimization: bool = True  # OPRO iterative optimization
+    enable_dspy_refinement: bool = True  # DSPy-style self-refinement
     self_consistency_samples: int = 3
+    opro_iterations: int = 2  # Number of OPRO optimization iterations
     
     # Extraction Settings
     max_elements_per_page: int = 50
@@ -259,6 +268,196 @@ Before generating test cases, consider:
 Ensure your test cases reflect this expertise level."""
         return prompt + meta_addition
     
+    def _apply_react(self, prompt: str, page_structure: PageStructure) -> str:
+        """Apply ReAct (Reasoning + Acting) strategy."""
+        if not self.config.enable_react:
+            return prompt
+            
+        react_enhancement = f"""
+
+Use ReAct (Reasoning + Acting) approach:
+
+Thought 1: Analyze the page structure
+- Page has {len(page_structure.elements)} elements
+- Critical elements: {len([e for e in page_structure.elements if hasattr(e, 'priority') and e.priority == 'critical'])}
+- Forms detected: {len([e for e in page_structure.elements if hasattr(e, 'category') and str(e.category) == 'form_input'])}
+
+Action 1: Identify test scenarios based on element types
+Observation 1: Generate tests for each critical interaction path
+
+Thought 2: Consider edge cases and error conditions
+Action 2: Create negative test scenarios
+Observation 2: Ensure comprehensive error handling coverage
+
+Thought 3: Evaluate security and performance implications
+Action 3: Add security and performance test cases
+Observation 3: Complete test suite with all dimensions covered
+
+Reasoning: Each action should be justified by clear reasoning.
+Actions: Generate concrete, executable test steps.
+"""
+        return prompt + react_enhancement
+    
+    def _apply_constitutional_ai(self, prompt: str) -> str:
+        """Apply Constitutional AI principles for safe and ethical testing."""
+        if not self.config.enable_constitutional_ai:
+            return prompt
+            
+        constitutional_enhancement = """
+
+Apply Constitutional AI principles:
+
+Constitutional Rules:
+1. SAFETY: Never generate tests that could harm users or systems
+2. PRIVACY: Do not include real personal data in test cases
+3. ETHICS: Avoid tests that exploit vulnerabilities maliciously
+4. COMPLIANCE: Ensure tests follow GDPR, CCPA, and accessibility standards
+5. TRANSPARENCY: Make test intentions clear and documented
+
+Self-Critique:
+- Are these tests safe to run in production?
+- Do they respect user privacy?
+- Are they ethically sound?
+- Do they comply with regulations?
+
+Revise any test cases that violate these principles.
+"""
+        return prompt + constitutional_enhancement
+    
+    def _apply_debate(self, prompt: str, strategy: str) -> str:
+        """Apply multi-agent debate for test case validation."""
+        if not self.config.enable_debate:
+            return prompt
+            
+        debate_enhancement = f"""
+
+Multi-Agent Debate for {strategy} testing:
+
+Agent 1 (Advocate): Generate comprehensive test cases
+- Argument: Maximum coverage is essential
+- Proposal: Test every possible scenario
+
+Agent 2 (Critic): Challenge test efficiency
+- Counter: Too many tests slow development
+- Proposal: Focus on high-risk areas only
+
+Agent 3 (Synthesizer): Find optimal balance
+- Resolution: Prioritize by risk and business value
+- Final: Generate balanced test suite
+
+Debate Outcome: Create tests that balance coverage with efficiency.
+"""
+        return prompt + debate_enhancement
+    
+    def _apply_reflexion(self, prompt: str) -> str:
+        """Apply Reflexion for iterative improvement."""
+        if not self.config.enable_reflexion:
+            return prompt
+            
+        reflexion_enhancement = """
+
+Apply Reflexion (self-improvement through reflection):
+
+Initial Attempt: Generate test cases
+Reflection Questions:
+- What did I miss in my initial test design?
+- Which edge cases were overlooked?
+- How can I improve test maintainability?
+- What would break these tests?
+
+Refined Approach:
+- Add missing edge cases
+- Improve selector strategies
+- Enhance assertions
+- Add better error messages
+
+Final Iteration: Generate improved test cases based on reflection.
+"""
+        return prompt + reflexion_enhancement
+    
+    def _apply_scratchpad(self, prompt: str, page_structure: PageStructure) -> str:
+        """Apply Scratchpad reasoning for complex test generation."""
+        if not self.config.enable_scratchpad:
+            return prompt
+            
+        scratchpad_enhancement = f"""
+
+=== SCRATCHPAD REASONING ===
+
+Working Memory:
+- Total elements: {len(page_structure.elements)}
+- Page type: {page_structure.page_type}
+- Critical paths: {len(page_structure.critical_paths) if page_structure.critical_paths else 0}
+
+Calculations:
+- Test complexity score: {self._calculate_complexity_score(page_structure)}
+- Risk assessment: {self._assess_page_risk(page_structure)}
+- Coverage target: 80% of critical paths, 60% of all paths
+
+Test Design Notes:
+1. Start with happy path
+2. Add validation for each required field
+3. Include boundary value tests
+4. Add security tests for input fields
+5. Include accessibility checks
+
+=== END SCRATCHPAD ===
+
+Based on scratchpad analysis, generate comprehensive tests.
+"""
+        return prompt + scratchpad_enhancement
+    
+    def _apply_few_shot(self, prompt: str, strategy: str) -> str:
+        """Apply Few-Shot learning with examples."""
+        if not self.config.enable_few_shot:
+            return prompt
+            
+        few_shot_examples = {
+            "critical_path": """
+
+Example test case for reference:
+```json
+{
+  "title": "Successful user login flow",
+  "description": "Given user is on login page, When entering valid credentials, Then user is redirected to dashboard",
+  "priority": "critical",
+  "steps": [
+    {"action": "navigate", "url": "/login"},
+    {"action": "type", "selector": "#username", "value": "testuser"},
+    {"action": "type", "selector": "#password", "value": "password123"},
+    {"action": "click", "selector": "#submit"},
+    {"action": "wait", "condition": "url_contains('/dashboard')"},
+    {"action": "assert", "selector": ".welcome-message", "exists": true}
+  ]
+}
+```
+
+Generate similar high-quality test cases.
+""",
+            "security": """
+
+Example security test case:
+```json
+{
+  "title": "SQL Injection prevention test",
+  "description": "Verify system prevents SQL injection attacks",
+  "priority": "critical",
+  "steps": [
+    {"action": "type", "selector": "#search", "value": "'; DROP TABLE users; --"},
+    {"action": "click", "selector": "#search-btn"},
+    {"action": "assert", "response_code": 400},
+    {"action": "assert", "error_message": "Invalid input"}
+  ]
+}
+```
+"""
+        }
+        
+        example = few_shot_examples.get(strategy, "")
+        if example:
+            return prompt + example
+        return prompt
+    
     def _generate_gherkin_format(self, test_case: Dict) -> str:
         """Convert test case to Gherkin format for BDD."""
         if not self.config.enable_gherkin_format:
@@ -384,6 +583,68 @@ Ensure your test cases reflect this expertise level."""
         
         # Normalize to 0-1 range
         return min(risk_score / 2.0, 1.0)
+    
+    def _calculate_complexity_score(self, page_structure: PageStructure) -> float:
+        """Calculate complexity score for test generation."""
+        score = 0.0
+        
+        # Factor in number of elements
+        element_count = len(page_structure.elements)
+        score += min(element_count / 100, 0.3)  # Max 0.3 for element count
+        
+        # Factor in form complexity
+        form_elements = len([e for e in page_structure.elements 
+                           if hasattr(e, 'category') and str(e.category) == 'form_input'])
+        score += min(form_elements / 20, 0.2)  # Max 0.2 for forms
+        
+        # Factor in critical paths
+        if page_structure.critical_paths:
+            score += min(len(page_structure.critical_paths) / 10, 0.2)  # Max 0.2 for paths
+        
+        # Factor in validation rules
+        if page_structure.page_validations:
+            score += min(len(page_structure.page_validations) / 15, 0.15)  # Max 0.15
+        
+        # Factor in security elements
+        if page_structure.security_considerations:
+            score += 0.15  # Flat 0.15 for security
+        
+        return min(score, 1.0)  # Cap at 1.0
+    
+    def _assess_page_risk(self, page_structure: PageStructure) -> str:
+        """Assess risk level of the page for testing."""
+        risk_score = 0
+        
+        # Check for authentication elements
+        if page_structure.page_type in ['login', 'registration', 'authentication']:
+            risk_score += 3
+        
+        # Check for payment/financial elements
+        if any(keyword in str(page_structure.business_purpose).lower() 
+               for keyword in ['payment', 'checkout', 'billing', 'credit']):
+            risk_score += 3
+        
+        # Check for data input forms
+        form_count = len([e for e in page_structure.elements 
+                         if hasattr(e, 'category') and str(e.category) == 'form_input'])
+        if form_count > 5:
+            risk_score += 2
+        elif form_count > 0:
+            risk_score += 1
+        
+        # Check for security considerations
+        if page_structure.security_considerations:
+            risk_score += 2
+        
+        # Determine risk level
+        if risk_score >= 6:
+            return "CRITICAL"
+        elif risk_score >= 4:
+            return "HIGH"
+        elif risk_score >= 2:
+            return "MEDIUM"
+        else:
+            return "LOW"
     
     def _perform_test_impact_analysis(self, test_case: Dict, element_context: Dict) -> Dict:
         """Analyze test impact based on element changes and dependencies."""
@@ -751,11 +1012,25 @@ Return as JSON:
   ]
 }}"""
 
-        # Apply advanced prompt strategies
+        # Apply ALL advanced prompt strategies
         enhanced_prompt = base_prompt
         enhanced_prompt = self._apply_chain_of_thought(enhanced_prompt)
         enhanced_prompt = self._apply_tree_of_thoughts(enhanced_prompt, strategy)
         enhanced_prompt = self._apply_meta_prompting(enhanced_prompt)
+        
+        # Apply new strategies
+        if self.config.enable_react:
+            enhanced_prompt = self._apply_react(enhanced_prompt, page_structure)
+        if self.config.enable_constitutional_ai:
+            enhanced_prompt = self._apply_constitutional_ai(enhanced_prompt)
+        if self.config.enable_debate:
+            enhanced_prompt = self._apply_debate(enhanced_prompt, strategy)
+        if self.config.enable_reflexion:
+            enhanced_prompt = self._apply_reflexion(enhanced_prompt)
+        if self.config.enable_scratchpad:
+            enhanced_prompt = self._apply_scratchpad(enhanced_prompt, page_structure)
+        if self.config.enable_few_shot:
+            enhanced_prompt = self._apply_few_shot(enhanced_prompt, strategy)
 
         try:
             # Use self-consistency if enabled
