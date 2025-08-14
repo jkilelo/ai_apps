@@ -1292,7 +1292,9 @@ class UltimateStealthBrowserLLMEnhanced(UltimateStealthBrowser):
         required = []
         
         # If submit button is in a form, find required fields in the same form
-        form_id = submit_element.get('hierarchy', {}).get('parentForm', {}).get('id')
+        form_id = None
+        if submit_element and 'hierarchy' in submit_element:
+            form_id = submit_element.get('hierarchy', {}).get('parentForm', {}).get('id')
         
         for element in elements_data:
             if element.get('isRequired'):

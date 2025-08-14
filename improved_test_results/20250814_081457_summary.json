@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://github.com/login",
+    "success": true,
+    "extraction": {
+      "total_elements": 15,
+      "categories": [
+        "action",
+        "content",
+        "form_input",
+        "authentication"
+      ],
+      "page_type": "login",
+      "file": "improved_test_results\\20250814_081457_github_com_extraction.json"
+    },
+    "test_cases": {
+      "total": 2,
+      "by_strategy": {
+        "security": 2
+      },
+      "file": "improved_test_results\\20250814_081457_github_com_tests.json"
+    },
+    "errors": []
+  }
+]

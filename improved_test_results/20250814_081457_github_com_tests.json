@@ -1,0 +1,136 @@
+{
+  "url": "https://github.com/login",
+  "timestamp": "2025-08-14T08:15:26.041095",
+  "total_cases": 2,
+  "test_cases": {
+    "security": [
+      {
+        "title": "Authentication Bypass via SQL Injection in Username/Password Fields",
+        "description": "This test case attempts to bypass authentication by injecting SQL code into the username and password fields. It's crucial for preventing unauthorized access to user accounts. This is a foundational security test that should be run regularly.",
+        "priority": "critical",
+        "prerequisites": [],
+        "steps": [
+          {
+            "action": "type_text",
+            "selector": "#login_field",
+            "data": "'; DROP TABLE users; --",
+            "expected": "Application should *not* authenticate the user. The application should ideally sanitize the input and escape special characters, or use parameterized queries. An error message may or may not appear but the user should not successfully log in."
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "password123",
+            "expected": "Password field populated"
+          },
+          {
+            "action": "hover",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": "",
+            "expected": "Submit button hovered"
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": "",
+            "expected": "Application should *not* authenticate the user and redirect to a different page. The user should remain on the login page and possibly receive an error, or the system logs should record the injection attempt. No user data should be deleted or corrupted."
+          }
+        ],
+        "assertions": [
+          "User is not logged in after submitting the form with SQL injection.",
+          "No error indicating table deletion is displayed to the user.",
+          "Security logs record the SQL injection attempt."
+        ],
+        "test_data": {
+          "username": "'; DROP TABLE users; --",
+          "password": "password123"
+        },
+        "cleanup": []
+      },
+      {
+        "title": "Brute-Force Prevention and Account Lockout",
+        "description": "This test verifies that the login page implements brute-force prevention mechanisms, such as account lockout or rate limiting, to protect against automated password guessing attacks. This is vital for safeguarding user accounts against compromise.",
+        "priority": "critical",
+        "prerequisites": [
+          "A valid GitHub account for testing purposes.",
+          "Ensure the test account does *not* have 2FA enabled."
+        ],
+        "steps": [
+          {
+            "action": "type_text",
+            "selector": "#login_field",
+            "data": "testuser123",
+            "expected": "Username field populated"
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "incorrect_password_1",
+            "expected": "Password field populated"
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": "",
+            "expected": "Failed login attempt recorded"
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "incorrect_password_2",
+            "expected": "Password field populated"
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": "",
+            "expected": "Failed login attempt recorded"
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "incorrect_password_3",
+            "expected": "Password field populated"
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": "",
+            "expected": "Failed login attempt recorded. Repeat login attempts until lockout occurs (e.g., 5-10 incorrect attempts)."
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "incorrect_password_4",
+            "expected": "Password field populated"
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": "",
+            "expected": "After multiple failed attempts, the login should either lock the account, require a CAPTCHA, or implement rate limiting. The application should not allow unlimited failed login attempts. The error message after lockout should be user-friendly and informative without disclosing sensitive information."
+          }
+        ],
+        "assertions": [
+          "After a defined number of incorrect password attempts (e.g., 5-10), the account is temporarily locked or CAPTCHA is presented.",
+          "The error message indicates account lockout or CAPTCHA requirement.",
+          "Repeated attempts after lockout or CAPTCHA are prevented.",
+          "The lockout duration is reasonable (e.g., 15-30 minutes).",
+          "The lockout mechanism is effective against automated scripts and bots."
+        ],
+        "test_data": {
+          "username": "testuser123",
+          "incorrect_passwords": [
+            "incorrect_password_1",
+            "incorrect_password_2",
+            "incorrect_password_3",
+            "incorrect_password_4",
+            "incorrect_password_5"
+          ]
+        },
+        "cleanup": [
+          "If account is locked, unlock it after the test using an administrative interface or wait for the lockout period to expire."
+        ]
+      }
+    ]
+  }
+}

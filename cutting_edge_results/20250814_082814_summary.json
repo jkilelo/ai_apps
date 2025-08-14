@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://github.com/login",
+    "success": true,
+    "extraction": {
+      "total_elements": 15,
+      "categories": [
+        "action",
+        "content",
+        "form_input",
+        "authentication"
+      ],
+      "page_type": "login",
+      "file": "cutting_edge_results\\20250814_082814_github_com_extraction.json"
+    },
+    "test_cases": {
+      "total": 2,
+      "by_strategy": {
+        "metamorphic": 1,
+        "property_based": 1
+      },
+      "file": "cutting_edge_results\\20250814_082814_github_com_tests.json"
+    },
+    "errors": []
+  }
+]

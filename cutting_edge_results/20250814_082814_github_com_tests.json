@@ -1,0 +1,187 @@
+{
+  "url": "https://github.com/login",
+  "timestamp": "2025-08-14T08:30:07.968282",
+  "total_cases": 2,
+  "test_cases": {
+    "metamorphic": [
+      {
+        "title": "Metamorphic Test: Login Success is Invariant to Username Case and Whitespace Normalization",
+        "description": "This test verifies a critical metamorphic property of the authentication system: a successful login should not be affected by non-semantic variations in the username/email input, specifically leading/trailing whitespace and character case. This ensures a robust and user-friendly login experience, preventing valid users from being locked out due to common typing errors. It directly tests the 'invariant', 'equivalence', and 'normalization' properties provided in the context.",
+        "priority": "critical",
+        "prerequisites": [
+          "A valid, known GitHub test account exists.",
+          "The account credentials are known (e.g., test.user.gh.qa@example.com, ValidP@ssw0rd!).",
+          "The account is not locked and does not have 2FA enabled, to isolate the password authentication flow."
+        ],
+        "steps": [
+          {
+            "action": "type_text",
+            "selector": "#login_field",
+            "data": "test.user.gh.qa@example.com",
+            "expected": "The username/email appears in the input field."
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "ValidP@ssw0rd!",
+            "expected": "The password appears masked in the input field."
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": null,
+            "expected": "The form submits. The user is successfully authenticated and redirected to the GitHub dashboard (e.g., URL becomes https://github.com/). This is the 'source' successful outcome."
+          },
+          {
+            "action": "manual_logout",
+            "selector": null,
+            "data": null,
+            "expected": "The user is logged out and returned to a logged-out state, likely the homepage or login page, to reset for the next test step."
+          },
+          {
+            "action": "type_text",
+            "selector": "#login_field",
+            "data": "  test.user.gh.qa@example.com  ",
+            "expected": "The username/email with leading/trailing spaces appears in the input field. This is the first 'follow-up' test."
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "ValidP@ssw0rd!",
+            "expected": "The password appears masked in the input field."
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": null,
+            "expected": "Metamorphic Relation: The outcome MUST BE IDENTICAL to the source test. The user is successfully authenticated and redirected to the dashboard."
+          },
+          {
+            "action": "manual_logout",
+            "selector": null,
+            "data": null,
+            "expected": "The user is logged out to reset state."
+          },
+          {
+            "action": "type_text",
+            "selector": "#login_field",
+            "data": "Test.User.GH.QA@example.com",
+            "expected": "The username/email with mixed case appears in the input field. This is the second 'follow-up' test."
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "ValidP@ssw0rd!",
+            "expected": "The password appears masked in the input field."
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": null,
+            "expected": "Metamorphic Relation: The outcome MUST BE IDENTICAL to the source test. The user is successfully authenticated and redirected to the dashboard."
+          },
+          {
+            "action": "manual_logout",
+            "selector": null,
+            "data": null,
+            "expected": "The user is logged out to reset state."
+          },
+          {
+            "action": "type_text",
+            "selector": "#login_field",
+            "data": "  Test.User.GH.QA@example.com  ",
+            "expected": "The username/email with both mixed case and whitespace appears in the input field. This is the third 'follow-up' test."
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "ValidP@ssw0rd!",
+            "expected": "The password appears masked in the input field."
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": null,
+            "expected": "Metamorphic Relation: The outcome MUST BE IDENTICAL to the source test. The user is successfully authenticated and redirected to the dashboard."
+          }
+        ],
+        "assertions": [
+          "Given a valid password, the login result must be invariant across all tested transformations of the username (canonical, whitespace-padded, mixed-case, and combined).",
+          "If the initial login succeeds, all subsequent login attempts with the transformed usernames must also succeed.",
+          "If the initial login fails (e.g., due to an incorrect password), all subsequent login attempts with the transformed usernames must also fail with the same error message.",
+          "After each successful login, the page URL must change to reflect a logged-in state (e.g., 'https://github.com/').",
+          "The system must not treat whitespace or case-changes in the username as a failed login attempt that would increment a brute-force lockout counter."
+        ],
+        "test_data": {
+          "username_canonical": "test.user.gh.qa@example.com",
+          "username_with_whitespace": "  test.user.gh.qa@example.com  ",
+          "username_with_mixed_case": "Test.User.GH.QA@example.com",
+          "username_with_both": "  Test.User.GH.QA@example.com  ",
+          "password": "ValidP@ssw0rd!"
+        },
+        "cleanup": [
+          "Ensure the user is logged out of the application at the end of the test.",
+          "Clear any session cookies or local storage related to the test to ensure no state leakage to subsequent tests."
+        ]
+      }
+    ],
+    "property_based": [
+      {
+        "title": "Property-Based: Idempotence of Login Failure",
+        "description": "Tests the invariant that repeated submission of the same invalid credentials yields an identical system state and response. This verifies that the failure path is stateless and free of side-effects, preventing user enumeration vulnerabilities and ensuring predictable behavior for users who make mistakes. A non-idempotent failure indicates a serious state management bug.",
+        "priority": "critical",
+        "prerequisites": [
+          "The test requires network interception capabilities (e.g., DevTools, Cypress, Playwright) to inspect the HTTP response of the POST request."
+        ],
+        "steps": [
+          {
+            "action": "type_text",
+            "selector": "#login_field",
+            "data": "pbt-test-user-f91a5b2c",
+            "expected": "The text 'pbt-test-user-f91a5b2c' is entered into the username/email input field."
+          },
+          {
+            "action": "type_text",
+            "selector": "#password",
+            "data": "InvalidPassword123!@#",
+            "expected": "The password input field is populated, and the input is masked (displayed as dots or asterisks)."
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": null,
+            "expected": "An HTTP POST request is sent to the server. The page displays an error message indicating a failed login. The URL should not change. The response to the POST request should have an HTTP status code indicating client error (e.g., 401, 422) and a consistent JSON error payload. Store this response for comparison."
+          },
+          {
+            "action": "wait_for_application_state",
+            "selector": null,
+            "data": "2000",
+            "expected": "Wait for 2 seconds to ensure any asynchronous actions have completed and the UI is stable."
+          },
+          {
+            "action": "click",
+            "selector": "input.btn.btn-primary.btn-block.js-sign-in-button",
+            "data": null,
+            "expected": "A second, identical HTTP POST request is sent. The page displays the exact same error message as before, with no visual changes. The network response (status code, headers, body) for this second attempt must be identical to the first."
+          }
+        ],
+        "assertions": [
+          "The URL must remain 'https://github.com/login' after both attempts (or redirect back to it from '/session').",
+          "An error container (e.g., 'div.flash-error') must be visible after both clicks.",
+          "The text within the error container must be identical after both attempts (e.g., 'Incorrect username or password.').",
+          "The HTTP response body from the first and second POST requests must be byte-for-byte identical.",
+          "The HTTP status code from the first and second POST requests must be identical.",
+          "There should be no new, unexpected JavaScript errors in the browser console after the second attempt.",
+          "The 'Sign in' button must remain enabled, not enter a permanently disabled state."
+        ],
+        "test_data": {
+          "login": "pbt-test-user-f91a5b2c",
+          "password": "InvalidPassword123!@#"
+        },
+        "cleanup": [
+          "Clear browser cache and cookies to ensure the next test runs in a clean session."
+        ]
+      }
+    ]
+  }
+}

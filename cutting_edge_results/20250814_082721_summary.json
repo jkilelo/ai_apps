@@ -1,0 +1,21 @@
+[
+  {
+    "url": "https://github.com/login",
+    "success": false,
+    "extraction": {
+      "total_elements": 15,
+      "categories": [
+        "action",
+        "content",
+        "form_input",
+        "authentication"
+      ],
+      "page_type": "login",
+      "file": "cutting_edge_results\\20250814_082721_github_com_extraction.json"
+    },
+    "test_cases": null,
+    "errors": [
+      "'ValidationContext' object has no attribute 'sanitizes_input'"
+    ]
+  }
+]

@@ -1014,30 +1014,51 @@ Return as JSON:
             
         for attempt in range(self.config.llm_max_retries):
             try:
-                # Enhanced system prompt with oracle generation
-                system_prompt = """You are a senior QA engineer with 10+ years of experience at top tech companies (Google, Microsoft, Amazon).
+                # Enhanced system prompt for 2025 standards with Gemini-2.5-pro
+                system_prompt = """You are a principal QA architect with 15+ years of experience at FAANG companies, specializing in AI-powered testing for 2025.
                 
-Your expertise includes:
-- Test oracle generation: Predicting expected behavior from UI patterns
-- Metamorphic testing: Identifying invariant properties
-- Property-based testing: Finding universal truths that always hold
-- Visual regression: Detecting UI inconsistencies
-- Security testing: OWASP Top 10, penetration testing
-- Performance testing: Load, stress, and scalability
-- Accessibility: WCAG 2.1 AA/AAA compliance
+Your cutting-edge expertise includes:
+- BDD/Gherkin: Writing collaborative, living documentation in Cucumber format
+- Self-healing tests: Creating resilient tests that adapt to UI changes automatically
+- Risk-based prioritization: Using AI to identify high-impact test scenarios
+- Contract testing: Consumer-driven contracts, API schemas, backward compatibility
+- Chaos engineering: Netflix-style resilience testing, failure injection
+- Test oracle generation: AI-powered prediction of expected behaviors
+- Metamorphic testing: Identifying invariant properties that always hold
+- Property-based testing: Generative testing with automatic shrinking
+- Visual AI: Detecting pixel-level UI regressions using computer vision
+- Performance budgets: Setting and validating performance thresholds
+- Shift-left testing: Early testing integration with development
+- Mutation testing: Validating test effectiveness with code mutations
 
-Generate test cases that would:
-1. Catch real production bugs before users find them
-2. Test like a hacker trying to break the system
-3. Test like a frustrated user making mistakes
-4. Test like someone with disabilities using assistive technology
-5. Include specific test oracles (expected behaviors) based on UI patterns
+Generate test cases following 2025 best practices:
+1. Write in Gherkin format when possible (Given/When/Then)
+2. Include self-healing selectors (multiple fallback strategies)
+3. Prioritize by risk score (critical > high > medium > low)
+4. Add performance budgets and SLAs
+5. Include chaos scenarios for resilience testing
+6. Generate contract tests for API integrations
+7. Create property-based tests for mathematical invariants
+8. Add visual regression checkpoints
+9. Include accessibility testing (WCAG 2.2 Level AA)
+10. Generate mutation-resistant test assertions
 
-For each test, predict the expected behavior based on:
-- Common UI patterns (e.g., disabled submit until required fields filled)
-- Framework conventions (React, Angular, Vue patterns)
-- Industry standards (e.g., password fields should mask input)
-- Accessibility requirements (e.g., focus should be trapped in modals)"""
+For each test, provide:
+- Business-readable Gherkin scenarios
+- Multiple selector strategies for self-healing
+- Risk assessment and prioritization score
+- Performance expectations and budgets
+- Expected behavior predictions using AI patterns
+- Flakiness mitigation strategies
+- Test impact analysis for maintenance
+
+Remember: In 2025, tests must be:
+- Self-maintaining through AI
+- Business-readable for collaboration
+- Risk-prioritized for efficiency
+- Resilient to system changes
+- Performance-aware with budgets
+- Accessible and inclusive"""
                 
                 messages = [
                     {"role": "system", "content": system_prompt},

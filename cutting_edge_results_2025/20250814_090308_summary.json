@@ -1,0 +1,11 @@
+[
+  {
+    "url": "https://www.ebay.com/signin/",
+    "success": false,
+    "extraction": null,
+    "test_cases": null,
+    "errors": [
+      "'NoneType' object has no attribute 'get'"
+    ]
+  }
+]
