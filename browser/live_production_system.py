@@ -55,7 +55,7 @@ class LiveProductionConfig:
     
     # LLM Settings
     llm_provider: str = "gemini"
-    llm_model: str = "gemini-2.5-pro"
+    llm_model: str = "gemini-2.5-flash-lite" #"gemini-2.5-pro"
     llm_temperature: float = 0.3
     llm_max_retries: int = 3
     

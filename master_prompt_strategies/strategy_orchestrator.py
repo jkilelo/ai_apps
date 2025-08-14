@@ -29,11 +29,14 @@ class StrategyType(Enum):
     ZERO_SHOT = "zero_shot"
     OPRO = "opro"
     MIXTURE_OF_EXPERTS = "mixture_of_experts"
-    PROGRESSIVE_HINTING = "progressive_hinting"
-    ANALOGICAL_REASONING = "analogical_reasoning"
-    ROLE_PLAYING = "role_playing"
-    DSPY_REFINEMENT = "dspy_refinement"
-    MAJORITY_VOTING = "majority_voting"
+    QUANTUM_PROMPTING = "quantum_prompting"
+    REVERSE_PROMPTING = "reverse_prompting"
+    EVOLUTIONARY_OPTIMIZATION = "evolutionary_optimization"
+    PSYCHOLOGICAL_TRIGGERS = "psychological_triggers"
+    UNIVERSAL_SELF_CONSISTENCY = "universal_self_consistency"
+    PROGRAM_AIDED_LANGUAGE = "program_aided_language"
+    CHAIN_OF_TABLE = "chain_of_table"
+    META_COGNITIVE_FRAMEWORK = "meta_cognitive_framework"
 
 
 @dataclass
@@ -57,6 +60,16 @@ class PromptContext:
     user_preferences: Dict[str, Any] = field(default_factory=dict)
     history: List[Dict] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class StrategyResult:
+    """Result of applying strategies to a prompt."""
+    original_prompt: str
+    enhanced_prompt: str
+    strategies_applied: List[str]
+    metrics: Dict[str, Any]
+    timestamp: datetime = field(default_factory=datetime.now)
 
 
 class StrategyLoader:
