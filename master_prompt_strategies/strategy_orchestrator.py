@@ -83,6 +83,8 @@ class StrategyLoader:
             StrategyType.FEW_SHOT: "10_few_shot.md",
             StrategyType.ZERO_SHOT: "11_zero_shot.md",
             StrategyType.OPRO: "12_opro.md",
+            StrategyType.MIXTURE_OF_EXPERTS: "13_mixture_of_experts.md",
+            # Note: Quantum Prompting loaded separately as it's strategy 14
         }
         
         for strategy_type, filename in strategy_files.items():
