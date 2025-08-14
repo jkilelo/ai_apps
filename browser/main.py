@@ -23,7 +23,7 @@ import hashlib
 from datetime import datetime
 
 # Import the LLM-optimized structure
-from element_structure import (
+from browser.element_structure import (
     LLMOptimizedElement,
     ElementCategory,
     InteractionPattern,
@@ -40,7 +40,7 @@ from element_structure import (
 )
 
 # Import base browser functionality
-from base import (
+from browser.base import (
     UltimateStealthBrowser,
     StealthConfig,
     ElementData,

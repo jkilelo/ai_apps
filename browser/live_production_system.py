@@ -30,7 +30,7 @@ from llm import query_llm
 # Import browser automation
 from browser.main import UltimateStealthBrowserLLMEnhanced
 from browser.base import StealthConfig, StealthLevel
-from browser.element_structure import PageStructure, LLMOptimizedElement
+from browser.element_structure import PageStructure, LLMOptimizedElement, ElementCategory
 
 # Configure logging
 logging.basicConfig(
@@ -55,9 +55,16 @@ class LiveProductionConfig:
     
     # LLM Settings
     llm_provider: str = "gemini"
-    llm_model: str = "gemini-2.0-flash-exp"
+    llm_model: str = "gemini-2.5-pro"
     llm_temperature: float = 0.3
     llm_max_retries: int = 3
+    
+    # Advanced Prompt Strategies
+    enable_chain_of_thought: bool = True
+    enable_tree_of_thoughts: bool = True
+    enable_self_consistency: bool = True
+    enable_meta_prompting: bool = True
+    self_consistency_samples: int = 3
     
     # Extraction Settings
     max_elements_per_page: int = 50
@@ -68,9 +75,28 @@ class LiveProductionConfig:
         "critical_path",
         "validation",
         "error_handling",
-        "security"
+        "security",
+        "metamorphic",
+        "visual_regression",
+        "property_based",
+        "contract_testing",
+        "chaos_engineering"
     ])
     scenarios_per_strategy: int = 3
+    
+    # Advanced Testing Features
+    enable_metamorphic_testing: bool = True
+    enable_visual_testing: bool = True
+    enable_property_based: bool = True
+    enable_context_aware_generation: bool = True
+    
+    # 2025 Cutting-Edge Features
+    enable_gherkin_format: bool = True
+    enable_self_healing: bool = True
+    enable_risk_based_prioritization: bool = True
+    enable_test_impact_analysis: bool = True
+    enable_performance_budgets: bool = True
+    enable_ai_test_optimization: bool = True
     
     # Storage Settings
     results_dir: str = "live_test_results"
@@ -162,11 +188,245 @@ class LiveBrowserExtractor:
 # ============================================================================
 
 class LiveTestGenerator:
-    """Generate test cases from live extracted elements using LLM."""
+    """Generate test cases from live extracted elements using LLM with advanced prompt strategies."""
     
     def __init__(self, config: LiveProductionConfig):
         self.config = config
         self.llm_calls = 0
+        self.risk_scores = {}  # Store risk scores for prioritization
+        self.test_impact_map = {}  # Map tests to impacted areas
+    
+    def _apply_chain_of_thought(self, prompt: str) -> str:
+        """Apply Chain of Thought reasoning to enhance prompt."""
+        if not self.config.enable_chain_of_thought:
+            return prompt
+            
+        cot_addition = """
+
+Think step-by-step:
+1. First, identify the most critical functionality based on the actual elements
+2. Then, determine what could go wrong with each interaction
+3. Consider edge cases specific to the element types found
+4. Think about real-world user mistakes and malicious inputs
+5. Prioritize test cases by risk and user impact
+
+Show your reasoning before generating the test cases."""
+        return prompt + cot_addition
+    
+    def _apply_tree_of_thoughts(self, prompt: str, strategy: str) -> str:
+        """Apply Tree of Thoughts for comprehensive exploration."""
+        if not self.config.enable_tree_of_thoughts:
+            return prompt
+            
+        tot_addition = f"""
+
+Explore multiple testing perspectives for {strategy}:
+
+Branch 1: User Experience Testing
+- What would frustrate real users?
+- What mistakes would beginners make?
+- What shortcuts would power users attempt?
+- How would users with disabilities interact?
+
+Branch 2: Technical Testing
+- What are the boundary conditions for each field?
+- What data combinations could break the system?
+- What race conditions could occur?
+- What caching or state issues might arise?
+
+Branch 3: Security & Compliance Testing
+- What injection attacks are possible?
+- How could authentication be bypassed?
+- What sensitive data could be exposed?
+- What compliance requirements must be met?
+
+Synthesize insights from ALL branches into comprehensive test cases."""
+        return prompt + tot_addition
+    
+    def _apply_meta_prompting(self, prompt: str) -> str:
+        """Apply meta-prompting for self-improvement."""
+        if not self.config.enable_meta_prompting:
+            return prompt
+            
+        meta_addition = """
+
+Before generating test cases, consider:
+- What test cases would a senior QA engineer with 10+ years experience create?
+- What critical scenarios are often missed in automated test generation?
+- How can these tests provide maximum coverage with minimum redundancy?
+- What would make these tests maintainable and reusable?
+
+Ensure your test cases reflect this expertise level."""
+        return prompt + meta_addition
+    
+    def _generate_gherkin_format(self, test_case: Dict) -> str:
+        """Convert test case to Gherkin format for BDD."""
+        if not self.config.enable_gherkin_format:
+            return ""
+        
+        gherkin = f"""Feature: {test_case.get('title', 'Test Feature')}
+  {test_case.get('description', 'Test description')}
+
+  @{test_case.get('priority', 'medium')}
+  @{test_case.get('strategy', 'general')}
+  Scenario: {test_case.get('title', 'Test Scenario')}"""
+        
+        # Add prerequisites as Background if present
+        if test_case.get('prerequisites'):
+            gherkin += "\n    Background:"
+            for prereq in test_case['prerequisites']:
+                gherkin += f"\n      * {prereq}"
+        
+        # Convert steps to Given/When/Then format
+        steps = test_case.get('steps', [])
+        for i, step in enumerate(steps):
+            action = step.get('action', '')
+            data = step.get('data', '')
+            expected = step.get('expected', '')
+            
+            # Determine step type based on position and action
+            if i == 0 or 'navigate' in action.lower() or 'open' in action.lower():
+                keyword = "Given"
+            elif 'click' in action.lower() or 'type' in action.lower() or 'select' in action.lower():
+                keyword = "When"
+            else:
+                keyword = "Then"
+            
+            # Format the step
+            if data:
+                gherkin += f'\n    {keyword} I {action} "{data}" in "{step.get("selector", "element")}"'
+            else:
+                gherkin += f'\n    {keyword} {action}'
+            
+            if expected and keyword != "Then":
+                gherkin += f'\n    Then {expected}'
+        
+        # Add assertions as Then statements
+        for assertion in test_case.get('assertions', []):
+            gherkin += f"\n    Then {assertion}"
+        
+        # Add examples table for data-driven tests
+        if test_case.get('test_data'):
+            gherkin += "\n\n    Examples:"
+            headers = list(test_case['test_data'].keys())
+            gherkin += f"\n      | {' | '.join(headers)} |"
+            values = [str(v) for v in test_case['test_data'].values()]
+            gherkin += f"\n      | {' | '.join(values)} |"
+        
+        return gherkin
+    
+    def _add_self_healing_capabilities(self, test_case: Dict) -> Dict:
+        """Add self-healing metadata to test cases."""
+        if not self.config.enable_self_healing:
+            return test_case
+        
+        # Add alternative selectors for self-healing
+        for step in test_case.get('steps', []):
+            selector = step.get('selector', '')
+            if selector:
+                # Generate alternative selectors
+                step['alternative_selectors'] = {
+                    'primary': selector,
+                    'fallback_text': f"text={step.get('data', '')}",
+                    'fallback_partial': selector.replace('#', '[id*=').replace(']', ']') if '#' in selector else selector,
+                    'fallback_contains': f"*[class*='{selector.split('.')[-1]}']" if '.' in selector else selector,
+                    'ai_hint': f"Element that {step.get('action', 'interacts')} with {step.get('expected', 'system')}"
+                }
+                
+                # Add healing strategy
+                step['healing_strategy'] = {
+                    'retry_count': 3,
+                    'wait_before_retry': 1000,
+                    'use_ai_recognition': True,
+                    'visual_matching': True,
+                    'context_aware': True
+                }
+        
+        # Add test-level healing metadata
+        test_case['self_healing'] = {
+            'enabled': True,
+            'max_healing_attempts': 5,
+            'healing_confidence_threshold': 0.8,
+            'report_healed_elements': True,
+            'update_selectors_after_healing': True
+        }
+        
+        return test_case
+    
+    def _calculate_risk_score(self, test_case: Dict, page_structure: PageStructure) -> float:
+        """Calculate risk score for test prioritization."""
+        if not self.config.enable_risk_based_prioritization:
+            return 0.5
+        
+        risk_score = 0.0
+        
+        # Priority-based scoring
+        priority_scores = {'critical': 1.0, 'high': 0.75, 'medium': 0.5, 'low': 0.25}
+        risk_score += priority_scores.get(test_case.get('priority', 'medium'), 0.5)
+        
+        # Page type risk scoring
+        high_risk_pages = ['login', 'checkout', 'payment', 'authentication']
+        if page_structure.page_type in high_risk_pages:
+            risk_score += 0.3
+        
+        # Security test bonus
+        if test_case.get('strategy') == 'security':
+            risk_score += 0.2
+        
+        # Critical path bonus
+        if test_case.get('strategy') == 'critical_path':
+            risk_score += 0.15
+        
+        # Complexity scoring based on steps
+        step_count = len(test_case.get('steps', []))
+        if step_count > 10:
+            risk_score += 0.1
+        
+        # Normalize to 0-1 range
+        return min(risk_score / 2.0, 1.0)
+    
+    def _perform_test_impact_analysis(self, test_case: Dict, element_context: Dict) -> Dict:
+        """Analyze test impact based on element changes and dependencies."""
+        if not self.config.enable_test_impact_analysis:
+            return {}
+        
+        impact_analysis = {
+            'affected_components': [],
+            'dependency_chain': [],
+            'estimated_execution_time': 0,
+            'flakiness_risk': 'low',
+            'maintenance_complexity': 'low'
+        }
+        
+        # Identify affected components
+        for step in test_case.get('steps', []):
+            selector = step.get('selector', '')
+            if selector:
+                # Map selector to component
+                if 'login' in selector.lower() or 'auth' in selector.lower():
+                    impact_analysis['affected_components'].append('authentication')
+                if 'nav' in selector.lower() or 'menu' in selector.lower():
+                    impact_analysis['affected_components'].append('navigation')
+                if 'form' in selector.lower() or 'input' in selector.lower():
+                    impact_analysis['affected_components'].append('forms')
+        
+        # Estimate execution time
+        step_count = len(test_case.get('steps', []))
+        impact_analysis['estimated_execution_time'] = step_count * 2  # 2 seconds per step average
+        
+        # Assess flakiness risk
+        if element_context.get('performance_risks'):
+            impact_analysis['flakiness_risk'] = 'high'
+        elif step_count > 15:
+            impact_analysis['flakiness_risk'] = 'medium'
+        
+        # Assess maintenance complexity
+        if test_case.get('strategy') in ['metamorphic', 'property_based']:
+            impact_analysis['maintenance_complexity'] = 'high'
+        elif step_count > 10:
+            impact_analysis['maintenance_complexity'] = 'medium'
+        
+        return impact_analysis
     
     async def generate_tests(
         self, 
@@ -178,25 +438,272 @@ class LiveTestGenerator:
         # Prepare element summary from live extraction
         element_summary = self._create_element_summary(page_structure)
         
+        # Analyze element context for smarter test generation
+        element_context = self._analyze_element_context(page_structure) if self.config.enable_context_aware_generation else {}
+        
+        # Enhanced strategy prompts with comprehensive testing patterns
         strategy_prompts = {
-            "critical_path": """Generate test cases for the MOST CRITICAL user journeys on this page.
-Focus on paths that users MUST be able to complete successfully.
-Consider the actual page structure and business purpose.""",
+            "contract_testing": f"""Generate CONTRACT TESTING test cases for API and component contracts. Include:
+
+1. API CONTRACT VALIDATION:
+   - Request/response schema validation
+   - Required fields presence
+   - Data type consistency
+   - Response time SLAs
+   - Error response formats
+
+2. COMPONENT CONTRACTS:
+   - Interface agreements between UI components
+   - Event emission contracts
+   - State management contracts
+   - Props/attributes contracts
+
+3. BACKWARD COMPATIBILITY:
+   - Version compatibility checks
+   - Deprecation handling
+   - Migration path validation
+
+4. CONSUMER-DRIVEN CONTRACTS:
+   - Consumer expectations validation
+   - Provider capability verification
+
+For {page_structure.page_type} page, focus on:
+{json.dumps(element_context.get('api_contracts', []), indent=2)}""",
+
+            "chaos_engineering": f"""Generate CHAOS ENGINEERING test cases to test system resilience. Include:
+
+1. NETWORK CHAOS:
+   - Simulated network latency (add 3-5 second delays)
+   - Packet loss simulation (drop 10-30% requests)
+   - Bandwidth throttling
+   - Connection timeouts
+   - DNS failures
+
+2. BROWSER CHAOS:
+   - Memory pressure simulation
+   - CPU throttling (6x slowdown)
+   - Storage quota exceeded
+   - JavaScript execution errors
+   - Third-party script failures
+
+3. USER BEHAVIOR CHAOS:
+   - Rapid clicking/double clicking
+   - Browser back/forward during operations
+   - Tab switching mid-operation
+   - Copy-paste of malformed data
+   - Rage clicking when slow
+
+4. DATA CHAOS:
+   - Corrupt localStorage/sessionStorage
+   - Invalid cookies
+   - Stale cache data
+   - Timezone changes mid-session
+
+System resilience points for {page_structure.page_type}:
+{json.dumps(element_context.get('resilience_points', []), indent=2)}""",
+
+            "metamorphic": f"""Generate METAMORPHIC test cases using invariant properties. Include:
+
+1. INVARIANT RELATIONS (output unchanged):
+   - Synonym substitution in text fields
+   - Reordering optional fields
+   - Adding/removing whitespace
+   - Case transformation where applicable
+   - Session persistence across refreshes
+
+2. INCREASING RELATIONS (output increases):
+   - Adding more items to cart increases total
+   - More search keywords return more results
+   - Longer input increases processing time
+
+3. DECREASING RELATIONS (output decreases):
+   - More restrictive filters reduce results
+   - Earlier date ranges show fewer recent items
+
+4. TRANSFORMATION RELATIONS:
+   - Input permutations yield consistent results
+   - Inverse operations cancel each other
+
+Context-specific relations for {page_structure.page_type}:
+{json.dumps(element_context.get('metamorphic_hints', []), indent=2)}""",
             
-            "validation": """Generate test cases for INPUT VALIDATION based on the actual form fields found.
-Test required fields, format validation, boundary values, and field interdependencies.
-Use the actual validation rules detected on the page.""",
+            "visual_regression": f"""Generate VISUAL REGRESSION test cases. Include:
+
+1. LAYOUT CONSISTENCY:
+   - Element alignment verification
+   - Responsive breakpoints (320px, 768px, 1024px, 1920px)
+   - Text overflow handling
+   - Image loading and fallbacks
+   - Dynamic content rendering
+
+2. INTERACTION STATES:
+   - Hover effects on interactive elements
+   - Focus states for accessibility
+   - Active/pressed states
+   - Disabled state appearance
+   - Loading/skeleton states
+
+3. CROSS-BROWSER RENDERING:
+   - Chrome vs Firefox vs Safari differences
+   - Font rendering consistency
+   - CSS grid/flexbox behavior
+   - Animation smoothness
+
+4. VISUAL ACCESSIBILITY:
+   - Color contrast ratios (WCAG AA/AAA)
+   - Focus indicators visibility
+   - Text readability at zoom levels
+   - High contrast mode compatibility
+
+Visual elements detected: {len([e for cat, elems in page_structure.elements_by_category.items() for e in elems if cat.value in ['action', 'navigation']])}""",
             
-            "error_handling": """Generate test cases for ERROR SCENARIOS based on the actual page elements.
-Test how the application handles invalid inputs, missing data, and edge cases.
-Consider the specific error-prone areas identified.""",
+            "property_based": f"""Generate PROPERTY-BASED test cases. Test invariants that should ALWAYS hold:
+
+1. MATHEMATICAL PROPERTIES:
+   - Commutativity: order doesn't matter for certain operations
+   - Associativity: grouping doesn't affect results
+   - Idempotence: repeated operations yield same result
+   - Inverse: undo operations restore original state
+
+2. BUSINESS RULE PROPERTIES:
+   - Price calculations always non-negative
+   - Dates follow chronological order
+   - Unique IDs remain unique
+   - Totals equal sum of parts
+
+3. CONSISTENCY PROPERTIES:
+   - Database state matches UI state
+   - Client-side validation matches server-side
+   - URL state matches application state
+   - Cache coherence maintained
+
+4. GENERATIVE PROPERTIES for {page_structure.page_type}:
+   - Generate random valid inputs and verify invariants
+   - Shrink failing cases to minimal reproducible example
+   - Test with extreme values within valid ranges
+
+Detected constraints: {json.dumps(page_structure.page_validations[:3], indent=2)}""",
             
-            "security": """Generate SECURITY test cases based on the actual vulnerabilities present.
-Test for XSS, injection attacks, authentication bypass, and data exposure.
-Focus on the specific security risks identified in the elements."""
+            "critical_path": """Generate COMPREHENSIVE test cases for critical user journeys. Include:
+
+1. HAPPY PATH scenarios:
+   - Complete end-to-end workflows
+   - All mandatory fields with valid data
+   - Expected navigation flows
+   - Success confirmations
+
+2. ALTERNATE PATHS:
+   - Optional field combinations
+   - Different navigation routes to same goal
+   - Browser back/forward button usage
+   - Session timeout and recovery
+
+3. INTEGRATION POINTS:
+   - API calls triggered by user actions
+   - Third-party service integrations
+   - Cross-browser compatibility
+   - Mobile responsiveness
+
+4. PERFORMANCE CONSIDERATIONS:
+   - Response time expectations
+   - Concurrent user scenarios
+   - Large data handling""",
+            
+            "validation": """Generate THOROUGH validation test cases. Include:
+
+1. FIELD-LEVEL VALIDATION:
+   - Required field enforcement
+   - Min/max length boundaries
+   - Format validation (email, phone, date)
+   - Special character handling
+   - Unicode and emoji support
+   - Copy-paste behavior
+   - Auto-fill compatibility
+
+2. BOUNDARY TESTING:
+   - Minimum valid values (n-1, n, n+1)
+   - Maximum valid values (n-1, n, n+1)
+   - Empty strings vs null values
+   - Leading/trailing spaces
+   - Case sensitivity
+
+3. CROSS-FIELD VALIDATION:
+   - Dependent field validation
+   - Date range validation (start < end)
+   - Conditional required fields
+   - Business rule validation
+
+4. ERROR MESSAGE TESTING:
+   - Clear, actionable error messages
+   - Error message localization
+   - Multiple error display
+   - Error recovery flows""",
+            
+            "error_handling": """Generate ROBUST error handling test cases. Include:
+
+1. USER ERROR SCENARIOS:
+   - Accidental form resubmission
+   - Double-clicking submit buttons
+   - Browser refresh during submission
+   - Network interruption handling
+   - Session expiration during input
+
+2. SYSTEM ERROR SCENARIOS:
+   - Server timeout responses
+   - 500/503 error handling
+   - Database connection failures
+   - Third-party service failures
+   - Rate limiting responses
+
+3. EDGE CASES:
+   - Concurrent modifications
+   - Race conditions
+   - Memory/storage limits
+   - Recursive operations
+   - Infinite loops prevention
+
+4. RECOVERY TESTING:
+   - Data persistence after errors
+   - Graceful degradation
+   - Retry mechanisms
+   - Fallback options
+   - Error logging verification""",
+            
+            "security": """Generate COMPREHENSIVE security test cases. Include:
+
+1. INJECTION ATTACKS:
+   - SQL injection ('; DROP TABLE; --, OR 1=1)
+   - XSS attacks (<script>alert('XSS')</script>)
+   - Command injection (; ls -la)
+   - LDAP injection
+   - XML/XXE injection
+   - Header injection
+
+2. AUTHENTICATION ATTACKS:
+   - Brute force prevention
+   - Password complexity bypass
+   - Session hijacking
+   - Token manipulation
+   - Cookie tampering
+   - CSRF token validation
+
+3. AUTHORIZATION TESTING:
+   - Privilege escalation
+   - Direct object reference
+   - Path traversal (../../etc/passwd)
+   - Forced browsing
+   - API endpoint access control
+
+4. DATA SECURITY:
+   - Sensitive data in URLs
+   - Password visibility toggle security
+   - Autocomplete on sensitive fields
+   - Data leakage in error messages
+   - Encryption verification
+   - PII handling compliance"""
         }
         
-        prompt = f"""{strategy_prompts.get(strategy, strategy_prompts['critical_path'])}
+        base_prompt = f"""{strategy_prompts.get(strategy, strategy_prompts['critical_path'])}
 
 PAGE INFORMATION:
 URL: {page_structure.url}
@@ -215,37 +722,260 @@ USER JOURNEYS:
 VALIDATIONS REQUIRED:
 {json.dumps(page_structure.page_validations[:5], indent=2) if page_structure.page_validations else "None identified"}
 
-Generate exactly {self.config.scenarios_per_strategy} test cases based on the ACTUAL page structure above.
+Generate exactly {self.config.scenarios_per_strategy} DETAILED test cases. Each test case must include:
+- Specific test data values (not placeholders)
+- Exact selectors from the extracted elements
+- Clear pass/fail criteria
+- Prerequisites and cleanup steps if needed
 
 Return as JSON:
 {{
   "test_cases": [
     {{
-      "title": "Specific test case title",
-      "description": "What this tests on the actual page",
+      "title": "Specific, descriptive test case title",
+      "description": "Detailed description of what this tests and why it's important",
       "priority": "critical|high|medium|low",
+      "prerequisites": ["Any setup needed before test"],
       "steps": [
-        {{"action": "Specific action on actual element", "selector": "actual selector", "expected": "Expected result"}}
+        {{
+          "action": "Exact action to perform",
+          "selector": "Actual selector from page",
+          "data": "Specific test data",
+          "expected": "Detailed expected result"
+        }}
       ],
-      "assertions": ["Specific assertion"],
-      "test_data": {{"field": "value for actual field"}}
+      "assertions": ["Specific measurable assertions"],
+      "test_data": {{"field": "exact test value"}},
+      "cleanup": ["Any cleanup steps needed after test"]
     }}
   ]
 }}"""
 
+        # Apply advanced prompt strategies
+        enhanced_prompt = base_prompt
+        enhanced_prompt = self._apply_chain_of_thought(enhanced_prompt)
+        enhanced_prompt = self._apply_tree_of_thoughts(enhanced_prompt, strategy)
+        enhanced_prompt = self._apply_meta_prompting(enhanced_prompt)
+
         try:
-            response = await self._call_llm(prompt)
-            self.llm_calls += 1
-            
-            if response and 'test_cases' in response:
-                return response['test_cases']
+            # Use self-consistency if enabled
+            if self.config.enable_self_consistency and strategy in ["critical_path", "security"]:
+                responses = []
+                for i in range(self.config.self_consistency_samples):
+                    response = await self._call_llm(enhanced_prompt, temperature=0.3 + (i * 0.1))
+                    if response and 'test_cases' in response:
+                        responses.append(response['test_cases'])
+                    self.llm_calls += 1
+                
+                # Merge and deduplicate responses
+                if responses:
+                    return self._merge_test_cases(responses)
             else:
-                logger.warning(f"No test cases generated for {strategy}")
-                return []
+                response = await self._call_llm(enhanced_prompt)
+                self.llm_calls += 1
+                
+                if response and 'test_cases' in response:
+                    test_cases = response['test_cases']
+                    
+                    # Apply 2025 enhancements to each test case
+                    enhanced_cases = []
+                    for test_case in test_cases:
+                        # Add self-healing capabilities
+                        test_case = self._add_self_healing_capabilities(test_case)
+                        
+                        # Calculate risk score for prioritization
+                        risk_score = self._calculate_risk_score(test_case, page_structure)
+                        test_case['risk_score'] = risk_score
+                        self.risk_scores[test_case.get('id', test_case.get('title', ''))] = risk_score
+                        
+                        # Perform test impact analysis
+                        impact = self._perform_test_impact_analysis(test_case, element_context)
+                        test_case['impact_analysis'] = impact
+                        self.test_impact_map[test_case.get('id', test_case.get('title', ''))] = impact
+                        
+                        # Generate Gherkin format
+                        test_case['gherkin'] = self._generate_gherkin_format(test_case)
+                        
+                        # Add performance budgets if enabled
+                        if self.config.enable_performance_budgets:
+                            test_case['performance_budgets'] = {
+                                'max_execution_time': impact.get('estimated_execution_time', 10) * 1.5,
+                                'max_memory_usage': '100MB',
+                                'max_cpu_usage': '50%',
+                                'max_network_latency': '200ms'
+                            }
+                        
+                        enhanced_cases.append(test_case)
+                    
+                    # Sort by risk score if prioritization is enabled
+                    if self.config.enable_risk_based_prioritization:
+                        enhanced_cases.sort(key=lambda x: x.get('risk_score', 0), reverse=True)
+                    
+                    return enhanced_cases
+            
+            logger.warning(f"No test cases generated for {strategy}")
+            return []
                 
         except Exception as e:
             logger.error(f"Error generating tests: {e}")
             return []
+    
+    def _merge_test_cases(self, responses: List[List[Dict]]) -> List[Dict]:
+        """Merge multiple test case responses, prioritizing diversity and quality."""
+        all_tests = []
+        seen_titles = set()
+        
+        for test_list in responses:
+            for test in test_list:
+                # Deduplicate by title
+                if test.get('title') not in seen_titles:
+                    all_tests.append(test)
+                    seen_titles.add(test.get('title'))
+        
+        # Sort by priority and return top cases
+        priority_order = {'critical': 0, 'high': 1, 'medium': 2, 'low': 3}
+        all_tests.sort(key=lambda x: priority_order.get(x.get('priority', 'low'), 3))
+        
+        return all_tests[:self.config.scenarios_per_strategy]
+    
+    def _analyze_element_context(self, page_structure: PageStructure) -> Dict[str, Any]:
+        """Deeply analyze element context for intelligent test generation."""
+        context = {
+            "technology_stack": [],
+            "framework_patterns": [],
+            "metamorphic_hints": [],
+            "visual_characteristics": {},
+            "security_vectors": [],
+            "accessibility_issues": [],
+            "performance_risks": []
+        }
+        
+        # Analyze technology stack from element patterns
+        for category, elements in page_structure.elements_by_category.items():
+            for elem in elements[:5]:  # Sample first 5 of each category
+                # Detect React/Vue/Angular patterns from selectors
+                if hasattr(elem, 'selectors') and elem.selectors:
+                    for selector_type, selector_value in elem.selectors.items():
+                        if selector_value:
+                            if 'react' in selector_value.lower():
+                                context["technology_stack"].append("React")
+                            if 'ng-' in selector_value or 'data-ng-' in selector_value:
+                                context["technology_stack"].append("Angular")
+                            if 'v-' in selector_value and 'nav' not in selector_value:
+                                context["technology_stack"].append("Vue")
+                
+                # Detect framework-specific patterns
+                if hasattr(elem, 'selectors') and elem.selectors:
+                    css_selector = elem.selectors.get('css', '') if isinstance(elem.selectors, dict) else ''
+                    if css_selector:
+                        if 'mui-' in css_selector or 'MuiButton' in css_selector:
+                            context["framework_patterns"].append("Material-UI")
+                        if 'ant-' in css_selector:
+                            context["framework_patterns"].append("Ant Design")
+                        if 'btn-primary' in css_selector or 'btn-secondary' in css_selector:
+                            context["framework_patterns"].append("Bootstrap")
+                
+                # Generate metamorphic hints based on element type
+                if elem.interaction and elem.interaction.primary_interaction:
+                    interaction_type = elem.interaction.primary_interaction.value
+                    
+                    if interaction_type == "type_text":
+                        context["metamorphic_hints"].append({
+                            "element": elem.element_id,
+                            "relation": "Case insensitive search should return same results",
+                            "property": "invariant"
+                        })
+                        context["metamorphic_hints"].append({
+                            "element": elem.element_id,
+                            "relation": "Trimmed input should match untrimmed for non-password fields",
+                            "property": "equivalence"
+                        })
+                    
+                    elif interaction_type == "click":
+                        context["metamorphic_hints"].append({
+                            "element": elem.element_id,
+                            "relation": "Double-click prevention - multiple rapid clicks should equal single click",
+                            "property": "idempotence"
+                        })
+                
+                # Identify security vectors from element characteristics
+                if hasattr(elem, 'validation') and elem.validation:
+                    # Check validation rules for security implications
+                    if elem.validation.rules:
+                        has_sanitization = any(
+                            rule.value in ['html_escape', 'xss_prevention', 'sql_escape'] 
+                            for rule in elem.validation.rules
+                        )
+                        if not has_sanitization and elem.interaction:
+                            context["security_vectors"].append({
+                                "element": elem.element_id,
+                                "vector": "Potential injection vulnerability - no explicit sanitization rules",
+                                "severity": "medium"
+                            })
+                
+                # Check accessibility
+                if hasattr(elem, 'accessibility') and elem.accessibility:
+                    if hasattr(elem.accessibility, 'aria_label'):
+                        if not elem.accessibility.aria_label and elem.interaction:
+                            context["accessibility_issues"].append({
+                                "element": elem.element_id,
+                                "issue": "Interactive element missing ARIA label",
+                                "wcag": "4.1.2"
+                            })
+                    
+                    if hasattr(elem.accessibility, 'contrast_ratio'):
+                        if elem.accessibility.contrast_ratio and elem.accessibility.contrast_ratio < 4.5:
+                            context["accessibility_issues"].append({
+                                "element": elem.element_id,
+                                "issue": f"Low contrast ratio: {elem.accessibility.contrast_ratio}",
+                                "wcag": "1.4.3"
+                            })
+        
+        # Deduplicate lists
+        context["technology_stack"] = list(set(context["technology_stack"]))
+        context["framework_patterns"] = list(set(context["framework_patterns"]))
+        
+        # Add page-specific metamorphic relations
+        if page_structure.page_type == "login":
+            context["metamorphic_hints"].extend([
+                {"relation": "Username field should be case-insensitive for email addresses", "property": "invariant"},
+                {"relation": "Login with spaces around username should be trimmed", "property": "normalization"},
+                {"relation": "Login attempt order should not affect lockout counter", "property": "commutativity"}
+            ])
+        elif page_structure.page_type == "search":
+            context["metamorphic_hints"].extend([
+                {"relation": "Search with synonyms should return overlapping results", "property": "similarity"},
+                {"relation": "Paginated results concatenated should equal unpaginated", "property": "completeness"},
+                {"relation": "Filters should be commutative - order doesn't matter", "property": "commutativity"}
+            ])
+        elif page_structure.page_type == "checkout":
+            context["metamorphic_hints"].extend([
+                {"relation": "Total = sum of items + tax + shipping", "property": "mathematical"},
+                {"relation": "Removing and re-adding items should yield same total", "property": "idempotence"},
+                {"relation": "Currency conversion should be reversible within tolerance", "property": "inverse"}
+            ])
+        
+        # Visual characteristics based on element distribution
+        action_elements = len(page_structure.elements_by_category.get(ElementCategory.ACTION, []))
+        form_elements = len(page_structure.elements_by_category.get(ElementCategory.FORM_INPUT, []))
+        
+        context["visual_characteristics"] = {
+            "is_form_heavy": form_elements > 5,
+            "is_action_heavy": action_elements > 10,
+            "requires_responsive_testing": True,  # Always test responsive
+            "critical_viewports": [320, 768, 1024, 1920],
+            "estimated_complexity": "high" if (action_elements + form_elements) > 20 else "medium"
+        }
+        
+        # Performance risks based on element count and type
+        total_elements = sum(len(elems) for elems in page_structure.elements_by_category.values())
+        if total_elements > 100:
+            context["performance_risks"].append("High DOM element count may impact rendering performance")
+        
+        if len(page_structure.elements_by_category.get(ElementCategory.DATA_DISPLAY, [])) > 50:
+            context["performance_risks"].append("Large data tables may need virtualization")
+        
+        return context
     
     def _create_element_summary(self, page_structure: PageStructure) -> str:
         """Create a concise summary of live extracted elements."""
@@ -277,12 +1007,40 @@ Return as JSON:
         
         return '\n'.join(summary)
     
-    async def _call_llm(self, prompt: str) -> Dict:
+    async def _call_llm(self, prompt: str, temperature: float = None) -> Dict:
         """Call LLM with retry logic."""
+        if temperature is None:
+            temperature = self.config.llm_temperature
+            
         for attempt in range(self.config.llm_max_retries):
             try:
+                # Enhanced system prompt with oracle generation
+                system_prompt = """You are a senior QA engineer with 10+ years of experience at top tech companies (Google, Microsoft, Amazon).
+                
+Your expertise includes:
+- Test oracle generation: Predicting expected behavior from UI patterns
+- Metamorphic testing: Identifying invariant properties
+- Property-based testing: Finding universal truths that always hold
+- Visual regression: Detecting UI inconsistencies
+- Security testing: OWASP Top 10, penetration testing
+- Performance testing: Load, stress, and scalability
+- Accessibility: WCAG 2.1 AA/AAA compliance
+
+Generate test cases that would:
+1. Catch real production bugs before users find them
+2. Test like a hacker trying to break the system
+3. Test like a frustrated user making mistakes
+4. Test like someone with disabilities using assistive technology
+5. Include specific test oracles (expected behaviors) based on UI patterns
+
+For each test, predict the expected behavior based on:
+- Common UI patterns (e.g., disabled submit until required fields filled)
+- Framework conventions (React, Angular, Vue patterns)
+- Industry standards (e.g., password fields should mask input)
+- Accessibility requirements (e.g., focus should be trapped in modals)"""
+                
                 messages = [
-                    {"role": "system", "content": "You are a QA expert. Generate practical test cases based on actual page elements."},
+                    {"role": "system", "content": system_prompt},
                     {"role": "user", "content": prompt}
                 ]
                 
