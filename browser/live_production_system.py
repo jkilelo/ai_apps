@@ -273,14 +273,19 @@ Ensure your test cases reflect this expertise level."""
         if not self.config.enable_react:
             return prompt
             
+        # Get all elements from categories
+        all_elements = []
+        for elements in page_structure.elements_by_category.values():
+            all_elements.extend(elements)
+        
         react_enhancement = f"""
 
 Use ReAct (Reasoning + Acting) approach:
 
 Thought 1: Analyze the page structure
-- Page has {len(page_structure.elements)} elements
-- Critical elements: {len([e for e in page_structure.elements if hasattr(e, 'priority') and e.priority == 'critical'])}
-- Forms detected: {len([e for e in page_structure.elements if hasattr(e, 'category') and str(e.category) == 'form_input'])}
+- Page has {len(all_elements)} elements
+- Critical elements: {len([e for e in all_elements if hasattr(e, 'test_priority') and e.test_priority and e.test_priority.value == 'critical'])}
+- Forms detected: {len(page_structure.elements_by_category.get(ElementCategory.FORM_INPUT, []))}
 
 Action 1: Identify test scenarios based on element types
 Observation 1: Generate tests for each critical interaction path
@@ -380,12 +385,17 @@ Final Iteration: Generate improved test cases based on reflection.
         if not self.config.enable_scratchpad:
             return prompt
             
+        # Get all elements from categories
+        all_elements = []
+        for elements in page_structure.elements_by_category.values():
+            all_elements.extend(elements)
+            
         scratchpad_enhancement = f"""
 
 === SCRATCHPAD REASONING ===
 
 Working Memory:
-- Total elements: {len(page_structure.elements)}
+- Total elements: {len(all_elements)}
 - Page type: {page_structure.page_type}
 - Critical paths: {len(page_structure.critical_paths) if page_structure.critical_paths else 0}
 
@@ -588,13 +598,17 @@ Example security test case:
         """Calculate complexity score for test generation."""
         score = 0.0
         
+        # Get all elements
+        all_elements = []
+        for elements in page_structure.elements_by_category.values():
+            all_elements.extend(elements)
+        
         # Factor in number of elements
-        element_count = len(page_structure.elements)
+        element_count = len(all_elements)
         score += min(element_count / 100, 0.3)  # Max 0.3 for element count
         
         # Factor in form complexity
-        form_elements = len([e for e in page_structure.elements 
-                           if hasattr(e, 'category') and str(e.category) == 'form_input'])
+        form_elements = len(page_structure.elements_by_category.get(ElementCategory.FORM_INPUT, []))
         score += min(form_elements / 20, 0.2)  # Max 0.2 for forms
         
         # Factor in critical paths
@@ -625,8 +639,7 @@ Example security test case:
             risk_score += 3
         
         # Check for data input forms
-        form_count = len([e for e in page_structure.elements 
-                         if hasattr(e, 'category') and str(e.category) == 'form_input'])
+        form_count = len(page_structure.elements_by_category.get(ElementCategory.FORM_INPUT, []))
         if form_count > 5:
             risk_score += 2
         elif form_count > 0:

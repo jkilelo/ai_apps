@@ -1,0 +1,47 @@
+{
+  "pipeline_execution": {
+    "timestamp": "2025-08-15T06:58:11.198646",
+    "test_cases_file": "test_results_github/20250814_160251_github_com_tests.json",
+    "extraction_file": "test_results_github/20250814_160251_github_com_extraction.json",
+    "generation": {
+      "timestamp": "2025-08-15T06:58:11.200750",
+      "url": "https://github.com",
+      "test_cases_file": "test_results_github/20250814_160251_github_com_tests.json",
+      "extraction_file": "test_results_github/20250814_160251_github_com_extraction.json",
+      "generated_files": [
+        "pipeline_generated_tests\\pages\\base_page.py",
+        "pipeline_generated_tests\\pages\\main_page.py",
+        "pipeline_generated_tests\\pages\\__init__.py",
+        "pipeline_generated_tests\\tests\\test_critical_path.py",
+        "pipeline_generated_tests\\tests\\test_validation.py",
+        "pipeline_generated_tests\\tests\\test_security.py",
+        "pipeline_generated_tests\\tests\\test_visual_regression.py",
+        "pipeline_generated_tests\\conftest.py",
+        "pipeline_generated_tests\\requirements.txt",
+        "pipeline_generated_tests\\.env.test",
+        "pipeline_generated_tests\\README.md"
+      ],
+      "llm_calls": 7,
+      "errors": [],
+      "success": true
+    },
+    "execution": {
+      "success": false,
+      "start_time": "2025-08-15T07:01:02.600620",
+      "results": {},
+      "metrics": {},
+      "reports": [],
+      "error": "Failed to install dependencies"
+    },
+    "success": false
+  },
+  "summary": {
+    "total_files_generated": 11,
+    "llm_calls": 7,
+    "total_tests": 0,
+    "tests_passed": 0,
+    "tests_failed": 0,
+    "execution_time": 0,
+    "overall_success": false
+  }
+}
