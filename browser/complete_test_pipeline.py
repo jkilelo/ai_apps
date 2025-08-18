@@ -28,6 +28,10 @@ from browser.test_executor import (
     ExecutionConfig,
     TestExecutor
 )
+from browser.smart_dependency_manager import (
+    SmartDependencyManager,
+    prepare_test_environment
+)
 
 # Configure logging
 logging.basicConfig(
@@ -71,10 +75,38 @@ class CompleteTestPipeline:
             "extraction_file": self.extraction_file,
             "generation": {},
             "execution": {},
+            "dependencies": {},
             "success": False
         }
         
         try:
+            # ========================================
+            # PHASE 0: PREPARE DEPENDENCIES
+            # ========================================
+            print("\n" + "-"*60)
+            print("PHASE 0: PREPARING DEPENDENCIES")
+            print("-"*60)
+            
+            # Prepare environment for the target URL
+            target_url = self.base_url or "https://github.com"
+            logger.info(f"Preparing environment for {target_url}")
+            
+            dep_manager = SmartDependencyManager(
+                target_url=target_url,
+                test_dir=self.generation_output_dir
+            )
+            dep_results = dep_manager.ensure_all_dependencies()
+            pipeline_results["dependencies"] = dep_results
+            
+            if not dep_results.get("success"):
+                logger.error("Dependency preparation failed")
+                print("[ERROR] Failed to prepare dependencies")
+                return pipeline_results
+            
+            print(f"[OK] Dependencies ready")
+            print(f"   Packages: {len(dep_results.get('packages_installed', []))}")
+            print(f"   Page Objects: {len(dep_results.get('page_objects_generated', []))}")
+            
             # ========================================
             # PHASE 1: GENERATE TEST CODE
             # ========================================

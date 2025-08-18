@@ -6,6 +6,7 @@
 .env.production.local
 *.env
 .envrc
+*.png
 
 # API Keys and credentials
 config/secrets.json
