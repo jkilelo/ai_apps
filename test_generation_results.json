@@ -1,0 +1,1369 @@
+{
+  "url": "https://quotes.toscrape.com/login",
+  "timestamp": "2025-08-19 08:44:50.498847",
+  "features": {
+    "functional": {
+      "category": "functional",
+      "feature_title": "User Login and Navigation on Quotes to Scrape Login Page",
+      "feature_description": "As a user,\n  I want to be able to log in to the system with various credentials\n  And navigate to different parts of the website from the login page\n  So that I can access secure content and browse information.",
+      "background": [
+        {
+          "keyword": "Given",
+          "text": "I am on the \"Quotes to Scrape\" login page at \"https://quotes.toscrape.com/login\""
+        },
+        {
+          "keyword": "And",
+          "text": "I see the \"Login\" form"
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Successful user login with valid credentials",
+          "tags": [
+            "negative",
+            "regression",
+            "login"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"toscrape\" into the \"username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"password\" into the \"password\" field with selector \"input[name='password']\""
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should be redirected to the \"https://quotes.toscrape.com/\" home page"
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the \"Logout\" link"
+            },
+            {
+              "keyword": "And",
+              "text": "I should not see the \"Login\" link"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Failed user login with invalid or missing credentials",
+          "tags": [
+            "smoke",
+            "regression",
+            "navigation"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"<username>\" into the \"username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"<password>\" into the \"password\" field with selector \"input[name='password']\""
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see the error message \"Invalid username or password.\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should remain on the \"https://quotes.toscrape.com/login\" page"
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the \"Login\" link"
+            }
+          ],
+          "examples": "| username      | password      |\n      | wronguser     | wrongpass     |\n      | toscrape      | wrongpass     |\n      | wronguser     | password      |\n      |               | password      |  # Missing username\n      | toscrape      |               |  # Missing password\n      |               |               |  # Both missing\n\n  @smoke @regression @navigation",
+          "is_outline": true
+        },
+        {
+          "title": "Navigate to Quotes Home Page from Login page",
+          "tags": [
+            "regression",
+            "navigation",
+            "external"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I click the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should be redirected to the \"https://quotes.toscrape.com/\" home page"
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the main header \"Quotes to Scrape\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Navigate to external GoodReads.com website",
+          "tags": [
+            "regression",
+            "navigation",
+            "external"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I click the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\""
+            },
+            {
+              "keyword": "Then",
+              "text": "a new tab should open with the URL \"https://www.goodreads.com/quotes\""
+            },
+            {
+              "keyword": "And",
+              "text": "the current tab should remain on the \"https://quotes.toscrape.com/login\" page"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Navigate to external Zyte website",
+          "tags": [
+            "regression",
+            "page",
+            "ui"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I click the \"Zyte\" link with selector \"a.zyte\""
+            },
+            {
+              "keyword": "Then",
+              "text": "a new tab should open with the URL \"https://www.zyte.com/\""
+            },
+            {
+              "keyword": "And",
+              "text": "the current tab should remain on the \"https://quotes.toscrape.com/login\" page"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Verify presence and visibility of key elements on the login page",
+          "tags": [],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "I should see the \"username\" input field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the \"password\" input field with selector \"input[name='password']\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should see the \"Zyte\" link with selector \"a.zyte\""
+            },
+            {
+              "keyword": "And",
+              "text": "the page title should be \"Login\""
+            },
+            {
+              "keyword": "And",
+              "text": "the current URL should be \"https://quotes.toscrape.com/login\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        }
+      ],
+      "raw_content": "Feature: User Login and Navigation on Quotes to Scrape Login Page\n\n  As a user,\n  I want to be able to log in to the system with various credentials\n  And navigate to different parts of the website from the login page\n  So that I can access secure content and browse information.\n\n  Background:\n    Given I am on the \"Quotes to Scrape\" login page at \"https://quotes.toscrape.com/login\"\n    And I see the \"Login\" form\n\n  @smoke @critical @regression @happy-path\n  Scenario: Successful user login with valid credentials\n    When I enter \"toscrape\" into the \"username\" field with selector \"#username\"\n    And I enter \"password\" into the \"password\" field with selector \"input[name='password']\"\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should be redirected to the \"https://quotes.toscrape.com/\" home page\n    And I should see the \"Logout\" link\n    And I should not see the \"Login\" link\n\n  @negative @regression @login-form\n  Scenario Outline: Failed user login with invalid or missing credentials\n    When I enter \"<username>\" into the \"username\" field with selector \"#username\"\n    And I enter \"<password>\" into the \"password\" field with selector \"input[name='password']\"\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see the error message \"Invalid username or password.\"\n    And I should remain on the \"https://quotes.toscrape.com/login\" page\n    And I should see the \"Login\" link\n\n    Examples:\n      | username      | password      |\n      | wronguser     | wrongpass     |\n      | toscrape      | wrongpass     |\n      | wronguser     | password      |\n      |               | password      |  # Missing username\n      | toscrape      |               |  # Missing password\n      |               |               |  # Both missing\n\n  @smoke @regression @navigation\n  Scenario: Navigate to Quotes Home Page from Login page\n    When I click the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\"\n    Then I should be redirected to the \"https://quotes.toscrape.com/\" home page\n    And I should see the main header \"Quotes to Scrape\"\n\n  @regression @navigation @external-link\n  Scenario: Navigate to external GoodReads.com website\n    When I click the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\"\n    Then a new tab should open with the URL \"https://www.goodreads.com/quotes\"\n    And the current tab should remain on the \"https://quotes.toscrape.com/login\" page\n\n  @regression @navigation @external-link\n  Scenario: Navigate to external Zyte website\n    When I click the \"Zyte\" link with selector \"a.zyte\"\n    Then a new tab should open with the URL \"https://www.zyte.com/\"\n    And the current tab should remain on the \"https://quotes.toscrape.com/login\" page\n\n  @regression @page-elements @ui-validation\n  Scenario: Verify presence and visibility of key elements on the login page\n    Then I should see the \"username\" input field with selector \"#username\"\n    And I should see the \"password\" input field with selector \"input[name='password']\"\n    And I should see the \"Login\" button with selector \"input.btn.btn-primary\"\n    And I should see the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\"\n    And I should see the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\"\n    And I should see the \"Zyte\" link with selector \"a.zyte\"\n    And the page title should be \"Login\"\n    And the current URL should be \"https://quotes.toscrape.com/login\"\n```"
+    },
+    "validation": {
+      "category": "validation",
+      "feature_title": "User Login Form Validation",
+      "feature_description": "As a user,\n  I want to interact with the login form,\n  So that I can log in securely and receive appropriate feedback for invalid inputs.",
+      "background": [
+        {
+          "keyword": "Given",
+          "text": "I am on the \"https://quotes.toscrape.com/login\" page"
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Attempt login with an empty username",
+          "tags": [
+            "validation",
+            "negative",
+            "required"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I leave the username field empty"
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"password123\" into the \"password\" field"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"No active account found with the given credentials.\" or similar"
+            },
+            {
+              "keyword": "And",
+              "text": "I should remain on the \"https://quotes.toscrape.com/login\" page"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Attempt login with an empty password",
+          "tags": [
+            "validation",
+            "negative",
+            "required"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"testuser\" into the \"username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I leave the password field empty"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"No active account found with the given credentials.\" or similar"
+            },
+            {
+              "keyword": "And",
+              "text": "I should remain on the \"https://quotes.toscrape.com/login\" page"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Attempt login with both username and password fields empty",
+          "tags": [
+            "validation",
+            "negative",
+            "error_message"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I leave the username field empty"
+            },
+            {
+              "keyword": "And",
+              "text": "I leave the password field empty"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"No active account found with the given credentials.\" or similar"
+            },
+            {
+              "keyword": "And",
+              "text": "I should remain on the \"https://quotes.toscrape.com/login\" page"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Verify error message for invalid credentials",
+          "tags": [
+            "validation",
+            "positive",
+            "successful_login"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"<username>\" into the \"username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"<password>\" into the \"password\" field"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message with text \"<expected_error_message>\""
+            }
+          ],
+          "examples": "| username       | password      | expected_error_message                        |\n      | non_existent   | some_password | No active account found with the given credentials. |\n      | testuser       | wrong_password | No active account found with the given credentials. |\n      | another_user   | invalid_pass  | No active account found with the given credentials. |\n\n  @validation @positive @successful_login",
+          "is_outline": true
+        },
+        {
+          "title": "Successful login with valid credentials",
+          "tags": [
+            "validation",
+            "negative",
+            "password_complexity",
+            "boundary"
+          ],
+          "steps": [
+            {
+              "keyword": "Given",
+              "text": "I have a valid username \"test\" and password \"test\""
+            },
+            {
+              "keyword": "When",
+              "text": "I enter \"test\" into the \"username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"test\" into the \"password\" field"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should be redirected to the \"https://quotes.toscrape.com/\" page"
+            },
+            {
+              "keyword": "And",
+              "text": "I should see a success message indicating \"You are now logged in.\" or similar"
+            },
+            {
+              "keyword": "And",
+              "text": "I should see a \"Logout\" link"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Verify password length constraints (hypothetical)",
+          "tags": [
+            "validation",
+            "negative",
+            "password_complexity",
+            "pattern"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"testuser\" into the \"username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"<password>\" into the \"password\" field"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"<expected_error_message>\""
+            }
+          ],
+          "examples": "| password | expected_error_message                        |\n      | short    | Please enter a password between 6 and 20 characters. |\n      | toolongpasswordforthisfieldtestinginvalidatingtheentry  | Please enter a password between 6 and 20 characters. |\n\n  @validation @negative @password_complexity @pattern",
+          "is_outline": true
+        },
+        {
+          "title": "Verify password format constraints (hypothetical)",
+          "tags": [
+            "validation",
+            "navigation",
+            "external_link"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"testuser\" into the \"username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"<password>\" into the \"password\" field"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"<expected_error_message>\""
+            }
+          ],
+          "examples": "| password   | expected_error_message                                   |\n      | nopassword | Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character. |\n      | 12345abc   | Password must contain at least one uppercase letter and one special character. |\n      | Abcde!23   | No active account found with the given credentials. (This would be if it passes format but is still invalid) |\n\n  @validation @navigation @external_link",
+          "is_outline": true
+        },
+        {
+          "title": "Verify GoodReads.com link opens in a new tab",
+          "tags": [],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I click the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\""
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"https://www.goodreads.com/quotes\" URL should open in a new tab or window"
+            },
+            {
+              "keyword": "And",
+              "text": "I should remain on the \"https://quotes.toscrape.com/login\" page in the original tab"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        }
+      ],
+      "raw_content": "Feature: User Login Form Validation\n\n  As a user,\n  I want to interact with the login form,\n  So that I can log in securely and receive appropriate feedback for invalid inputs.\n\n  @login @ui\n  Background:\n    Given I am on the \"https://quotes.toscrape.com/login\" page\n\n  @validation @negative @required\n  Scenario: Attempt login with an empty username\n    When I leave the username field empty\n    And I enter \"password123\" into the \"password\" field\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message indicating \"No active account found with the given credentials.\" or similar\n    And I should remain on the \"https://quotes.toscrape.com/login\" page\n\n  @validation @negative @required\n  Scenario: Attempt login with an empty password\n    When I enter \"testuser\" into the \"username\" field with selector \"#username\"\n    And I leave the password field empty\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message indicating \"No active account found with the given credentials.\" or similar\n    And I should remain on the \"https://quotes.toscrape.com/login\" page\n\n  @validation @negative @required\n  Scenario: Attempt login with both username and password fields empty\n    When I leave the username field empty\n    And I leave the password field empty\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message indicating \"No active account found with the given credentials.\" or similar\n    And I should remain on the \"https://quotes.toscrape.com/login\" page\n\n  @validation @negative @error_message\n  Scenario Outline: Verify error message for invalid credentials\n    When I enter \"<username>\" into the \"username\" field with selector \"#username\"\n    And I enter \"<password>\" into the \"password\" field\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message with text \"<expected_error_message>\"\n\n    Examples:\n      | username       | password      | expected_error_message                        |\n      | non_existent   | some_password | No active account found with the given credentials. |\n      | testuser       | wrong_password | No active account found with the given credentials. |\n      | another_user   | invalid_pass  | No active account found with the given credentials. |\n\n  @validation @positive @successful_login\n  Scenario: Successful login with valid credentials\n    Given I have a valid username \"test\" and password \"test\"\n    When I enter \"test\" into the \"username\" field with selector \"#username\"\n    And I enter \"test\" into the \"password\" field\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should be redirected to the \"https://quotes.toscrape.com/\" page\n    And I should see a success message indicating \"You are now logged in.\" or similar\n    And I should see a \"Logout\" link\n\n  # Note: The provided analysis mentions \"Password Complexity (length, special characters, etc.)\"\n  # This implies the system might have specific password rules.\n  # Based on the observed behavior of quotes.toscrape.com, it uses a simple \"test/test\" credential.\n  # If it had actual complexity, these scenarios would be relevant.\n  # For the purpose of demonstration, I'll include hypothetical complexity scenarios.\n\n  @validation @negative @password_complexity @boundary\n  Scenario Outline: Verify password length constraints (hypothetical)\n    When I enter \"testuser\" into the \"username\" field with selector \"#username\"\n    And I enter \"<password>\" into the \"password\" field\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message indicating \"<expected_error_message>\"\n\n    Examples:\n      | password | expected_error_message                        |\n      | short    | Please enter a password between 6 and 20 characters. |\n      | toolongpasswordforthisfieldtestinginvalidatingtheentry  | Please enter a password between 6 and 20 characters. |\n\n  @validation @negative @password_complexity @pattern\n  Scenario Outline: Verify password format constraints (hypothetical)\n    When I enter \"testuser\" into the \"username\" field with selector \"#username\"\n    And I enter \"<password>\" into the \"password\" field\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message indicating \"<expected_error_message>\"\n\n    Examples:\n      | password   | expected_error_message                                   |\n      | nopassword | Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character. |\n      | 12345abc   | Password must contain at least one uppercase letter and one special character. |\n      | Abcde!23   | No active account found with the given credentials. (This would be if it passes format but is still invalid) |\n\n  @validation @navigation @external_link\n  Scenario: Verify GoodReads.com link opens in a new tab\n    When I click the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\"\n    Then the \"https://www.goodreads.com/quotes\" URL should open in a new tab or window\n    And I should remain on the \"https://quotes.toscrape.com/login\" page in the original tab"
+    },
+    "security": {
+      "category": "security",
+      "feature_title": "Login Page Security Vulnerability Testing",
+      "feature_description": "As a security tester\n  I want to verify the robustness of the login functionality\n  To ensure protection against common web vulnerabilities like injection and bypass attempts.",
+      "background": [
+        {
+          "keyword": "Given",
+          "text": "I am on the \"Login\" page (https://quotes.toscrape.com/login)"
+        },
+        {
+          "keyword": "And",
+          "text": "I observe the initial session ID"
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Prevent SQL Injection via Username Field",
+          "tags": [
+            "sqli",
+            "vulnerability",
+            "negative"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"<username_payload>\" into the \"Username\" field (input#username)"
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"securePass123\" into the \"Password\" field (input[type='password'])"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button (input.btn.btn-primary)"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"Invalid credentials\" or \"Login failed\""
+            },
+            {
+              "keyword": "And",
+              "text": "the page content should not show any database errors"
+            },
+            {
+              "keyword": "And",
+              "text": "I should not be logged in"
+            }
+          ],
+          "examples": "| username_payload           |\n      | ' OR '1'='1                |\n      | \" OR \"1\"=\"1                |\n      | ' OR 1=1 --                |\n      | \" OR 1=1 --                |\n      | admin' --                  |\n      | admin' #                   |\n      | admin' OR 'a'='a          |\n      | admin' AND '1'='1 --      |\n\n  @sqli @vulnerability @negative",
+          "is_outline": true
+        },
+        {
+          "title": "Prevent SQL Injection via Password Field",
+          "tags": [
+            "xss",
+            "vulnerability",
+            "negative"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"testuser\" into the \"Username\" field (input#username)"
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"<password_payload>\" into the \"Password\" field (input[type='password'])"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button (input.btn.btn-primary)"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"Invalid credentials\" or \"Login failed\""
+            },
+            {
+              "keyword": "And",
+              "text": "the page content should not show any database errors"
+            },
+            {
+              "keyword": "And",
+              "text": "I should not be logged in"
+            }
+          ],
+          "examples": "| password_payload           |\n      | ' OR '1'='1                |\n      | \" OR \"1\"=\"1                |\n      | ' OR 1=1 --                |\n      | \" OR 1=1 --                |\n      | password' OR '1'='1       |\n      | password' #               |\n      | password' AND '1'='1 --   |\n\n  @xss @vulnerability @negative",
+          "is_outline": true
+        },
+        {
+          "title": "Prevent Cross-Site Scripting (XSS) via Username Field",
+          "tags": [
+            "xss",
+            "vulnerability",
+            "negative"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"<username_payload>\" into the \"Username\" field (input#username)"
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"securePass123\" into the \"Password\" field (input[type='password'])"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button (input.btn.btn-primary)"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should not see any script execution or pop-ups"
+            },
+            {
+              "keyword": "And",
+              "text": "the page content should be free of injected HTML or JavaScript elements"
+            },
+            {
+              "keyword": "And",
+              "text": "I should see an error message indicating \"Invalid credentials\" or \"Login failed\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should not be logged in"
+            }
+          ],
+          "examples": "| username_payload                                   |\n      | <script>alert('XSS')</script>                      |\n      | \"><script>alert('XSS')</script>                   |\n      | <img src=x onerror=alert('XSS')>                   |\n      | '\"; --><script>alert(document.domain)</script>    |\n      | %3Cscript%3Ealert(%27XSS%27)%3C%2Fscript%3E        |\n      | <body onload=alert('XSS')>                         |\n\n  @xss @vulnerability @negative",
+          "is_outline": true
+        },
+        {
+          "title": "Prevent Cross-Site Scripting (XSS) via Password Field",
+          "tags": [
+            "bruteforce",
+            "penetration",
+            "negative"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"testuser\" into the \"Username\" field (input#username)"
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"<password_payload>\" into the \"Password\" field (input[type='password'])"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button (input.btn.btn-primary)"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should not see any script execution or pop-ups"
+            },
+            {
+              "keyword": "And",
+              "text": "the page content should be free of injected HTML or JavaScript elements"
+            },
+            {
+              "keyword": "And",
+              "text": "I should see an error message indicating \"Invalid credentials\" or \"Login failed\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should not be logged in"
+            }
+          ],
+          "examples": "| password_payload                                   |\n      | <script>alert('XSS')</script>                      |\n      | \"><script>alert('XSS')</script>                   |\n      | <img src=x onerror=alert('XSS')>                   |\n      | '\"; --><script>alert(document.domain)</script>    |\n\n  @bruteforce @penetration @negative",
+          "is_outline": true
+        },
+        {
+          "title": "Verify Brute-Force Protection via Multiple Failed Attempts",
+          "tags": [
+            "session",
+            "positive"
+          ],
+          "steps": [
+            {
+              "keyword": "Given",
+              "text": "I have a known valid username \"gooduser\" (assuming this exists for testing lockout)"
+            },
+            {
+              "keyword": "When",
+              "text": "I attempt to log in with \"gooduser\" and invalid password \"wrongpass1\" for 5 times"
+            },
+            {
+              "keyword": "And",
+              "text": "I attempt to log in with \"gooduser\" and invalid password \"wrongpass2\" for another 5 times"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should eventually see a \"Too many failed login attempts\" message or similar rate-limiting indication"
+            },
+            {
+              "keyword": "And",
+              "text": "I should not be able to log in with valid credentials immediately afterwards for a specified period"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Verify Session ID Changes After Successful Login",
+          "tags": [
+            "session",
+            "vulnerability",
+            "negative"
+          ],
+          "steps": [
+            {
+              "keyword": "Given",
+              "text": "I have valid credentials \"test:test\" (assuming these are default/valid credentials for quotes.toscrape.com)"
+            },
+            {
+              "keyword": "When",
+              "text": "I log in with \"test\" into the \"Username\" field (input#username) and \"test\" into the \"Password\" field (input[type='password'])"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button (input.btn.btn-primary)"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should be redirected to the \"Quotes\" page"
+            },
+            {
+              "keyword": "And",
+              "text": "the current session ID should be different from the initial session ID"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Verify Session ID Is Securely Generated Before Login",
+          "tags": [
+            "input",
+            "negative"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the initial session ID should be non-guessable and complex (e.g., sufficient length, alphanumeric)"
+            },
+            {
+              "keyword": "And",
+              "text": "the session ID should not contain any predictable patterns or sensitive information"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Handle Invalid Characters in Username",
+          "tags": [
+            "domain",
+            "bypass",
+            "penetration",
+            "negative"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"<username_input>\" into the \"Username\" field (input#username)"
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"securePass123\" into the \"Password\" field (input[type='password'])"
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button (input.btn.btn-primary)"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"Invalid username format\" or \"Login failed\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should not be logged in"
+            }
+          ],
+          "examples": "| username_input  |\n      | user@domain.com |\n      | user/name       |\n      | !@#$%^&*()      |\n      | `~[]{}|\\        |\n      | <script>        |\n\n  @bypass @penetration @negative",
+          "is_outline": true
+        },
+        {
+          "title": "Prevent Login with Common Default Credentials",
+          "tags": [
+            "mitm",
+            "encryption",
+            "positive"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I attempt to log in with common default credentials"
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message indicating \"Invalid credentials\" or \"Login failed\""
+            },
+            {
+              "keyword": "And",
+              "text": "I should not be logged in"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Verify HTTPS Protocol for Login Page",
+          "tags": [],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the current URL should start with \"https://\""
+            },
+            {
+              "keyword": "And",
+              "text": "the browser should indicate a secure connection (e.g., padlock icon)"
+            },
+            {
+              "keyword": "And",
+              "text": "no mixed content warnings should be displayed"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        }
+      ],
+      "raw_content": "Feature: Login Page Security Vulnerability Testing\n  As a security tester\n  I want to verify the robustness of the login functionality\n  To ensure protection against common web vulnerabilities like injection and bypass attempts.\n\n  Background:\n    Given I am on the \"Login\" page (https://quotes.toscrape.com/login)\n    And I observe the initial session ID\n\n  @sqli @vulnerability @negative\n  Scenario Outline: Prevent SQL Injection via Username Field\n    When I enter \"<username_payload>\" into the \"Username\" field (input#username)\n    And I enter \"securePass123\" into the \"Password\" field (input[type='password'])\n    And I click the \"Login\" button (input.btn.btn-primary)\n    Then I should see an error message indicating \"Invalid credentials\" or \"Login failed\"\n    And the page content should not show any database errors\n    And I should not be logged in\n\n    Examples:\n      | username_payload           |\n      | ' OR '1'='1                |\n      | \" OR \"1\"=\"1                |\n      | ' OR 1=1 --                |\n      | \" OR 1=1 --                |\n      | admin' --                  |\n      | admin' #                   |\n      | admin' OR 'a'='a          |\n      | admin' AND '1'='1 --      |\n\n  @sqli @vulnerability @negative\n  Scenario Outline: Prevent SQL Injection via Password Field\n    When I enter \"testuser\" into the \"Username\" field (input#username)\n    And I enter \"<password_payload>\" into the \"Password\" field (input[type='password'])\n    And I click the \"Login\" button (input.btn.btn-primary)\n    Then I should see an error message indicating \"Invalid credentials\" or \"Login failed\"\n    And the page content should not show any database errors\n    And I should not be logged in\n\n    Examples:\n      | password_payload           |\n      | ' OR '1'='1                |\n      | \" OR \"1\"=\"1                |\n      | ' OR 1=1 --                |\n      | \" OR 1=1 --                |\n      | password' OR '1'='1       |\n      | password' #               |\n      | password' AND '1'='1 --   |\n\n  @xss @vulnerability @negative\n  Scenario Outline: Prevent Cross-Site Scripting (XSS) via Username Field\n    When I enter \"<username_payload>\" into the \"Username\" field (input#username)\n    And I enter \"securePass123\" into the \"Password\" field (input[type='password'])\n    And I click the \"Login\" button (input.btn.btn-primary)\n    Then I should not see any script execution or pop-ups\n    And the page content should be free of injected HTML or JavaScript elements\n    And I should see an error message indicating \"Invalid credentials\" or \"Login failed\"\n    And I should not be logged in\n\n    Examples:\n      | username_payload                                   |\n      | <script>alert('XSS')</script>                      |\n      | \"><script>alert('XSS')</script>                   |\n      | <img src=x onerror=alert('XSS')>                   |\n      | '\"; --><script>alert(document.domain)</script>    |\n      | %3Cscript%3Ealert(%27XSS%27)%3C%2Fscript%3E        |\n      | <body onload=alert('XSS')>                         |\n\n  @xss @vulnerability @negative\n  Scenario Outline: Prevent Cross-Site Scripting (XSS) via Password Field\n    When I enter \"testuser\" into the \"Username\" field (input#username)\n    And I enter \"<password_payload>\" into the \"Password\" field (input[type='password'])\n    And I click the \"Login\" button (input.btn.btn-primary)\n    Then I should not see any script execution or pop-ups\n    And the page content should be free of injected HTML or JavaScript elements\n    And I should see an error message indicating \"Invalid credentials\" or \"Login failed\"\n    And I should not be logged in\n\n    Examples:\n      | password_payload                                   |\n      | <script>alert('XSS')</script>                      |\n      | \"><script>alert('XSS')</script>                   |\n      | <img src=x onerror=alert('XSS')>                   |\n      | '\"; --><script>alert(document.domain)</script>    |\n\n  @bruteforce @penetration @negative\n  Scenario: Verify Brute-Force Protection via Multiple Failed Attempts\n    Given I have a known valid username \"gooduser\" (assuming this exists for testing lockout)\n    When I attempt to log in with \"gooduser\" and invalid password \"wrongpass1\" for 5 times\n    And I attempt to log in with \"gooduser\" and invalid password \"wrongpass2\" for another 5 times\n    Then I should eventually see a \"Too many failed login attempts\" message or similar rate-limiting indication\n    And I should not be able to log in with valid credentials immediately afterwards for a specified period\n\n  @session @positive\n  Scenario: Verify Session ID Changes After Successful Login\n    Given I have valid credentials \"test:test\" (assuming these are default/valid credentials for quotes.toscrape.com)\n    When I log in with \"test\" into the \"Username\" field (input#username) and \"test\" into the \"Password\" field (input[type='password'])\n    And I click the \"Login\" button (input.btn.btn-primary)\n    Then I should be redirected to the \"Quotes\" page\n    And the current session ID should be different from the initial session ID\n\n  @session @vulnerability @negative\n  Scenario: Verify Session ID Is Securely Generated Before Login\n    Then the initial session ID should be non-guessable and complex (e.g., sufficient length, alphanumeric)\n    And the session ID should not contain any predictable patterns or sensitive information\n\n  @input-validation @negative\n  Scenario Outline: Handle Invalid Characters in Username\n    When I enter \"<username_input>\" into the \"Username\" field (input#username)\n    And I enter \"securePass123\" into the \"Password\" field (input[type='password'])\n    And I click the \"Login\" button (input.btn.btn-primary)\n    Then I should see an error message indicating \"Invalid username format\" or \"Login failed\"\n    And I should not be logged in\n\n    Examples:\n      | username_input  |\n      | user@domain.com |\n      | user/name       |\n      | !@#$%^&*()      |\n      | `~[]{}|\\        |\n      | <script>        |\n\n  @bypass @penetration @negative\n  Scenario: Prevent Login with Common Default Credentials\n    When I attempt to log in with common default credentials\n      | username | password |\n      | admin    | admin    |\n      | root     | root     |\n      | test     | test     |\n      | user     | user     |\n    Then I should see an error message indicating \"Invalid credentials\" or \"Login failed\"\n    And I should not be logged in\n\n  @mitm @encryption @positive\n  Scenario: Verify HTTPS Protocol for Login Page\n    Then the current URL should start with \"https://\"\n    And the browser should indicate a secure connection (e.g., padlock icon)\n    And no mixed content warnings should be displayed\n```"
+    },
+    "accessibility": {
+      "category": "accessibility",
+      "feature_title": "Accessibility of Login Page",
+      "feature_description": "As a user with accessibility needs\n  I want to interact with the login page\n  So that I can log in successfully and comfortably",
+      "background": [
+        {
+          "keyword": "Given",
+          "text": "I am on the \"Login\" page at \"https://quotes.toscrape.com/login\""
+        },
+        {
+          "keyword": "And",
+          "text": "I have refreshed the page"
+        }
+      ],
+      "scenarios": [
+        {
+          "title": "Keyboard navigation follows a logical tab order and focus is visible",
+          "tags": [
+            "keyboard",
+            "tab",
+            "focus"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I press the \"Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Username\" input field with selector \"#username\" should be focused"
+            },
+            {
+              "keyword": "And",
+              "text": "the focused element should have a visible outline"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Password\" input field with selector \"input[name='password']\" should be focused"
+            },
+            {
+              "keyword": "And",
+              "text": "the focused element should have a visible outline"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Login\" button with selector \"input.btn.btn-primary\" should be focused"
+            },
+            {
+              "keyword": "And",
+              "text": "the focused element should have a visible outline"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\" should be focused"
+            },
+            {
+              "keyword": "And",
+              "text": "the focused element should have a visible outline"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Login\" link with selector \"a[href='https://quotes.toscrape.com/login']\" should be focused"
+            },
+            {
+              "keyword": "And",
+              "text": "the focused element should have a visible outline"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\" should be focused"
+            },
+            {
+              "keyword": "And",
+              "text": "the focused element should have a visible outline"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Zyte\" link with selector \"a.zyte\" should be focused"
+            },
+            {
+              "keyword": "And",
+              "text": "the focused element should have a visible outline"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Reverse keyboard navigation (Shift+Tab) follows a logical order",
+          "tags": [
+            "form",
+            "screen",
+            "label"
+          ],
+          "steps": [
+            {
+              "keyword": "Given",
+              "text": "I have navigated forward with Tab until the \"Zyte\" link with selector \"a.zyte\" is focused"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Shift+Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\" should be focused"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Shift+Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Login\" link with selector \"a[href='https://quotes.toscrape.com/login']\" should be focused"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Shift+Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\" should be focused"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Shift+Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Login\" button with selector \"input.btn.btn-primary\" should be focused"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Shift+Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Password\" input field with selector \"input[name='password']\" should be focused"
+            },
+            {
+              "keyword": "When",
+              "text": "I press the \"Shift+Tab\" key"
+            },
+            {
+              "keyword": "Then",
+              "text": "the \"Username\" input field with selector \"#username\" should be focused"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Username input field is correctly associated with its label",
+          "tags": [
+            "form",
+            "screen",
+            "label"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the label for the \"Username\" input field with selector \"#username\" should be associated correctly"
+            },
+            {
+              "keyword": "And",
+              "text": "the label text should be \"Username\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Password input field is correctly associated with its label",
+          "tags": [
+            "error",
+            "screen",
+            "error"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the label for the \"Password\" input field with selector \"input[name='password']\" should be associated correctly"
+            },
+            {
+              "keyword": "And",
+              "text": "the label text should be \"Password\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Invalid login attempt displays and announces a clear error message",
+          "tags": [
+            "error",
+            "screen",
+            "error"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"invalid_user\" into the \"Username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"invalid_pass\" into the \"Password\" field with selector \"input[name='password']\""
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message \"Invalid username/password.\""
+            },
+            {
+              "keyword": "And",
+              "text": "the error message should be perceivable by screen readers"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Attempting to login with an empty username field displays the general error message",
+          "tags": [
+            "focus",
+            "initial"
+          ],
+          "steps": [
+            {
+              "keyword": "When",
+              "text": "I enter \"\" into the \"Username\" field with selector \"#username\""
+            },
+            {
+              "keyword": "And",
+              "text": "I enter \"password123\" into the \"Password\" field with selector \"input[name='password']\""
+            },
+            {
+              "keyword": "And",
+              "text": "I click the \"Login\" button with selector \"input.btn.btn-primary\""
+            },
+            {
+              "keyword": "Then",
+              "text": "I should see an error message \"Invalid username/password.\""
+            },
+            {
+              "keyword": "And",
+              "text": "the error message should be perceivable by screen readers"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Initial focus is on the username input field upon page load",
+          "tags": [
+            "color",
+            "text"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the \"Username\" input field with selector \"#username\" should be focused"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Page title has sufficient color contrast",
+          "tags": [
+            "color",
+            "text"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the element with text \"Login\" and selector \"h2\" should have a color contrast ratio of at least \"4.5:1\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Username label has sufficient color contrast",
+          "tags": [
+            "color",
+            "text"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the label for the \"Username\" input field with selector \"#username\" should have a color contrast ratio of at least \"4.5:1\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Password label has sufficient color contrast",
+          "tags": [
+            "color",
+            "button"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the label for the \"Password\" input field with selector \"input[name='password']\" should have a color contrast ratio of at least \"4.5:1\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Login button text has sufficient color contrast",
+          "tags": [
+            "aria",
+            "form",
+            "screen"
+          ],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the \"Login\" button with selector \"input.btn.btn-primary\" should have a color contrast ratio of at least \"4.5:1\""
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        },
+        {
+          "title": "Login form is semantically structured and perceivable by assistive technologies",
+          "tags": [],
+          "steps": [
+            {
+              "keyword": "Then",
+              "text": "the \"Login\" form with selector \"form\" should be a native HTML5 form element"
+            },
+            {
+              "keyword": "And",
+              "text": "the \"Username\" input field with selector \"#username\" should have an accessible name"
+            },
+            {
+              "keyword": "And",
+              "text": "the \"Password\" input field with selector \"input[name='password']\" should have an accessible name"
+            },
+            {
+              "keyword": "And",
+              "text": "the \"Login\" button with selector \"input.btn.btn-primary\" should have an accessible name"
+            }
+          ],
+          "examples": null,
+          "is_outline": false
+        }
+      ],
+      "raw_content": "Feature: Accessibility of Login Page\n\n  As a user with accessibility needs\n  I want to interact with the login page\n  So that I can log in successfully and comfortably\n\n  Background:\n    Given I am on the \"Login\" page at \"https://quotes.toscrape.com/login\"\n    And I have refreshed the page\n\n  @keyboard-navigation @tab-order @focus-management\n  Scenario: Keyboard navigation follows a logical tab order and focus is visible\n    When I press the \"Tab\" key\n    Then the \"Username\" input field with selector \"#username\" should be focused\n    And the focused element should have a visible outline\n    When I press the \"Tab\" key\n    Then the \"Password\" input field with selector \"input[name='password']\" should be focused\n    And the focused element should have a visible outline\n    When I press the \"Tab\" key\n    Then the \"Login\" button with selector \"input.btn.btn-primary\" should be focused\n    And the focused element should have a visible outline\n    When I press the \"Tab\" key\n    Then the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\" should be focused\n    And the focused element should have a visible outline\n    When I press the \"Tab\" key\n    Then the \"Login\" link with selector \"a[href='https://quotes.toscrape.com/login']\" should be focused\n    And the focused element should have a visible outline\n    When I press the \"Tab\" key\n    Then the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\" should be focused\n    And the focused element should have a visible outline\n    When I press the \"Tab\" key\n    Then the \"Zyte\" link with selector \"a.zyte\" should be focused\n    And the focused element should have a visible outline\n\n  @keyboard-navigation @tab-order @focus-management\n  Scenario: Reverse keyboard navigation (Shift+Tab) follows a logical order\n    Given I have navigated forward with Tab until the \"Zyte\" link with selector \"a.zyte\" is focused\n    When I press the \"Shift+Tab\" key\n    Then the \"GoodReads.com\" link with selector \"a[href='https://www.goodreads.com/quotes']\" should be focused\n    When I press the \"Shift+Tab\" key\n    Then the \"Login\" link with selector \"a[href='https://quotes.toscrape.com/login']\" should be focused\n    When I press the \"Shift+Tab\" key\n    Then the \"Quotes to Scrape\" link with selector \"a[href='https://quotes.toscrape.com/']\" should be focused\n    When I press the \"Shift+Tab\" key\n    Then the \"Login\" button with selector \"input.btn.btn-primary\" should be focused\n    When I press the \"Shift+Tab\" key\n    Then the \"Password\" input field with selector \"input[name='password']\" should be focused\n    When I press the \"Shift+Tab\" key\n    Then the \"Username\" input field with selector \"#username\" should be focused\n\n  @form-labels @screen-reader @label-association\n  Scenario: Username input field is correctly associated with its label\n    Then the label for the \"Username\" input field with selector \"#username\" should be associated correctly\n    And the label text should be \"Username\"\n\n  @form-labels @screen-reader @label-association\n  Scenario: Password input field is correctly associated with its label\n    Then the label for the \"Password\" input field with selector \"input[name='password']\" should be associated correctly\n    And the label text should be \"Password\"\n\n  @error-handling @screen-reader @error-announcement\n  Scenario: Invalid login attempt displays and announces a clear error message\n    When I enter \"invalid_user\" into the \"Username\" field with selector \"#username\"\n    And I enter \"invalid_pass\" into the \"Password\" field with selector \"input[name='password']\"\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message \"Invalid username/password.\"\n    And the error message should be perceivable by screen readers\n\n  @error-handling @screen-reader @error-announcement\n  Scenario: Attempting to login with an empty username field displays the general error message\n    When I enter \"\" into the \"Username\" field with selector \"#username\"\n    And I enter \"password123\" into the \"Password\" field with selector \"input[name='password']\"\n    And I click the \"Login\" button with selector \"input.btn.btn-primary\"\n    Then I should see an error message \"Invalid username/password.\"\n    And the error message should be perceivable by screen readers\n\n  @focus-management @initial-focus\n  Scenario: Initial focus is on the username input field upon page load\n    Then the \"Username\" input field with selector \"#username\" should be focused\n\n  @color-contrast @text-readability\n  Scenario: Page title has sufficient color contrast\n    Then the element with text \"Login\" and selector \"h2\" should have a color contrast ratio of at least \"4.5:1\"\n\n  @color-contrast @text-readability\n  Scenario: Username label has sufficient color contrast\n    Then the label for the \"Username\" input field with selector \"#username\" should have a color contrast ratio of at least \"4.5:1\"\n\n  @color-contrast @text-readability\n  Scenario: Password label has sufficient color contrast\n    Then the label for the \"Password\" input field with selector \"input[name='password']\" should have a color contrast ratio of at least \"4.5:1\"\n\n  @color-contrast @button-contrast\n  Scenario: Login button text has sufficient color contrast\n    Then the \"Login\" button with selector \"input.btn.btn-primary\" should have a color contrast ratio of at least \"4.5:1\"\n\n  @aria-roles @form-structure @screen-reader\n  Scenario: Login form is semantically structured and perceivable by assistive technologies\n    Then the \"Login\" form with selector \"form\" should be a native HTML5 form element\n    And the \"Username\" input field with selector \"#username\" should have an accessible name\n    And the \"Password\" input field with selector \"input[name='password']\" should have an accessible name\n    And the \"Login\" button with selector \"input.btn.btn-primary\" should have an accessible name\n```"
+    }
+  },
+  "test_suite": {
+    "execution_strategy": {
+      "order_of_execution": [
+        {
+          "phase": "Core Functionality & Validation",
+          "features": [
+            "functional",
+            "validation"
+          ],
+          "description": "Execute core functional tests first to ensure basic login and navigation work as expected. Follow with validation tests to verify input handling and error messages. This establishes a baseline of system stability."
+        },
+        {
+          "phase": "Security Testing",
+          "features": [
+            "security"
+          ],
+          "description": "After confirming basic functionality, perform security vulnerability tests. This ensures that the login page is robust against common attacks before deeper user interactions are considered."
+        },
+        {
+          "phase": "Accessibility Testing",
+          "features": [
+            "accessibility"
+          ],
+          "description": "Finally, conduct accessibility tests. These tests can be performed once the page is functionally stable and visually complete, ensuring it's usable by individuals with disabilities."
+        }
+      ],
+      "dependencies": [
+        "All test categories depend on the 'Quotes to Scrape' login page (https://quotes.toscrape.com/login) being accessible and rendered correctly.",
+        "Functional and Validation tests are foundational; significant failures here should block execution of Security and Accessibility tests until resolved.",
+        "Security tests may require specific user roles or configurations (e.g., admin access for certain attack vectors, though less likely for a public login page) if the system under test had such complexities."
+      ]
+    },
+    "data_requirements": {
+      "functional_validation_data": [
+        {
+          "type": "Valid Credentials",
+          "details": "Known valid username and password (e.g., 'admin' / 'password')."
+        },
+        {
+          "type": "Invalid Credentials",
+          "details": "Incorrect username, incorrect password, incorrect username and password combinations."
+        },
+        {
+          "type": "Edge Case Inputs",
+          "details": "Empty username, empty password, very long strings for both fields, strings with special characters."
+        },
+        {
+          "type": "Rate Limiting Scenarios",
+          "details": "Multiple rapid login attempts with invalid credentials to test lockout mechanisms (if applicable)."
+        }
+      ],
+      "security_data": [
+        {
+          "type": "Injection Payloads",
+          "details": "Common SQL injection strings, XSS payloads (e.g., `<script>alert('XSS')</script>`), command injection attempts."
+        },
+        {
+          "type": "Credential Stuffing Datasets",
+          "details": "Large lists of compromised credentials (for simulating credential stuffing attacks, ideally in a controlled environment)."
+        },
+        {
+          "type": "Session Hijacking Data",
+          "details": "Manipulated session cookies/tokens (if applicable)."
+        },
+        {
+          "type": "Brute Force Dictionaries",
+          "details": "Common password dictionaries for brute-force attacks."
+        }
+      ],
+      "accessibility_data": [
+        {
+          "type": "N/A",
+          "details": "Accessibility testing primarily focuses on the DOM structure, semantic HTML, ARIA attributes, color contrast, and keyboard navigability rather than specific input data. The page content itself serves as the 'data'."
+        }
+      ]
+    },
+    "setup_requirements": {
+      "test_environment": "A dedicated QA/Staging environment identical to production in terms of configuration, dependencies (e.g., database, network), and deployed code. This minimizes environment-specific failures.",
+      "browser_device_matrix": [
+        "Desktop Browsers: Latest versions of Chrome, Firefox, Edge, Safari (on macOS).",
+        "Mobile Browsers: Latest versions of Chrome on Android, Safari on iOS (simulators or real devices).",
+        "Responsiveness: Test across various screen resolutions and orientations."
+      ],
+      "tools_frameworks": [
+        "Automated UI Test Framework: Selenium WebDriver, Playwright, or Cypress.",
+        "Programming Language: Python (for Behave/Cucumber integration), Java, JavaScript.",
+        "Security Testing Tools: OWASP ZAP (for DAST scans), Burp Suite (manual penetration testing), SQLMap (for SQL injection validation).",
+        "Accessibility Testing Tools: Axe-core (for automated checks), Lighthouse (for audits), manual screen reader testing (NVDA, JAWS, VoiceOver), keyboard navigation checks.",
+        "Test Data Management: A mechanism to manage and inject test data (e.g., CSV, JSON files, or a small test data generator)."
+      ],
+      "network_configuration": "Stable internet connection to access the public `quotes.toscrape.com` site. No specific internal network configurations required beyond standard internet access."
+    },
+    "risk_coverage": {
+      "functional_risks": "Users unable to log in, incorrect redirection after login, broken navigation links. High impact on user experience and core functionality.",
+      "validation_risks": "Incorrect error messages, allowing invalid data submission, poor user feedback, potential for backend errors due to malformed input. Medium impact on data integrity and user experience.",
+      "security_risks": "Unauthorized access, data breaches, account compromise, denial of service, reputation damage, legal repercussions. Highest impact on system integrity, user trust, and business continuity.",
+      "accessibility_risks": "Exclusion of users with disabilities, legal non-compliance (e.g., WCAG standards), poor user experience for a significant user segment, reputational damage. Medium-High impact on inclusivity and legal standing."
+    },
+    "ci_cd_integration": {
+      "trigger_points": [
+        "On every pull request/merge request to `develop` or `main` branches.",
+        "After every successful build deployment to the QA/Staging environment.",
+        "Nightly builds for a full regression suite run."
+      ],
+      "pipeline_steps": [
+        "**Build Phase**: Compile application code (if applicable).",
+        "**Deploy Phase**: Deploy the application to the designated test environment.",
+        "**Test Execution Phase**:",
+        "  - Run Functional & Validation Automated Tests (using Selenium/Playwright).",
+        "  - Integrate Automated Security Scans (e.g., OWASP ZAP DAST scan on login page).",
+        "  - Integrate Automated Accessibility Scans (e.g., Axe-core checks).",
+        "**Reporting & Notification Phase**:",
+        "  - Aggregate test results (e.g., allure reports, custom HTML reports).",
+        "  - Publish reports to a central dashboard (e.g., Jenkins, GitLab CI/CD dashboards).",
+        "  - Send notifications (Slack, email) for test failures or critical issues.",
+        "**Artifacts**: Store test logs, screenshots of failures, and detailed test reports."
+      ],
+      "rollback_strategy": "Automated tests failing critical path functional or high-severity security tests should block deployment to higher environments (e.g., production) and trigger an immediate rollback or hotfix process."
+    },
+    "estimated_time": {
+      "automated_execution": {
+        "functional_validation": "10-15 minutes (approx. 14 scenarios)",
+        "security": "15-25 minutes (automated scans for 10 scenarios)",
+        "accessibility": "10-20 minutes (automated scans for 12 scenarios)"
+      },
+      "total_automated_execution_time": "35-60 minutes for a complete automated suite run.",
+      "manual_verification_time": "Additional 30-60 minutes for critical manual checks (e.g., screen reader testing, complex security scenario verification) post-automation."
+    },
+    "maintenance_tips": {
+      "test_script_maintenance": [
+        "Adopt Page Object Model (POM) for UI tests to abstract page elements and make scripts robust to UI changes.",
+        "Use clear, descriptive naming conventions for tests and steps.",
+        "Regularly refactor and remove duplicate code.",
+        "Parameterize test data to easily update and extend test cases without modifying code."
+      ],
+      "test_data_maintenance": "Maintain a robust test data management strategy. Periodically refresh test data to reflect current application state and cover new edge cases.",
+      "tool_dependency_updates": "Keep automation frameworks, browser drivers, and security/accessibility tools updated to ensure compatibility with new browser versions and exploit latest features/fixes.",
+      "monitoring_reporting_feedback": "Continuously monitor test results, analyze flaky tests, and identify root causes of failures. Establish a feedback loop between QA and development teams to quickly address issues.",
+      "documentation_version_control": "Maintain clear, up-to-date documentation for test strategies, test cases, and environment setup. Store all test assets under version control."
+    }
+  },
+  "statistics": {
+    "total_features": 4,
+    "total_scenarios": 36,
+    "total_steps": 172,
+    "scenario_outlines": 9,
+    "unique_tags": [
+      "required",
+      "successful_login",
+      "keyboard",
+      "regression",
+      "aria",
+      "validation",
+      "mitm",
+      "navigation",
+      "error",
+      "encryption",
+      "vulnerability",
+      "screen",
+      "pattern",
+      "focus",
+      "text",
+      "external_link",
+      "domain",
+      "password_complexity",
+      "positive",
+      "color",
+      "bypass",
+      "negative",
+      "external",
+      "initial",
+      "sqli",
+      "input",
+      "label",
+      "boundary",
+      "button",
+      "login",
+      "smoke",
+      "page",
+      "ui",
+      "error_message",
+      "bruteforce",
+      "penetration",
+      "session",
+      "form",
+      "xss",
+      "tab"
+    ],
+    "categories_covered": [
+      "functional",
+      "validation",
+      "security",
+      "accessibility"
+    ]
+  }
+}

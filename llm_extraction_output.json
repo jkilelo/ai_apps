@@ -1,0 +1,851 @@
+{
+  "url": "https://quotes.toscrape.com/login",
+  "timestamp": "2025-08-19 08:02:34.095483",
+  "total_elements": 9,
+  "elements": [
+    {
+      "tag_name": "a",
+      "id": null,
+      "className": "",
+      "name": null,
+      "type": null,
+      "href": "https://quotes.toscrape.com/",
+      "text": "Quotes to Scrape",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 63,
+        "y": 20,
+        "width": 339,
+        "height": 49
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": 0,
+      "pattern": null,
+      "minLength": null,
+      "maxLength": null,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/div/div/div/h1/a",
+      "cssSelector": "a",
+      "category": "navigation",
+      "interaction_pattern": "click",
+      "test_priority": "low",
+      "description": "a containing 'Quotes to Scrape'"
+    },
+    {
+      "tag_name": "a",
+      "id": null,
+      "className": "",
+      "name": null,
+      "type": null,
+      "href": "https://quotes.toscrape.com/login",
+      "text": "Login",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 1163,
+        "y": 32,
+        "width": 39,
+        "height": 17
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": 0,
+      "pattern": null,
+      "minLength": null,
+      "maxLength": null,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/div/div/div[2]/p/a",
+      "cssSelector": "a",
+      "category": "authentication",
+      "interaction_pattern": "click",
+      "test_priority": "critical",
+      "description": "a containing 'Login'"
+    },
+    {
+      "tag_name": "label",
+      "id": null,
+      "className": "",
+      "name": null,
+      "type": null,
+      "href": null,
+      "text": "Username",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 63,
+        "y": 118,
+        "width": 77,
+        "height": 23
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": -1,
+      "pattern": null,
+      "minLength": null,
+      "maxLength": null,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/div/form/div/div/label",
+      "cssSelector": "label",
+      "category": "interactive",
+      "interaction_pattern": "click",
+      "test_priority": "low",
+      "description": "label containing 'Username'"
+    },
+    {
+      "tag_name": "input",
+      "id": "username",
+      "className": "form-control",
+      "name": "username",
+      "type": "text",
+      "href": null,
+      "text": "",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 63,
+        "y": 146,
+        "width": 263,
+        "height": 40
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": 0,
+      "pattern": null,
+      "minLength": -1,
+      "maxLength": -1,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/div/form/div/div/input",
+      "cssSelector": "#username",
+      "category": "form_input",
+      "interaction_pattern": "type_text",
+      "test_priority": "medium",
+      "description": "input with id 'username'"
+    },
+    {
+      "tag_name": "label",
+      "id": null,
+      "className": "",
+      "name": null,
+      "type": null,
+      "href": null,
+      "text": "Password",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 63,
+        "y": 201,
+        "width": 76,
+        "height": 23
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": -1,
+      "pattern": null,
+      "minLength": null,
+      "maxLength": null,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/div/form/div[2]/div/label",
+      "cssSelector": "label",
+      "category": "interactive",
+      "interaction_pattern": "click",
+      "test_priority": "low",
+      "description": "label containing 'Password'"
+    },
+    {
+      "tag_name": "input",
+      "id": "password",
+      "className": "form-control",
+      "name": "password",
+      "type": "password",
+      "href": null,
+      "text": "",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 63,
+        "y": 229,
+        "width": 263,
+        "height": 40
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": 0,
+      "pattern": null,
+      "minLength": -1,
+      "maxLength": -1,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/div/form/div[2]/div/input",
+      "cssSelector": "#password",
+      "category": "authentication",
+      "interaction_pattern": "type_text",
+      "test_priority": "high",
+      "description": "input with id 'password'"
+    },
+    {
+      "tag_name": "input",
+      "id": null,
+      "className": "btn btn-primary",
+      "name": null,
+      "type": "submit",
+      "href": null,
+      "text": "",
+      "value": "Login",
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 63,
+        "y": 284,
+        "width": 67,
+        "height": 41
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": 0,
+      "pattern": null,
+      "minLength": -1,
+      "maxLength": -1,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/div/form/input[2]",
+      "cssSelector": "input.btn.btn-primary",
+      "category": "form_input",
+      "interaction_pattern": "type_text",
+      "test_priority": "critical",
+      "description": "input"
+    },
+    {
+      "tag_name": "a",
+      "id": null,
+      "className": "",
+      "name": null,
+      "type": null,
+      "href": "https://www.goodreads.com/quotes",
+      "text": "GoodReads.com",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 144,
+        "y": 646,
+        "width": 120,
+        "height": 17
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": 0,
+      "pattern": null,
+      "minLength": null,
+      "maxLength": null,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/footer/div/p/a",
+      "cssSelector": "a",
+      "category": "navigation",
+      "interaction_pattern": "click",
+      "test_priority": "low",
+      "description": "a containing 'GoodReads.com'"
+    },
+    {
+      "tag_name": "a",
+      "id": null,
+      "className": "zyte",
+      "name": null,
+      "type": null,
+      "href": "https://www.zyte.com/",
+      "text": "Zyte",
+      "value": null,
+      "placeholder": null,
+      "isEnabled": true,
+      "isVisible": true,
+      "isRequired": false,
+      "isReadonly": false,
+      "position": {
+        "x": 676,
+        "y": 689,
+        "width": 31,
+        "height": 17
+      },
+      "ariaLabel": null,
+      "ariaRole": null,
+      "tabIndex": 0,
+      "pattern": null,
+      "minLength": null,
+      "maxLength": null,
+      "min": null,
+      "max": null,
+      "xpath": "/html/body/footer/div/p[2]/a",
+      "cssSelector": "a.zyte",
+      "category": "navigation",
+      "interaction_pattern": "click",
+      "test_priority": "low",
+      "description": "a containing 'Zyte'"
+    }
+  ],
+  "elements_by_category": {
+    "navigation": [
+      {
+        "tag_name": "a",
+        "id": null,
+        "className": "",
+        "name": null,
+        "type": null,
+        "href": "https://quotes.toscrape.com/",
+        "text": "Quotes to Scrape",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 63,
+          "y": 20,
+          "width": 339,
+          "height": 49
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": 0,
+        "pattern": null,
+        "minLength": null,
+        "maxLength": null,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/div/div/div/h1/a",
+        "cssSelector": "a",
+        "category": "navigation",
+        "interaction_pattern": "click",
+        "test_priority": "low",
+        "description": "a containing 'Quotes to Scrape'"
+      },
+      {
+        "tag_name": "a",
+        "id": null,
+        "className": "",
+        "name": null,
+        "type": null,
+        "href": "https://www.goodreads.com/quotes",
+        "text": "GoodReads.com",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 144,
+          "y": 646,
+          "width": 120,
+          "height": 17
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": 0,
+        "pattern": null,
+        "minLength": null,
+        "maxLength": null,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/footer/div/p/a",
+        "cssSelector": "a",
+        "category": "navigation",
+        "interaction_pattern": "click",
+        "test_priority": "low",
+        "description": "a containing 'GoodReads.com'"
+      },
+      {
+        "tag_name": "a",
+        "id": null,
+        "className": "zyte",
+        "name": null,
+        "type": null,
+        "href": "https://www.zyte.com/",
+        "text": "Zyte",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 676,
+          "y": 689,
+          "width": 31,
+          "height": 17
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": 0,
+        "pattern": null,
+        "minLength": null,
+        "maxLength": null,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/footer/div/p[2]/a",
+        "cssSelector": "a.zyte",
+        "category": "navigation",
+        "interaction_pattern": "click",
+        "test_priority": "low",
+        "description": "a containing 'Zyte'"
+      }
+    ],
+    "authentication": [
+      {
+        "tag_name": "a",
+        "id": null,
+        "className": "",
+        "name": null,
+        "type": null,
+        "href": "https://quotes.toscrape.com/login",
+        "text": "Login",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 1163,
+          "y": 32,
+          "width": 39,
+          "height": 17
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": 0,
+        "pattern": null,
+        "minLength": null,
+        "maxLength": null,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/div/div/div[2]/p/a",
+        "cssSelector": "a",
+        "category": "authentication",
+        "interaction_pattern": "click",
+        "test_priority": "critical",
+        "description": "a containing 'Login'"
+      },
+      {
+        "tag_name": "input",
+        "id": "password",
+        "className": "form-control",
+        "name": "password",
+        "type": "password",
+        "href": null,
+        "text": "",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 63,
+          "y": 229,
+          "width": 263,
+          "height": 40
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": 0,
+        "pattern": null,
+        "minLength": -1,
+        "maxLength": -1,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/div/form/div[2]/div/input",
+        "cssSelector": "#password",
+        "category": "authentication",
+        "interaction_pattern": "type_text",
+        "test_priority": "high",
+        "description": "input with id 'password'"
+      }
+    ],
+    "interactive": [
+      {
+        "tag_name": "label",
+        "id": null,
+        "className": "",
+        "name": null,
+        "type": null,
+        "href": null,
+        "text": "Username",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 63,
+          "y": 118,
+          "width": 77,
+          "height": 23
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": -1,
+        "pattern": null,
+        "minLength": null,
+        "maxLength": null,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/div/form/div/div/label",
+        "cssSelector": "label",
+        "category": "interactive",
+        "interaction_pattern": "click",
+        "test_priority": "low",
+        "description": "label containing 'Username'"
+      },
+      {
+        "tag_name": "label",
+        "id": null,
+        "className": "",
+        "name": null,
+        "type": null,
+        "href": null,
+        "text": "Password",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 63,
+          "y": 201,
+          "width": 76,
+          "height": 23
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": -1,
+        "pattern": null,
+        "minLength": null,
+        "maxLength": null,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/div/form/div[2]/div/label",
+        "cssSelector": "label",
+        "category": "interactive",
+        "interaction_pattern": "click",
+        "test_priority": "low",
+        "description": "label containing 'Password'"
+      }
+    ],
+    "form_input": [
+      {
+        "tag_name": "input",
+        "id": "username",
+        "className": "form-control",
+        "name": "username",
+        "type": "text",
+        "href": null,
+        "text": "",
+        "value": null,
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 63,
+          "y": 146,
+          "width": 263,
+          "height": 40
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": 0,
+        "pattern": null,
+        "minLength": -1,
+        "maxLength": -1,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/div/form/div/div/input",
+        "cssSelector": "#username",
+        "category": "form_input",
+        "interaction_pattern": "type_text",
+        "test_priority": "medium",
+        "description": "input with id 'username'"
+      },
+      {
+        "tag_name": "input",
+        "id": null,
+        "className": "btn btn-primary",
+        "name": null,
+        "type": "submit",
+        "href": null,
+        "text": "",
+        "value": "Login",
+        "placeholder": null,
+        "isEnabled": true,
+        "isVisible": true,
+        "isRequired": false,
+        "isReadonly": false,
+        "position": {
+          "x": 63,
+          "y": 284,
+          "width": 67,
+          "height": 41
+        },
+        "ariaLabel": null,
+        "ariaRole": null,
+        "tabIndex": 0,
+        "pattern": null,
+        "minLength": -1,
+        "maxLength": -1,
+        "min": null,
+        "max": null,
+        "xpath": "/html/body/div/form/input[2]",
+        "cssSelector": "input.btn.btn-primary",
+        "category": "form_input",
+        "interaction_pattern": "type_text",
+        "test_priority": "critical",
+        "description": "input"
+      }
+    ]
+  },
+  "llm_analysis": {
+    "critical_flows": [
+      {
+        "flow_name": "Successful Login",
+        "steps": [
+          "Click 'Login' link (authentication)",
+          "Type valid username into 'username' input (form_input)",
+          "Type valid password into 'password' input (authentication)",
+          "Click the unnamed input (form_input, likely a submit button)"
+        ],
+        "expected_result": "User is successfully logged in and redirected to the appropriate page (e.g., user profile or home page)."
+      },
+      {
+        "flow_name": "Failed Login - Invalid Credentials",
+        "steps": [
+          "Click 'Login' link (authentication)",
+          "Type invalid username into 'username' input (form_input)",
+          "Type invalid password into 'password' input (authentication)",
+          "Click the unnamed input (form_input, likely a submit button)"
+        ],
+        "expected_result": "An appropriate error message is displayed to the user indicating that the login failed. The user remains on the login page."
+      },
+      {
+        "flow_name": "Navigation to Quotes",
+        "steps": [
+          "Click 'Quotes to Scrape' link (navigation)"
+        ],
+        "expected_result": "User is navigated to the 'Quotes to Scrape' page."
+      },
+      {
+        "flow_name": "External Link Navigation - Goodreads",
+        "steps": [
+          "Click 'GoodReads.com' link (navigation)"
+        ],
+        "expected_result": "A new tab or window opens, navigating the user to the Goodreads website."
+      }
+    ],
+    "validation_scenarios": [
+      {
+        "scenario_name": "Username Input Validation",
+        "element": "input with id 'username' (form_input)",
+        "validation_type": "Required Field",
+        "test_data": "",
+        "expected_result": "An error message is displayed indicating that the username is required."
+      },
+      {
+        "scenario_name": "Password Input Validation",
+        "element": "input with id 'password' (authentication)",
+        "validation_type": "Required Field",
+        "test_data": "",
+        "expected_result": "An error message is displayed indicating that the password is required."
+      },
+      {
+        "scenario_name": "Password Input Validation",
+        "element": "input with id 'password' (authentication)",
+        "validation_type": "Password Complexity (length, special characters, etc.)",
+        "test_data": "short",
+        "expected_result": "An error message is displayed indicating the password complexity requirements (if any are enforced)."
+      },
+      {
+        "scenario_name": "Successful Login Redirect",
+        "element": "unnamed input (form_input)",
+        "validation_type": "Correct Redirect",
+        "test_data": "Valid credentials",
+        "expected_result": "User is redirected to the correct post-login page."
+      },
+      {
+        "scenario_name": "Error Message Display",
+        "element": "unnamed input (form_input)",
+        "validation_type": "Error message visibility",
+        "test_data": "Invalid credentials",
+        "expected_result": "An appropriate error message is displayed to the user in a clear and concise manner."
+      },
+      {
+        "scenario_name": "Link Navigation - External",
+        "element": "a containing 'GoodReads.com' (navigation)",
+        "validation_type": "Opens in new tab",
+        "test_data": null,
+        "expected_result": "Link opens in a new tab or window, not the same window."
+      }
+    ],
+    "edge_cases": [
+      {
+        "edge_case_name": "Username with Special Characters",
+        "description": "Test username field with special characters like '@', '#', '$', '%', etc.",
+        "input_field": "input with id 'username' (form_input)",
+        "expected_result": "Application handles special characters appropriately based on security requirements (either allows them or displays an error)."
+      },
+      {
+        "edge_case_name": "Password with Long Length",
+        "description": "Test password field with a very long string (exceeding common limits).",
+        "input_field": "input with id 'password' (authentication)",
+        "expected_result": "Application handles long passwords correctly, either accepting them or truncating them with proper notification."
+      },
+      {
+        "edge_case_name": "Username with SQL Injection attempts",
+        "description": "Test username field with SQL injection attempts",
+        "input_field": "input with id 'username' (form_input)",
+        "expected_result": "Application properly escapes input and prevents SQL injection."
+      },
+      {
+        "edge_case_name": "Password with JavaScript Injection attempts",
+        "description": "Test password field with JavaScript injection attempts",
+        "input_field": "input with id 'password' (authentication)",
+        "expected_result": "Application properly escapes input and prevents JavaScript injection."
+      },
+      {
+        "edge_case_name": "Multiple Login Attempts",
+        "description": "Test the system's behavior after multiple failed login attempts.",
+        "input_field": "unnamed input (form_input)",
+        "expected_result": "The system should implement rate limiting or account lockout mechanisms after a certain number of failed attempts to prevent brute-force attacks."
+      },
+      {
+        "edge_case_name": "Missing or Incorrect labels",
+        "description": "If the 'Username' and 'Password' label are missing or incorrect, screen readers and assistive technology might not properly announce them",
+        "input_field": "label containing 'Username' (interactive), label containing 'Password' (interactive)",
+        "expected_result": "labels are displayed correctly"
+      }
+    ],
+    "accessibility_concerns": [
+      {
+        "concern": "Label Association",
+        "description": "Ensure that the 'Username' and 'Password' labels are correctly associated with their corresponding input fields using the `for` attribute and the input field's `id`.",
+        "test_method": "Inspect the HTML code to verify the correct association."
+      },
+      {
+        "concern": "Error Message Clarity",
+        "description": "Ensure error messages for invalid login attempts or missing fields are clear, concise, and easily understood by all users, including those using screen readers.",
+        "test_method": "Use a screen reader to listen to error messages and ensure they are informative and actionable."
+      },
+      {
+        "concern": "Keyboard Navigation",
+        "description": "Verify that all elements (links, input fields, submit button) are navigable using the keyboard (Tab key) and that the focus order is logical.",
+        "test_method": "Use the Tab key to navigate through the elements and ensure they receive focus in a predictable order."
+      },
+      {
+        "concern": "Color Contrast",
+        "description": "Check the color contrast between text and background for all elements, especially labels and error messages, to ensure readability for users with visual impairments.",
+        "test_method": "Use a color contrast analyzer tool to verify that the contrast ratio meets WCAG AA or AAA standards."
+      },
+      {
+        "concern": "Form Structure",
+        "description": "The login form should be well structured to assist those using assistive technologies.  Consider using fieldsets and legends to group related fields.",
+        "test_method": "Use a screen reader to ensure the structure can be properly parsed and understood."
+      }
+    ],
+    "security_tests": [
+      {
+        "test_name": "SQL Injection",
+        "description": "Attempt to inject SQL code into the username and password fields to test for vulnerabilities.",
+        "input_fields": [
+          "input with id 'username' (form_input)",
+          "input with id 'password' (authentication)"
+        ],
+        "expected_result": "The application should properly sanitize inputs and prevent SQL injection attacks."
+      },
+      {
+        "test_name": "Cross-Site Scripting (XSS)",
+        "description": "Attempt to inject JavaScript code into the username and password fields to test for XSS vulnerabilities.",
+        "input_fields": [
+          "input with id 'username' (form_input)",
+          "input with id 'password' (authentication)"
+        ],
+        "expected_result": "The application should properly encode or sanitize inputs and prevent XSS attacks."
+      },
+      {
+        "test_name": "Brute-Force Attack Protection",
+        "description": "Simulate multiple failed login attempts from the same IP address to test for rate limiting or account lockout mechanisms.",
+        "input_fields": [
+          "input with id 'username' (form_input)",
+          "input with id 'password' (authentication)",
+          "unnamed input (form_input)"
+        ],
+        "expected_result": "The application should implement rate limiting or account lockout to prevent brute-force attacks."
+      },
+      {
+        "test_name": "Password Storage",
+        "description": "Verify that passwords are securely stored using proper hashing algorithms (e.g., bcrypt, Argon2) and salting.",
+        "input_fields": [
+          "input with id 'password' (authentication)",
+          "unnamed input (form_input)"
+        ],
+        "expected_result": "Passwords should be securely stored and not be easily reversible."
+      },
+      {
+        "test_name": "Session Management",
+        "description": "Test the session management implementation for vulnerabilities such as session fixation or session hijacking.",
+        "input_fields": [
+          "input with id 'username' (form_input)",
+          "input with id 'password' (authentication)",
+          "unnamed input (form_input)"
+        ],
+        "expected_result": "Session IDs should be securely generated, stored, and invalidated upon logout or after a period of inactivity."
+      },
+      {
+        "test_name": "Man-in-the-Middle (MITM) Attack",
+        "description": "Verify that all communication between the client and server is encrypted using HTTPS to protect against MITM attacks.",
+        "input_fields": [
+          "a containing 'Login' (authentication)"
+        ],
+        "expected_result": "All communications should be encrypted with TLS 1.2 or higher."
+      }
+    ]
+  }
+}
