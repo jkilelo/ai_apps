@@ -60,16 +60,15 @@ from functools import wraps
 import threading
 import weakref
 
-# Import platform utilities for dynamic browser detection
-try:
-    # Try relative import first
-    from ....utils.platform_utils import get_playwright_launch_options, get_chrome_executable_path
-except ImportError:
-    # Fallback to absolute import
-    import sys
-    import os
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..')))
-    from utils.platform_utils import get_playwright_launch_options, get_chrome_executable_path
+# Import platform utilities using dynamic import resolver
+from ..import_resolver import dynamic_import_from
+
+# Dynamically import platform utilities - works on any system
+get_playwright_launch_options, get_chrome_executable_path = dynamic_import_from(
+    'platform_utils', 
+    'get_playwright_launch_options', 
+    'get_chrome_executable_path'
+)
 
 # Third-party imports
 try:
