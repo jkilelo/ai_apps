@@ -60,6 +60,17 @@ from functools import wraps
 import threading
 import weakref
 
+# Import platform utilities for dynamic browser detection
+try:
+    # Try relative import first
+    from ....utils.platform_utils import get_playwright_launch_options, get_chrome_executable_path
+except ImportError:
+    # Fallback to absolute import
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..')))
+    from utils.platform_utils import get_playwright_launch_options, get_chrome_executable_path
+
 # Third-party imports
 try:
     from playwright.async_api import (
@@ -1325,10 +1336,13 @@ class BrowserService:
     async def _launch_browser(self):
         """Launch browser with enhanced stealth configuration"""
         
-        # Browser launch options
+        # Get platform-specific launch options
+        platform_options = get_playwright_launch_options()
+        
+        # Browser launch options - merge with platform-specific options
         launch_options = {
             "headless": self.config.headless,
-            "args": self._get_browser_args(),
+            "args": self._get_browser_args() + platform_options.get("args", []),
             "ignore_default_args": [
                 "--enable-automation",
                 "--enable-blink-features=IdleDetection",
@@ -1337,10 +1351,9 @@ class BrowserService:
             "channel": "chrome" if self.config.browser_type == "chromium" else None,
         }
         
-        # Find Chrome executable
-        chrome_path = self._find_chrome_executable()
-        if chrome_path:
-            launch_options["executable_path"] = chrome_path
+        # Use executable path from platform utils if available
+        if "executable_path" in platform_options:
+            launch_options["executable_path"] = platform_options["executable_path"]
         
         # Launch based on browser type
         if self.config.browser_type == "chromium":
@@ -1430,33 +1443,8 @@ class BrowserService:
         return args
     
     def _find_chrome_executable(self) -> Optional[str]:
-        """Find Chrome executable path"""
-        system = platform.system()
-        
-        if system == "Windows":
-            paths = [
-                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-                os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
-            ]
-        elif system == "Darwin":  # macOS
-            paths = [
-                "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-                "/Applications/Chromium.app/Contents/MacOS/Chromium",
-            ]
-        else:  # Linux
-            paths = [
-                "/usr/bin/google-chrome",
-                "/usr/bin/google-chrome-stable",
-                "/usr/bin/chromium",
-                "/usr/bin/chromium-browser",
-            ]
-        
-        for path in paths:
-            if os.path.exists(path):
-                return path
-        
-        return None
+        """Find Chrome executable path using platform utilities"""
+        return get_chrome_executable_path()
     
     async def _create_context(self):
         """Create browser context with enhanced stealth settings"""
