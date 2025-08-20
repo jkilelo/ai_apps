@@ -1,208 +1,161 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import {
-    ChartBarIcon,
-    ComputerDesktopIcon,
-    SparklesIcon,
-    ArrowRightIcon,
-    ClockIcon,
-    CheckCircleIcon
-} from '@heroicons/react/24/outline';
+import { ChartBarIcon, ComputerDesktopIcon, SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { useState, useEffect } from 'react';
 
 export function HomePage() {
+    const [isVisible, setIsVisible] = useState(false);
+    const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+    
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
     const features = [
         {
-            title: 'Data Profiling & Quality Checks',
-            description: 'Comprehensive data analysis with automated quality assessments, statistical profiling, and detailed reporting.',
+            title: 'AI-Driven Data Quality Test',
+            description: 'Comprehensive data analysis with automated quality assessment, statistical profiling, and detailed reporting.',
             icon: ChartBarIcon,
             href: '/data-profiling',
-            color: 'from-[#004685] to-blue-600',
-            steps: ['Upload Data', 'Configure Profile', 'Run Analysis', 'Generate Report']
+            color: 'from-blue-500 to-blue-600',
+            steps: [
+                'Provide Table Details',
+                'Perform Profiling',
+                'Execute Generated Code',
+                'Generate DQ Rules',
+                'Perform DQ Checks',
+                'Review Results'
+            ]
         },
         {
-            title: 'Web Automation Flow',
-            description: 'Automated UI testing and interaction workflows with intelligent element detection and validation.',
+            title: 'Next-Gen UI Automation with AI',
+            subtitle: 'Smarter UI, Smarter Testing',
+            description: 'Automated UI Testing and interaction workflow with intelligent element detection and validation.',
             icon: ComputerDesktopIcon,
             href: '/web-automation',
-            color: 'from-[#004685] to-blue-700',
-            steps: ['Define Target', 'Create Workflow', 'Execute Tests', 'Review Results']
+            color: 'from-indigo-500 to-indigo-600',
+            steps: [
+                'Web URL',
+                'Extract Elements',
+                'Generate Test Cases',
+                'Execute Tests',
+                'Review Results'
+            ]
         }
     ];
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
-    };
-
     return (
-        <div className="h-screen w-screen flex relative overflow-hidden fixed inset-0">
-            {/* Animated Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 dark:from-slate-900 dark:via-blue-900 dark:to-slate-800">
-                <div className="absolute inset-0 opacity-40">
-                    <div className="w-full h-full bg-repeat" style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23004685' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-                    }}></div>
+        <div className="h-[calc(100vh-49px)] sm:h-[calc(100vh-57px)] overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+            <div className="h-full flex flex-col">
+                {/* Hero Section with Fade Animation */}
+                <div className={`text-center px-4 pt-4 sm:pt-6 pb-2 sm:pb-4 transition-all duration-700 transform ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+                }`}>
+                    <div className="flex justify-center mb-2">
+                        <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300">
+                            <SparklesIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+                        </div>
+                    </div>
+                    <div className="mb-2">
+                        <h1 className="text-lg sm:text-xl lg:text-2xl font-medium text-slate-600 mb-1">
+                            AI-Powered
+                        </h1>
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Smart Testing Framework</span>
+                        </h2>
+                    </div>
+                    <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+                        Transform your quality assurance with intelligent automation and AI-driven insights
+                    </p>
                 </div>
 
-                {/* Floating Elements */}
-                <motion.div
-                    animate={{
-                        rotate: [0, 360],
-                        scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                    className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-r from-[#004685]/20 to-blue-400/20 rounded-full blur-xl"
-                />
-                <motion.div
-                    animate={{
-                        rotate: [360, 0],
-                        scale: [1, 0.8, 1],
-                    }}
-                    transition={{
-                        duration: 15,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                    className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-r from-blue-400/20 to-[#004685]/20 rounded-full blur-xl"
-                />
-            </div>
-
-            {/* Main Content */}
-            <div className="relative z-10 w-full h-full overflow-y-auto">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-full">
-                    {/* Hero Section */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
-                    >
-                        <div className="flex justify-center mb-6">
-                            <div className="p-3 bg-gradient-to-r from-[#004685] to-blue-600 rounded-2xl shadow-lg">
-                                <SparklesIcon className="h-8 w-8 text-white" />
-                            </div>
-                        </div>
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-                            AI-Powered
-                            <span className="block bg-gradient-to-r from-[#004685] via-blue-600 to-[#004685] bg-clip-text text-transparent">
-                                Data Platform
-                            </span>
-                        </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                            Transform your data workflows with intelligent automation. Perform comprehensive data profiling,
-                            quality checks, and web automation with our modern, intuitive platform.
-                        </p>
-                    </motion.div>
-
-                    {/* Feature Cards */}
-                    <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="grid md:grid-cols-2 gap-8 mb-16"
-                    >
-                        {features.map((feature) => {
+                {/* Feature Cards with Animation */}
+                <div className="flex-1 px-4 pb-4 overflow-auto">
+                    <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto transition-all duration-700 transform ${
+                        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    }`}>
+                        {features.map((feature, index) => {
                             const Icon = feature.icon;
                             return (
-                                <motion.div
+                                <Link
                                     key={feature.title}
-                                    variants={itemVariants}
-                                    whileHover={{ scale: 1.02 }}
-                                    className="group"
+                                    to={feature.href}
+                                    onMouseEnter={() => setHoveredCard(index)}
+                                    onMouseLeave={() => setHoveredCard(null)}
+                                    className="group bg-white rounded-xl p-5 sm:p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 flex flex-col transform hover:-translate-y-1"
                                 >
-                                    <Link to={feature.href}>
-                                        <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/20 dark:border-slate-700/30 h-full">
-                                            <div className={`inline-flex p-3 rounded-2xl bg-gradient-to-r ${feature.color} mb-6`}>
-                                                <Icon className="h-8 w-8 text-white" />
-                                            </div>
-
-                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-[#004685] dark:group-hover:text-[#004685] transition-colors">
+                                    {/* Header */}
+                                    <div className="flex items-start space-x-3 mb-4">
+                                        <div className={`p-2.5 rounded-lg bg-gradient-to-br ${feature.color} flex-shrink-0 shadow-md group-hover:shadow-lg transition-shadow duration-300`}>
+                                            <Icon className="h-6 w-6 text-white" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                                                 {feature.title}
                                             </h3>
-
-                                            <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-                                                {feature.description}
-                                            </p>
-
-                                            {/* Process Steps */}
-                                            <div className="mb-6">
-                                                <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
-                                                    Workflow Steps
-                                                </h4>
-                                                <div className="space-y-2">
-                                                    {feature.steps.map((step, stepIndex) => (
-                                                        <div key={stepIndex} className="flex items-center space-x-3">
-                                                            <div className={`w-6 h-6 rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center`}>
-                                                                <span className="text-white text-xs font-bold">{stepIndex + 1}</span>
-                                                            </div>
-                                                            <span className="text-sm text-slate-600 dark:text-slate-300">{step}</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
-                                                    <ClockIcon className="h-4 w-4" />
-                                                    <span>~5-10 minutes</span>
-                                                </div>
-                                                <div className="flex items-center space-x-2 text-[#004685] dark:text-[#004685] font-medium group-hover:translate-x-1 transition-transform">
-                                                    <span>Get Started</span>
-                                                    <ArrowRightIcon className="h-4 w-4" />
-                                                </div>
-                                            </div>
+                                            {feature.subtitle && (
+                                                <p className="text-sm font-medium text-indigo-600 mt-0.5">
+                                                    {feature.subtitle}
+                                                </p>
+                                            )}
                                         </div>
-                                    </Link>
-                                </motion.div>
+                                    </div>
+                                    
+                                    {/* Description */}
+                                    <p className="text-sm sm:text-base text-slate-600 mb-4">
+                                        {feature.description}
+                                    </p>
+                                    
+                                    {/* Workflow Steps */}
+                                    <div className="flex-1">
+                                        <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+                                            Workflow Steps
+                                        </h4>
+                                        <div className="space-y-2">
+                                            {feature.steps.map((step, stepIndex) => {
+                                                const isCardHovered = hoveredCard === index;
+                                                return (
+                                                    <div 
+                                                        key={stepIndex} 
+                                                        className={`flex items-center space-x-2 p-1 rounded transition-all duration-300 ${
+                                                            isCardHovered ? 'bg-slate-50 translate-x-1' : ''
+                                                        }`}
+                                                    >
+                                                        <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
+                                                            isCardHovered 
+                                                                ? `bg-gradient-to-br ${feature.color} shadow-sm` 
+                                                                : 'bg-slate-100'
+                                                        }`}>
+                                                            <span className={`text-xs font-semibold ${
+                                                                isCardHovered ? 'text-white' : 'text-slate-600'
+                                                            }`}>
+                                                                {stepIndex + 1}
+                                                            </span>
+                                                        </div>
+                                                        <span className="text-sm text-slate-700">{step}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                    
+                                    {/* CTA */}
+                                    <div className="flex items-center justify-between mt-5 pt-4 border-t border-slate-100">
+                                        <div className="flex items-center space-x-2">
+                                            <div className="flex -space-x-1">
+                                                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                                            </div>
+                                            <span className="text-xs text-green-600 font-medium">Ready</span>
+                                        </div>
+                                        <span className="text-sm font-medium text-blue-600 group-hover:translate-x-1 transition-transform flex items-center space-x-2">
+                                            <span>Get Started</span>
+                                            <ArrowRightIcon className="h-4 w-4" />
+                                        </span>
+                                    </div>
+                                </Link>
                             );
                         })}
-                    </motion.div>
-
-                    {/* Quick Stats */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20 dark:border-slate-700/30"
-                    >
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                            <div>
-                                <div className="flex justify-center mb-3">
-                                    <CheckCircleIcon className="h-8 w-8 text-[#004685]" />
-                                </div>
-                                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">99.9%</div>
-                                <div className="text-slate-600 dark:text-slate-300">Data Accuracy</div>
-                            </div>
-                            <div>
-                                <div className="flex justify-center mb-3">
-                                    <ClockIcon className="h-8 w-8 text-[#004685]" />
-                                </div>
-                                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">&lt;5min</div>
-                                <div className="text-slate-600 dark:text-slate-300">Average Processing</div>
-                            </div>
-                            <div>
-                                <div className="flex justify-center mb-3">
-                                    <SparklesIcon className="h-8 w-8 text-[#004685]" />
-                                </div>
-                                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">AI-Powered</div>
-                                <div className="text-slate-600 dark:text-slate-300">Smart Analysis</div>
-                            </div>
-                        </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </div>
