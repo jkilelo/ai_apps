@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Standalone Browser Service
 ===================================
@@ -24,10 +23,10 @@ Usage:
     browser = BrowserService()
     await browser.start()
     page = await browser.get_page("https://example.com")
-    
+
     # As a server
     python standalone_stealth_browser.py --server --port 9222
-    
+
     # Via REST API
     curl http://localhost:9222/api/navigate -d '{"url": "https://example.com"}'
 """
@@ -43,6 +42,10 @@ import time
 import random
 import base64
 import uuid
+
+# Fix Windows async subprocess issue
+# On Windows, we need to handle event loops differently for Playwright
+# Don't set the policy here as it breaks Playwright's internal handling
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timedelta
@@ -65,6 +68,7 @@ try:
         async_playwright,
         Error as PlaywrightError,
     )
+
     HAS_PLAYWRIGHT = True
 except ImportError:
     HAS_PLAYWRIGHT = False
@@ -72,20 +76,21 @@ except ImportError:
 
 try:
     from aiohttp import web
+
     HAS_AIOHTTP = True
 except ImportError:
     HAS_AIOHTTP = False
 
 try:
     import websockets
+
     HAS_WEBSOCKETS = True
 except ImportError:
     HAS_WEBSOCKETS = False
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -93,20 +98,21 @@ logger = logging.getLogger(__name__)
 # Configuration and Models
 # ============================================================================
 
+
 @dataclass
 class BrowserConfig:
     """Complete browser configuration"""
-    
+
     # Core settings
     headless: bool = False
     browser_type: str = "chromium"  # chromium, firefox, webkit
-    
+
     # Stealth settings
     stealth_level: str = "maximum"  # basic, enhanced, maximum, ultimate
     enable_stealth: bool = True
     enable_human_simulation: bool = True
     enable_fingerprint_rotation: bool = True
-    
+
     # Anti-detection features
     hide_webdriver: bool = True
     hide_automation_indicators: bool = True
@@ -123,11 +129,11 @@ class BrowserConfig:
     block_webrtc: bool = True
     spoof_timezone: bool = True
     spoof_geolocation: bool = False
-    
+
     # CDP detection bypass
     disable_cdp_detection: bool = True
     modify_runtime_enable: bool = True
-    
+
     # Advanced bypass
     bypass_cloudflare: bool = True
     bypass_datadome: bool = True
@@ -135,51 +141,55 @@ class BrowserConfig:
     bypass_akamai: bool = True
     bypass_kasada: bool = True
     bypass_shape: bool = True
-    
+
     # Browser settings - use null viewport to avoid detection
     viewport_width: int = 1920
     viewport_height: int = 1080
     user_agent: Optional[str] = None
     locale: str = "en-US"
     timezone: str = "America/New_York"
-    
+
     # Proxy settings
     proxy: Optional[Dict[str, str]] = None
     rotate_proxy: bool = False
     proxy_list: List[Dict[str, str]] = field(default_factory=list)
-    
+
     # Performance
     timeout: int = 60000
     navigation_timeout: int = 30000
     slow_mo: int = 0
-    
+
     # Session
     persist_session: bool = False
     session_id: Optional[str] = None
     cookies_file: Optional[str] = None
-    
+
     # Resource management
     block_images: bool = False
     block_media: bool = False
     block_fonts: bool = False
     block_stylesheets: bool = False
-    
+
     # Human behavior
     human_typing_speed: Tuple[int, int] = (50, 200)  # ms between keystrokes
     human_mouse_speed: float = 1.0
     human_scroll_behavior: bool = True
     random_delays: bool = True
     delay_range: Tuple[int, int] = (100, 2000)  # ms
-    
+
     # Advanced stealth
     disable_runtime_enable: bool = True  # Disable Runtime.enable CDP command
     use_isolated_context: bool = False  # Use isolated world for script execution
     patch_cdp_detection: bool = True  # Patch CDP detection methods
-    randomize_fingerprints: bool = True  # Randomize canvas/webgl fingerprints per session
+    randomize_fingerprints: bool = (
+        True  # Randomize canvas/webgl fingerprints per session
+    )
+
 
 @dataclass
 class BrowserSession:
     """Browser session information"""
+
     session_id: str
     browser_id: str
     created_at: datetime
@@ -190,17 +200,19 @@ class BrowserSession:
     local_storage: Dict[str, Dict] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
+
 # ============================================================================
 # Stealth Injection Module
 # ============================================================================
 
+
 class StealthInjector:
     """Advanced stealth script injection"""
-    
+
     @staticmethod
     async def inject_all(page: Page, config: BrowserConfig):
         """Inject all stealth scripts based on configuration"""
-        
+
         # Core stealth scripts - inject before page loads
         if config.enable_stealth:
             await StealthInjector._inject_webdriver_override(page)
@@ -208,38 +220,39 @@ class StealthInjector:
             await StealthInjector._inject_permissions_override(page)
             await StealthInjector._inject_plugins_override(page)
             await StealthInjector._inject_languages_override(page)
-            
+
         # Advanced fingerprinting
         if config.spoof_canvas_fingerprint:
             await StealthInjector._inject_canvas_fingerprint(page)
-            
+
         if config.spoof_webgl:
             await StealthInjector._inject_webgl_fingerprint(page)
-            
+
         if config.spoof_audio_context:
             await StealthInjector._inject_audio_fingerprint(page)
-            
+
         if config.prevent_webrtc_leak:
             await StealthInjector._inject_webrtc_override(page)
-            
+
         if config.spoof_battery:
             await StealthInjector._inject_battery_override(page)
-            
+
         if config.spoof_hardware:
             await StealthInjector._inject_hardware_override(page)
-            
+
         # CDP detection bypass and advanced techniques
         if config.disable_cdp_detection:
             await StealthInjector._inject_cdp_detection_bypass(page)
             await StealthInjector._inject_runtime_enable_bypass(page)
             await StealthInjector._inject_console_debug_override(page)
-        
+
         logger.info("Stealth scripts injected successfully")
-    
+
     @staticmethod
     async def _inject_webdriver_override(page: Page):
         """Override webdriver detection with enhanced techniques"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Remove webdriver property completely
             Object.defineProperty(navigator, 'webdriver', {
                 get: () => undefined
@@ -304,12 +317,14 @@ class StealthInjector:
                 }
                 return originalGetOwnPropertyDescriptor.apply(this, arguments);
             };
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_chrome_runtime(page: Page):
         """Inject chrome runtime to appear as regular Chrome"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             if (!window.chrome) {
                 window.chrome = {};
             }
@@ -350,12 +365,14 @@ class StealthInjector:
                 wasAlternateProtocolAvailable: false,
                 connectionInfo: "http/1.1"
             });
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_permissions_override(page: Page):
         """Override permissions API with realistic responses"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Override permissions to look more human
             const originalQuery = navigator.permissions.query;
             navigator.permissions.query = async function(parameters) {
@@ -392,12 +409,14 @@ class StealthInjector:
             Object.defineProperty(Notification, 'permission', {
                 get: () => 'default'
             });
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_plugins_override(page: Page):
         """Inject realistic plugins"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             Object.defineProperty(navigator, 'plugins', {
                 get: () => {
                     const pluginArray = [
@@ -444,12 +463,14 @@ class StealthInjector:
                     return pluginArray;
                 }
             });
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_languages_override(page: Page):
         """Override language detection"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             Object.defineProperty(navigator, 'languages', {
                 get: () => ['en-US', 'en']
             });
@@ -457,12 +478,14 @@ class StealthInjector:
             Object.defineProperty(navigator, 'language', {
                 get: () => 'en-US'
             });
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_canvas_fingerprint(page: Page):
         """Enhanced canvas fingerprinting with consistent per-session noise"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Generate consistent noise seed per session
             const sessionSeed = Math.random();
             const seededRandom = (seed) => {
@@ -546,12 +569,14 @@ class StealthInjector:
                 
                 return imageData;
             };
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_webgl_fingerprint(page: Page):
         """Spoof WebGL fingerprinting"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             const getParameterProxyHandler = {
                 apply: function(target, thisArg, argumentsList) {
                     const param = argumentsList[0];
@@ -593,12 +618,14 @@ class StealthInjector:
                     getParameterProxyHandler
                 );
             }
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_audio_fingerprint(page: Page):
         """Spoof audio context fingerprinting"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Override AudioContext
             const AudioContext = window.AudioContext || window.webkitAudioContext;
             if (AudioContext) {
@@ -635,12 +662,14 @@ class StealthInjector:
                     return analyser;
                 };
             }
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_webrtc_override(page: Page):
         """Prevent WebRTC leak"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Override RTCPeerConnection
             const RTCPeerConnection = window.RTCPeerConnection || 
                                      window.webkitRTCPeerConnection || 
@@ -679,12 +708,14 @@ class StealthInjector:
                     return Promise.reject(new Error('getUserMedia not available'));
                 };
             }
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_battery_override(page: Page):
         """Spoof battery API"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             if ('getBattery' in navigator) {
                 navigator.getBattery = async () => {
                     return {
@@ -702,12 +733,14 @@ class StealthInjector:
                     };
                 };
             }
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_hardware_override(page: Page):
         """Spoof hardware concurrency and device memory"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             Object.defineProperty(navigator, 'hardwareConcurrency', {
                 get: () => 8
             });
@@ -727,12 +760,14 @@ class StealthInjector:
             Object.defineProperty(screen, 'pixelDepth', {
                 get: () => 24
             });
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_cdp_detection_bypass(page: Page):
         """Enhanced CDP detection bypass"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Remove all CDP artifacts
             const cdcProps = [
                 'cdc_adoQpoasnfa76pfcZLmcfl_Array',
@@ -794,12 +829,14 @@ class StealthInjector:
                     return error;
                 }
             });
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_runtime_enable_bypass(page: Page):
         """Bypass Runtime.enable CDP detection"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Override Runtime.enable detection
             (function() {
                 // Create isolated context to avoid Runtime.enable detection
@@ -831,12 +868,14 @@ class StealthInjector:
                     }
                 });
             })();
-        """)
-    
+        """
+        )
+
     @staticmethod
     async def _inject_console_debug_override(page: Page):
         """Override console.debug to hide CDP messages"""
-        await page.add_init_script("""
+        await page.add_init_script(
+            """
             // Save original console methods
             const originalConsole = {
                 log: console.log,
@@ -879,113 +918,129 @@ class StealthInjector:
                     }
                 };
             });
-        """)
+        """
+        )
+
 
 # ============================================================================
 # Human Behavior Simulation
 # ============================================================================
 
+
 class HumanBehaviorSimulator:
     """Simulates human-like behavior patterns"""
-    
+
     def __init__(self, config: BrowserConfig):
         self.config = config
         self.last_action_time = time.time()
-    
+
     async def human_type(self, page: Page, selector: str, text: str):
         """Type with human-like speed and patterns"""
         element = await page.wait_for_selector(selector)
         await element.click()
-        
+
         for char in text:
             await page.type(selector, char)
             # Variable delay between keystrokes
             delay = random.uniform(
-                self.config.human_typing_speed[0],
-                self.config.human_typing_speed[1]
+                self.config.human_typing_speed[0], self.config.human_typing_speed[1]
             )
             await asyncio.sleep(delay / 1000)
-            
+
             # Occasional longer pauses (thinking)
             if random.random() < 0.1:
                 await asyncio.sleep(random.uniform(0.5, 2))
-    
+
     async def human_click(self, page: Page, selector: str):
         """Click with human-like movement"""
         element = await page.wait_for_selector(selector)
         box = await element.bounding_box()
-        
+
         if box:
             # Click slightly off-center like a human would
-            x = box['x'] + box['width'] / 2 + random.uniform(-5, 5)
-            y = box['y'] + box['height'] / 2 + random.uniform(-5, 5)
-            
+            x = box["x"] + box["width"] / 2 + random.uniform(-5, 5)
+            y = box["y"] + box["height"] / 2 + random.uniform(-5, 5)
+
             # Move mouse with bezier curve
             await self._bezier_mouse_move(page, x, y)
-            
+
             # Random delay before click
             await asyncio.sleep(random.uniform(0.05, 0.2))
-            
+
             await page.mouse.click(x, y)
-    
+
     async def human_scroll(self, page: Page):
         """Scroll with human-like patterns"""
         # Get page height
         page_height = await page.evaluate("document.body.scrollHeight")
         viewport_height = await page.evaluate("window.innerHeight")
-        
+
         current_position = 0
-        
+
         while current_position < page_height - viewport_height:
             # Variable scroll distance
             scroll_distance = random.uniform(200, 600)
-            
+
             # Smooth scroll
-            await page.evaluate(f"""
+            await page.evaluate(
+                f"""
                 window.scrollBy({{
                     top: {scroll_distance},
                     behavior: 'smooth'
                 }});
-            """)
-            
+            """
+            )
+
             current_position += scroll_distance
-            
+
             # Random pause to "read" content
             await asyncio.sleep(random.uniform(0.5, 3))
-            
+
             # Occasionally scroll up a bit
             if random.random() < 0.2:
                 scroll_up = random.uniform(50, 150)
-                await page.evaluate(f"""
+                await page.evaluate(
+                    f"""
                     window.scrollBy({{
                         top: -{scroll_up},
                         behavior: 'smooth'
                     }});
-                """)
+                """
+                )
                 current_position -= scroll_up
                 await asyncio.sleep(random.uniform(0.3, 1))
-    
+
     async def _bezier_mouse_move(self, page: Page, target_x: float, target_y: float):
         """Move mouse along a bezier curve"""
         current_pos = await page.evaluate("() => ({ x: 0, y: 0 })")
-        
+
         # Generate control points for bezier curve
-        cp1_x = current_pos['x'] + (target_x - current_pos['x']) * 0.3
-        cp1_y = current_pos['y'] + random.uniform(-50, 50)
-        cp2_x = current_pos['x'] + (target_x - current_pos['x']) * 0.7
+        cp1_x = current_pos["x"] + (target_x - current_pos["x"]) * 0.3
+        cp1_y = current_pos["y"] + random.uniform(-50, 50)
+        cp2_x = current_pos["x"] + (target_x - current_pos["x"]) * 0.7
         cp2_y = target_y + random.uniform(-50, 50)
-        
+
         # Move along curve
         steps = random.randint(20, 30)
         for i in range(steps):
             t = i / steps
             # Bezier formula
-            x = (1-t)**3 * current_pos['x'] + 3*(1-t)**2*t * cp1_x + 3*(1-t)*t**2 * cp2_x + t**3 * target_x
-            y = (1-t)**3 * current_pos['y'] + 3*(1-t)**2*t * cp1_y + 3*(1-t)*t**2 * cp2_y + t**3 * target_y
-            
+            x = (
+                (1 - t) ** 3 * current_pos["x"]
+                + 3 * (1 - t) ** 2 * t * cp1_x
+                + 3 * (1 - t) * t**2 * cp2_x
+                + t**3 * target_x
+            )
+            y = (
+                (1 - t) ** 3 * current_pos["y"]
+                + 3 * (1 - t) ** 2 * t * cp1_y
+                + 3 * (1 - t) * t**2 * cp2_y
+                + t**3 * target_y
+            )
+
             await page.mouse.move(x, y)
             await asyncio.sleep(random.uniform(0.001, 0.003))
-    
+
     async def random_mouse_movement(self, page: Page):
         """Random mouse movements to appear human"""
         for _ in range(random.randint(1, 3)):
@@ -993,30 +1048,32 @@ class HumanBehaviorSimulator:
             y = random.uniform(100, 700)
             await self._bezier_mouse_move(page, x, y)
             await asyncio.sleep(random.uniform(0.5, 2))
-    
+
     async def human_wait(self):
         """Wait with human-like delays"""
         if self.config.random_delays:
-            delay = random.uniform(
-                self.config.delay_range[0],
-                self.config.delay_range[1]
-            ) / 1000
+            delay = (
+                random.uniform(self.config.delay_range[0], self.config.delay_range[1])
+                / 1000
+            )
             await asyncio.sleep(delay)
+
 
 # ============================================================================
 # Main Stealth Browser Service
 # ============================================================================
+
 
 class BrowserService:
     """
     Main standalone browser service.
     Can be used by any application for browser automation with maximum stealth.
     """
-    
+
     def __init__(self, config: Optional[BrowserConfig] = None):
         """
         Initialize the stealth browser service.
-        
+
         Args:
             config: Optional configuration, uses defaults if not provided
         """
@@ -1029,20 +1086,20 @@ class BrowserService:
         self.playwright = None
         self._lock = asyncio.Lock()
         self._initialized = False
-        
+
         # Generate unique browser ID
         self.browser_id = str(uuid.uuid4())
-        
+
         logger.info(f"BrowserService initialized - ID: {self.browser_id}")
-    
+
     # ========================================================================
     # Core API Methods
     # ========================================================================
-    
+
     async def start(self) -> bool:
         """
         Start the browser service.
-        
+
         Returns:
             True if successfully started
         """
@@ -1050,75 +1107,97 @@ class BrowserService:
             if self._initialized:
                 logger.warning("Browser service already started")
                 return True
-            
+
             try:
-                # Start Playwright
-                self.playwright = await async_playwright().start()
-                
+                # Start Playwright - handle Windows subprocess issues
+                try:
+                    self.playwright = await async_playwright().start()
+                except NotImplementedError as e:
+                    # Windows async subprocess issue - use sync playwright in thread
+                    logger.warning(
+                        "Async playwright failed, trying sync approach for Windows"
+                    )
+                    from playwright.sync_api import sync_playwright
+                    import nest_asyncio
+
+                    # Allow nested event loops
+                    nest_asyncio.apply()
+
+                    # Use sync playwright
+                    def run_sync():
+                        p = sync_playwright().start()
+                        return p
+
+                    # Run in executor to avoid blocking
+                    loop = asyncio.get_event_loop()
+                    self.playwright = await loop.run_in_executor(None, run_sync)
+
                 # Launch browser
                 await self._launch_browser()
-                
+
                 # Create context
                 await self._create_context()
-                
+
                 self._initialized = True
                 logger.info("Browser service started successfully")
                 return True
-                
+
             except Exception as e:
                 logger.error(f"Failed to start browser service: {e}")
                 return False
-    
+
     async def stop(self) -> bool:
         """
         Stop the browser service and cleanup resources.
-        
+
         Returns:
             True if successfully stopped
         """
         async with self._lock:
             if not self._initialized:
                 return True
-            
+
             try:
                 # Close all pages
                 for page_id in list(self.pages.keys()):
                     await self.close_page(page_id)
-                
+
                 # Close context
                 if self.context:
                     await self.context.close()
-                
+
                 # Close browser
                 if self.browser:
                     await self.browser.close()
-                
+
                 # Stop playwright
                 if self.playwright:
                     await self.playwright.stop()
-                
+
                 self._initialized = False
                 logger.info("Browser service stopped successfully")
                 return True
-                
+
             except Exception as e:
                 logger.error(f"Error stopping browser service: {e}")
                 return False
-    
-    async def get_page(self, url: Optional[str] = None, page_id: Optional[str] = None) -> Page:
+
+    async def get_page(
+        self, url: Optional[str] = None, page_id: Optional[str] = None
+    ) -> Page:
         """
         Get a page instance. Creates new page if needed.
-        
+
         Args:
             url: Optional URL to navigate to
             page_id: Optional page ID for retrieving existing page
-            
+
         Returns:
             Page instance with stealth configuration
         """
         if not self._initialized:
             await self.start()
-        
+
         # Get existing page
         if page_id and page_id in self.pages:
             page = self.pages[page_id]
@@ -1127,60 +1206,60 @@ class BrowserService:
             page = await self._create_page()
             page_id = str(uuid.uuid4())
             self.pages[page_id] = page
-        
+
         # Navigate if URL provided
         if url:
             await self.navigate(page, url)
-        
+
         return page
-    
-    async def navigate(self, page: Page, url: str, wait_until: str = "domcontentloaded") -> bool:
+
+    async def navigate(
+        self, page: Page, url: str, wait_until: str = "domcontentloaded"
+    ) -> bool:
         """
         Navigate to a URL with stealth behavior.
-        
+
         Args:
             page: Page instance
             url: URL to navigate to
             wait_until: Wait condition
-            
+
         Returns:
             True if navigation successful
         """
         try:
             # Human-like delay before navigation
             await self.human_simulator.human_wait()
-            
+
             # Navigate
             response = await page.goto(
-                url,
-                wait_until=wait_until,
-                timeout=self.config.navigation_timeout
+                url, wait_until=wait_until, timeout=self.config.navigation_timeout
             )
-            
+
             # Check for detection
             if await self._check_detection(page):
                 logger.warning(f"Bot detection suspected at {url}")
                 # Attempt bypass strategies
                 await self._attempt_bypass(page, url)
-            
+
             # Random actions to appear human
             if self.config.enable_human_simulation:
                 await self.human_simulator.random_mouse_movement(page)
-            
+
             return response.status < 400 if response else False
-            
+
         except Exception as e:
             logger.error(f"Navigation failed to {url}: {e}")
             return False
-    
+
     async def click(self, page: Page, selector: str) -> bool:
         """
         Click an element with human-like behavior.
-        
+
         Args:
             page: Page instance
             selector: Element selector
-            
+
         Returns:
             True if click successful
         """
@@ -1193,16 +1272,16 @@ class BrowserService:
         except Exception as e:
             logger.error(f"Click failed on {selector}: {e}")
             return False
-    
+
     async def type(self, page: Page, selector: str, text: str) -> bool:
         """
         Type text with human-like behavior.
-        
+
         Args:
             page: Page instance
             selector: Element selector
             text: Text to type
-            
+
         Returns:
             True if typing successful
         """
@@ -1215,15 +1294,17 @@ class BrowserService:
         except Exception as e:
             logger.error(f"Type failed on {selector}: {e}")
             return False
-    
-    async def screenshot(self, page: Page, path: Optional[str] = None) -> Union[bytes, bool]:
+
+    async def screenshot(
+        self, page: Page, path: Optional[str] = None
+    ) -> Union[bytes, bool]:
         """
         Take a screenshot.
-        
+
         Args:
             page: Page instance
             path: Optional path to save screenshot
-            
+
         Returns:
             Screenshot bytes if no path, True if saved to path, False on error
         """
@@ -1236,15 +1317,15 @@ class BrowserService:
         except Exception as e:
             logger.error(f"Screenshot failed: {e}")
             return False
-    
+
     async def evaluate(self, page: Page, script: str) -> Any:
         """
         Evaluate JavaScript in the page.
-        
+
         Args:
             page: Page instance
             script: JavaScript to evaluate
-            
+
         Returns:
             Result of script execution
         """
@@ -1253,32 +1334,33 @@ class BrowserService:
         except Exception as e:
             logger.error(f"Script evaluation failed: {e}")
             return None
-    
-    async def wait_for_selector(self, page: Page, selector: str, timeout: Optional[int] = None) -> bool:
+
+    async def wait_for_selector(
+        self, page: Page, selector: str, timeout: Optional[int] = None
+    ) -> bool:
         """
         Wait for element to appear.
-        
+
         Args:
             page: Page instance
             selector: Element selector
             timeout: Optional timeout override
-            
+
         Returns:
             True if element found
         """
         try:
             await page.wait_for_selector(
-                selector,
-                timeout=timeout or self.config.timeout
+                selector, timeout=timeout or self.config.timeout
             )
             return True
         except Exception:
             return False
-    
+
     async def get_cookies(self, page: Page) -> List[Dict]:
         """Get cookies from page"""
         return await page.context.cookies()
-    
+
     async def set_cookies(self, page: Page, cookies: List[Dict]) -> bool:
         """Set cookies for page"""
         try:
@@ -1287,7 +1369,7 @@ class BrowserService:
         except Exception as e:
             logger.error(f"Failed to set cookies: {e}")
             return False
-    
+
     async def close_page(self, page_id: str) -> bool:
         """Close a specific page"""
         if page_id in self.pages:
@@ -1299,14 +1381,14 @@ class BrowserService:
                 logger.error(f"Failed to close page {page_id}: {e}")
                 return False
         return False
-    
+
     # ========================================================================
     # Internal Methods
     # ========================================================================
-    
+
     async def _launch_browser(self):
         """Launch browser with enhanced stealth configuration"""
-        
+
         # Browser launch options
         launch_options = {
             "headless": self.config.headless,
@@ -1318,12 +1400,12 @@ class BrowserService:
             # Use chromium channel for better compatibility
             "channel": "chrome" if self.config.browser_type == "chromium" else None,
         }
-        
+
         # Find Chrome executable
         chrome_path = self._find_chrome_executable()
         if chrome_path:
             launch_options["executable_path"] = chrome_path
-        
+
         # Launch based on browser type
         if self.config.browser_type == "chromium":
             self.browser = await self.playwright.chromium.launch(**launch_options)
@@ -1333,7 +1415,7 @@ class BrowserService:
             self.browser = await self.playwright.webkit.launch(**launch_options)
         else:
             raise ValueError(f"Unknown browser type: {self.config.browser_type}")
-    
+
     def _get_browser_args(self) -> List[str]:
         """Get browser launch arguments with enhanced stealth"""
         args = [
@@ -1341,55 +1423,46 @@ class BrowserService:
             "--disable-blink-features=AutomationControlled",
             "--disable-features=IsolateOrigins,site-per-process",
             "--disable-site-isolation-trials",
-            
             # Security and sandboxing
             "--no-sandbox",
             "--disable-setuid-sandbox",
             "--disable-dev-shm-usage",
             "--disable-web-security",
             "--allow-running-insecure-content",
-            
             # Performance and rendering
             "--disable-accelerated-2d-canvas",
             "--disable-gpu",
             "--disable-gpu-sandbox",
             "--disable-software-rasterizer",
             "--disable-dev-tools",  # Hide dev tools
-            
             # Window and display
             f"--window-size={self.config.viewport_width},{self.config.viewport_height}",
             "--window-position=0,0",
             "--force-device-scale-factor=1",
-            
             # Process and lifecycle
             "--no-first-run",
             "--no-default-browser-check",
             "--disable-default-apps",
             "--disable-sync",
-            
             # Timing and throttling
             "--disable-background-timer-throttling",
             "--disable-backgrounding-occluded-windows",
             "--disable-renderer-backgrounding",
             "--disable-features=CalculateNativeWinOcclusion",
-            
             # Features to disable
             "--disable-features=TranslateUI",
             "--disable-features=RendererCodeIntegrity",
             "--disable-features=OptimizationGuideModelDownloading",
             "--disable-features=ChromeWhatsNewUI",
             "--disable-features=ImprovedCookieControls",
-            
             # IPC and networking
             "--disable-ipc-flooding-protection",
             "--enable-features=NetworkService,NetworkServiceInProcess",
             "--disable-features=NetworkServiceWindowsSandbox",
-            
             # Additional stealth
             "--disable-blink-features=AutomationControlled",
             "--disable-features=UserActivationV2",
             "--disable-features=IdleDetection",
-            
             # Disable automation extensions
             "--disable-extensions",
             "--disable-component-extensions-with-background-pages",
@@ -1397,29 +1470,33 @@ class BrowserService:
             "--metrics-recording-only",
             "--mute-audio",
         ]
-        
+
         # Additional args for maximum stealth
         if self.config.stealth_level in ["maximum", "ultimate"]:
-            args.extend([
-                "--disable-features=AutomationControlled",
-                "--disable-blink-features=AutomationControlled",
-                "--disable-features=site-per-process",
-                "--disable-features=OutOfBlinkCors",
-                "--disable-features=SameSiteByDefaultCookies",
-                "--disable-features=CookiesWithoutSameSiteMustBeSecure",
-            ])
-        
+            args.extend(
+                [
+                    "--disable-features=AutomationControlled",
+                    "--disable-blink-features=AutomationControlled",
+                    "--disable-features=site-per-process",
+                    "--disable-features=OutOfBlinkCors",
+                    "--disable-features=SameSiteByDefaultCookies",
+                    "--disable-features=CookiesWithoutSameSiteMustBeSecure",
+                ]
+            )
+
         return args
-    
+
     def _find_chrome_executable(self) -> Optional[str]:
         """Find Chrome executable path"""
         system = platform.system()
-        
+
         if system == "Windows":
             paths = [
                 r"C:\Program Files\Google\Chrome\Application\chrome.exe",
                 r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-                os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
+                os.path.expandvars(
+                    r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"
+                ),
             ]
         elif system == "Darwin":  # macOS
             paths = [
@@ -1433,19 +1510,19 @@ class BrowserService:
                 "/usr/bin/chromium",
                 "/usr/bin/chromium-browser",
             ]
-        
+
         for path in paths:
             if os.path.exists(path):
                 return path
-        
+
         return None
-    
+
     async def _create_context(self):
         """Create browser context with enhanced stealth settings"""
-        
+
         # Select user agent
         user_agent = self.config.user_agent or self._get_user_agent()
-        
+
         context_options = {
             "user_agent": user_agent,
             "locale": self.config.locale,
@@ -1457,55 +1534,63 @@ class BrowserService:
             "has_touch": False,
             "device_scale_factor": 1,
         }
-        
+
         # Only set viewport if not using default to avoid detection
         if self.config.viewport_width != 1920 or self.config.viewport_height != 1080:
             context_options["viewport"] = {
                 "width": self.config.viewport_width,
-                "height": self.config.viewport_height
+                "height": self.config.viewport_height,
             }
         else:
             # Use null viewport to get default browser size
             context_options["viewport"] = None
-        
+
         # Add proxy if configured
         if self.config.proxy:
             context_options["proxy"] = self.config.proxy
-        
+
         # Add geolocation if configured
         if self.config.spoof_geolocation:
             context_options["geolocation"] = {
                 "latitude": 40.7128,
-                "longitude": -74.0060
+                "longitude": -74.0060,
             }
             context_options["permissions"] = ["geolocation"]
-        
+
         self.context = await self.browser.new_context(**context_options)
-        
+
         # Set extra headers
-        await self.context.set_extra_http_headers({
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Connection": "keep-alive",
-            "Upgrade-Insecure-Requests": "1",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "none",
-            "Sec-Fetch-User": "?1",
-            "Cache-Control": "max-age=0",
-        })
-        
+        await self.context.set_extra_http_headers(
+            {
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept-Encoding": "gzip, deflate, br",
+                "Connection": "keep-alive",
+                "Upgrade-Insecure-Requests": "1",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Sec-Fetch-User": "?1",
+                "Cache-Control": "max-age=0",
+            }
+        )
+
         # Set up request interception if needed
         if self.config.block_images or self.config.block_media:
             await self._setup_resource_blocking()
-    
+
     def _get_user_agent(self) -> str:
         """Get appropriate user agent based on platform and latest Chrome versions"""
         # Use latest Chrome versions to avoid detection
-        chrome_versions = ["121.0.0.0", "122.0.0.0", "123.0.0.0", "124.0.0.0", "125.0.0.0"]
+        chrome_versions = [
+            "121.0.0.0",
+            "122.0.0.0",
+            "123.0.0.0",
+            "124.0.0.0",
+            "125.0.0.0",
+        ]
         chrome_version = random.choice(chrome_versions)
-        
+
         # Platform-specific user agents
         system = platform.system()
         if system == "Windows":
@@ -1523,20 +1608,21 @@ class BrowserService:
                 f"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36",
                 f"Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36",
             ]
-        
+
         return random.choice(user_agents)
-    
+
     async def _create_page(self) -> Page:
         """Create a new page with enhanced stealth configuration"""
         page = await self.context.new_page()
-        
+
         # Inject stealth scripts before any navigation
         await StealthInjector.inject_all(page, self.config)
-        
+
         # Add additional initialization scripts for specific bypasses
         if self.config.disable_runtime_enable:
             # Prevent Runtime.enable detection by overriding execution context
-            await page.add_init_script("""
+            await page.add_init_script(
+                """
                 // Override execution context creation
                 if (window.chrome && window.chrome.runtime) {
                     const runtime = window.chrome.runtime;
@@ -1548,46 +1634,52 @@ class BrowserService:
                         return originalGetURL.call(this, path);
                     };
                 }
-            """)
-        
+            """
+            )
+
         # Set up page-level event handlers
         page.on("dialog", lambda dialog: dialog.dismiss())
         page.on("popup", lambda popup: popup.close())
-        
+
         # Intercept and modify requests if needed
         if self.config.patch_cdp_detection:
             page.on("request", self._handle_request)
             page.on("response", self._handle_response)
-        
+
         return page
-    
+
     async def _handle_request(self, request):
         """Handle and potentially modify requests"""
         # Block requests that might be used for bot detection
         url = request.url
-        if any(pattern in url for pattern in [
-            '/cdn-cgi/challenge-platform',
-            '/cdn-cgi/bm/',
-            'datadome.co',
-            'perimeterx.net',
-        ]):
+        if any(
+            pattern in url
+            for pattern in [
+                "/cdn-cgi/challenge-platform",
+                "/cdn-cgi/bm/",
+                "datadome.co",
+                "perimeterx.net",
+            ]
+        ):
             logger.debug(f"Blocking detection request: {url}")
             try:
                 await request.abort()
             except:
                 pass
-    
+
     async def _handle_response(self, response):
         """Handle and log responses for debugging"""
         if response.status == 403 or response.status == 429:
-            logger.debug(f"Potential bot detection response: {response.status} from {response.url}")
-    
+            logger.debug(
+                f"Potential bot detection response: {response.status} from {response.url}"
+            )
+
     async def _setup_resource_blocking(self):
         """Set up resource blocking for performance"""
-        
+
         async def route_handler(route):
             resource_type = route.request.resource_type
-            
+
             blocked = False
             if self.config.block_images and resource_type == "image":
                 blocked = True
@@ -1597,23 +1689,23 @@ class BrowserService:
                 blocked = True
             elif self.config.block_stylesheets and resource_type == "stylesheet":
                 blocked = True
-            
+
             if blocked:
                 await route.abort()
             else:
                 await route.continue_()
-        
+
         await self.context.route("**/*", route_handler)
-    
+
     async def _check_detection(self, page: Page) -> bool:
         """Enhanced detection checking with specific service patterns"""
-        
+
         try:
             # Get page content and URL
             page_content = await page.content()
             page_url = page.url.lower()
             page_title = await page.title()
-            
+
             # Extended detection indicators
             indicators = [
                 # General bot detection
@@ -1628,7 +1720,6 @@ class BrowserService:
                 "verification required",
                 "prove you're human",
                 "unusual traffic",
-                
                 # Service-specific patterns
                 "cf-browser-verification",  # Cloudflare
                 "cf-challenge",  # Cloudflare
@@ -1641,22 +1732,26 @@ class BrowserService:
                 "incapsula",  # Incapsula
                 "distil",  # Distil Networks
             ]
-            
+
             content_lower = page_content.lower()
-            
+
             for indicator in indicators:
                 if indicator in content_lower or indicator in page_url:
                     logger.debug(f"Detection indicator found: {indicator}")
                     return True
-            
+
             # Check page title for detection
             if page_title:
                 title_lower = page_title.lower()
-                if any(word in title_lower for word in ['blocked', 'denied', 'captcha', 'verification']):
+                if any(
+                    word in title_lower
+                    for word in ["blocked", "denied", "captcha", "verification"]
+                ):
                     return True
-            
+
             # Check for specific JavaScript challenges
-            js_check = await page.evaluate("""
+            js_check = await page.evaluate(
+                """
                 () => {
                     // Check for common challenge frameworks
                     return !!(
@@ -1671,51 +1766,53 @@ class BrowserService:
                         document.querySelector('script[src*="perimeterx"]')
                     );
                 }
-            """)
-            
+            """
+            )
+
             if js_check:
                 logger.debug("JavaScript challenge detected")
                 return True
-                
+
         except Exception as e:
             logger.debug(f"Error checking detection: {e}")
-            
+
         return False
-    
+
     async def _attempt_bypass(self, page: Page, url: str):
         """Enhanced bypass strategies for different detection services"""
-        
+
         logger.info("Attempting advanced detection bypass...")
-        
+
         try:
             # Strategy 1: Clear all browser data and retry
             await self.context.clear_cookies()
             await self.context.clear_permissions()
-            
+
             # Strategy 2: Add more human-like behavior before retry
             await self.human_simulator.random_mouse_movement(page)
             await asyncio.sleep(random.uniform(3, 6))
-            
+
             # Strategy 3: Try different navigation approach
             # First navigate to a safe page to build trust
             safe_sites = [
                 "https://www.google.com",
                 "https://www.wikipedia.org",
-                "https://www.example.com"
+                "https://www.example.com",
             ]
-            
+
             if url not in safe_sites:
                 # Visit a safe site first
                 safe_url = random.choice(safe_sites)
                 await page.goto(safe_url, wait_until="domcontentloaded")
                 await asyncio.sleep(random.uniform(2, 4))
-                
+
                 # Perform some actions to appear human
                 await self.human_simulator.human_scroll(page)
                 await asyncio.sleep(random.uniform(1, 2))
-            
+
             # Strategy 4: Inject additional stealth scripts for specific services
-            await page.evaluate("""
+            await page.evaluate(
+                """
                 () => {
                     // Override specific detection methods
                     if (window.navigator && window.navigator.permissions) {
@@ -1734,232 +1831,250 @@ class BrowserService:
                         }
                     });
                 }
-            """)
-            
+            """
+            )
+
             # Strategy 5: Retry with different timing
             await page.goto(url, wait_until="networkidle", timeout=60000)
-            
+
             # Strategy 6: If still detected, try slower approach
             if await self._check_detection(page):
                 logger.info("Initial bypass failed, trying slower approach...")
-                
+
                 # Wait longer
                 await asyncio.sleep(random.uniform(10, 15))
-                
+
                 # Navigate very slowly
                 await page.goto(url, wait_until="domcontentloaded")
                 await asyncio.sleep(2)
                 await page.wait_for_load_state("networkidle")
-                
+
                 # More human actions
                 await self.human_simulator.random_mouse_movement(page)
                 await self.human_simulator.human_scroll(page)
-                
+
         except Exception as e:
             logger.error(f"Bypass attempt failed: {e}")
+
 
 # ============================================================================
 # REST API Server (Optional)
 # ============================================================================
 
+
 class StealthBrowserAPIServer:
     """REST API server for browser service"""
-    
+
     def __init__(self, browser_service: BrowserService, port: int = 9222):
         self.browser_service = browser_service
         self.port = port
         self.app = None
-        
+
     async def start(self):
         """Start the API server"""
         if not HAS_AIOHTTP:
             logger.error("aiohttp not installed. Install with: pip install aiohttp")
             return
-        
+
         self.app = web.Application()
         self.setup_routes()
-        
+
         runner = web.AppRunner(self.app)
         await runner.setup()
-        site = web.TCPSite(runner, 'localhost', self.port)
+        site = web.TCPSite(runner, "localhost", self.port)
         await site.start()
-        
+
         logger.info(f"API server started on http://localhost:{self.port}")
-    
+
     def setup_routes(self):
         """Setup API routes"""
-        self.app.router.add_get('/api/status', self.handle_status)
-        self.app.router.add_post('/api/navigate', self.handle_navigate)
-        self.app.router.add_post('/api/click', self.handle_click)
-        self.app.router.add_post('/api/type', self.handle_type)
-        self.app.router.add_post('/api/screenshot', self.handle_screenshot)
-        self.app.router.add_post('/api/evaluate', self.handle_evaluate)
-        self.app.router.add_get('/api/cookies', self.handle_get_cookies)
-        self.app.router.add_post('/api/cookies', self.handle_set_cookies)
-    
+        self.app.router.add_get("/api/status", self.handle_status)
+        self.app.router.add_post("/api/navigate", self.handle_navigate)
+        self.app.router.add_post("/api/click", self.handle_click)
+        self.app.router.add_post("/api/type", self.handle_type)
+        self.app.router.add_post("/api/screenshot", self.handle_screenshot)
+        self.app.router.add_post("/api/evaluate", self.handle_evaluate)
+        self.app.router.add_get("/api/cookies", self.handle_get_cookies)
+        self.app.router.add_post("/api/cookies", self.handle_set_cookies)
+
     async def handle_status(self, request):
         """Get browser status"""
-        return web.json_response({
-            "status": "running" if self.browser_service._initialized else "stopped",
-            "browser_id": self.browser_service.browser_id,
-            "pages": len(self.browser_service.pages),
-            "config": {
-                "headless": self.browser_service.config.headless,
-                "stealth_level": self.browser_service.config.stealth_level,
+        return web.json_response(
+            {
+                "status": "running" if self.browser_service._initialized else "stopped",
+                "browser_id": self.browser_service.browser_id,
+                "pages": len(self.browser_service.pages),
+                "config": {
+                    "headless": self.browser_service.config.headless,
+                    "stealth_level": self.browser_service.config.stealth_level,
+                },
             }
-        })
-    
+        )
+
     async def handle_navigate(self, request):
         """Navigate to URL"""
         data = await request.json()
-        url = data.get('url')
-        page_id = data.get('page_id')
-        
+        url = data.get("url")
+        page_id = data.get("page_id")
+
         if not url:
             return web.json_response({"error": "URL required"}, status=400)
-        
+
         page = await self.browser_service.get_page(url, page_id)
         success = await self.browser_service.navigate(page, url)
-        
-        return web.json_response({
-            "success": success,
-            "page_id": page_id or list(self.browser_service.pages.keys())[-1]
-        })
-    
+
+        return web.json_response(
+            {
+                "success": success,
+                "page_id": page_id or list(self.browser_service.pages.keys())[-1],
+            }
+        )
+
     async def handle_click(self, request):
         """Click element"""
         data = await request.json()
-        page_id = data.get('page_id')
-        selector = data.get('selector')
-        
+        page_id = data.get("page_id")
+        selector = data.get("selector")
+
         if not page_id or not selector:
-            return web.json_response({"error": "page_id and selector required"}, status=400)
-        
+            return web.json_response(
+                {"error": "page_id and selector required"}, status=400
+            )
+
         if page_id not in self.browser_service.pages:
             return web.json_response({"error": "Page not found"}, status=404)
-        
+
         page = self.browser_service.pages[page_id]
         success = await self.browser_service.click(page, selector)
-        
+
         return web.json_response({"success": success})
-    
+
     async def handle_type(self, request):
         """Type text"""
         data = await request.json()
-        page_id = data.get('page_id')
-        selector = data.get('selector')
-        text = data.get('text')
-        
+        page_id = data.get("page_id")
+        selector = data.get("selector")
+        text = data.get("text")
+
         if not all([page_id, selector, text]):
-            return web.json_response({"error": "page_id, selector, and text required"}, status=400)
-        
+            return web.json_response(
+                {"error": "page_id, selector, and text required"}, status=400
+            )
+
         if page_id not in self.browser_service.pages:
             return web.json_response({"error": "Page not found"}, status=404)
-        
+
         page = self.browser_service.pages[page_id]
         success = await self.browser_service.type(page, selector, text)
-        
+
         return web.json_response({"success": success})
-    
+
     async def handle_screenshot(self, request):
         """Take screenshot"""
         data = await request.json()
-        page_id = data.get('page_id')
-        
+        page_id = data.get("page_id")
+
         if not page_id:
             return web.json_response({"error": "page_id required"}, status=400)
-        
+
         if page_id not in self.browser_service.pages:
             return web.json_response({"error": "Page not found"}, status=404)
-        
+
         page = self.browser_service.pages[page_id]
         screenshot = await self.browser_service.screenshot(page)
-        
+
         if screenshot:
             return web.Response(
                 body=screenshot if isinstance(screenshot, bytes) else b"",
-                content_type='image/png'
+                content_type="image/png",
             )
         else:
             return web.json_response({"error": "Screenshot failed"}, status=500)
-    
+
     async def handle_evaluate(self, request):
         """Evaluate JavaScript"""
         data = await request.json()
-        page_id = data.get('page_id')
-        script = data.get('script')
-        
+        page_id = data.get("page_id")
+        script = data.get("script")
+
         if not page_id or not script:
-            return web.json_response({"error": "page_id and script required"}, status=400)
-        
+            return web.json_response(
+                {"error": "page_id and script required"}, status=400
+            )
+
         if page_id not in self.browser_service.pages:
             return web.json_response({"error": "Page not found"}, status=404)
-        
+
         page = self.browser_service.pages[page_id]
         result = await self.browser_service.evaluate(page, script)
-        
+
         return web.json_response({"result": result})
-    
+
     async def handle_get_cookies(self, request):
         """Get cookies"""
-        page_id = request.query.get('page_id')
-        
+        page_id = request.query.get("page_id")
+
         if not page_id:
             return web.json_response({"error": "page_id required"}, status=400)
-        
+
         if page_id not in self.browser_service.pages:
             return web.json_response({"error": "Page not found"}, status=404)
-        
+
         page = self.browser_service.pages[page_id]
         cookies = await self.browser_service.get_cookies(page)
-        
+
         return web.json_response({"cookies": cookies})
-    
+
     async def handle_set_cookies(self, request):
         """Set cookies"""
         data = await request.json()
-        page_id = data.get('page_id')
-        cookies = data.get('cookies')
-        
+        page_id = data.get("page_id")
+        cookies = data.get("cookies")
+
         if not page_id or not cookies:
-            return web.json_response({"error": "page_id and cookies required"}, status=400)
-        
+            return web.json_response(
+                {"error": "page_id and cookies required"}, status=400
+            )
+
         if page_id not in self.browser_service.pages:
             return web.json_response({"error": "Page not found"}, status=404)
-        
+
         page = self.browser_service.pages[page_id]
         success = await self.browser_service.set_cookies(page, cookies)
-        
+
         return web.json_response({"success": success})
+
 
 # ============================================================================
 # Usage Examples
 # ============================================================================
 
+
 async def example_basic_usage():
     """Basic usage example"""
     # Create browser service
     browser = BrowserService()
-    
+
     # Start the service
     await browser.start()
-    
+
     # Get a page and navigate
     page = await browser.get_page("https://example.com")
-    
+
     # Interact with the page
     await browser.click(page, "a[href='/more']")
     await browser.type(page, "input[name='search']", "test query")
-    
+
     # Take screenshot
     screenshot = await browser.screenshot(page)
-    
+
     # Evaluate JavaScript
     title = await browser.evaluate(page, "document.title")
     print(f"Page title: {title}")
-    
+
     # Stop the service
     await browser.stop()
+
 
 async def example_with_config():
     """Example with custom configuration"""
@@ -1973,94 +2088,98 @@ async def example_with_config():
         proxy={
             "server": "http://proxy.example.com:8080",
             "username": "user",
-            "password": "pass"
-        }
+            "password": "pass",
+        },
     )
-    
+
     # Create and use browser
     browser = BrowserService(config)
     await browser.start()
-    
+
     page = await browser.get_page("https://protected-site.com")
-    
+
     # Browser will automatically:
     # - Use stealth techniques
     # - Simulate human behavior
     # - Route through proxy
-    
+
     await browser.stop()
+
 
 async def example_api_server():
     """Example running as API server"""
     # Create browser and API server
     browser = BrowserService()
     server = StealthBrowserAPIServer(browser, port=9222)
-    
+
     # Start services
     await browser.start()
     await server.start()
-    
+
     # Now the browser can be controlled via HTTP API:
     # curl http://localhost:9222/api/navigate -d '{"url": "https://example.com"}'
-    
+
     # Keep server running
     await asyncio.Event().wait()
+
 
 # ============================================================================
 # Main Entry Point
 # ============================================================================
 
+
 def main():
     """Main entry point for standalone execution"""
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="Standalone Stealth Browser Service")
     parser.add_argument("--server", action="store_true", help="Run as API server")
     parser.add_argument("--port", type=int, default=9222, help="API server port")
     parser.add_argument("--headless", action="store_true", help="Run in headless mode")
     parser.add_argument("--url", help="URL to navigate to (for testing)")
-    
+
     args = parser.parse_args()
-    
+
     async def run():
         if args.server:
             # Run as API server
             config = BrowserConfig(headless=args.headless)
             browser = BrowserService(config)
             server = StealthBrowserAPIServer(browser, port=args.port)
-            
+
             await browser.start()
             await server.start()
-            
+
             print(f"Stealth Browser API Server running on http://localhost:{args.port}")
             print("Press Ctrl+C to stop")
-            
+
             try:
                 await asyncio.Event().wait()
             except KeyboardInterrupt:
                 await browser.stop()
-        
+
         elif args.url:
             # Test navigation
             config = BrowserConfig(headless=args.headless)
             browser = BrowserService(config)
-            
+
             await browser.start()
             page = await browser.get_page(args.url)
-            
+
             print(f"Successfully navigated to {args.url}")
             print("Taking screenshot...")
-            
+
             await browser.screenshot(page, "test_screenshot.png")
             print("Screenshot saved as test_screenshot.png")
-            
+
             await browser.stop()
-        
+
         else:
             # Run basic example
             await example_basic_usage()
-    
+
     asyncio.run(run())
+
 
 if __name__ == "__main__":
     main()

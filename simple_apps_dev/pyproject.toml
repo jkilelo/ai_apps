@@ -1,0 +1,244 @@
+[build-system]
+requires = ["hatchling>=1.13.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "simple-apps-v2"
+version = "1.0.0"
+description = "A modern web automation testing application with consolidated dependencies"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "AI Apps Team"},
+]
+keywords = [
+    "web-automation", 
+    "testing", 
+    "playwright", 
+    "fastapi", 
+    "ui-testing",
+    "element-extraction",
+    "test-generation"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: FastAPI",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+# Core dependencies
+dependencies = [
+    # Web Framework
+    "fastapi>=0.115.5",
+    "uvicorn[standard]>=0.32.1",
+    "pydantic>=2.10.3",
+    
+    # Browser Automation
+    "playwright>=1.49.0",
+    
+    # HTTP Client & Utilities
+    "httpx>=0.28.1",
+    "aiohttp>=3.11.10",
+    "python-dotenv>=1.0.1",
+    "asyncio-mqtt>=0.16.2",
+    
+    # LLM Integration
+    "openai>=1.0.0",
+    
+    # Data Processing
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    
+    # Utilities
+    "rich>=13.0.0",
+    "typer>=0.12.0",
+]
+
+# Optional dependency groups
+[project.optional-dependencies]
+dev = [
+    # Development tools
+    "ruff>=0.8.0",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+    
+    # Type stubs
+    "types-requests",
+    "types-setuptools",
+    
+    # Documentation
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.4.0",
+    "mkdocstrings[python]>=0.24.0",
+]
+
+test = [
+    # Testing framework
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.12.0",
+    "pytest-json-report>=1.5.0",
+    "pytest-html>=4.1.0",
+    
+    # Test utilities
+    "faker>=20.0.0",
+    "factory-boy>=3.3.0",
+    "respx>=0.21.0",  # HTTP mocking
+    "pytest-playwright>=0.4.0",
+]
+
+build = [
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+
+all = [
+    "simple-apps-v2[dev,test,build]"
+]
+
+[project.urls]
+Homepage = "https://github.com/ai-apps/simple-apps-v2"
+Documentation = "https://github.com/ai-apps/simple-apps-v2#readme"
+Repository = "https://github.com/ai-apps/simple-apps-v2"
+Issues = "https://github.com/ai-apps/simple-apps-v2/issues"
+
+[project.scripts]
+simple-apps = "simple_apps_v2.cli:main"
+
+# Hatch configuration
+[tool.hatch.version]
+path = "src/simple_apps_v2/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/simple_apps_v2"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+]
+
+# Ruff configuration (replaces flake8, isort, black)
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "SIM", # flake8-simplify
+    "RUF", # Ruff-specific rules
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # do not perform function calls in argument defaults
+    "B904",  # raise without from inside except
+]
+
+[tool.ruff.per-file-ignores]
+"tests/**/*.py" = ["S101"]  # Allow assert in tests
+"__init__.py" = ["F401"]    # Allow unused imports in __init__.py
+
+[tool.ruff.isort]
+known-first-party = ["simple_apps_v2"]
+force-single-line = false
+split-on-trailing-comma = true
+
+# MyPy configuration
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+show_error_codes = true
+
+# Per-module options
+[[tool.mypy.overrides]]
+module = [
+    "playwright.*",
+    "aiohttp.*",
+    "asyncio_mqtt.*",
+]
+ignore_missing_imports = true
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=simple_apps_v2",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "--cov-fail-under=80",
+]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "e2e: marks tests as end-to-end tests",
+    "browser: marks tests that require browser automation",
+    "llm: marks tests that require LLM API access",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/venv/*",
+    "*/env/*",
+    "*/node_modules/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "TYPE_CHECKING",
+]
+
+# Pre-commit configuration is in .pre-commit-config.yaml

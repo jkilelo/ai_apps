@@ -1,0 +1,109 @@
+{
+  "success": true,
+  "total_tests": 15,
+  "passed": 13,
+  "failed": 1,
+  "skipped": 1,
+  "duration": 0.814082145690918,
+  "test_results": [
+    {
+      "name": "test_data_structures.py::test_list_operations",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_data_structures.py::test_dictionary_operations",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_data_structures.py::test_set_operations",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_demo.py::test_demo_always_passes",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_demo.py::test_demo_basic_math",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_string_operations.py::test_string_concatenation",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_string_operations.py::test_string_methods",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_string_operations.py::test_string_length",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_with_failures.py::test_this_will_pass",
+      "status": "passed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_with_failures.py::test_this_will_fail",
+      "status": "failed",
+      "duration": 0.1,
+      "message": null
+    },
+    {
+      "name": "test_with_failures.py::test_this_is_skipped",
+      "status": "skipped",
+      "duration": 0.1,
+      "message": null
+    }
+  ],
+  "logs": [
+    "Created test environment in C:\\Users\\kleiy\\AppData\\Local\\Temp\\test_execution_hr88vi81",
+    "Created test_math_operations.py",
+    "Created test_string_operations.py",
+    "Created test_data_structures.py",
+    "Created test_with_failures.py",
+    "Installing test dependencies...",
+    "Dependencies installed successfully",
+    "Running pytest...",
+    "Command: C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe -m pytest C:\\Users\\kleiy\\AppData\\Local\\Temp\\test_execution_hr88vi81 -v --tb=short --json-report --json-report-file=C:\\Users\\kleiy\\AppData\\Local\\Temp\\test_execution_hr88vi81\\report.json --json-report-summary",
+    "test_string_operations.py::test_string_methods PASSED                    [ 73%]",
+    "test_string_operations.py::test_string_length PASSED                     [ 80%]",
+    "test_with_failures.py::test_this_will_pass PASSED                        [ 86%]",
+    "test_with_failures.py::test_this_will_fail FAILED                        [ 93%]",
+    "test_with_failures.py::test_this_is_skipped SKIPPED (Demonstrating",
+    "skipped test)                                                            [100%]",
+    "================================== FAILURES ===================================",
+    "_____________________________ test_this_will_fail _____________________________",
+    "test_with_failures.py:9: in test_this_will_fail",
+    "    assert 1 == 2, \"Intentional failure: 1 does not equal 2\"",
+    "E   AssertionError: Intentional failure: 1 does not equal 2",
+    "E   assert 1 == 2",
+    "--------------------------------- JSON report ---------------------------------",
+    "report saved to: C:\\Users\\kleiy\\AppData\\Local\\Temp\\test_execution_hr88vi81\\report.json",
+    "=========================== short test summary info ===========================",
+    "FAILED test_with_failures.py::test_this_will_fail - AssertionError: Intentional failure: 1 does not equal 2",
+    "assert 1 == 2",
+    "=================== 1 failed, 13 passed, 1 skipped in 0.11s ===================",
+    "Test execution completed in 0.81s",
+    "Results: 13 passed, 1 failed, 1 skipped",
+    "Cleaned up temporary directory"
+  ],
+  "error": null
+}

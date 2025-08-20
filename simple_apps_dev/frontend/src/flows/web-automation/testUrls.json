@@ -1,0 +1,39 @@
+{
+  "testUrls": [
+    {
+      "id": 1,
+      "name": "GitHub",
+      "url": "https://github.com",
+      "description": "Developer platform for version control and collaboration",
+      "category": "Developer Tools"
+    },
+    {
+      "id": 2,
+      "name": "Google",
+      "url": "https://www.google.com",
+      "description": "Search engine and technology services",
+      "category": "Search"
+    },
+    {
+      "id": 3,
+      "name": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "description": "Q&A platform for developers",
+      "category": "Developer Tools"
+    },
+    {
+      "id": 4,
+      "name": "Wikipedia",
+      "url": "https://www.wikipedia.org",
+      "description": "Free online encyclopedia",
+      "category": "Reference"
+    },
+    {
+      "id": 5,
+      "name": "Example.com",
+      "url": "https://example.com",
+      "description": "Simple example domain for testing",
+      "category": "Testing"
+    }
+  ]
+}

@@ -12,10 +12,8 @@ import sys
 from datetime import datetime
 import re
 
-# Add simple_apps_v2 root to path for imports
-simple_apps_v2_root = Path(__file__).parent.parent.parent
-if str(simple_apps_v2_root) not in sys.path:
-    sys.path.insert(0, str(simple_apps_v2_root))
+# Add parent directory to path for imports
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 # Import LLM functionality
 from backend.shared.llm import query_llm

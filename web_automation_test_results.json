@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-20T13:41:35.391392",
+  "tests": {
+    "step1_visible": "\u2705 PASSED",
+    "url_input": "\u2705 PASSED",
+    "quick_select": "\u2705 PASSED",
+    "extract_button": "\u2705 PASSED",
+    "extraction_progress": "\u274c FAILED",
+    "results_display": "\u26a0\ufe0f PARTIAL",
+    "continue_button": "\u26a0\ufe0f WARNING",
+    "api_integration": "\u274c FAILED"
+  },
+  "errors": []
+}

@@ -12,10 +12,8 @@ import sys
 import re
 from datetime import datetime
 
-# Add simple_apps_v2 root to path for imports
-simple_apps_v2_root = Path(__file__).parent.parent.parent
-if str(simple_apps_v2_root) not in sys.path:
-    sys.path.insert(0, str(simple_apps_v2_root))
+# Add parent directory to path for imports
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 # Import browser functionality
 from shared_modules.ui_web_auto_testing_v2.browser import BrowserService, BrowserConfig
@@ -60,70 +58,34 @@ class ElementExtractor:
             
         Returns:
             List of extracted elements with their properties
-            
-        Raises:
-            Exception: With specific error details for different failure scenarios
         """
         try:
             # Start browser service
-            try:
-                await self.browser_service.start()
-            except Exception as e:
-                error_msg = f"Browser initialization failed: {str(e)}"
-                logger.error(error_msg)
-                raise Exception(error_msg)
+            await self.browser_service.start()
             
             # Get page and navigate
             logger.info(f"Navigating to {url}")
-            try:
-                self.page = await self.browser_service.get_page(url)
-                
-                if not self.page:
-                    error_msg = f"Failed to navigate to {url}: Browser could not create page"
-                    logger.error(error_msg)
-                    raise Exception(error_msg)
-            except Exception as e:
-                # Always raise navigation errors
-                error_msg = f"Navigation failed for {url}: {str(e)}"
-                logger.error(error_msg)
-                raise Exception(error_msg)
+            self.page = await self.browser_service.get_page(url)
+            
+            if not self.page:
+                raise Exception(f"Failed to navigate to {url}")
             
             # Extract elements
             logger.info("Extracting elements from page")
-            try:
-                elements = await self._extract_page_elements()
-                
-                if not elements:
-                    logger.warning(f"No elements found on {url}")
-                    # Return empty list but don't fail - this might be valid
-                    return []
-                    
-            except Exception as e:
-                error_msg = f"Element extraction failed: {str(e)}"
-                logger.error(error_msg)
-                raise Exception(error_msg)
+            elements = await self._extract_page_elements()
             
             # Process and categorize elements
-            try:
-                processed_elements = self._process_elements(elements)
-            except Exception as e:
-                error_msg = f"Element processing failed: {str(e)}"
-                logger.error(error_msg)
-                raise Exception(error_msg)
+            processed_elements = self._process_elements(elements)
             
             self.extracted_elements = processed_elements
             return processed_elements
             
         except Exception as e:
-            # Re-raise with original error message
             logger.error(f"Error extracting elements: {e}")
             raise
         finally:
             # Cleanup
-            try:
-                await self.browser_service.stop()
-            except Exception as cleanup_error:
-                logger.warning(f"Cleanup error: {cleanup_error}")
+            await self.browser_service.stop()
     
     async def _extract_page_elements(self) -> List[Dict[str, Any]]:
         """Extract elements using browser's extraction capabilities"""
@@ -395,7 +357,7 @@ class ElementExtractor:
             elements: List of extracted elements
             
         Returns:
-            LLM analysis with test suggestions or error details
+            LLM analysis with test suggestions
         """
         
         # Prepare context for LLM
@@ -431,7 +393,6 @@ Format as JSON with these keys: critical_flows, validation_scenarios, edge_cases
             ]
             
             # Call LLM with correct parameters
-            logger.info("Calling LLM for analysis...")
             response = await asyncio.to_thread(
                 query_llm,
                 "gemini",  # provider
@@ -447,50 +408,14 @@ Format as JSON with these keys: critical_flows, validation_scenarios, edge_cases
                     # Look for JSON in response
                     json_match = re.search(r'\{.*\}', content, re.DOTALL)
                     if json_match:
-                        analysis = json.loads(json_match.group())
-                        logger.info("LLM analysis completed successfully")
-                        return analysis
-                except Exception as json_err:
-                    logger.warning(f"Failed to parse LLM JSON response: {json_err}")
+                        return json.loads(json_match.group())
+                except:
+                    pass
                     
                 return {'raw_analysis': content}
-            else:
-                logger.warning("LLM returned empty response")
-                return {
-                    'error': 'LLM returned empty response',
-                    'reason': 'No content in LLM response',
-                    'message': 'Element extraction completed without AI analysis'
-                }
             
         except Exception as e:
-            error_details = str(e).lower()
-            
-            # Categorize the error
-            if 'api key' in error_details or 'authentication' in error_details:
-                error_msg = 'LLM authentication failed'
-                suggestion = 'Please check your API key configuration'
-            elif 'rate limit' in error_details:
-                error_msg = 'LLM rate limit exceeded'
-                suggestion = 'Please wait a moment and try again'
-            elif 'timeout' in error_details:
-                error_msg = 'LLM request timed out'
-                suggestion = 'The LLM service may be experiencing high load'
-            elif 'connection' in error_details or 'network' in error_details:
-                error_msg = 'LLM connection failed'
-                suggestion = 'Please check your internet connection'
-            else:
-                error_msg = 'LLM analysis unavailable'
-                suggestion = 'The AI analysis service is temporarily unavailable'
-            
             logger.error(f"LLM analysis failed: {e}")
-            
-            # Return error info but don't fail the entire extraction
-            return {
-                'error': error_msg,
-                'reason': str(e),
-                'suggestion': suggestion,
-                'message': 'Element extraction completed without AI analysis'
-            }
             
         return {}
 

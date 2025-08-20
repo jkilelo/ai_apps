@@ -1,0 +1,43 @@
+# Web Framework
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.10.3
+
+# Browser Automation
+playwright==1.49.0
+
+# Testing
+pytest==8.3.4
+pytest-asyncio==0.24.0
+pytest-json-report==1.5.0
+
+# HTTP Client
+httpx==0.28.1
+aiohttp==3.11.10
+
+# Utilities
+python-dotenv==1.0.1
+asyncio-mqtt==0.16.2
+
+# CORS Support (included in FastAPI)
+# Standard library modules (no installation needed):
+# - asyncio
+# - json
+# - logging
+# - sys
+# - os
+# - pathlib
+# - tempfile
+# - shutil
+# - subprocess
+# - time
+# - re
+# - hashlib
+# - platform
+# - base64
+# - uuid
+# - datetime
+# - enum
+# - dataclasses
+# - typing
+# - abc

@@ -6,7 +6,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, HttpUrl
 from typing import Dict, Any, List, Optional
-from enum import Enum
 import asyncio
 import json
 import logging
@@ -15,13 +14,9 @@ import shutil
 import tempfile
 import os
 from pathlib import Path
-import traceback
 
-# Add simple_apps_v2 root to path for imports
-import sys
-from pathlib import Path
-simple_apps_v2_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(simple_apps_v2_root))
+# Add parent directories to path for imports
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 # Import element extraction functionality
 from shared_modules.ui_web_auto_testing_v2.element_extractor import extract_elements_from_url
@@ -52,32 +47,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/health")
-async def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy", "service": "web-automation-api"}
-
-# Error types enumeration
-class ErrorType(str, Enum):
-    BROWSER_INIT_FAILED = "browser_initialization_failed"
-    NAVIGATION_FAILED = "navigation_failed"
-    EXTRACTION_FAILED = "extraction_failed"
-    LLM_CONNECTION_FAILED = "llm_connection_failed"
-    LLM_ANALYSIS_FAILED = "llm_analysis_failed"
-    TIMEOUT_ERROR = "timeout_error"
-    INVALID_URL = "invalid_url"
-    NETWORK_ERROR = "network_error"
-    PERMISSION_DENIED = "permission_denied"
-    UNKNOWN_ERROR = "unknown_error"
-
-# Structured error details
-class ErrorDetails(BaseModel):
-    error_type: ErrorType
-    message: str
-    technical_details: Optional[str] = None
-    suggestion: Optional[str] = None
-    recoverable: bool = True
-
 # Request/Response models
 class ExtractElementsRequest(BaseModel):
     url: HttpUrl
@@ -92,7 +61,6 @@ class ExtractElementsResponse(BaseModel):
     elements_by_category: Dict[str, List[Dict[str, Any]]]
     llm_analysis: Optional[Dict[str, Any]] = None
     error: Optional[str] = None
-    error_details: Optional[ErrorDetails] = None
 
 class GenerateTestsRequest(BaseModel):
     extraction_data: Dict[str, Any]
@@ -135,77 +103,6 @@ class ExecuteTestsResponse(BaseModel):
     test_results: List[Dict[str, Any]]
     logs: List[str]
     error: Optional[str] = None
-
-def determine_error_type(error_message: str) -> ErrorDetails:
-    """
-    Determine the error type and provide meaningful details based on error message
-    """
-    error_str = str(error_message).lower()
-    
-    if "browser" in error_str or "playwright" in error_str or "nonetype" in error_str:
-        return ErrorDetails(
-            error_type=ErrorType.BROWSER_INIT_FAILED,
-            message="Failed to initialize the browser for element extraction",
-            technical_details=str(error_message),
-            suggestion="The browser service could not be started. Please ensure Playwright is properly installed and try again.",
-            recoverable=True
-        )
-    elif "navigate" in error_str or "goto" in error_str:
-        return ErrorDetails(
-            error_type=ErrorType.NAVIGATION_FAILED,
-            message="Failed to navigate to the specified URL",
-            technical_details=str(error_message),
-            suggestion="Check if the URL is accessible and try again. The website might be down or blocking automated access.",
-            recoverable=True
-        )
-    elif "timeout" in error_str:
-        return ErrorDetails(
-            error_type=ErrorType.TIMEOUT_ERROR,
-            message="The operation timed out",
-            technical_details=str(error_message),
-            suggestion="The website took too long to respond. Try again or check if the website is slow.",
-            recoverable=True
-        )
-    elif "llm" in error_str or "openai" in error_str or "gemini" in error_str:
-        return ErrorDetails(
-            error_type=ErrorType.LLM_CONNECTION_FAILED,
-            message="Failed to connect to the AI analysis service",
-            technical_details=str(error_message),
-            suggestion="The AI service is unavailable. Extraction will continue without AI analysis. Check your API keys if the problem persists.",
-            recoverable=True
-        )
-    elif "invalid" in error_str and "url" in error_str:
-        return ErrorDetails(
-            error_type=ErrorType.INVALID_URL,
-            message="The provided URL is invalid",
-            technical_details=str(error_message),
-            suggestion="Please provide a valid URL starting with http:// or https://",
-            recoverable=True
-        )
-    elif "network" in error_str or "connection" in error_str:
-        return ErrorDetails(
-            error_type=ErrorType.NETWORK_ERROR,
-            message="Network connection error",
-            technical_details=str(error_message),
-            suggestion="Check your internet connection and try again.",
-            recoverable=True
-        )
-    elif "permission" in error_str or "denied" in error_str:
-        return ErrorDetails(
-            error_type=ErrorType.PERMISSION_DENIED,
-            message="Permission denied to access the resource",
-            technical_details=str(error_message),
-            suggestion="The website is blocking automated access. Try a different website or contact support.",
-            recoverable=False
-        )
-    else:
-        return ErrorDetails(
-            error_type=ErrorType.UNKNOWN_ERROR,
-            message="An unexpected error occurred during extraction",
-            technical_details=str(error_message),
-            suggestion="Please try again. If the problem persists, contact support.",
-            recoverable=True
-        )
 
 @app.get("/")
 async def root():
@@ -275,19 +172,13 @@ async def extract_elements(request: ExtractElementsRequest):
         
     except Exception as e:
         logger.error(f"Error extracting elements: {e}")
-        error_details = determine_error_type(str(e))
-        
-        # Log full traceback for debugging
-        logger.error(f"Full traceback: {traceback.format_exc()}")
-        
         return ExtractElementsResponse(
             success=False,
             url=str(request.url),
             total_elements=0,
             elements=[],
             elements_by_category={},
-            error=str(e),
-            error_details=error_details
+            error=str(e)
         )
 
 @app.post("/api/generate-tests", response_model=GenerateTestsResponse)
