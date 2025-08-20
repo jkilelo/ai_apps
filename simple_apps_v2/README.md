@@ -51,7 +51,7 @@ npm install
 
 ```bash
 cd backend
-python -m uvicorn web_automation.main:app --host 0.0.0.0 --port 5175 --reload
+python -m uvicorn web_automation.main:app --host localhost --port 5175 --reload
 ```
 
 ### Frontend Development Server

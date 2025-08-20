@@ -62,6 +62,10 @@ import weakref
 
 # Import platform utilities using dynamic import resolver
 from ..import_resolver import dynamic_import_from
+from ..asyncio_helper import setup_asyncio_policy
+
+# Setup asyncio policy for Python 3.13+ compatibility
+setup_asyncio_policy()
 
 # Dynamically import platform utilities - works on any system
 get_playwright_launch_options, get_chrome_executable_path = dynamic_import_from(
@@ -1067,11 +1071,8 @@ class BrowserService:
                 return True
             
             try:
-                # For Python 3.13 on Windows, set ProactorEventLoop
-                import sys
-                if sys.platform == 'win32' and sys.version_info >= (3, 13):
-                    import asyncio
-                    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+                # The asyncio policy is already set up at module import time
+                # via asyncio_helper.setup_asyncio_policy()
                 
                 # Use async playwright 
                 self.playwright = await async_playwright().start()

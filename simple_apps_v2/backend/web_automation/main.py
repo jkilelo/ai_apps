@@ -23,6 +23,10 @@ from pathlib import Path
 simple_apps_v2_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(simple_apps_v2_root))
 
+# Setup asyncio for Python 3.13+ compatibility
+from shared_modules.asyncio_helper import setup_asyncio_policy
+setup_asyncio_policy()
+
 # Import element extraction functionality
 from shared_modules.ui_web_auto_testing_v2.element_extractor import extract_elements_from_url
 from shared_modules.ui_web_auto_testing_v2.llm_test_generation import GherkinTestGenerator
