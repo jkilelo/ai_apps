@@ -60,9 +60,19 @@ from functools import wraps
 import threading
 import weakref
 
-# Import platform utilities using dynamic import resolver
-from ..import_resolver import dynamic_import_from
-from ..asyncio_helper import setup_asyncio_policy
+# Import using absolute paths for better portability
+import sys
+from pathlib import Path
+
+# Add project paths to sys.path if needed
+current_dir = Path(__file__).parent
+project_root = current_dir.parent.parent.parent  # Go up to ai_apps level
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+# Now import with absolute paths
+from simple_apps_v2.shared_modules.import_resolver import dynamic_import_from
+from simple_apps_v2.shared_modules.asyncio_helper import setup_asyncio_policy
 
 # Setup asyncio policy for Python 3.13+ compatibility
 setup_asyncio_policy()
