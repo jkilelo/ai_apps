@@ -1057,26 +1057,14 @@ class BrowserService:
                 return True
             
             try:
-                # Start Playwright - handle Windows subprocess issues
-                try:
-                    self.playwright = await async_playwright().start()
-                except NotImplementedError as e:
-                    # Windows async subprocess issue - use sync playwright in thread
-                    logger.warning("Async playwright failed, trying sync approach for Windows")
-                    from playwright.sync_api import sync_playwright
-                    import nest_asyncio
-                    
-                    # Allow nested event loops
-                    nest_asyncio.apply()
-                    
-                    # Use sync playwright
-                    def run_sync():
-                        p = sync_playwright().start()
-                        return p
-                    
-                    # Run in executor to avoid blocking
-                    loop = asyncio.get_event_loop()
-                    self.playwright = await loop.run_in_executor(None, run_sync)
+                # For Python 3.13 on Windows, set ProactorEventLoop
+                import sys
+                if sys.platform == 'win32' and sys.version_info >= (3, 13):
+                    import asyncio
+                    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+                
+                # Use async playwright 
+                self.playwright = await async_playwright().start()
                 
                 # Launch browser
                 await self._launch_browser()

@@ -6,11 +6,10 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import testUrlsData from './testUrls.json';
 
 const steps = [
-    { id: 1, title: 'Web URL', icon: Settings },
-    { id: 2, title: 'Extract Elements', icon: Monitor },
-    { id: 3, title: 'Generate Tests', icon: Zap },
-    { id: 4, title: 'Generate Code', icon: Code },
-    { id: 5, title: 'Execute Tests', icon: Play }
+    { id: 1, title: 'Extract Elements', icon: Globe },
+    { id: 2, title: 'Generate Tests', icon: Zap },
+    { id: 3, title: 'Generate Code', icon: Code },
+    { id: 4, title: 'Execute Tests', icon: Play }
 ];
 
 export function WebAutomationFlowVertical() {
@@ -50,9 +49,9 @@ export function WebAutomationFlowVertical() {
     const [showLogs, setShowLogs] = useState(false);
     const [autoExecutingTests, setAutoExecutingTests] = useState(false);
 
-    // Auto-trigger test generation when reaching step 3
+    // Auto-trigger test generation when reaching step 2
     useEffect(() => {
-        if (currentStep === 3 && extractedElements && !generatedTests && !isGenerating && !autoGeneratingTests) {
+        if (currentStep === 2 && extractedElements && !generatedTests && !isGenerating && !autoGeneratingTests) {
             setAutoGeneratingTests(true);
             // Use default categories
             setSelectedCategories(['functional', 'validation', 'edge_cases']);
@@ -62,9 +61,9 @@ export function WebAutomationFlowVertical() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentStep, extractedElements, generatedTests, isGenerating, autoGeneratingTests]);
 
-    // Auto-trigger code generation when reaching step 4
+    // Auto-trigger code generation when reaching step 3
     useEffect(() => {
-        if (currentStep === 4 && extractedElements && generatedTests && !generatedCode && !isGeneratingCode && !autoGeneratingCode) {
+        if (currentStep === 3 && extractedElements && generatedTests && !generatedCode && !isGeneratingCode && !autoGeneratingCode) {
             setAutoGeneratingCode(true);
             // Start code generation automatically
             handleGenerateCode();
@@ -72,9 +71,9 @@ export function WebAutomationFlowVertical() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentStep, extractedElements, generatedTests, generatedCode, isGeneratingCode, autoGeneratingCode]);
 
-    // Auto-trigger test execution when reaching step 5
+    // Auto-trigger test execution when reaching step 4
     useEffect(() => {
-        if (currentStep === 5 && generatedCode && !testResults && !isExecutingTests && !autoExecutingTests) {
+        if (currentStep === 4 && generatedCode && !testResults && !isExecutingTests && !autoExecutingTests) {
             setAutoExecutingTests(true);
             // Start test execution automatically
             handleExecuteTests();
@@ -286,7 +285,7 @@ export function WebAutomationFlowVertical() {
             
             setGeneratedCode(data);
             setCompletedSteps([...completedSteps, currentStep]);
-            if (currentStep < 5) {
+            if (currentStep < 4) {
                 setCurrentStep(currentStep + 1);
             }
             
@@ -443,7 +442,7 @@ export function WebAutomationFlowVertical() {
     // };
 
     const handleStepComplete = async () => {
-        // For step 1 (Web URL), call the backend to extract elements
+        // For step 1 (Extract Elements), call the backend to extract elements
         if (currentStep === 1) {
             setIsExtracting(true);
             setExtractionPhase('connecting');
@@ -499,8 +498,8 @@ export function WebAutomationFlowVertical() {
                 await new Promise(resolve => setTimeout(resolve, 500));
                 
                 setExtractedElements(data);
-                setCompletedSteps([...completedSteps, currentStep]);
-                setCurrentStep(currentStep + 1);
+                // Don't auto-progress to next step, stay in step 1 to show results
+                // User will manually proceed via the Continue button
             } catch (error: any) {
                 console.error('Error extracting elements:', error);
                 setExtractionPhase('error');
@@ -515,9 +514,9 @@ export function WebAutomationFlowVertical() {
                 }
             }
         } else {
-            // For other steps, use the original logic
+            // For other steps, use the original logic (but with updated step count)
             setCompletedSteps([...completedSteps, currentStep]);
-            if (currentStep < 5) {
+            if (currentStep < 4) {
                 setCurrentStep(currentStep + 1);
             }
         }
@@ -532,268 +531,287 @@ export function WebAutomationFlowVertical() {
         switch (currentStep) {
             case 1:
                 return (
-                    <div className="space-y-6">
-                        <div>
-                            <h3 className="text-lg font-semibold text-slate-900">Enter Web URL</h3>
-                            <p className="text-sm text-slate-500 mt-1">
-                                Enter the URL of the web application you want to test
-                            </p>
-                        </div>
-                        
-                        {/* URL Input - Primary Focus */}
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">Target URL</label>
-                            <input
-                                type="url"
-                                placeholder="https://www.example.com"
-                                className="w-full px-4 py-3 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
-                                value={formData.url}
-                                onChange={(e) => setFormData({ url: e.target.value })}
-                            />
-                        </div>
-                        
-                        {/* Quick Select - Subtle and Compact */}
-                        <div className="space-y-2">
-                            <p className="text-xs text-slate-400">Popular test sites:</p>
-                            <div className="flex flex-wrap gap-2">
-                                {testUrlsData.testUrls.map((site) => (
-                                    <button
-                                        key={site.id}
-                                        onClick={() => setFormData({ url: site.url })}
-                                        className={`px-3 py-1.5 text-xs rounded-full transition-all ${
-                                            formData.url === site.url
-                                                ? 'bg-blue-100 text-blue-700 border border-blue-300'
-                                                : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 hover:text-slate-700'
-                                        }`}
-                                    >
-                                        {site.name}
-                                    </button>
-                                ))}
+                    <div className="space-y-8">
+                        {/* URL Input Section */}
+                        <div className="space-y-6">
+                            <div>
+                                <h3 className="text-xl font-bold text-slate-900 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                    Extract Elements
+                                </h3>
+                                <p className="text-sm text-slate-600 mt-2">
+                                    Enter the URL of the web application you want to test and extract its elements
+                                </p>
                             </div>
-                        </div>
-                        
-                        {/* Selected URL Display - More Subtle */}
-                        {formData.url && formData.url !== 'https://www.example.com' && (
-                            <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-                                <div className="flex items-center space-x-2">
-                                    <Globe className="h-3.5 w-3.5 text-slate-500" />
-                                    <p className="text-xs text-slate-600 break-all">{formData.url}</p>
-                                </div>
-                            </div>
-                        )}
-                        
-                        {/* Enhanced Extraction Button with Progress Phases and Error Handling */}
-                        {isExtracting ? (
+                            
+                            {/* URL Input - Enhanced */}
                             <div className="space-y-3">
-                                {extractionPhase === 'error' ? (
-                                    /* Error State with Retry */
-                                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                                        <div className="flex items-start space-x-3 mb-3">
-                                            <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
-                                            <div className="flex-1">
-                                                <p className="text-sm font-medium text-red-900">Extraction Failed</p>
-                                                <p className="text-xs text-red-700 mt-1">{extractionError}</p>
-                                                {retryCount > 0 && (
-                                                    <p className="text-xs text-red-600 mt-1">Attempt {retryCount} failed</p>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="flex space-x-2">
-                                            <button
-                                                onClick={handleRetryExtraction}
-                                                className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors text-sm font-medium flex items-center justify-center"
-                                            >
-                                                <RefreshCw className="h-4 w-4 mr-2" />
-                                                Retry Extraction
-                                            </button>
-                                            <button
-                                                onClick={() => {
-                                                    setIsExtracting(false);
-                                                    setExtractionPhase('idle');
-                                                    setExtractionError(null);
-                                                    setExtractionProgress(0);
-                                                }}
-                                                className="flex-1 bg-slate-200 text-slate-700 py-2 px-4 rounded-lg hover:bg-slate-300 transition-colors text-sm font-medium"
-                                            >
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    /* Progress Phases */
-                                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                    <div className="flex items-center justify-between mb-3">
-                                        <div className="flex items-center space-x-3">
-                                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-blue-600 border-t-transparent"></div>
-                                            <div>
-                                                <p className="text-sm font-medium text-blue-900">
-                                                    {extractionPhase === 'connecting' && 'Connecting to browser...'}
-                                                    {extractionPhase === 'navigating' && `Navigating to ${new URL(formData.url).hostname}...`}
-                                                    {extractionPhase === 'extracting' && 'Extracting page elements...'}
-                                                    {extractionPhase === 'analyzing' && 'Analyzing with AI...'}
-                                                    {extractionPhase === 'complete' && 'Processing complete!'}
-                                                    {extractionPhase === 'error' && 'Error occurred'}
-                                                </p>
-                                                <p className="text-xs text-blue-600 mt-0.5">
-                                                    {extractionPhase === 'connecting' && 'Initializing headless browser'}
-                                                    {extractionPhase === 'navigating' && 'Loading page content'}
-                                                    {extractionPhase === 'extracting' && 'Identifying testable elements'}
-                                                    {extractionPhase === 'analyzing' && 'Generating test scenarios'}
-                                                    {extractionPhase === 'complete' && 'Finalizing results'}
-                                                    {extractionPhase === 'error' && 'Please try again'}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="text-right">
-                                            <span className="text-lg font-bold text-blue-900">{extractionProgress}%</span>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Progress Bar */}
-                                    <div className="w-full bg-blue-100 rounded-full h-2 overflow-hidden">
-                                        <div 
-                                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-full rounded-full transition-all duration-500 ease-out"
-                                            style={{ width: `${extractionProgress}%` }}
-                                        />
-                                    </div>
-                                    
-                                    {/* Phase Indicators */}
-                                    <div className="flex justify-between mt-3 px-1">
-                                        <div className={`flex flex-col items-center ${extractionProgress >= 0 ? 'text-blue-600' : 'text-slate-400'}`}>
-                                            <div className={`w-2 h-2 rounded-full ${extractionProgress >= 0 ? 'bg-blue-600' : 'bg-slate-300'}`} />
-                                            <span className="text-xs mt-1">Connect</span>
-                                        </div>
-                                        <div className={`flex flex-col items-center ${extractionProgress >= 20 ? 'text-blue-600' : 'text-slate-400'}`}>
-                                            <div className={`w-2 h-2 rounded-full ${extractionProgress >= 20 ? 'bg-blue-600' : 'bg-slate-300'}`} />
-                                            <span className="text-xs mt-1">Navigate</span>
-                                        </div>
-                                        <div className={`flex flex-col items-center ${extractionProgress >= 40 ? 'text-blue-600' : 'text-slate-400'}`}>
-                                            <div className={`w-2 h-2 rounded-full ${extractionProgress >= 40 ? 'bg-blue-600' : 'bg-slate-300'}`} />
-                                            <span className="text-xs mt-1">Extract</span>
-                                        </div>
-                                        <div className={`flex flex-col items-center ${extractionProgress >= 70 ? 'text-blue-600' : 'text-slate-400'}`}>
-                                            <div className={`w-2 h-2 rounded-full ${extractionProgress >= 70 ? 'bg-blue-600' : 'bg-slate-300'}`} />
-                                            <span className="text-xs mt-1">Analyze</span>
-                                        </div>
-                                        <div className={`flex flex-col items-center ${extractionProgress >= 100 ? 'text-green-600' : 'text-slate-400'}`}>
-                                            <div className={`w-2 h-2 rounded-full ${extractionProgress >= 100 ? 'bg-green-600' : 'bg-slate-300'}`} />
-                                            <span className="text-xs mt-1">Done</span>
-                                        </div>
-                                    </div>
+                                <label className="text-sm font-semibold text-slate-700">Target URL</label>
+                                <div className="relative">
+                                    <input
+                                        type="url"
+                                        placeholder="https://www.example.com"
+                                        className="w-full px-4 py-4 pr-12 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 bg-white/70 backdrop-blur-sm shadow-sm hover:shadow-md"
+                                        value={formData.url}
+                                        onChange={(e) => setFormData({ url: e.target.value })}
+                                    />
+                                    <Globe className="absolute right-4 top-4 h-5 w-5 text-slate-400" />
                                 </div>
-                                )}
                             </div>
-                        ) : (
-                            <button
-                                onClick={handleStepComplete}
-                                disabled={!formData.url}
-                                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-all text-sm font-medium disabled:bg-slate-300 disabled:cursor-not-allowed flex items-center justify-center shadow-sm hover:shadow-md"
-                            >
-                                <Play className="h-4 w-4 mr-2" />
-                                Start Extraction
-                            </button>
-                        )}
-                    </div>
-                );
-            
-            case 2:
-                return (
-                    <div className="space-y-4">
-                        {/* Header with View Mode Toggle and Export Options */}
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-semibold text-slate-900">Extraction Results</h3>
-                            {extractedElements && (
-                                <div className="flex items-center space-x-2">
-                                    {/* Export Buttons */}
-                                    <div className="flex items-center space-x-1 bg-slate-100 rounded-lg p-1">
+                            
+                            {/* Quick Select - Enhanced */}
+                            <div className="space-y-3">
+                                <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Popular test sites:</p>
+                                <div className="flex flex-wrap gap-2">
+                                    {testUrlsData.testUrls.map((site) => (
                                         <button
-                                            onClick={handleExportJson}
-                                            className="px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white rounded transition-all"
-                                            title="Export as JSON"
-                                        >
-                                            <div className="flex items-center space-x-1">
-                                                <FileJson className="h-3 w-3" />
-                                                <span>JSON</span>
-                                            </div>
-                                        </button>
-                                        <button
-                                            onClick={handleExportCsv}
-                                            className="px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white rounded transition-all"
-                                            title="Export as CSV"
-                                        >
-                                            <div className="flex items-center space-x-1">
-                                                <FileSpreadsheet className="h-3 w-3" />
-                                                <span>CSV</span>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    
-                                    {/* View Mode Toggle */}
-                                    <div className="flex items-center bg-slate-100 rounded-lg p-1">
-                                        <button
-                                            onClick={() => setViewMode('executive')}
-                                            className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
-                                                viewMode === 'executive'
-                                                    ? 'bg-white text-slate-900 shadow-sm'
-                                                    : 'text-slate-600 hover:text-slate-900'
+                                            key={site.id}
+                                            onClick={() => setFormData({ url: site.url })}
+                                            className={`px-4 py-2 text-xs font-medium rounded-full transition-all duration-300 border ${
+                                                formData.url === site.url
+                                                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-blue-400 shadow-lg scale-105'
+                                                    : 'bg-white/80 text-slate-700 border-slate-200 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:border-blue-300 hover:scale-105 hover:shadow-md backdrop-blur-sm'
                                             }`}
                                         >
-                                            <div className="flex items-center space-x-1">
-                                                <Eye className="h-3 w-3" />
-                                                <span>Executive</span>
-                                            </div>
+                                            {site.name}
                                         </button>
-                                        <button
-                                            onClick={() => setViewMode('developer')}
-                                            className={`px-3 py-1.5 text-xs font-medium rounded transition-all ${
-                                                viewMode === 'developer'
-                                                    ? 'bg-white text-slate-900 shadow-sm'
-                                                    : 'text-slate-600 hover:text-slate-900'
-                                            }`}
-                                        >
-                                            <div className="flex items-center space-x-1">
-                                                <Code className="h-3 w-3" />
-                                                <span>Developer</span>
-                                            </div>
-                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            {/* Selected URL Display - Enhanced */}
+                            {formData.url && formData.url !== 'https://www.example.com' && (
+                                <div className="bg-gradient-to-r from-slate-50 to-blue-50 border border-slate-200 rounded-xl p-4 backdrop-blur-sm">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="bg-blue-100 rounded-full p-2">
+                                            <Globe className="h-4 w-4 text-blue-600" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-xs font-medium text-slate-500">Selected URL</p>
+                                            <p className="text-sm text-slate-700 break-all font-mono">{formData.url}</p>
+                                        </div>
                                     </div>
                                 </div>
                             )}
-                        </div>
-
-                        {extractedElements ? (
-                            <>
-                                {viewMode === 'executive' ? (
-                                    /* Executive View - Visual and Simple */
-                                    <div className="space-y-4">
-                                        {/* Compact Success Banner */}
-                                        <div className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg p-4 shadow-lg">
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center space-x-3">
-                                                    <CheckCircle className="h-5 w-5" />
+                            
+                            {/* Extraction Button or Progress */}
+                            {isExtracting ? (
+                                <div className="space-y-4">
+                                    {extractionPhase === 'error' ? (
+                                        /* Error State with Enhanced Styling */
+                                        <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-6 backdrop-blur-sm">
+                                            <div className="flex items-start space-x-4 mb-4">
+                                                <div className="bg-red-100 rounded-full p-2">
+                                                    <AlertCircle className="h-5 w-5 text-red-600" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-semibold text-red-900">Extraction Failed</p>
+                                                    <p className="text-xs text-red-700 mt-1">{extractionError}</p>
+                                                    {retryCount > 0 && (
+                                                        <p className="text-xs text-red-600 mt-1">Attempt {retryCount} failed</p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="flex space-x-3">
+                                                <button
+                                                    onClick={handleRetryExtraction}
+                                                    className="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white py-3 px-4 rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 text-sm font-semibold flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105"
+                                                >
+                                                    <RefreshCw className="h-4 w-4 mr-2" />
+                                                    Retry Extraction
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setIsExtracting(false);
+                                                        setExtractionPhase('idle');
+                                                        setExtractionError(null);
+                                                        setExtractionProgress(0);
+                                                    }}
+                                                    className="flex-1 bg-white border border-slate-300 text-slate-700 py-3 px-4 rounded-xl hover:bg-slate-50 transition-all duration-300 text-sm font-semibold backdrop-blur-sm"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        /* Enhanced Progress Display */
+                                        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6 backdrop-blur-sm">
+                                            <div className="flex items-center justify-between mb-4">
+                                                <div className="flex items-center space-x-4">
+                                                    <div className="relative">
+                                                        <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent"></div>
+                                                        <div className="absolute inset-0 rounded-full bg-blue-100/30"></div>
+                                                    </div>
                                                     <div>
-                                                        <h4 className="text-sm font-semibold">Analysis Complete</h4>
-                                                        <p className="text-emerald-100 text-xs">{new URL(formData.url).hostname}</p>
+                                                        <p className="text-sm font-semibold text-blue-900">
+                                                            {extractionPhase === 'connecting' && 'Connecting to browser...'}
+                                                            {extractionPhase === 'navigating' && `Navigating to ${new URL(formData.url).hostname}...`}
+                                                            {extractionPhase === 'extracting' && 'Extracting page elements...'}
+                                                            {extractionPhase === 'analyzing' && 'Analyzing with AI...'}
+                                                            {extractionPhase === 'complete' && 'Processing complete!'}
+                                                        </p>
+                                                        <p className="text-xs text-blue-600 mt-1 font-medium">
+                                                            {extractionPhase === 'connecting' && 'Initializing headless browser'}
+                                                            {extractionPhase === 'navigating' && 'Loading page content'}
+                                                            {extractionPhase === 'extracting' && 'Identifying testable elements'}
+                                                            {extractionPhase === 'analyzing' && 'Generating test scenarios'}
+                                                            {extractionPhase === 'complete' && 'Finalizing results'}
+                                                        </p>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center space-x-6">
+                                                <div className="text-right">
+                                                    <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                                        {extractionProgress}%
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Enhanced Progress Bar */}
+                                            <div className="w-full bg-white/50 rounded-full h-3 overflow-hidden backdrop-blur-sm">
+                                                <div 
+                                                    className="bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 h-full rounded-full transition-all duration-500 ease-out shadow-sm"
+                                                    style={{ width: `${extractionProgress}%` }}
+                                                />
+                                            </div>
+                                            
+                                            {/* Enhanced Phase Indicators */}
+                                            <div className="flex justify-between mt-4 px-1">
+                                                <div className={`flex flex-col items-center transition-all duration-300 ${extractionProgress >= 0 ? 'text-blue-600' : 'text-slate-400'}`}>
+                                                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${extractionProgress >= 0 ? 'bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg' : 'bg-slate-300'}`} />
+                                                    <span className="text-xs mt-1 font-medium">Connect</span>
+                                                </div>
+                                                <div className={`flex flex-col items-center transition-all duration-300 ${extractionProgress >= 20 ? 'text-blue-600' : 'text-slate-400'}`}>
+                                                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${extractionProgress >= 20 ? 'bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg' : 'bg-slate-300'}`} />
+                                                    <span className="text-xs mt-1 font-medium">Navigate</span>
+                                                </div>
+                                                <div className={`flex flex-col items-center transition-all duration-300 ${extractionProgress >= 40 ? 'text-blue-600' : 'text-slate-400'}`}>
+                                                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${extractionProgress >= 40 ? 'bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg' : 'bg-slate-300'}`} />
+                                                    <span className="text-xs mt-1 font-medium">Extract</span>
+                                                </div>
+                                                <div className={`flex flex-col items-center transition-all duration-300 ${extractionProgress >= 70 ? 'text-blue-600' : 'text-slate-400'}`}>
+                                                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${extractionProgress >= 70 ? 'bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg' : 'bg-slate-300'}`} />
+                                                    <span className="text-xs mt-1 font-medium">Analyze</span>
+                                                </div>
+                                                <div className={`flex flex-col items-center transition-all duration-300 ${extractionProgress >= 100 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                                                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${extractionProgress >= 100 ? 'bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg' : 'bg-slate-300'}`} />
+                                                    <span className="text-xs mt-1 font-medium">Done</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        setIsExtracting(true);
+                                        setExtractionPhase('connecting');
+                                        setExtractionProgress(0);
+                                        handleStepComplete();
+                                    }}
+                                    disabled={!formData.url}
+                                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-6 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-sm font-semibold disabled:from-slate-300 disabled:to-slate-400 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 disabled:hover:scale-100 disabled:hover:shadow-lg backdrop-blur-sm"
+                                >
+                                    <Globe className="h-5 w-5 mr-3" />
+                                    Extract Elements
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Extraction Results Section */}
+                        {extractedElements && (
+                            <div className="space-y-6 border-t border-slate-200 pt-8">
+                                {/* Header with View Mode Toggle and Export Options */}
+                                <div className="flex items-center justify-between">
+                                    <h4 className="text-lg font-semibold text-slate-900">Extraction Results</h4>
+                                    <div className="flex items-center space-x-3">
+                                        {/* Export Buttons */}
+                                        <div className="flex items-center space-x-1 bg-white/80 backdrop-blur-sm rounded-xl p-1 border border-slate-200 shadow-sm">
+                                            <button
+                                                onClick={handleExportJson}
+                                                className="px-3 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white rounded-lg transition-all duration-300"
+                                                title="Export as JSON"
+                                            >
+                                                <div className="flex items-center space-x-2">
+                                                    <FileJson className="h-3 w-3" />
+                                                    <span>JSON</span>
+                                                </div>
+                                            </button>
+                                            <button
+                                                onClick={handleExportCsv}
+                                                className="px-3 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-white rounded-lg transition-all duration-300"
+                                                title="Export as CSV"
+                                            >
+                                                <div className="flex items-center space-x-2">
+                                                    <FileSpreadsheet className="h-3 w-3" />
+                                                    <span>CSV</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        
+                                        {/* View Mode Toggle */}
+                                        <div className="flex items-center bg-white/80 backdrop-blur-sm rounded-xl p-1 border border-slate-200 shadow-sm">
+                                            <button
+                                                onClick={() => setViewMode('executive')}
+                                                className={`px-4 py-2 text-xs font-medium rounded-lg transition-all duration-300 ${
+                                                    viewMode === 'executive'
+                                                        ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md'
+                                                        : 'text-slate-600 hover:text-slate-900 hover:bg-white'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-1">
+                                                    <Eye className="h-3 w-3" />
+                                                    <span>Executive</span>
+                                                </div>
+                                            </button>
+                                            <button
+                                                onClick={() => setViewMode('developer')}
+                                                className={`px-4 py-2 text-xs font-medium rounded-lg transition-all duration-300 ${
+                                                    viewMode === 'developer'
+                                                        ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md'
+                                                        : 'text-slate-600 hover:text-slate-900 hover:bg-white'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-1">
+                                                    <Code className="h-3 w-3" />
+                                                    <span>Developer</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {viewMode === 'executive' ? (
+                                    /* Executive View - Enhanced */
+                                    <div className="space-y-6">
+                                        {/* Enhanced Success Banner */}
+                                        <div className="bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-xl p-6 shadow-xl backdrop-blur-sm">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center space-x-4">
+                                                    <div className="bg-white/20 rounded-full p-2">
+                                                        <CheckCircle className="h-6 w-6" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-lg font-bold">Analysis Complete</h4>
+                                                        <p className="text-emerald-100 text-sm">{new URL(formData.url).hostname}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center space-x-8">
                                                     <div className="text-center">
-                                                        <div className="text-2xl font-bold">{extractedElements.total_elements || 0}</div>
-                                                        <div className="text-emerald-100 text-xs">Elements</div>
+                                                        <div className="text-3xl font-bold">{extractedElements.total_elements || 0}</div>
+                                                        <div className="text-emerald-100 text-sm">Elements</div>
                                                     </div>
-                                                    <div className="text-center border-l border-emerald-400 pl-6">
-                                                        <div className="text-2xl font-bold">{Object.keys(extractedElements.elements_by_category || {}).length}</div>
-                                                        <div className="text-emerald-100 text-xs">Categories</div>
+                                                    <div className="text-center border-l border-emerald-400 pl-8">
+                                                        <div className="text-3xl font-bold">{Object.keys(extractedElements.elements_by_category || {}).length}</div>
+                                                        <div className="text-emerald-100 text-sm">Categories</div>
                                                     </div>
-                                                    <div className="text-center border-l border-emerald-400 pl-6">
-                                                        <div className="text-2xl font-bold">{extractedElements.llm_analysis ? 'High' : 'Med'}</div>
-                                                        <div className="text-emerald-100 text-xs">Quality</div>
+                                                    <div className="text-center border-l border-emerald-400 pl-8">
+                                                        <div className="text-3xl font-bold">{extractedElements.llm_analysis ? 'High' : 'Med'}</div>
+                                                        <div className="text-emerald-100 text-sm">Quality</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* Critical Test Flows - MOVED TO TOP for priority visibility */}
+                                        {/* Rest of the executive view content from case 2 */}
                                         {(extractedElements.llm_analysis || extractedElements.elements_by_category) && (
                                             <div className="space-y-4">
                                                 <div className="flex items-center justify-between">
@@ -900,7 +918,7 @@ export function WebAutomationFlowVertical() {
                                                         const priorityIcons = ['🔴', '🟠', '🟡', '🟢', '🔵'];
                                                         
                                                         return (
-                                                            <div key={idx} className={`bg-gradient-to-r ${priorityColors[idx] || priorityColors[4]} border rounded-xl p-4 hover:shadow-md transition-all`}>
+                                                            <div key={idx} className={`bg-gradient-to-r ${priorityColors[idx] || priorityColors[4]} border rounded-xl p-4 hover:shadow-md transition-all backdrop-blur-sm`}>
                                                                 <div className="flex items-start justify-between">
                                                                     <div className="flex-1">
                                                                         <div className="flex items-center space-x-2 mb-2">
@@ -965,33 +983,31 @@ export function WebAutomationFlowVertical() {
                                             </div>
                                         )}
 
-                                        {/* Compact Element Distribution - MOVED AFTER Critical Flows */}
+                                        {/* Enhanced Element Distribution */}
                                         {extractedElements.elements_by_category && (
-                                            <div className="bg-white rounded-lg border border-slate-200 p-4">
-                                                <h4 className="text-xs font-semibold text-slate-600 uppercase mb-3">Element Distribution</h4>
-                                                <div className="grid grid-cols-2 gap-2">
+                                            <div className="bg-white/70 backdrop-blur-sm rounded-xl border border-slate-200 p-6 shadow-lg">
+                                                <h4 className="text-sm font-bold text-slate-700 uppercase tracking-wide mb-4">Element Distribution</h4>
+                                                <div className="grid grid-cols-2 gap-3">
                                                     {Object.entries(extractedElements.elements_by_category).slice(0, 6).map(([category, items]: [string, any]) => {
-                                                        const total = extractedElements.total_elements || 1;
-                                                        // const percentage = Math.round((items.length / total) * 100);  // Unused variable
                                                         const categoryColors: any = {
-                                                            'navigation': 'bg-blue-500',
-                                                            'action': 'bg-green-500',
-                                                            'form_input': 'bg-purple-500',
-                                                            'authentication': 'bg-orange-500',
-                                                            'search': 'bg-pink-500',
-                                                            'interactive': 'bg-indigo-500'
+                                                            'navigation': 'from-blue-400 to-blue-600',
+                                                            'action': 'from-green-400 to-green-600',
+                                                            'form_input': 'from-purple-400 to-purple-600',
+                                                            'authentication': 'from-orange-400 to-orange-600',
+                                                            'search': 'from-pink-400 to-pink-600',
+                                                            'interactive': 'from-indigo-400 to-indigo-600'
                                                         };
-                                                        const bgColor = categoryColors[category.toLowerCase()] || 'bg-slate-500';
+                                                        const gradientColor = categoryColors[category.toLowerCase()] || 'from-slate-400 to-slate-600';
                                                         
                                                         return (
-                                                            <div key={category} className="flex items-center justify-between p-2 bg-slate-50 rounded">
-                                                                <div className="flex items-center space-x-2 flex-1">
-                                                                    <div className={`w-2 h-2 rounded-full ${bgColor}`} />
-                                                                    <span className="text-xs text-slate-700 capitalize">
+                                                            <div key={category} className="flex items-center justify-between p-3 bg-gradient-to-r from-slate-50 to-white rounded-lg border border-slate-100 hover:shadow-md transition-all duration-300">
+                                                                <div className="flex items-center space-x-3 flex-1">
+                                                                    <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${gradientColor} shadow-sm`} />
+                                                                    <span className="text-sm text-slate-700 capitalize font-medium">
                                                                         {category.replace(/_/g, ' ')}
                                                                     </span>
                                                                 </div>
-                                                                <span className="text-xs font-semibold text-slate-900">
+                                                                <span className="text-sm font-bold text-slate-900 bg-slate-100 px-2 py-1 rounded-full">
                                                                     {items.length}
                                                                 </span>
                                                             </div>
@@ -1001,35 +1017,35 @@ export function WebAutomationFlowVertical() {
                                             </div>
                                         )}
                                         
-                                        {/* AI Recommendations - Redesigned */}
+                                        {/* Enhanced AI Recommendations */}
                                         {extractedElements.llm_analysis && extractedElements.llm_analysis.recommendations && (
-                                            <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200 p-5">
-                                                <div className="flex items-start space-x-3">
-                                                    <div className="bg-purple-100 rounded-full p-2">
-                                                        <Shield className="h-5 w-5 text-purple-600" />
+                                            <div className="bg-gradient-to-r from-purple-50 via-pink-50 to-purple-50 rounded-xl border border-purple-200 p-6 backdrop-blur-sm shadow-lg">
+                                                <div className="flex items-start space-x-4">
+                                                    <div className="bg-purple-100 rounded-full p-3">
+                                                        <Shield className="h-6 w-6 text-purple-600" />
                                                     </div>
                                                     <div className="flex-1">
-                                                        <h4 className="text-sm font-semibold text-purple-900 mb-3">Testing Recommendations</h4>
-                                                        <div className="space-y-2">
+                                                        <h4 className="text-lg font-bold text-purple-900 mb-4">Testing Recommendations</h4>
+                                                        <div className="space-y-3">
                                                             {extractedElements.llm_analysis.recommendations.slice(0, 3).map((rec: string, idx: number) => (
-                                                                <div key={idx} className="flex items-start space-x-2">
-                                                                    <CheckCircle className="h-3 w-3 text-purple-500 mt-0.5 flex-shrink-0" />
-                                                                    <p className="text-xs text-purple-700">{rec}</p>
+                                                                <div key={idx} className="flex items-start space-x-3">
+                                                                    <CheckCircle className="h-4 w-4 text-purple-500 mt-0.5 flex-shrink-0" />
+                                                                    <p className="text-sm text-purple-700 leading-relaxed">{rec}</p>
                                                                 </div>
                                                             ))}
                                                         </div>
                                                         
                                                         {extractedElements.llm_analysis.test_coverage && (
-                                                            <div className="mt-3 pt-3 border-t border-purple-200">
-                                                                <div className="flex items-center justify-between">
-                                                                    <span className="text-xs text-purple-600">Estimated Coverage</span>
-                                                                    <span className="text-sm font-bold text-purple-900">
+                                                            <div className="mt-5 pt-4 border-t border-purple-200">
+                                                                <div className="flex items-center justify-between mb-2">
+                                                                    <span className="text-sm text-purple-600 font-medium">Estimated Coverage</span>
+                                                                    <span className="text-lg font-bold text-purple-900">
                                                                         {extractedElements.llm_analysis.test_coverage}%
                                                                     </span>
                                                                 </div>
-                                                                <div className="mt-1 w-full bg-purple-100 rounded-full h-2">
+                                                                <div className="w-full bg-purple-100 rounded-full h-3">
                                                                     <div 
-                                                                        className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                                                                        className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full shadow-sm transition-all duration-1000"
                                                                         style={{ width: `${extractedElements.llm_analysis.test_coverage || 75}%` }}
                                                                     />
                                                                 </div>
@@ -1041,37 +1057,39 @@ export function WebAutomationFlowVertical() {
                                         )}
                                     </div>
                                 ) : (
-                                    /* Developer View - Beautiful JSON with Syntax Highlighting */
-                                    <div className="space-y-4">
-                                        {/* Developer Header */}
-                                        <div className="bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-lg p-3">
+                                    /* Enhanced Developer View */
+                                    <div className="space-y-6">
+                                        {/* Enhanced Developer Header */}
+                                        <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white rounded-xl p-4 shadow-xl">
                                             <div className="flex items-center justify-between">
-                                                <div className="flex items-center space-x-2">
-                                                    <Terminal className="h-4 w-4 text-emerald-400" />
+                                                <div className="flex items-center space-x-3">
+                                                    <Terminal className="h-5 w-5 text-emerald-400" />
                                                     <span className="text-sm font-mono">response.json</span>
-                                                    <span className="text-xs text-slate-400">({JSON.stringify(extractedElements).length} bytes)</span>
+                                                    <span className="text-xs text-slate-400 bg-slate-700 px-2 py-1 rounded">
+                                                        {JSON.stringify(extractedElements).length} bytes
+                                                    </span>
                                                 </div>
                                                 <button
                                                     onClick={handleCopyJson}
-                                                    className="flex items-center space-x-1 px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded transition-colors"
+                                                    className="flex items-center space-x-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-all duration-300"
                                                 >
                                                     {copiedJson ? (
                                                         <>
-                                                            <CheckCircle className="h-3 w-3 text-green-400" />
-                                                            <span className="text-xs text-green-400">Copied!</span>
+                                                            <CheckCircle className="h-4 w-4 text-green-400" />
+                                                            <span className="text-sm text-green-400">Copied!</span>
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <Copy className="h-3 w-3" />
-                                                            <span className="text-xs">Copy JSON</span>
+                                                            <Copy className="h-4 w-4" />
+                                                            <span className="text-sm">Copy JSON</span>
                                                         </>
                                                     )}
                                                 </button>
                                             </div>
                                         </div>
                                         
-                                        {/* Syntax Highlighted JSON */}
-                                        <div className="rounded-xl overflow-hidden border border-slate-700">
+                                        {/* Enhanced Syntax Highlighted JSON */}
+                                        <div className="rounded-xl overflow-hidden border border-slate-300 shadow-lg">
                                             <SyntaxHighlighter
                                                 language="json"
                                                 style={vscDarkPlus}
@@ -1089,23 +1107,23 @@ export function WebAutomationFlowVertical() {
                                             </SyntaxHighlighter>
                                         </div>
                                         
-                                        {/* Quick Stats for Developers */}
-                                        <div className="grid grid-cols-3 gap-2">
-                                            <div className="bg-slate-800 rounded-lg p-2 text-center">
-                                                <div className="text-xs text-slate-400">Properties</div>
-                                                <div className="text-sm font-mono text-slate-200">
+                                        {/* Enhanced Developer Stats */}
+                                        <div className="grid grid-cols-3 gap-4">
+                                            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 text-center shadow-lg">
+                                                <div className="text-xs text-slate-400 mb-1">Properties</div>
+                                                <div className="text-lg font-mono text-slate-200 font-bold">
                                                     {Object.keys(extractedElements).length}
                                                 </div>
                                             </div>
-                                            <div className="bg-slate-800 rounded-lg p-2 text-center">
-                                                <div className="text-xs text-slate-400">Elements</div>
-                                                <div className="text-sm font-mono text-slate-200">
+                                            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 text-center shadow-lg">
+                                                <div className="text-xs text-slate-400 mb-1">Elements</div>
+                                                <div className="text-lg font-mono text-slate-200 font-bold">
                                                     {extractedElements.total_elements || 0}
                                                 </div>
                                             </div>
-                                            <div className="bg-slate-800 rounded-lg p-2 text-center">
-                                                <div className="text-xs text-slate-400">Categories</div>
-                                                <div className="text-sm font-mono text-slate-200">
+                                            <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 text-center shadow-lg">
+                                                <div className="text-xs text-slate-400 mb-1">Categories</div>
+                                                <div className="text-lg font-mono text-slate-200 font-bold">
                                                     {Object.keys(extractedElements.elements_by_category || {}).length}
                                                 </div>
                                             </div>
@@ -1113,26 +1131,23 @@ export function WebAutomationFlowVertical() {
                                     </div>
                                 )}
                                 
+                                {/* Enhanced Continue Button */}
                                 <button
-                                    onClick={handleStepComplete}
-                                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-all text-sm font-medium flex items-center justify-center shadow-sm hover:shadow-md"
+                                    onClick={() => {
+                                        setCompletedSteps([...completedSteps, currentStep]);
+                                        setCurrentStep(2);
+                                    }}
+                                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-6 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-sm font-semibold flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105 backdrop-blur-sm"
                                 >
-                                    <ChevronRight className="h-4 w-4 mr-2" />
+                                    <ChevronRight className="h-5 w-5 mr-2" />
                                     Continue to Test Generation
                                 </button>
-                            </>
-                        ) : (
-                            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                                <div className="flex items-center space-x-2">
-                                    <Monitor className="h-5 w-5 text-yellow-600" />
-                                    <p className="text-sm text-yellow-800">No elements extracted yet</p>
-                                </div>
                             </div>
                         )}
                     </div>
                 );
             
-            case 3:
+            case 2:
                 return (
                     <div className="space-y-4">
                         <h3 className="text-lg font-semibold text-slate-900">Generate Test Cases</h3>
@@ -1428,7 +1443,7 @@ export function WebAutomationFlowVertical() {
                     </div>
                 );
             
-            case 4:
+            case 3:
                 return (
                     <div className="space-y-4">
                         <h3 className="text-lg font-semibold text-slate-900">Generate Code</h3>
@@ -1833,7 +1848,7 @@ export function WebAutomationFlowVertical() {
                     </div>
                 );
             
-            case 5:
+            case 4:
                 return (
                     <div className="space-y-4">
                         <h3 className="text-lg font-semibold text-slate-900">Execute Tests</h3>
