@@ -49,7 +49,32 @@ npm install
 
 ### Backend Server
 
+**IMPORTANT for Python 3.13+ on Windows:** You must use the `run_backend.py` script to ensure proper event loop configuration.
+
+#### Method 1: Using the startup script (RECOMMENDED)
 ```bash
+# From simple_apps_v2 directory
+python run_backend.py
+
+# With custom port
+python run_backend.py --port 5175
+
+# With auto-reload for development
+python run_backend.py --reload
+```
+
+#### Method 2: Using batch file (Windows)
+```batch
+# From simple_apps_v2 directory
+run_backend.bat
+
+# With custom port
+run_backend.bat --port 5175
+```
+
+#### Method 3: Direct uvicorn (NOT recommended for Python 3.13+)
+```bash
+# This may fail on Python 3.13+ due to event loop issues
 cd backend
 python -m uvicorn web_automation.main:app --host localhost --port 5175 --reload
 ```

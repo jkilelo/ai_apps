@@ -1081,10 +1081,56 @@ class BrowserService:
                 return True
             
             try:
-                # The asyncio policy is already set up at module import time
-                # via asyncio_helper.setup_asyncio_policy()
+                # CRITICAL FIX for Python 3.13+ on Windows
+                if sys.platform == 'win32' and sys.version_info >= (3, 13):
+                    loop = asyncio.get_running_loop()
+                    if not isinstance(loop, asyncio.ProactorEventLoop):
+                        logger.error(f"Python 3.13+ with {type(loop).__name__} detected - Playwright cannot work")
+                        logger.error("The issue is that uvicorn uses SelectorEventLoop which doesn't support subprocesses")
+                        logger.error("")
+                        logger.error("SOLUTIONS:")
+                        logger.error("1. Use the provided run_backend.py script: python run_backend.py")
+                        logger.error("2. Or run with: python -c \"import asyncio; asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy()); import uvicorn; uvicorn.run('backend.web_automation.main:app', host='localhost', port=5175)\"")
+                        logger.error("3. Or downgrade to Python 3.12")
+                        logger.error("")
+                        
+                        # Try one more thing - spawn playwright in subprocess
+                        import subprocess
+                        import tempfile
+                        import json
+                        
+                        # This is a hack but might work
+                        test_script = """
+import asyncio
+from playwright.async_api import async_playwright
+
+async def test():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        await browser.close()
+    print("SUCCESS")
+
+asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+asyncio.run(test())
+"""
+                        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+                            f.write(test_script)
+                            temp_file = f.name
+                        
+                        try:
+                            result = subprocess.run([sys.executable, temp_file], capture_output=True, text=True, timeout=10)
+                            if "SUCCESS" in result.stdout:
+                                logger.info("Playwright CAN work in subprocess, but not in current event loop")
+                            os.unlink(temp_file)
+                        except:
+                            pass
+                        
+                        raise RuntimeError(
+                            "Cannot use Playwright with SelectorEventLoop on Python 3.13+. "
+                            "Please use: python run_backend.py"
+                        )
                 
-                # Use async playwright 
+                # Normal initialization 
                 self.playwright = await async_playwright().start()
                 
                 # Launch browser
