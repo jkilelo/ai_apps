@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Execution Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #f0f0f0; padding: 20px; border-radius: 5px; }
+        .summary { margin: 20px 0; }
+        .passed { color: green; }
+        .failed { color: red; }
+        .error { color: orange; }
+        .skipped { color: gray; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .progress-bar { width: 100%; height: 30px; background-color: #f0f0f0; border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; float: left; }
+        .progress-passed { background-color: #4CAF50; }
+        .progress-failed { background-color: #f44336; }
+        .progress-error { background-color: #ff9800; }
+        .progress-skipped { background-color: #9e9e9e; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Test Execution Report</h1>
+        <p>Generated: 2025-08-25 07:49:17</p>
+        <p>Suite: Test Execution Suite</p>
+    </div>
+    
+    <div class="summary">
+        <h2>Summary</h2>
+        <p>Total Tests: 1</p>
+        <p class="passed">Passed: 0</p>
+        <p class="failed">Failed: 0</p>
+        <p class="error">Errors: 1</p>
+        <p class="skipped">Skipped: 0</p>
+        <p>Duration: 0.12s</p>
+        <p>Success Rate: 0.0%</p>
+    </div>
+    
+    <div class="progress-bar">
+        <div class="progress-fill progress-passed" style="width: 0.0%"></div>
+        <div class="progress-fill progress-failed" style="width: 0.0%"></div>
+        <div class="progress-fill progress-error" style="width: 100.0%"></div>
+        <div class="progress-fill progress-skipped" style="width: 0.0%"></div>
+    </div>
+    
+    <h2>Test Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Test Name</th>
+                <th>Status</th>
+                <th>Duration</th>
+                <th>Retries</th>
+                <th>Error</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>llm_login_tests</td>
+                <td class="error">ERROR</td>
+                <td>0.005s</td>
+                <td>0</td>
+                <td>__import__ not found</td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+</html>

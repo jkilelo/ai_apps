@@ -1,0 +1,38 @@
+[
+  {
+    "configuration": "High Creativity",
+    "success": false,
+    "error": "query_llm() got an unexpected keyword argument 'temperature'",
+    "config": {
+      "temperature": 0.9,
+      "max_tokens": 200,
+      "top_p": 0.95,
+      "frequency_penalty": 0.0,
+      "presence_penalty": 0.0
+    }
+  },
+  {
+    "configuration": "Precise Technical",
+    "success": false,
+    "error": "query_llm() got an unexpected keyword argument 'temperature'",
+    "config": {
+      "temperature": 0.1,
+      "max_tokens": 150,
+      "top_p": 0.1,
+      "frequency_penalty": 0.0,
+      "presence_penalty": 0.0
+    }
+  },
+  {
+    "configuration": "Balanced General",
+    "success": false,
+    "error": "query_llm() got an unexpected keyword argument 'temperature'",
+    "config": {
+      "temperature": 0.7,
+      "max_tokens": 100,
+      "top_p": 0.8,
+      "frequency_penalty": 0.1,
+      "presence_penalty": 0.1
+    }
+  }
+]

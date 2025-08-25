@@ -1,0 +1,26 @@
+{
+  "reasoning": {
+    "success": false,
+    "error": "'StrategyOrchestrator' object has no attribute 'optimize_prompt'"
+  },
+  "creative": {
+    "success": false,
+    "error": "'StrategyOrchestrator' object has no attribute 'optimize_prompt'"
+  },
+  "analytical": {
+    "success": false,
+    "error": "'StrategyOrchestrator' object has no attribute 'optimize_prompt'"
+  },
+  "extraction": {
+    "success": false,
+    "error": "'StrategyOrchestrator' object has no attribute 'optimize_prompt'"
+  },
+  "generation": {
+    "success": false,
+    "error": "'StrategyOrchestrator' object has no attribute 'optimize_prompt'"
+  },
+  "validation": {
+    "success": false,
+    "error": "'StrategyOrchestrator' object has no attribute 'optimize_prompt'"
+  }
+}

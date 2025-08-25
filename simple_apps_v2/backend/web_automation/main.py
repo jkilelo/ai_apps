@@ -39,27 +39,34 @@ from backend.shared.llm import query_llm
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Create FastAPI app
-app = FastAPI(title="Web Automation API", version="1.0.0")
+# Import configuration
+from .config import settings
 
-# Configure CORS for frontend
+# Create FastAPI app
+app = FastAPI(
+    title=settings.app_name,
+    version=settings.app_version,
+    debug=settings.debug,
+    docs_url="/docs" if settings.debug else None,
+    redoc_url="/redoc" if settings.debug else None
+)
+
+# Import the new router
+from .api_router import router as automation_router
+
+# Configure CORS from settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",  # React frontend
-        "http://localhost:3001",  # Alternative port
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001"
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    **settings.get_cors_config()
 )
+
+# Include the automation router
+app.include_router(automation_router)
 
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "service": "web-automation-api"}
+    return {"status": "healthy", "service": "web-automation-api", "version": "2.0"}
 
 # Error types enumeration
 class ErrorType(str, Enum):

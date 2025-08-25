@@ -1,0 +1,91 @@
+{
+  "file_analysis": {
+    "file_size": 133342,
+    "total_lines": 3441,
+    "non_empty_lines": 2860,
+    "classes": 25,
+    "functions": 55,
+    "async_functions": 40,
+    "imports": 22,
+    "docstrings": 114
+  },
+  "type_safety": {
+    "status": "FAIL",
+    "errors": [
+      "ui_testing_automation\\elements_extractor_no_llm.py:2007: error: Need type annotation for \"strategy_counts\"  [var-annotated]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2014: error: Need type annotation for \"method_counts\"  [var-annotated]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2250: error: Argument 1 to \"_compare_screenshots\" of \"ElementsExtractorNoLLM\" has incompatible type \"ScreenshotData | None\"; expected \"ScreenshotData\"  [arg-type]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2250: error: Argument 2 to \"_compare_screenshots\" of \"ElementsExtractorNoLLM\" has incompatible type \"ScreenshotData | None\"; expected \"ScreenshotData\"  [arg-type]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2252: error: Incompatible return value type (got \"tuple[ScreenshotData | None, ScreenshotData | None, ScreenshotComparison]\", expected \"tuple[ScreenshotData, ScreenshotData, ScreenshotComparison]\")  [return-value]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2722: error: Item \"None\" of \"ElementSelector | None\" has no attribute \"value\"  [union-attr]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2730: error: Argument \"type\" to \"screenshot\" of \"ElementHandle\" has incompatible type \"str\"; expected \"Literal['jpeg', 'png'] | None\"  [arg-type]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2737: error: Unexpected keyword argument \"full_page\" for \"ScreenshotData\"  [call-arg]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2802: error: Item \"None\" of \"ScreenshotMetadata | None\" has no attribute \"tags\"  [union-attr]",
+      "ui_testing_automation\\elements_extractor_no_llm.py:2804: error: Incompatible return value type (got \"ScreenshotData | None\", expected \"ScreenshotData\")  [return-value]"
+    ]
+  },
+  "pep8_compliance": {
+    "status": "FAIL",
+    "violations": [
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:30:1: F401 'abc.ABC' imported but unused",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:30:1: F401 'abc.abstractmethod' imported but unused",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:33:1: F401 'datetime.datetime' imported but unused",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:48:5: F401 'playwright.async_api.BrowserContext' imported but unused",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:48:5: F401 'playwright.async_api.async_playwright' imported but unused",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:59:1: E302 expected 2 blank lines, found 1",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:59:74: W291 trailing whitespace",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:78:1: W293 blank line contains whitespace",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:94:1: W293 blank line contains whitespace",
+      "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation\\elements_extractor_no_llm.py:99:1: E305 expected 2 blank lines after class or function definition, found 1"
+    ]
+  },
+  "best_practices": {
+    "issues": [
+      "Global variables without Final: 1 occurrences",
+      "Functions without docstrings: 10 occurrences"
+    ],
+    "status": "PASS"
+  },
+  "screenshot_features": {
+    "capture_screenshots": true,
+    "full_page_screenshots": true,
+    "element_highlighting": true,
+    "multiple_formats": true,
+    "base64_encoding": true,
+    "save_to_file": true,
+    "viewport_sizes": true,
+    "screenshot_class": true,
+    "complete": true
+  },
+  "production_readiness": {
+    "error_handling": true,
+    "logging": true,
+    "async_support": true,
+    "rate_limiting": true,
+    "retry_mechanism": true,
+    "timeout_handling": true,
+    "validation": true,
+    "configuration": true,
+    "caching": true,
+    "thread_safety": true,
+    "memory_management": true,
+    "metrics": true,
+    "score": "12/12",
+    "percentage": 100.0,
+    "status": "PASS"
+  },
+  "master_plan_conformance": {
+    "ElementsExtractorNoLLM": true,
+    "shadow_dom_support": true,
+    "iframe_support": true,
+    "multiple_strategies": true,
+    "contract_validation": true,
+    "live_website_testing": true,
+    "compliant": true
+  },
+  "recommendations": [
+    "HIGH: Fix type errors - Add type hints to all functions and fix mypy errors",
+    "MEDIUM: Fix PEP8 violations - Run black formatter and fix flake8 warnings",
+    "MEDIUM: Address best practice issues - Remove bare excepts, add logging"
+  ]
+}

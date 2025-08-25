@@ -1,0 +1,89 @@
+{
+  "timestamp": "2025-08-22T22:49:40.946251",
+  "summary": {
+    "compliant_modules": 8,
+    "total_modules": 11,
+    "total_score": 85,
+    "max_score": 110,
+    "percentage": 77.27272727272727
+  },
+  "modules": {
+    "utils": {
+      "score": 8,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    },
+    "shared": {
+      "score": 6,
+      "max_score": 10,
+      "compliant": false,
+      "errors": [],
+      "warnings": []
+    },
+    "stealth_browser": {
+      "score": 9,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    },
+    "llm": {
+      "score": 8,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    },
+    "prompts": {
+      "score": 8,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    },
+    "element_extractor_no_llm": {
+      "score": 8,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    },
+    "element_extractor_with_llm": {
+      "score": 6,
+      "max_score": 10,
+      "compliant": false,
+      "errors": [],
+      "warnings": []
+    },
+    "test_generation_with_llm": {
+      "score": 9,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    },
+    "code_generation_with_llm": {
+      "score": 6,
+      "max_score": 10,
+      "compliant": false,
+      "errors": [],
+      "warnings": []
+    },
+    "code_execution": {
+      "score": 9,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    },
+    "unified_interface": {
+      "score": 8,
+      "max_score": 10,
+      "compliant": true,
+      "errors": [],
+      "warnings": []
+    }
+  }
+}

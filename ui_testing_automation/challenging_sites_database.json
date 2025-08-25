@@ -1,0 +1,769 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-08-07",
+    "total_sites": 32,
+    "success_rate": 96.9,
+    "categories": 10
+  },
+  "difficulty_levels": {
+    "low": "Basic protection, standard measures",
+    "medium": "Moderate protection, some anti-bot",
+    "high": "Strong protection, active anti-bot",
+    "very_high": "Advanced protection, ML detection",
+    "extreme": "Maximum protection, multiple layers"
+  },
+  "sites": [
+    {
+      "id": 1,
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com",
+      "category": "Bot Protection",
+      "difficulty": "high",
+      "protection_system": "Cloudflare",
+      "protection_details": {
+        "primary": "Cloudflare",
+        "secondary": [],
+        "features": ["JS Challenge", "Browser Verification", "Rate Limiting"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 30,
+        "extraction_time": 5.07,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Uses its own advanced protection system"
+    },
+    {
+      "id": 2,
+      "name": "DataDome",
+      "url": "https://www.datadome.co",
+      "category": "Bot Protection",
+      "difficulty": "very_high",
+      "protection_system": "DataDome",
+      "protection_details": {
+        "primary": "DataDome",
+        "secondary": [],
+        "features": ["ML Detection", "Behavioral Analysis", "Device Fingerprinting"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 0,
+        "extraction_time": 3.83,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Advanced ML-based bot detection, minimal elements exposed"
+    },
+    {
+      "id": 3,
+      "name": "Imperva",
+      "url": "https://www.imperva.com",
+      "category": "Bot Protection",
+      "difficulty": "very_high",
+      "protection_system": "Imperva Incapsula",
+      "protection_details": {
+        "primary": "Imperva Incapsula",
+        "secondary": [],
+        "features": ["DDoS Protection", "Bot Management", "WAF"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 30,
+        "extraction_time": 4.38,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Enterprise-grade bot protection"
+    },
+    {
+      "id": 4,
+      "name": "Nike",
+      "url": "https://www.nike.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "protection_system": "Akamai + Custom",
+      "protection_details": {
+        "primary": "Akamai",
+        "secondary": ["Custom Scripts", "Queue System"],
+        "features": ["Bot Manager", "Rate Limiting", "Fingerprinting", "Sneaker Bot Detection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 30,
+        "extraction_time": 5.13,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Aggressive anti-bot for sneaker releases"
+    },
+    {
+      "id": 5,
+      "name": "Supreme",
+      "url": "https://www.supreme.com",
+      "category": "E-commerce",
+      "difficulty": "extreme",
+      "protection_system": "PerimeterX",
+      "protection_details": {
+        "primary": "PerimeterX",
+        "secondary": ["Custom Scripts"],
+        "features": ["Human Challenge", "Code Obfuscation", "Behavioral Analysis", "Device Intelligence"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 13,
+        "extraction_time": 3.40,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "One of the most difficult e-commerce sites to scrape"
+    },
+    {
+      "id": 6,
+      "name": "Ticketmaster",
+      "url": "https://www.ticketmaster.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "protection_system": "Queue-it + Custom",
+      "protection_details": {
+        "primary": "Queue-it",
+        "secondary": ["Verified Fan", "Custom Scripts"],
+        "features": ["Virtual Queue", "Bot Detection", "Rate Limiting", "CAPTCHA"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 30,
+        "extraction_time": 4.14,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Virtual queue system for high-demand events"
+    },
+    {
+      "id": 7,
+      "name": "PayPal",
+      "url": "https://www.paypal.com",
+      "category": "Financial",
+      "difficulty": "high",
+      "protection_system": "Akamai + Custom",
+      "protection_details": {
+        "primary": "Akamai",
+        "secondary": ["Custom Security", "Fraud Detection"],
+        "features": ["Bot Manager", "Risk Assessment", "Device Fingerprinting", "Behavioral Analysis"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 4.5,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Financial-grade security"
+    },
+    {
+      "id": 8,
+      "name": "Chase Bank",
+      "url": "https://www.chase.com",
+      "category": "Financial",
+      "difficulty": "very_high",
+      "protection_system": "F5 Networks",
+      "protection_details": {
+        "primary": "F5 Networks",
+        "secondary": ["Shape Security", "Custom Scripts"],
+        "features": ["Advanced Bot Detection", "Shape Defense", "Encrypted Tokens", "Runtime Protection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": false,
+        "elements_extracted": 0,
+        "extraction_time": null,
+        "date_tested": "2025-08-07",
+        "error": "Page.title: Execution context was destroyed, most likely because of a navigation"
+      },
+      "notes": "Only site that failed - advanced JavaScript detection"
+    },
+    {
+      "id": 9,
+      "name": "Bank of America",
+      "url": "https://www.bankofamerica.com",
+      "category": "Financial",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["CDN Protection"],
+        "features": ["Session Management", "Device Recognition", "Risk Scoring"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 4.2,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Banking portal with custom security"
+    },
+    {
+      "id": 10,
+      "name": "Instagram",
+      "url": "https://www.instagram.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "protection_details": {
+        "primary": "Meta Custom",
+        "secondary": ["Rate Limiting", "GraphQL Protection"],
+        "features": ["Aggressive Rate Limiting", "Login Wall", "API Protection", "Device Fingerprinting"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 24,
+        "extraction_time": 3.15,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Aggressive rate limiting and bot detection"
+    },
+    {
+      "id": 11,
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Microsoft Azure + Custom",
+      "protection_details": {
+        "primary": "Azure WAF",
+        "secondary": ["Custom Scripts", "Authwall"],
+        "features": ["Login Wall", "Rate Limiting", "Session Tracking", "Browser Verification"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 30,
+        "extraction_time": 3.53,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Professional network with Azure protection"
+    },
+    {
+      "id": 12,
+      "name": "Facebook",
+      "url": "https://www.facebook.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "protection_details": {
+        "primary": "Meta Custom",
+        "secondary": ["Rate Limiting"],
+        "features": ["Advanced Bot Detection", "Login Wall", "Device Tracking", "Behavioral Analysis"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.8,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Meta's flagship platform with strong protection"
+    },
+    {
+      "id": 13,
+      "name": "Netflix",
+      "url": "https://www.netflix.com",
+      "category": "Streaming",
+      "difficulty": "high",
+      "protection_system": "Custom + CDN",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["CDN Protection", "DRM"],
+        "features": ["DRM Protection", "Geo-blocking", "Session Management", "Device Limits"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 4.1,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Streaming service with DRM"
+    },
+    {
+      "id": 14,
+      "name": "Google Search",
+      "url": "https://www.google.com/search?q=test",
+      "category": "Search",
+      "difficulty": "high",
+      "protection_system": "Google Custom",
+      "protection_details": {
+        "primary": "Google Custom",
+        "secondary": ["reCAPTCHA"],
+        "features": ["CAPTCHA on Suspicious Activity", "Rate Limiting", "IP Tracking", "Browser Verification"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.2,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "May trigger CAPTCHA on repeated access"
+    },
+    {
+      "id": 15,
+      "name": "Bot Test",
+      "url": "https://bot.sannysoft.com",
+      "category": "Testing",
+      "difficulty": "medium",
+      "protection_system": "Detection Showcase",
+      "protection_details": {
+        "primary": "Detection Tests",
+        "secondary": [],
+        "features": ["Navigator Tests", "Chrome Tests", "Permissions Tests", "WebDriver Detection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 1,
+        "extraction_time": 3.18,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Shows detailed bot detection results"
+    },
+    {
+      "id": 16,
+      "name": "FingerprintJS",
+      "url": "https://fingerprint.com/demo",
+      "category": "Testing",
+      "difficulty": "high",
+      "protection_system": "FingerprintJS",
+      "protection_details": {
+        "primary": "FingerprintJS",
+        "secondary": [],
+        "features": ["Browser Fingerprinting", "Device Intelligence", "VPN Detection", "Incognito Detection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 30,
+        "extraction_time": 3.61,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Advanced browser fingerprinting demo"
+    },
+    {
+      "id": 17,
+      "name": "IRS",
+      "url": "https://www.irs.gov",
+      "category": "Government",
+      "difficulty": "high",
+      "protection_system": "Akamai + Gov Standards",
+      "protection_details": {
+        "primary": "Akamai",
+        "secondary": ["Government Security Standards"],
+        "features": ["Federal Requirements", "Session Security", "Encryption", "Access Controls"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 4.0,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Federal tax agency website"
+    },
+    {
+      "id": 18,
+      "name": "CIA",
+      "url": "https://www.cia.gov",
+      "category": "Government",
+      "difficulty": "high",
+      "protection_system": "Government Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["CDN Protection"],
+        "features": ["Security Monitoring", "Access Logging", "Threat Detection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.9,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Intelligence agency public website"
+    },
+    {
+      "id": 19,
+      "name": "FBI",
+      "url": "https://www.fbi.gov",
+      "category": "Government",
+      "difficulty": "high",
+      "protection_system": "Government Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["CDN Protection"],
+        "features": ["Security Monitoring", "Access Controls", "Threat Detection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.8,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Law enforcement agency website"
+    },
+    {
+      "id": 20,
+      "name": "United Airlines",
+      "url": "https://www.united.com",
+      "category": "Travel",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "protection_details": {
+        "primary": "Akamai",
+        "secondary": ["Custom Scripts"],
+        "features": ["Bot Manager", "Fare Scraping Protection", "Session Management", "Rate Limiting"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 4.3,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Airline with fare scraping protection"
+    },
+    {
+      "id": 21,
+      "name": "Bet365",
+      "url": "https://www.bet365.com",
+      "category": "Gaming",
+      "difficulty": "very_high",
+      "protection_system": "Cloudflare + Custom",
+      "protection_details": {
+        "primary": "Cloudflare",
+        "secondary": ["Custom Scripts", "Geo-blocking"],
+        "features": ["Geographic Restrictions", "Account Security", "Bot Detection", "Rate Limiting"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 5,
+        "extraction_time": 4.0,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Gambling site with strict protection"
+    },
+    {
+      "id": 22,
+      "name": "Best Buy",
+      "url": "https://www.bestbuy.com",
+      "category": "E-commerce",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["Queue System"],
+        "features": ["Bot Detection", "Inventory Protection", "PS5/GPU Bot Prevention", "Rate Limiting"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.7,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Electronics retailer with bot prevention"
+    },
+    {
+      "id": 23,
+      "name": "Walmart",
+      "url": "https://www.walmart.com",
+      "category": "E-commerce",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["CDN Protection"],
+        "features": ["Bot Detection", "Inventory Protection", "Session Tracking", "Rate Limiting"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.5,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Major retailer with anti-bot measures"
+    },
+    {
+      "id": 24,
+      "name": "Hulu",
+      "url": "https://www.hulu.com",
+      "category": "Streaming",
+      "difficulty": "medium",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["DRM"],
+        "features": ["DRM Protection", "Geo-blocking", "Account Security"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.4,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Streaming service"
+    },
+    {
+      "id": 25,
+      "name": "Disney+",
+      "url": "https://www.disneyplus.com",
+      "category": "Streaming",
+      "difficulty": "medium",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["DRM", "CDN"],
+        "features": ["DRM Protection", "Geo-blocking", "Device Limits"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.6,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Disney streaming platform"
+    },
+    {
+      "id": 26,
+      "name": "American Airlines",
+      "url": "https://www.aa.com",
+      "category": "Travel",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["CDN Protection"],
+        "features": ["Fare Protection", "Bot Detection", "Session Management"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 4.1,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Airline website"
+    },
+    {
+      "id": 27,
+      "name": "DraftKings",
+      "url": "https://www.draftkings.com",
+      "category": "Gaming",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": ["Geo-blocking"],
+        "features": ["Geographic Restrictions", "Account Security", "Bot Detection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.8,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Sports betting platform"
+    },
+    {
+      "id": 28,
+      "name": "Bing Search",
+      "url": "https://www.bing.com/search?q=test",
+      "category": "Search",
+      "difficulty": "medium",
+      "protection_system": "Microsoft",
+      "protection_details": {
+        "primary": "Microsoft",
+        "secondary": [],
+        "features": ["Rate Limiting", "Bot Detection", "CAPTCHA"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.3,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Microsoft search engine"
+    },
+    {
+      "id": 29,
+      "name": "Snapchat",
+      "url": "https://www.snapchat.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": [],
+        "features": ["App-first Architecture", "API Protection", "Session Security"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 20,
+        "extraction_time": 3.5,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Mobile-first social platform"
+    },
+    {
+      "id": 30,
+      "name": "Tinder",
+      "url": "https://www.tinder.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "protection_details": {
+        "primary": "Custom",
+        "secondary": [],
+        "features": ["App-first Architecture", "API Protection", "Login Wall"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 0,
+        "extraction_time": 2.56,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Dating app with minimal web interface"
+    },
+    {
+      "id": 31,
+      "name": "Headless Test",
+      "url": "https://arh.antoinevastel.com/bots/areyouheadless",
+      "category": "Testing",
+      "difficulty": "medium",
+      "protection_system": "Headless Detection",
+      "protection_details": {
+        "primary": "Headless Detection",
+        "secondary": [],
+        "features": ["Chrome Detection", "WebDriver Detection", "User Agent Analysis"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 10,
+        "extraction_time": 4.19,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Detects headless browsers"
+    },
+    {
+      "id": 32,
+      "name": "PixelScan",
+      "url": "https://pixelscan.net",
+      "category": "Testing",
+      "difficulty": "high",
+      "protection_system": "Comprehensive Detection",
+      "protection_details": {
+        "primary": "Comprehensive Detection",
+        "secondary": [],
+        "features": ["Full Browser Analysis", "Fingerprinting", "Consistency Checks", "Lie Detection"]
+      },
+      "test_results": {
+        "tested": true,
+        "success": true,
+        "elements_extracted": 16,
+        "extraction_time": 4.61,
+        "date_tested": "2025-08-07",
+        "error": null
+      },
+      "notes": "Comprehensive browser analysis tool"
+    }
+  ],
+  "protection_systems": {
+    "cloudflare": {
+      "sites_using": 3,
+      "success_rate": 100,
+      "bypass_method": "Stealth mode with wait strategy"
+    },
+    "akamai": {
+      "sites_using": 5,
+      "success_rate": 100,
+      "bypass_method": "Navigator spoofing and human behavior"
+    },
+    "perimeter_x": {
+      "sites_using": 1,
+      "success_rate": 100,
+      "bypass_method": "Complete fingerprint randomization"
+    },
+    "f5_networks": {
+      "sites_using": 1,
+      "success_rate": 0,
+      "bypass_method": "REQUIRES UPGRADE - Context stability needed"
+    },
+    "custom": {
+      "sites_using": 15,
+      "success_rate": 100,
+      "bypass_method": "Adaptive stealth features"
+    }
+  },
+  "statistics": {
+    "by_category": {
+      "Bot Protection": {"total": 3, "success": 3},
+      "E-commerce": {"total": 5, "success": 5},
+      "Financial": {"total": 3, "success": 2},
+      "Social Media": {"total": 5, "success": 5},
+      "Streaming": {"total": 3, "success": 3},
+      "Government": {"total": 3, "success": 3},
+      "Travel": {"total": 2, "success": 2},
+      "Gaming": {"total": 2, "success": 2},
+      "Search": {"total": 2, "success": 2},
+      "Testing": {"total": 4, "success": 4}
+    },
+    "by_difficulty": {
+      "medium": {"total": 4, "success": 4},
+      "high": {"total": 17, "success": 17},
+      "very_high": {"total": 10, "success": 9},
+      "extreme": {"total": 1, "success": 1}
+    }
+  }
+}

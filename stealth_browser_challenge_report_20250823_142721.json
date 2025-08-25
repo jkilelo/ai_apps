@@ -1,0 +1,400 @@
+{
+  "test_date": "2025-08-23T14:27:21.367016",
+  "summary": {
+    "total_sites_tested": 8,
+    "successful": 7,
+    "failed": 1,
+    "success_rate": 87.5,
+    "average_stealth_score": 85.0,
+    "average_load_time": 34.66
+  },
+  "by_category": {
+    "Bot Protection": {
+      "total": 1,
+      "success": 1,
+      "sites": [
+        "Cloudflare"
+      ]
+    },
+    "E-commerce": {
+      "total": 2,
+      "success": 2,
+      "sites": [
+        "Nike",
+        "Supreme"
+      ]
+    },
+    "Financial": {
+      "total": 1,
+      "success": 0,
+      "sites": [
+        "Chase Bank"
+      ]
+    },
+    "Social Media": {
+      "total": 1,
+      "success": 1,
+      "sites": [
+        "Instagram"
+      ]
+    },
+    "Testing": {
+      "total": 3,
+      "success": 3,
+      "sites": [
+        "Bot Test",
+        "FingerprintJS",
+        "PixelScan"
+      ]
+    }
+  },
+  "by_difficulty": {
+    "high": {
+      "total": 3,
+      "success": 3
+    },
+    "very_high": {
+      "total": 3,
+      "success": 2
+    },
+    "extreme": {
+      "total": 1,
+      "success": 1
+    },
+    "medium": {
+      "total": 1,
+      "success": 1
+    }
+  },
+  "failed_sites": [
+    {
+      "name": "Chase Bank",
+      "url": "https://www.chase.com",
+      "protection": "F5 Networks",
+      "error": "Page.evaluate: Target page, context or browser has been closed",
+      "detection_status": "error"
+    }
+  ],
+  "detailed_results": [
+    {
+      "id": 1,
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com",
+      "category": "Bot Protection",
+      "difficulty": "high",
+      "protection_system": "Cloudflare",
+      "timestamp": "2025-08-23T14:22:23.734150",
+      "success": true,
+      "detection_status": "undetected",
+      "error": null,
+      "load_time": 73.49,
+      "elements_found": 303,
+      "stealth_score": 100,
+      "detection_checks": {
+        "webdriver": null,
+        "chrome": true,
+        "automation": {
+          "webdriver": null,
+          "phantom": false,
+          "nightmare": false,
+          "selenium": false,
+          "domAutomation": false,
+          "webdriverEvaluate": false,
+          "driverEvaluate": false
+        },
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "headless_check": {
+          "dimensions": "1936x1084",
+          "isHeadless": false
+        }
+      },
+      "page_title": "Connect, protect, and build everywhere | Cloudflare"
+    },
+    {
+      "id": 4,
+      "name": "Nike",
+      "url": "https://www.nike.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "protection_system": "Akamai + Custom",
+      "timestamp": "2025-08-23T14:23:39.295320",
+      "success": true,
+      "detection_status": "undetected",
+      "error": null,
+      "load_time": 73.93,
+      "elements_found": 562,
+      "stealth_score": 100,
+      "detection_checks": {
+        "webdriver": null,
+        "chrome": true,
+        "automation": {
+          "webdriver": null,
+          "phantom": false,
+          "nightmare": false,
+          "selenium": false,
+          "domAutomation": false,
+          "webdriverEvaluate": false,
+          "driverEvaluate": false
+        },
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "headless_check": {
+          "dimensions": "1936x1084",
+          "isHeadless": false
+        }
+      },
+      "page_title": "Nike. Just Do It. Nike.com"
+    },
+    {
+      "id": 5,
+      "name": "Supreme",
+      "url": "https://www.supreme.com",
+      "category": "E-commerce",
+      "difficulty": "extreme",
+      "protection_system": "PerimeterX",
+      "timestamp": "2025-08-23T14:24:55.302398",
+      "success": true,
+      "detection_status": "undetected",
+      "error": null,
+      "load_time": 8.09,
+      "elements_found": 40,
+      "stealth_score": 100,
+      "detection_checks": {
+        "webdriver": null,
+        "chrome": true,
+        "automation": {
+          "webdriver": null,
+          "phantom": false,
+          "nightmare": false,
+          "selenium": false,
+          "domAutomation": false,
+          "webdriverEvaluate": false,
+          "driverEvaluate": false
+        },
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "headless_check": {
+          "dimensions": "1936x1084",
+          "isHeadless": false
+        }
+      },
+      "page_title": "Supreme"
+    },
+    {
+      "id": 8,
+      "name": "Chase Bank",
+      "url": "https://www.chase.com",
+      "category": "Financial",
+      "difficulty": "very_high",
+      "protection_system": "F5 Networks",
+      "timestamp": "2025-08-23T14:25:05.421655",
+      "success": false,
+      "detection_status": "error",
+      "error": "Page.evaluate: Target page, context or browser has been closed",
+      "load_time": 86.11,
+      "elements_found": 0,
+      "stealth_score": 0,
+      "detection_checks": {
+        "error": "Page.evaluate: Target page, context or browser has been closed"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Instagram",
+      "url": "https://www.instagram.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "timestamp": "2025-08-23T14:26:33.543178",
+      "success": true,
+      "detection_status": "undetected",
+      "error": null,
+      "load_time": 6.92,
+      "elements_found": 23,
+      "stealth_score": 100,
+      "detection_checks": {
+        "webdriver": null,
+        "chrome": true,
+        "automation": {
+          "webdriver": null,
+          "phantom": false,
+          "nightmare": false,
+          "selenium": false,
+          "domAutomation": false,
+          "webdriverEvaluate": false,
+          "driverEvaluate": false
+        },
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "headless_check": {
+          "dimensions": "1936x1084",
+          "isHeadless": false
+        }
+      },
+      "page_title": "Instagram"
+    },
+    {
+      "id": 15,
+      "name": "Bot Test",
+      "url": "https://bot.sannysoft.com",
+      "category": "Testing",
+      "difficulty": "medium",
+      "protection_system": "Detection Showcase",
+      "timestamp": "2025-08-23T14:26:42.495330",
+      "success": true,
+      "detection_status": "limited_access",
+      "error": null,
+      "load_time": 10.14,
+      "elements_found": 1,
+      "stealth_score": 80,
+      "detection_checks": {
+        "webdriver": null,
+        "chrome": true,
+        "automation": {
+          "webdriver": null,
+          "phantom": false,
+          "nightmare": false,
+          "selenium": false,
+          "domAutomation": false,
+          "webdriverEvaluate": false,
+          "driverEvaluate": false
+        },
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "headless_check": {
+          "dimensions": "1936x1084",
+          "isHeadless": false
+        }
+      },
+      "page_title": "Antibot",
+      "test_results": {
+        "bot_detection": {
+          "User Agent (Old)": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "WebDriver (New)": "present (failed)",
+          "WebDriver Advanced": "passed",
+          "Chrome (New)": "present (passed)",
+          "Permissions (New)": "default",
+          "Plugins Length (Old)": "3",
+          "Plugins is of type PluginArray": "failed",
+          "Languages (Old)": "en-US,en",
+          "WebGL Vendor": "Intel Inc.",
+          "WebGL Renderer": "Intel Iris OpenGL Engine",
+          "Broken Image Dimensions": "16x16",
+          "PHANTOM_UA": "ok",
+          "PHANTOM_PROPERTIES": "ok",
+          "PHANTOM_ETSL": "ok",
+          "PHANTOM_LANGUAGE": "ok",
+          "PHANTOM_WEBSOCKET": "ok",
+          "MQ_SCREEN": "ok",
+          "PHANTOM_OVERFLOW": "ok",
+          "PHANTOM_WINDOW_HEIGHT": "ok",
+          "HEADCHR_UA": "ok",
+          "HEADCHR_CHROME_OBJ": "ok",
+          "HEADCHR_PERMISSIONS": "ok",
+          "HEADCHR_PLUGINS": "ok",
+          "HEADCHR_IFRAME": "ok",
+          "CHR_DEBUG_TOOLS": "ok",
+          "SELENIUM_DRIVER": "ok",
+          "CHR_BATTERY": "ok",
+          "CHR_MEMORY": "ok",
+          "TRANSPARENT_PIXEL": "ok",
+          "SEQUENTUM": "ok",
+          "VIDEO_CODECS": "ok",
+          "navigator.cookieEnabled": "document.write(navigator.cookieEnabled);\n            true",
+          "navigator.doNotTrack": "document.write(navigator.doNotTrack);\n            null",
+          "navigator.msDoNotTrack": "document.write(navigator.msDoNotTrack);\n            undefined",
+          "navigator.sendBeacon": "document.write(navigator.sendBeacon());",
+          "navigator.userAgent": "document.write(navigator.userAgent);\n            Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "navigator.appName": "document.write(navigator.appName);\n            Netscape",
+          "navigator.vendor": "document.write(navigator.vendor);\n            Google Inc.",
+          "navigator.appCodeName": "document.write(navigator.appCodeName);\n            Mozilla",
+          "navigator.getUserMedia": "document.write(navigator.getUserMedia());",
+          "navigator.sayswho": "document.write(navigator.sayswho);\n            undefined",
+          "navigator.javaEnabled": "document.write(navigator.javaEnabled());\n            false",
+          "navigator.plugins": "document.write(JSON.stringify(navigator.plugins));\n            [{\"0\":{\"type\":\"application/x-google-chrome-pdf\",\"suffixes\":\"pdf\"},\"length\":1,\"name\":\"Chrome PDF Plugin\"},{\"0\":{\"type\":\"application/pdf\",\"suffixes\":\"pdf\"},\"length\":1,\"name\":\"Chrome PDF Viewer\"},{\"0\":{\"type\":\"application/x-nacl\",\"suffixes\":\"\"},\"length\":1,\"name\":\"Native Client\"}]",
+          "screen.width": "document.write(screen.width);\n            1920",
+          "screen.height": "document.write(screen.height);\n            1080",
+          "screen.colorDepth": "document.write(screen.colorDepth);\n            24",
+          "navigator.language": "document.write(navigator.language);\n            en-US",
+          "navigator.loadPurpose": "document.write(navigator.loadPurpose);\n            undefined",
+          "navigator.platform": "document.write(navigator.platform);\n            Win32",
+          "navigator.mediaDevices": "audioinput:  id = videoinput:  id = audiooutput:  id =",
+          "navigator.getBattery details": "Charging: trueLevel: 0.95",
+          "Canvas1": "Hash: 1118196126",
+          "Canvas2": "Hash: 1118196126",
+          "Canvas3 (iframe sandbox)": "Hash: 1118196126",
+          "Canvas4 (iframe sandbox)": "Hash: 1118196126",
+          "Canvas5 (iframe)": "Hash: 1118196126"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "name": "FingerprintJS",
+      "url": "https://fingerprint.com/demo",
+      "category": "Testing",
+      "difficulty": "high",
+      "protection_system": "FingerprintJS",
+      "timestamp": "2025-08-23T14:26:54.681448",
+      "success": true,
+      "detection_status": "undetected",
+      "error": null,
+      "load_time": 10.31,
+      "elements_found": 68,
+      "stealth_score": 100,
+      "detection_checks": {
+        "webdriver": null,
+        "chrome": true,
+        "automation": {
+          "webdriver": null,
+          "phantom": false,
+          "nightmare": false,
+          "selenium": false,
+          "domAutomation": false,
+          "webdriverEvaluate": false,
+          "driverEvaluate": false
+        },
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "headless_check": {
+          "dimensions": "1936x1084",
+          "isHeadless": false
+        }
+      },
+      "page_title": "Browser Fingerprint Test | Fingerprint Demo",
+      "test_results": {}
+    },
+    {
+      "id": 32,
+      "name": "PixelScan",
+      "url": "https://pixelscan.net",
+      "category": "Testing",
+      "difficulty": "high",
+      "protection_system": "Comprehensive Detection",
+      "timestamp": "2025-08-23T14:27:07.022742",
+      "success": true,
+      "detection_status": "undetected",
+      "error": null,
+      "load_time": 8.29,
+      "elements_found": 96,
+      "stealth_score": 100,
+      "detection_checks": {
+        "webdriver": null,
+        "chrome": true,
+        "automation": {
+          "webdriver": null,
+          "phantom": false,
+          "nightmare": false,
+          "selenium": false,
+          "domAutomation": false,
+          "webdriverEvaluate": false,
+          "driverEvaluate": false
+        },
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "headless_check": {
+          "dimensions": "1936x1084",
+          "isHeadless": false
+        }
+      },
+      "page_title": "Pixelscan | Fast multi-check tool for detection analysis",
+      "test_results": {
+        "pixelscan_score": "Not found"
+      }
+    }
+  ]
+}

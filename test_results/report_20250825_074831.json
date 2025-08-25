@@ -1,0 +1,24 @@
+{
+  "suite_name": "Test Execution Suite",
+  "total_tests": 1,
+  "passed": 0,
+  "failed": 0,
+  "errors": 1,
+  "skipped": 0,
+  "duration": 0.203421,
+  "success_rate": 0.0,
+  "start_time": "2025-08-25T07:48:31.456501",
+  "end_time": "2025-08-25T07:48:31.659922",
+  "results": [
+    {
+      "test_name": "llm_login_tests",
+      "test_file": "C:\\Users\\kleiy\\AppData\\Local\\Temp\\test_exec_6qgfmlgs\\llm_login_tests.py",
+      "status": "error",
+      "duration": 0.031142,
+      "retries": 0,
+      "error_message": "__import__ not found",
+      "memory_usage_mb": 0.55078125,
+      "cpu_usage_percent": 0.0
+    }
+  ]
+}

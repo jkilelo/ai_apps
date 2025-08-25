@@ -313,7 +313,7 @@ registration_form.html
 .vite/
 
 # Local test and debug files
-test_*.py
+# test_*.py
 verify_*.py
 demo_server.log
 

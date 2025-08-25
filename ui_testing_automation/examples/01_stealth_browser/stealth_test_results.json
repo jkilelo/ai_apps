@@ -1,0 +1,20 @@
+[
+  {
+    "site": "HTTPBin User Agent",
+    "success": false,
+    "stealth_score": 0.0,
+    "risk_level": "error"
+  },
+  {
+    "site": "HTTPBin Headers",
+    "success": false,
+    "stealth_score": 0.0,
+    "risk_level": "error"
+  },
+  {
+    "site": "Example.com",
+    "success": false,
+    "stealth_score": 0.0,
+    "risk_level": "error"
+  }
+]

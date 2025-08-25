@@ -1,0 +1,17 @@
+[
+  {
+    "provider": "openai",
+    "success": false,
+    "error": "query_llm() got an unexpected keyword argument 'temperature'"
+  },
+  {
+    "provider": "anthropic",
+    "success": false,
+    "error": "query_llm() got an unexpected keyword argument 'temperature'"
+  },
+  {
+    "provider": "gemini",
+    "success": false,
+    "error": "query_llm() got an unexpected keyword argument 'temperature'"
+  }
+]

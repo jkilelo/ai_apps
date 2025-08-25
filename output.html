@@ -1,0 +1,4339 @@
+<html>
+<head>
+<title>Directory Contents</title>
+</head>
+<body>
+<h2>C:\Users\kleiy\OneDrive\Desktop\python-ai-apps\ai_apps\simple_apps_v2\shared_modules\ui_web_auto_testing_v2\browser.py</h2>
+<pre>#!/usr/bin/env python3
+"""
+Standalone Browser Service
+===================================
+A comprehensive, standalone stealth browser that can be used by any application.
+This browser provides maximum anti-detection capabilities and exposes a simple API
+for LLMs, automation tools, manual scripts, or any other application.
+
+Key Features:
+- Complete standalone operation - no dependencies on specific use cases
+- Maximum stealth with all modern anti-detection techniques
+- Simple API for any application to use
+- Support for async and sync operations
+- WebSocket server for remote control
+- REST API for HTTP-based automation
+- Session management and persistence
+- Multi-browser instance support
+- Built-in proxy rotation
+- Automatic CAPTCHA detection
+- Human behavior simulation
+
+Usage:
+    # As a library
+    browser = BrowserService()
+    await browser.start()
+    page = await browser.get_page("https://example.com")
+    
+    # As a server
+    python standalone_stealth_browser.py --server --port 9222
+    
+    # Via REST API
+    curl http://localhost:9222/api/navigate -d '{"url": "https://example.com"}'
+"""
+
+import asyncio
+import json
+import logging
+import hashlib
+import platform
+import os
+import sys
+import time
+import random
+import base64
+import uuid
+
+# Fix Windows async subprocess issue
+# On Windows, we need to handle event loops differently for Playwright
+# Don't set the policy here as it breaks Playwright's internal handling
+from abc import ABC, abstractmethod
+from dataclasses import dataclass, field, asdict
+from datetime import datetime, timedelta
+from enum import Enum
+from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable, TypeVar
+from urllib.parse import urlparse, urljoin
+from pathlib import Path
+from collections import defaultdict
+from contextlib import asynccontextmanager
+from functools import wraps
+import threading
+import weakref
+
+# Import using absolute paths for better portability
+import sys
+from pathlib import Path
+
+# Add project paths to sys.path if needed
+current_dir = Path(__file__).parent
+project_root = current_dir.parent.parent.parent  # Go up to ai_apps level
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+# Now import with absolute paths
+from simple_apps_v2.shared_modules.import_resolver import dynamic_import_from
+from simple_apps_v2.shared_modules.asyncio_helper import setup_asyncio_policy
+
+# Setup asyncio policy for Python 3.13+ compatibility
+setup_asyncio_policy()
+
+# Dynamically import platform utilities - works on any system
+get_playwright_launch_options, get_chrome_executable_path = dynamic_import_from(
+    'platform_utils', 
+    'get_playwright_launch_options', 
+    'get_chrome_executable_path'
+)
+
+# Third-party imports
+try:
+    from playwright.async_api import (
+        Browser,
+        BrowserContext,
+        Page,
+        async_playwright,
+        Error as PlaywrightError,
+    )
+    HAS_PLAYWRIGHT = True
+except ImportError:
+    HAS_PLAYWRIGHT = False
+    print("Warning: Playwright not installed. Install with: pip install playwright")
+
+try:
+    from aiohttp import web
+    HAS_AIOHTTP = True
+except ImportError:
+    HAS_AIOHTTP = False
+
+try:
+    import websockets
+    HAS_WEBSOCKETS = True
+except ImportError:
+    HAS_WEBSOCKETS = False
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# ============================================================================
+# Configuration and Models
+# ============================================================================
+
+@dataclass
+class BrowserConfig:
+    """Complete browser configuration"""
+    
+    # Core settings
+    headless: bool = False
+    browser_type: str = "chromium"  # chromium, firefox, webkit
+    
+    # Stealth settings
+    stealth_level: str = "maximum"  # basic, enhanced, maximum, ultimate
+    enable_stealth: bool = True
+    enable_human_simulation: bool = True
+    enable_fingerprint_rotation: bool = True
+    
+    # Anti-detection features
+    hide_webdriver: bool = True
+    hide_automation_indicators: bool = True
+    spoof_plugins: bool = True
+    spoof_languages: bool = True
+    spoof_chrome_runtime: bool = True
+    prevent_webrtc_leak: bool = True
+    spoof_canvas_fingerprint: bool = True
+    spoof_webgl: bool = True
+    spoof_audio_context: bool = True
+    spoof_battery: bool = True
+    spoof_hardware: bool = True
+    bypass_csp: bool = True
+    block_webrtc: bool = True
+    spoof_timezone: bool = True
+    spoof_geolocation: bool = False
+    
+    # CDP detection bypass
+    disable_cdp_detection: bool = True
+    modify_runtime_enable: bool = True
+    
+    # Advanced bypass
+    bypass_cloudflare: bool = True
+    bypass_datadome: bool = True
+    bypass_perimeter_x: bool = True
+    bypass_akamai: bool = True
+    bypass_kasada: bool = True
+    bypass_shape: bool = True
+    
+    # Browser settings - use null viewport to avoid detection
+    viewport_width: int = 1920
+    viewport_height: int = 1080
+    user_agent: Optional[str] = None
+    locale: str = "en-US"
+    timezone: str = "America/New_York"
+    
+    # Proxy settings
+    proxy: Optional[Dict[str, str]] = None
+    rotate_proxy: bool = False
+    proxy_list: List[Dict[str, str]] = field(default_factory=list)
+    
+    # Performance
+    timeout: int = 60000
+    navigation_timeout: int = 30000
+    slow_mo: int = 0
+    
+    # Session
+    persist_session: bool = False
+    session_id: Optional[str] = None
+    cookies_file: Optional[str] = None
+    
+    # Resource management
+    block_images: bool = False
+    block_media: bool = False
+    block_fonts: bool = False
+    block_stylesheets: bool = False
+    
+    # Human behavior
+    human_typing_speed: Tuple[int, int] = (50, 200)  # ms between keystrokes
+    human_mouse_speed: float = 1.0
+    human_scroll_behavior: bool = True
+    random_delays: bool = True
+    delay_range: Tuple[int, int] = (100, 2000)  # ms
+    
+    # Advanced stealth
+    disable_runtime_enable: bool = True  # Disable Runtime.enable CDP command
+    use_isolated_context: bool = False  # Use isolated world for script execution
+    patch_cdp_detection: bool = True  # Patch CDP detection methods
+    randomize_fingerprints: bool = True  # Randomize canvas/webgl fingerprints per session
+
+@dataclass
+class BrowserSession:
+    """Browser session information"""
+    session_id: str
+    browser_id: str
+    created_at: datetime
+    last_accessed: datetime
+    page_count: int = 0
+    navigation_count: int = 0
+    cookies: List[Dict] = field(default_factory=list)
+    local_storage: Dict[str, Dict] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+# ============================================================================
+# Stealth Injection Module
+# ============================================================================
+
+class StealthInjector:
+    """Advanced stealth script injection"""
+    
+    @staticmethod
+    async def inject_all(page: Page, config: BrowserConfig):
+        """Inject all stealth scripts based on configuration"""
+        
+        # Core stealth scripts - inject before page loads
+        if config.enable_stealth:
+            await StealthInjector._inject_webdriver_override(page)
+            await StealthInjector._inject_chrome_runtime(page)
+            await StealthInjector._inject_permissions_override(page)
+            await StealthInjector._inject_plugins_override(page)
+            await StealthInjector._inject_languages_override(page)
+            
+        # Advanced fingerprinting
+        if config.spoof_canvas_fingerprint:
+            await StealthInjector._inject_canvas_fingerprint(page)
+            
+        if config.spoof_webgl:
+            await StealthInjector._inject_webgl_fingerprint(page)
+            
+        if config.spoof_audio_context:
+            await StealthInjector._inject_audio_fingerprint(page)
+            
+        if config.prevent_webrtc_leak:
+            await StealthInjector._inject_webrtc_override(page)
+            
+        if config.spoof_battery:
+            await StealthInjector._inject_battery_override(page)
+            
+        if config.spoof_hardware:
+            await StealthInjector._inject_hardware_override(page)
+            
+        # CDP detection bypass and advanced techniques
+        if config.disable_cdp_detection:
+            await StealthInjector._inject_cdp_detection_bypass(page)
+            await StealthInjector._inject_runtime_enable_bypass(page)
+            await StealthInjector._inject_console_debug_override(page)
+        
+        logger.info("Stealth scripts injected successfully")
+    
+    @staticmethod
+    async def _inject_webdriver_override(page: Page):
+        """Override webdriver detection with enhanced techniques"""
+        await page.add_init_script("""
+            // Remove webdriver property completely
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined
+            });
+            
+            // Remove automation controlled flag
+            Object.defineProperty(navigator, 'automationControlled', {
+                get: () => undefined
+            });
+            
+            // Clean up all possible webdriver traces
+            delete navigator.__proto__.webdriver;
+            delete navigator.__proto__.__proto__.webdriver;
+            
+            // Override document properties
+            Object.defineProperties(document, {
+                '$cdc_asdjflasutopfhvcZLmcfl_': { value: undefined },
+                '$chrome_asyncScriptInfo': { value: undefined },
+                '$wdc_': { value: undefined }
+            });
+            
+            // Remove CDP specific properties
+            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
+            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
+            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+            delete window.cdc_adoQpoasnfa76pfcZLmcfl_JSON;
+            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Object;
+            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Proxy;
+            
+            // Override the navigator object with a clean proxy
+            const originalNavigator = navigator;
+            const navigatorProxy = new Proxy(originalNavigator, {
+                has: (target, key) => {
+                    if (key === 'webdriver' || key === 'automationControlled') return false;
+                    if (key.includes('webdriver')) return false;
+                    return key in target;
+                },
+                get: (target, key) => {
+                    if (key === 'webdriver' || key === 'automationControlled') return undefined;
+                    if (key.includes('webdriver')) return undefined;
+                    
+                    // Return original value for everything else
+                    const val = target[key];
+                    return typeof val === 'function' ? val.bind(target) : val;
+                }
+            });
+            
+            // Replace navigator
+            try {
+                Object.defineProperty(window, 'navigator', {
+                    value: navigatorProxy,
+                    writable: false,
+                    configurable: false
+                });
+            } catch (e) {}
+            
+            // Override getOwnPropertyDescriptor to hide our changes
+            const originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+            Object.getOwnPropertyDescriptor = function(obj, prop) {
+                if (obj === navigator && prop === 'webdriver') {
+                    return undefined;
+                }
+                return originalGetOwnPropertyDescriptor.apply(this, arguments);
+            };
+        """)
+    
+    @staticmethod
+    async def _inject_chrome_runtime(page: Page):
+        """Inject chrome runtime to appear as regular Chrome"""
+        await page.add_init_script("""
+            if (!window.chrome) {
+                window.chrome = {};
+            }
+            
+            window.chrome.runtime = {
+                connect: () => {},
+                sendMessage: () => {},
+                onMessage: {
+                    addListener: () => {}
+                },
+                getManifest: () => ({}),
+                getURL: (path) => `chrome-extension://fake/${path}`,
+                id: 'aapbdbdomjkkjkaonfhkkikfgjllcleb'
+            };
+            
+            window.chrome.app = {
+                isInstalled: false,
+                InstallState: {
+                    DISABLED: 'disabled',
+                    INSTALLED: 'installed',
+                    NOT_INSTALLED: 'not_installed'
+                }
+            };
+            
+            window.chrome.csi = () => {};
+            window.chrome.loadTimes = () => ({
+                requestTime: Date.now() / 1000,
+                startLoadTime: Date.now() / 1000,
+                commitLoadTime: Date.now() / 1000,
+                finishDocumentLoadTime: Date.now() / 1000,
+                finishLoadTime: Date.now() / 1000,
+                firstPaintTime: Date.now() / 1000,
+                firstPaintAfterLoadTime: 0,
+                navigationType: "Other",
+                wasFetchedViaSpdy: false,
+                wasNpnNegotiated: true,
+                npnNegotiatedProtocol: "http/1.1",
+                wasAlternateProtocolAvailable: false,
+                connectionInfo: "http/1.1"
+            });
+        """)
+    
+    @staticmethod
+    async def _inject_permissions_override(page: Page):
+        """Override permissions API with realistic responses"""
+        await page.add_init_script("""
+            // Override permissions to look more human
+            const originalQuery = navigator.permissions.query;
+            navigator.permissions.query = async function(parameters) {
+                // Randomize some permission states to look more realistic
+                const responses = {
+                    'geolocation': { state: 'prompt', onchange: null },
+                    'notifications': { state: Math.random() > 0.5 ? 'denied' : 'prompt', onchange: null },
+                    'push': { state: 'prompt', onchange: null },
+                    'midi': { state: 'granted', onchange: null },
+                    'camera': { state: 'prompt', onchange: null },
+                    'microphone': { state: 'prompt', onchange: null },
+                    'background-sync': { state: 'granted', onchange: null },
+                    'ambient-light-sensor': { state: 'denied', onchange: null },
+                    'accelerometer': { state: 'denied', onchange: null },
+                    'gyroscope': { state: 'denied', onchange: null },
+                    'magnetometer': { state: 'denied', onchange: null },
+                    'clipboard-read': { state: 'prompt', onchange: null },
+                    'clipboard-write': { state: 'granted', onchange: null }
+                };
+                
+                if (parameters.name in responses) {
+                    return Promise.resolve(responses[parameters.name]);
+                }
+                
+                // Fallback to original for unknown permissions
+                try {
+                    return await originalQuery.call(navigator.permissions, parameters);
+                } catch {
+                    return { state: 'prompt', onchange: null };
+                }
+            };
+            
+            // Also override Notification.permission
+            Object.defineProperty(Notification, 'permission', {
+                get: () => 'default'
+            });
+        """)
+    
+    @staticmethod
+    async def _inject_plugins_override(page: Page):
+        """Inject realistic plugins"""
+        await page.add_init_script("""
+            Object.defineProperty(navigator, 'plugins', {
+                get: () => {
+                    const pluginArray = [
+                        {
+                            name: 'Chrome PDF Plugin',
+                            description: 'Portable Document Format',
+                            filename: 'internal-pdf-viewer',
+                            length: 1,
+                            item: (i) => ({
+                                type: 'application/pdf',
+                                suffixes: 'pdf',
+                                description: 'Portable Document Format'
+                            })
+                        },
+                        {
+                            name: 'Chrome PDF Viewer',
+                            description: 'Portable Document Format',
+                            filename: 'mhjfbmdgcfjbbpaeojofohoefgiehjai',
+                            length: 1,
+                            item: (i) => ({
+                                type: 'application/pdf',
+                                suffixes: 'pdf',
+                                description: 'Portable Document Format'
+                            })
+                        },
+                        {
+                            name: 'Native Client',
+                            description: 'Native Client Executable',
+                            filename: 'internal-nacl-plugin',
+                            length: 2,
+                            item: (i) => ({
+                                type: i === 0 ? 'application/x-nacl' : 'application/x-pnacl',
+                                suffixes: '',
+                                description: 'Native Client Executable'
+                            })
+                        }
+                    ];
+                    
+                    pluginArray.length = 3;
+                    pluginArray.item = (i) => pluginArray[i];
+                    pluginArray.namedItem = (name) => pluginArray.find(p => p.name === name);
+                    pluginArray.refresh = () => {};
+                    
+                    return pluginArray;
+                }
+            });
+        """)
+    
+    @staticmethod
+    async def _inject_languages_override(page: Page):
+        """Override language detection"""
+        await page.add_init_script("""
+            Object.defineProperty(navigator, 'languages', {
+                get: () => ['en-US', 'en']
+            });
+            
+            Object.defineProperty(navigator, 'language', {
+                get: () => 'en-US'
+            });
+        """)
+    
+    @staticmethod
+    async def _inject_canvas_fingerprint(page: Page):
+        """Enhanced canvas fingerprinting with consistent per-session noise"""
+        await page.add_init_script("""
+            // Generate consistent noise seed per session
+            const sessionSeed = Math.random();
+            const seededRandom = (seed) => {
+                const x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            };
+            
+            const originalToDataURL = HTMLCanvasElement.prototype.toDataURL;
+            const originalToBlob = HTMLCanvasElement.prototype.toBlob;
+            const originalGetImageData = CanvasRenderingContext2D.prototype.getImageData;
+            const originalGetContext = HTMLCanvasElement.prototype.getContext;
+            
+            // Override getContext to add noise to all canvas operations
+            HTMLCanvasElement.prototype.getContext = function(type, ...args) {
+                const context = originalGetContext.call(this, type, ...args);
+                
+                if (type === '2d' && context) {
+                    // Wrap fillText to add micro variations
+                    const originalFillText = context.fillText;
+                    context.fillText = function(text, x, y, ...rest) {
+                        // Add tiny position variations
+                        const variance = seededRandom(sessionSeed + x + y) * 0.01;
+                        return originalFillText.call(this, text, x + variance, y + variance, ...rest);
+                    };
+                    
+                    // Wrap strokeText similarly
+                    const originalStrokeText = context.strokeText;
+                    context.strokeText = function(text, x, y, ...rest) {
+                        const variance = seededRandom(sessionSeed + x + y) * 0.01;
+                        return originalStrokeText.call(this, text, x + variance, y + variance, ...rest);
+                    };
+                }
+                
+                return context;
+            };
+            
+            // Add consistent noise to canvas operations
+            const addNoise = (canvas, seed) => {
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+                
+                try {
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+                    
+                    // Use seeded random for consistent noise
+                    for (let i = 0; i < data.length; i += 4) {
+                        const noise = (seededRandom(seed + i) - 0.5) * 0.5;
+                        data[i] = Math.max(0, Math.min(255, data[i] + noise));     // Red
+                        data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise)); // Green
+                        data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise)); // Blue
+                    }
+                    
+                    ctx.putImageData(imageData, 0, 0);
+                } catch (e) {
+                    // Ignore errors from cross-origin canvases
+                }
+            };
+            
+            HTMLCanvasElement.prototype.toDataURL = function(...args) {
+                addNoise(this, sessionSeed);
+                return originalToDataURL.apply(this, args);
+            };
+            
+            HTMLCanvasElement.prototype.toBlob = function(...args) {
+                addNoise(this, sessionSeed);
+                return originalToBlob.apply(this, args);
+            };
+            
+            CanvasRenderingContext2D.prototype.getImageData = function(...args) {
+                const imageData = originalGetImageData.apply(this, args);
+                const data = imageData.data;
+                
+                // Apply consistent noise
+                for (let i = 0; i < data.length; i += 4) {
+                    const noise = (seededRandom(sessionSeed + i) - 0.5) * 0.5;
+                    data[i] = Math.max(0, Math.min(255, data[i] + noise));
+                    data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise));
+                    data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise));
+                }
+                
+                return imageData;
+            };
+        """)
+    
+    @staticmethod
+    async def _inject_webgl_fingerprint(page: Page):
+        """Spoof WebGL fingerprinting"""
+        await page.add_init_script("""
+            const getParameterProxyHandler = {
+                apply: function(target, thisArg, argumentsList) {
+                    const param = argumentsList[0];
+                    const originalValue = target.apply(thisArg, argumentsList);
+                    
+                    // Spoof common WebGL parameters
+                    const spoofedParams = {
+                        37445: 'Intel Inc.', // UNMASKED_VENDOR_WEBGL
+                        37446: 'Intel Iris OpenGL Engine', // UNMASKED_RENDERER_WEBGL
+                        7937: 16384, // MAX_TEXTURE_SIZE
+                        35660: 16, // MAX_VERTEX_UNIFORM_VECTORS
+                        35661: 16, // MAX_VARYING_VECTORS
+                        36349: 1024, // MAX_FRAGMENT_UNIFORM_VECTORS
+                        34024: 16384, // MAX_RENDERBUFFER_SIZE
+                        3379: 16384, // MAX_TEXTURE_SIZE
+                        36183: 16, // MAX_ELEMENT_INDEX
+                    };
+                    
+                    if (spoofedParams[param] !== undefined) {
+                        return spoofedParams[param];
+                    }
+                    
+                    return originalValue;
+                }
+            };
+            
+            // Override WebGLRenderingContext
+            if (typeof WebGLRenderingContext !== 'undefined') {
+                WebGLRenderingContext.prototype.getParameter = new Proxy(
+                    WebGLRenderingContext.prototype.getParameter,
+                    getParameterProxyHandler
+                );
+            }
+            
+            // Override WebGL2RenderingContext
+            if (typeof WebGL2RenderingContext !== 'undefined') {
+                WebGL2RenderingContext.prototype.getParameter = new Proxy(
+                    WebGL2RenderingContext.prototype.getParameter,
+                    getParameterProxyHandler
+                );
+            }
+        """)
+    
+    @staticmethod
+    async def _inject_audio_fingerprint(page: Page):
+        """Spoof audio context fingerprinting"""
+        await page.add_init_script("""
+            // Override AudioContext
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                const originalCreateOscillator = AudioContext.prototype.createOscillator;
+                const originalCreateAnalyser = AudioContext.prototype.createAnalyser;
+                const originalCreateGain = AudioContext.prototype.createGain;
+                const originalCreateScriptProcessor = AudioContext.prototype.createScriptProcessor;
+                
+                AudioContext.prototype.createOscillator = function() {
+                    const oscillator = originalCreateOscillator.call(this);
+                    const originalConnect = oscillator.connect;
+                    
+                    oscillator.connect = function(destination) {
+                        // Add slight frequency variation
+                        oscillator.frequency.value += Math.random() * 0.001;
+                        return originalConnect.call(this, destination);
+                    };
+                    
+                    return oscillator;
+                };
+                
+                AudioContext.prototype.createAnalyser = function() {
+                    const analyser = originalCreateAnalyser.call(this);
+                    const originalGetFloatFrequencyData = analyser.getFloatFrequencyData;
+                    
+                    analyser.getFloatFrequencyData = function(array) {
+                        originalGetFloatFrequencyData.call(this, array);
+                        // Add noise to frequency data
+                        for (let i = 0; i < array.length; i++) {
+                            array[i] += Math.random() * 0.0001;
+                        }
+                    };
+                    
+                    return analyser;
+                };
+            }
+        """)
+    
+    @staticmethod
+    async def _inject_webrtc_override(page: Page):
+        """Prevent WebRTC leak"""
+        await page.add_init_script("""
+            // Override RTCPeerConnection
+            const RTCPeerConnection = window.RTCPeerConnection || 
+                                     window.webkitRTCPeerConnection || 
+                                     window.mozRTCPeerConnection;
+            
+            if (RTCPeerConnection) {
+                const OriginalRTCPeerConnection = RTCPeerConnection;
+                
+                window.RTCPeerConnection = new Proxy(OriginalRTCPeerConnection, {
+                    construct: function(target, args) {
+                        const config = args[0] || {};
+                        
+                        // Force TURN relay to prevent IP leak
+                        config.iceTransportPolicy = 'relay';
+                        
+                        // Remove STUN servers
+                        if (config.iceServers) {
+                            config.iceServers = config.iceServers.filter(
+                                server => !server.urls.toString().includes('stun')
+                            );
+                        }
+                        
+                        return new target(config);
+                    }
+                });
+                
+                window.webkitRTCPeerConnection = window.RTCPeerConnection;
+                window.mozRTCPeerConnection = window.RTCPeerConnection;
+            }
+            
+            // Block getUserMedia
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+                
+                navigator.mediaDevices.getUserMedia = function(constraints) {
+                    return Promise.reject(new Error('getUserMedia not available'));
+                };
+            }
+        """)
+    
+    @staticmethod
+    async def _inject_battery_override(page: Page):
+        """Spoof battery API"""
+        await page.add_init_script("""
+            if ('getBattery' in navigator) {
+                navigator.getBattery = async () => {
+                    return {
+                        charging: true,
+                        chargingTime: 0,
+                        dischargingTime: Infinity,
+                        level: 0.99,
+                        onchargingchange: null,
+                        onchargingtimechange: null,
+                        ondischargingtimechange: null,
+                        onlevelchange: null,
+                        addEventListener: () => {},
+                        removeEventListener: () => {},
+                        dispatchEvent: () => true
+                    };
+                };
+            }
+        """)
+    
+    @staticmethod
+    async def _inject_hardware_override(page: Page):
+        """Spoof hardware concurrency and device memory"""
+        await page.add_init_script("""
+            Object.defineProperty(navigator, 'hardwareConcurrency', {
+                get: () => 8
+            });
+            
+            Object.defineProperty(navigator, 'deviceMemory', {
+                get: () => 8
+            });
+            
+            Object.defineProperty(navigator, 'platform', {
+                get: () => 'Win32'
+            });
+            
+            Object.defineProperty(screen, 'colorDepth', {
+                get: () => 24
+            });
+            
+            Object.defineProperty(screen, 'pixelDepth', {
+                get: () => 24
+            });
+        """)
+    
+    @staticmethod
+    async def _inject_cdp_detection_bypass(page: Page):
+        """Enhanced CDP detection bypass"""
+        await page.add_init_script("""
+            // Remove all CDP artifacts
+            const cdcProps = [
+                'cdc_adoQpoasnfa76pfcZLmcfl_Array',
+                'cdc_adoQpoasnfa76pfcZLmcfl_Promise', 
+                'cdc_adoQpoasnfa76pfcZLmcfl_Symbol',
+                'cdc_adoQpoasnfa76pfcZLmcfl_JSON',
+                'cdc_adoQpoasnfa76pfcZLmcfl_Object',
+                'cdc_adoQpoasnfa76pfcZLmcfl_Proxy',
+                '__nightmare',
+                '__selenium_unwrapped',
+                '__selenium_evaluate',
+                '__selenium_evaluate_check',
+                '__webdriver_evaluate',
+                '__driver_evaluate',
+                '__webdriver_unwrapped',
+                '__driver_unwrapped',
+                '__selenium_unwrapped',
+                '__fxdriver_evaluate',
+                '__fxdriver_unwrapped',
+                '_phantom',
+                'phantom',
+                'callPhantom',
+                '_selenium',
+                'callSelenium',
+                'domAutomation',
+                'domAutomationController'
+            ];
+            
+            cdcProps.forEach(prop => {
+                delete window[prop];
+                delete document[prop];
+            });
+            
+            // Override toString to hide modifications
+            const nativeToString = Function.prototype.toString;
+            Function.prototype.toString = function() {
+                if (this === window.navigator.permissions.query) {
+                    return 'function query() { [native code] }';
+                }
+                if (this === console.debug) {
+                    return 'function debug() { [native code] }';
+                }
+                return nativeToString.call(this);
+            };
+            
+            // Hide stack traces that might reveal automation
+            const originalError = Error;
+            Error = new Proxy(originalError, {
+                construct(target, args) {
+                    const error = new target(...args);
+                    if (error.stack) {
+                        error.stack = error.stack
+                            .split('\n')
+                            .filter(line => !line.includes('playwright') && 
+                                          !line.includes('puppeteer') &&
+                                          !line.includes('selenium'))
+                            .join('\n');
+                    }
+                    return error;
+                }
+            });
+        """)
+    
+    @staticmethod
+    async def _inject_runtime_enable_bypass(page: Page):
+        """Bypass Runtime.enable CDP detection"""
+        await page.add_init_script("""
+            // Override Runtime.enable detection
+            (function() {
+                // Create isolated context to avoid Runtime.enable detection
+                const originalFetch = window.fetch;
+                window.fetch = function(...args) {
+                    // Check if fetch is trying to detect CDP
+                    if (args[0] && typeof args[0] === 'string') {
+                        if (args[0].includes('json/version') || 
+                            args[0].includes('json/protocol') ||
+                            args[0].includes(':9222') ||
+                            args[0].includes(':9229')) {
+                            return Promise.reject(new Error('Failed to fetch'));
+                        }
+                    }
+                    return originalFetch.apply(this, args);
+                };
+                
+                // Block WebSocket connections to debugging endpoints
+                const OriginalWebSocket = window.WebSocket;
+                window.WebSocket = new Proxy(OriginalWebSocket, {
+                    construct(target, args) {
+                        const url = args[0];
+                        if (url && (url.includes('devtools') || 
+                                   url.includes('ws://127.0.0.1') ||
+                                   url.includes('ws://localhost'))) {
+                            throw new Error('WebSocket connection failed');
+                        }
+                        return new target(...args);
+                    }
+                });
+            })();
+        """)
+    
+    @staticmethod
+    async def _inject_console_debug_override(page: Page):
+        """Override console.debug to hide CDP messages"""
+        await page.add_init_script("""
+            // Save original console methods
+            const originalConsole = {
+                log: console.log,
+                debug: console.debug,
+                info: console.info,
+                warn: console.warn,
+                error: console.error
+            };
+            
+            // Filter function for CDP-related messages
+            const shouldFilter = (args) => {
+                const message = args.map(arg => 
+                    typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+                ).join(' ');
+                
+                const blacklist = [
+                    'Runtime.enable',
+                    'Runtime.executionContextCreated',
+                    'Page.enable',
+                    'Network.enable',
+                    'DOM.enable',
+                    'CSS.enable',
+                    'Overlay.enable',
+                    'Log.enable',
+                    'Runtime.consoleAPICalled',
+                    'Inspector.enable',
+                    'Debugger.enable',
+                    'Profiler.enable',
+                    'HeapProfiler.enable'
+                ];
+                
+                return blacklist.some(item => message.includes(item));
+            };
+            
+            // Override console methods
+            ['log', 'debug', 'info', 'warn', 'error'].forEach(method => {
+                console[method] = function(...args) {
+                    if (!shouldFilter(args)) {
+                        return originalConsole[method].apply(console, args);
+                    }
+                };
+            });
+        """)
+
+# ============================================================================
+# Human Behavior Simulation
+# ============================================================================
+
+class HumanBehaviorSimulator:
+    """Simulates human-like behavior patterns"""
+    
+    def __init__(self, config: BrowserConfig):
+        self.config = config
+        self.last_action_time = time.time()
+    
+    async def human_type(self, page: Page, selector: str, text: str):
+        """Type with human-like speed and patterns"""
+        element = await page.wait_for_selector(selector)
+        await element.click()
+        
+        for char in text:
+            await page.type(selector, char)
+            # Variable delay between keystrokes
+            delay = random.uniform(
+                self.config.human_typing_speed[0],
+                self.config.human_typing_speed[1]
+            )
+            await asyncio.sleep(delay / 1000)
+            
+            # Occasional longer pauses (thinking)
+            if random.random() < 0.1:
+                await asyncio.sleep(random.uniform(0.5, 2))
+    
+    async def human_click(self, page: Page, selector: str):
+        """Click with human-like movement"""
+        element = await page.wait_for_selector(selector)
+        box = await element.bounding_box()
+        
+        if box:
+            # Click slightly off-center like a human would
+            x = box['x'] + box['width'] / 2 + random.uniform(-5, 5)
+            y = box['y'] + box['height'] / 2 + random.uniform(-5, 5)
+            
+            # Move mouse with bezier curve
+            await self._bezier_mouse_move(page, x, y)
+            
+            # Random delay before click
+            await asyncio.sleep(random.uniform(0.05, 0.2))
+            
+            await page.mouse.click(x, y)
+    
+    async def human_scroll(self, page: Page):
+        """Scroll with human-like patterns"""
+        # Get page height
+        page_height = await page.evaluate("document.body.scrollHeight")
+        viewport_height = await page.evaluate("window.innerHeight")
+        
+        current_position = 0
+        
+        while current_position < page_height - viewport_height:
+            # Variable scroll distance
+            scroll_distance = random.uniform(200, 600)
+            
+            # Smooth scroll
+            await page.evaluate(f"""
+                window.scrollBy({{
+                    top: {scroll_distance},
+                    behavior: 'smooth'
+                }});
+            """)
+            
+            current_position += scroll_distance
+            
+            # Random pause to "read" content
+            await asyncio.sleep(random.uniform(0.5, 3))
+            
+            # Occasionally scroll up a bit
+            if random.random() < 0.2:
+                scroll_up = random.uniform(50, 150)
+                await page.evaluate(f"""
+                    window.scrollBy({{
+                        top: -{scroll_up},
+                        behavior: 'smooth'
+                    }});
+                """)
+                current_position -= scroll_up
+                await asyncio.sleep(random.uniform(0.3, 1))
+    
+    async def _bezier_mouse_move(self, page: Page, target_x: float, target_y: float):
+        """Move mouse along a bezier curve"""
+        current_pos = await page.evaluate("() => ({ x: 0, y: 0 })")
+        
+        # Generate control points for bezier curve
+        cp1_x = current_pos['x'] + (target_x - current_pos['x']) * 0.3
+        cp1_y = current_pos['y'] + random.uniform(-50, 50)
+        cp2_x = current_pos['x'] + (target_x - current_pos['x']) * 0.7
+        cp2_y = target_y + random.uniform(-50, 50)
+        
+        # Move along curve
+        steps = random.randint(20, 30)
+        for i in range(steps):
+            t = i / steps
+            # Bezier formula
+            x = (1-t)**3 * current_pos['x'] + 3*(1-t)**2*t * cp1_x + 3*(1-t)*t**2 * cp2_x + t**3 * target_x
+            y = (1-t)**3 * current_pos['y'] + 3*(1-t)**2*t * cp1_y + 3*(1-t)*t**2 * cp2_y + t**3 * target_y
+            
+            await page.mouse.move(x, y)
+            await asyncio.sleep(random.uniform(0.001, 0.003))
+    
+    async def random_mouse_movement(self, page: Page):
+        """Random mouse movements to appear human"""
+        for _ in range(random.randint(1, 3)):
+            x = random.uniform(100, 1000)
+            y = random.uniform(100, 700)
+            await self._bezier_mouse_move(page, x, y)
+            await asyncio.sleep(random.uniform(0.5, 2))
+    
+    async def human_wait(self):
+        """Wait with human-like delays"""
+        if self.config.random_delays:
+            delay = random.uniform(
+                self.config.delay_range[0],
+                self.config.delay_range[1]
+            ) / 1000
+            await asyncio.sleep(delay)
+
+# ============================================================================
+# Main Stealth Browser Service
+# ============================================================================
+
+class BrowserService:
+    """
+    Main standalone browser service.
+    Can be used by any application for browser automation with maximum stealth.
+    """
+    
+    def __init__(self, config: Optional[BrowserConfig] = None):
+        """
+        Initialize the stealth browser service.
+        
+        Args:
+            config: Optional configuration, uses defaults if not provided
+        """
+        self.config = config or BrowserConfig()
+        self.browser: Optional[Browser] = None
+        self.context: Optional[BrowserContext] = None
+        self.pages: Dict[str, Page] = {}
+        self.sessions: Dict[str, BrowserSession] = {}
+        self.human_simulator = HumanBehaviorSimulator(self.config)
+        self.playwright = None
+        self._lock = asyncio.Lock()
+        self._initialized = False
+        
+        # Generate unique browser ID
+        self.browser_id = str(uuid.uuid4())
+        
+        logger.info(f"BrowserService initialized - ID: {self.browser_id}")
+    
+    
+    # ========================================================================
+    # Core API Methods
+    # ========================================================================
+    
+    async def start(self) -> bool:
+        """
+        Start the browser service.
+        
+        Returns:
+            True if successfully started
+        """
+        async with self._lock:
+            if self._initialized:
+                logger.warning("Browser service already started")
+                return True
+            
+            try:
+                # CRITICAL FIX for Python 3.13+ on Windows
+                if sys.platform == 'win32' and sys.version_info >= (3, 13):
+                    loop = asyncio.get_running_loop()
+                    if not isinstance(loop, asyncio.ProactorEventLoop):
+                        logger.error(f"Python 3.13+ with {type(loop).__name__} detected - Playwright cannot work")
+                        logger.error("The issue is that uvicorn uses SelectorEventLoop which doesn't support subprocesses")
+                        logger.error("")
+                        logger.error("SOLUTIONS:")
+                        logger.error("1. Use the provided run_backend.py script: python run_backend.py")
+                        logger.error("2. Or run with: python -c \"import asyncio; asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy()); import uvicorn; uvicorn.run('backend.web_automation.main:app', host='localhost', port=5175)\"")
+                        logger.error("3. Or downgrade to Python 3.12")
+                        logger.error("")
+                        
+                        # Try one more thing - spawn playwright in subprocess
+                        import subprocess
+                        import tempfile
+                        import json
+                        
+                        # This is a hack but might work
+                        test_script = """
+import asyncio
+from playwright.async_api import async_playwright
+
+async def test():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        await browser.close()
+    print("SUCCESS")
+
+asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+asyncio.run(test())
+"""
+                        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+                            f.write(test_script)
+                            temp_file = f.name
+                        
+                        try:
+                            result = subprocess.run([sys.executable, temp_file], capture_output=True, text=True, timeout=10)
+                            if "SUCCESS" in result.stdout:
+                                logger.info("Playwright CAN work in subprocess, but not in current event loop")
+                            os.unlink(temp_file)
+                        except:
+                            pass
+                        
+                        raise RuntimeError(
+                            "Cannot use Playwright with SelectorEventLoop on Python 3.13+. "
+                            "Please use: python run_backend.py"
+                        )
+                
+                # Normal initialization 
+                self.playwright = await async_playwright().start()
+                
+                # Launch browser
+                await self._launch_browser()
+                
+                # Create context
+                await self._create_context()
+                
+                self._initialized = True
+                logger.info("Browser service started successfully")
+                return True
+                
+            except Exception as e:
+                logger.error(f"Failed to start browser service: {e}")
+                return False
+    
+    async def stop(self) -> bool:
+        """
+        Stop the browser service and cleanup resources.
+        
+        Returns:
+            True if successfully stopped
+        """
+        async with self._lock:
+            if not self._initialized:
+                return True
+            
+            try:
+                # Close all pages
+                for page_id in list(self.pages.keys()):
+                    await self.close_page(page_id)
+                
+                # Close context
+                if self.context:
+                    await self.context.close()
+                
+                # Close browser
+                if self.browser:
+                    await self.browser.close()
+                
+                # Stop playwright
+                if self.playwright:
+                    await self.playwright.stop()
+                
+                self._initialized = False
+                logger.info("Browser service stopped successfully")
+                return True
+                
+            except Exception as e:
+                logger.error(f"Error stopping browser service: {e}")
+                return False
+    
+    async def get_page(self, url: Optional[str] = None, page_id: Optional[str] = None) -> Page:
+        """
+        Get a page instance. Creates new page if needed.
+        
+        Args:
+            url: Optional URL to navigate to
+            page_id: Optional page ID for retrieving existing page
+            
+        Returns:
+            Page instance with stealth configuration
+            
+        Raises:
+            Exception: If navigation fails
+        """
+        if not self._initialized:
+            await self.start()
+        
+        # Get existing page
+        if page_id and page_id in self.pages:
+            page = self.pages[page_id]
+        else:
+            # Create new page
+            page = await self._create_page()
+            page_id = str(uuid.uuid4())
+            self.pages[page_id] = page
+        
+        # Navigate if URL provided
+        if url:
+            success = await self.navigate(page, url)
+            if not success:
+                # Navigation failed - raise exception
+                raise Exception(f"Navigation failed to {url}")
+        
+        return page
+    
+    async def navigate(self, page: Page, url: str, wait_until: str = "domcontentloaded") -> bool:
+        """
+        Navigate to a URL with stealth behavior.
+        
+        Args:
+            page: Page instance
+            url: URL to navigate to
+            wait_until: Wait condition
+            
+        Returns:
+            True if navigation successful
+        """
+        try:
+            # Human-like delay before navigation
+            await self.human_simulator.human_wait()
+            
+            # Navigate
+            response = await page.goto(
+                url,
+                wait_until=wait_until,
+                timeout=self.config.navigation_timeout
+            )
+            
+            # Check for detection
+            if await self._check_detection(page):
+                logger.warning(f"Bot detection suspected at {url}")
+                # Attempt bypass strategies
+                await self._attempt_bypass(page, url)
+            
+            # Random actions to appear human
+            if self.config.enable_human_simulation:
+                await self.human_simulator.random_mouse_movement(page)
+            
+            return response.status < 400 if response else False
+            
+        except Exception as e:
+            logger.error(f"Navigation failed to {url}: {e}")
+            # Re-raise the exception with more context
+            raise Exception(f"Navigation failed to {url}: {str(e)}")
+    
+    async def click(self, page: Page, selector: str) -> bool:
+        """
+        Click an element with human-like behavior.
+        
+        Args:
+            page: Page instance
+            selector: Element selector
+            
+        Returns:
+            True if click successful
+        """
+        try:
+            if self.config.enable_human_simulation:
+                await self.human_simulator.human_click(page, selector)
+            else:
+                await page.click(selector)
+            return True
+        except Exception as e:
+            logger.error(f"Click failed on {selector}: {e}")
+            return False
+    
+    async def type(self, page: Page, selector: str, text: str) -> bool:
+        """
+        Type text with human-like behavior.
+        
+        Args:
+            page: Page instance
+            selector: Element selector
+            text: Text to type
+            
+        Returns:
+            True if typing successful
+        """
+        try:
+            if self.config.enable_human_simulation:
+                await self.human_simulator.human_type(page, selector, text)
+            else:
+                await page.type(selector, text)
+            return True
+        except Exception as e:
+            logger.error(f"Type failed on {selector}: {e}")
+            return False
+    
+    async def screenshot(self, page: Page, path: Optional[str] = None) -> Union[bytes, bool]:
+        """
+        Take a screenshot.
+        
+        Args:
+            page: Page instance
+            path: Optional path to save screenshot
+            
+        Returns:
+            Screenshot bytes if no path, True if saved to path, False on error
+        """
+        try:
+            if path:
+                await page.screenshot(path=path, full_page=True)
+                return True
+            else:
+                return await page.screenshot(full_page=True)
+        except Exception as e:
+            logger.error(f"Screenshot failed: {e}")
+            return False
+    
+    async def evaluate(self, page: Page, script: str) -> Any:
+        """
+        Evaluate JavaScript in the page.
+        
+        Args:
+            page: Page instance
+            script: JavaScript to evaluate
+            
+        Returns:
+            Result of script execution
+        """
+        try:
+            return await page.evaluate(script)
+        except Exception as e:
+            logger.error(f"Script evaluation failed: {e}")
+            return None
+    
+    async def wait_for_selector(self, page: Page, selector: str, timeout: Optional[int] = None) -> bool:
+        """
+        Wait for element to appear.
+        
+        Args:
+            page: Page instance
+            selector: Element selector
+            timeout: Optional timeout override
+            
+        Returns:
+            True if element found
+        """
+        try:
+            await page.wait_for_selector(
+                selector,
+                timeout=timeout or self.config.timeout
+            )
+            return True
+        except Exception:
+            return False
+    
+    async def get_cookies(self, page: Page) -> List[Dict]:
+        """Get cookies from page"""
+        return await page.context.cookies()
+    
+    async def set_cookies(self, page: Page, cookies: List[Dict]) -> bool:
+        """Set cookies for page"""
+        try:
+            await page.context.add_cookies(cookies)
+            return True
+        except Exception as e:
+            logger.error(f"Failed to set cookies: {e}")
+            return False
+    
+    async def close_page(self, page_id: str) -> bool:
+        """Close a specific page"""
+        if page_id in self.pages:
+            try:
+                await self.pages[page_id].close()
+                del self.pages[page_id]
+                return True
+            except Exception as e:
+                logger.error(f"Failed to close page {page_id}: {e}")
+                return False
+        return False
+    
+    # ========================================================================
+    # Internal Methods
+    # ========================================================================
+    
+    async def _launch_browser(self):
+        """Launch browser with enhanced stealth configuration"""
+        
+        # Get platform-specific launch options
+        platform_options = get_playwright_launch_options()
+        
+        # Browser launch options - merge with platform-specific options
+        launch_options = {
+            "headless": self.config.headless,
+            "args": self._get_browser_args() + platform_options.get("args", []),
+            "ignore_default_args": [
+                "--enable-automation",
+                "--enable-blink-features=IdleDetection",
+            ],
+            # Use chromium channel for better compatibility
+            "channel": "chrome" if self.config.browser_type == "chromium" else None,
+        }
+        
+        # Use executable path from platform utils if available
+        if "executable_path" in platform_options:
+            launch_options["executable_path"] = platform_options["executable_path"]
+        
+        # Launch based on browser type
+        if self.config.browser_type == "chromium":
+            self.browser = await self.playwright.chromium.launch(**launch_options)
+        elif self.config.browser_type == "firefox":
+            self.browser = await self.playwright.firefox.launch(**launch_options)
+        elif self.config.browser_type == "webkit":
+            self.browser = await self.playwright.webkit.launch(**launch_options)
+        else:
+            raise ValueError(f"Unknown browser type: {self.config.browser_type}")
+    
+    def _get_browser_args(self) -> List[str]:
+        """Get browser launch arguments with enhanced stealth"""
+        args = [
+            # Core stealth arguments
+            "--disable-blink-features=AutomationControlled",
+            "--disable-features=IsolateOrigins,site-per-process",
+            "--disable-site-isolation-trials",
+            
+            # Security and sandboxing
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-web-security",
+            "--allow-running-insecure-content",
+            
+            # Performance and rendering
+            "--disable-accelerated-2d-canvas",
+            "--disable-gpu",
+            "--disable-gpu-sandbox",
+            "--disable-software-rasterizer",
+            "--disable-dev-tools",  # Hide dev tools
+            
+            # Window and display
+            f"--window-size={self.config.viewport_width},{self.config.viewport_height}",
+            "--window-position=0,0",
+            "--force-device-scale-factor=1",
+            
+            # Process and lifecycle
+            "--no-first-run",
+            "--no-default-browser-check",
+            "--disable-default-apps",
+            "--disable-sync",
+            
+            # Timing and throttling
+            "--disable-background-timer-throttling",
+            "--disable-backgrounding-occluded-windows",
+            "--disable-renderer-backgrounding",
+            "--disable-features=CalculateNativeWinOcclusion",
+            
+            # Features to disable
+            "--disable-features=TranslateUI",
+            "--disable-features=RendererCodeIntegrity",
+            "--disable-features=OptimizationGuideModelDownloading",
+            "--disable-features=ChromeWhatsNewUI",
+            "--disable-features=ImprovedCookieControls",
+            
+            # IPC and networking
+            "--disable-ipc-flooding-protection",
+            "--enable-features=NetworkService,NetworkServiceInProcess",
+            "--disable-features=NetworkServiceWindowsSandbox",
+            
+            # Additional stealth
+            "--disable-blink-features=AutomationControlled",
+            "--disable-features=UserActivationV2",
+            "--disable-features=IdleDetection",
+            
+            # Disable automation extensions
+            "--disable-extensions",
+            "--disable-component-extensions-with-background-pages",
+            "--disable-background-networking",
+            "--metrics-recording-only",
+            "--mute-audio",
+        ]
+        
+        # Additional args for maximum stealth
+        if self.config.stealth_level in ["maximum", "ultimate"]:
+            args.extend([
+                "--disable-features=AutomationControlled",
+                "--disable-blink-features=AutomationControlled",
+                "--disable-features=site-per-process",
+                "--disable-features=OutOfBlinkCors",
+                "--disable-features=SameSiteByDefaultCookies",
+                "--disable-features=CookiesWithoutSameSiteMustBeSecure",
+            ])
+        
+        return args
+    
+    def _find_chrome_executable(self) -> Optional[str]:
+        """Find Chrome executable path using platform utilities"""
+        return get_chrome_executable_path()
+    
+    async def _create_context(self):
+        """Create browser context with enhanced stealth settings"""
+        
+        # Select user agent
+        user_agent = self.config.user_agent or self._get_user_agent()
+        
+        context_options = {
+            "user_agent": user_agent,
+            "locale": self.config.locale,
+            "timezone_id": self.config.timezone,
+            "ignore_https_errors": True,
+            "java_script_enabled": True,
+            "bypass_csp": True,  # Bypass Content Security Policy
+            "is_mobile": False,
+            "has_touch": False,
+            "device_scale_factor": 1,
+        }
+        
+        # Only set viewport if not using default to avoid detection
+        if self.config.viewport_width != 1920 or self.config.viewport_height != 1080:
+            context_options["viewport"] = {
+                "width": self.config.viewport_width,
+                "height": self.config.viewport_height
+            }
+        else:
+            # Use null viewport to get default browser size
+            context_options["viewport"] = None
+        
+        # Add proxy if configured
+        if self.config.proxy:
+            context_options["proxy"] = self.config.proxy
+        
+        # Add geolocation if configured
+        if self.config.spoof_geolocation:
+            context_options["geolocation"] = {
+                "latitude": 40.7128,
+                "longitude": -74.0060
+            }
+            context_options["permissions"] = ["geolocation"]
+        
+        self.context = await self.browser.new_context(**context_options)
+        
+        # Set extra headers
+        await self.context.set_extra_http_headers({
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+            "Cache-Control": "max-age=0",
+        })
+        
+        # Set up request interception if needed
+        if self.config.block_images or self.config.block_media:
+            await self._setup_resource_blocking()
+    
+    def _get_user_agent(self) -> str:
+        """Get appropriate user agent based on platform and latest Chrome versions"""
+        # Use latest Chrome versions to avoid detection
+        chrome_versions = ["121.0.0.0", "122.0.0.0", "123.0.0.0", "124.0.0.0", "125.0.0.0"]
+        chrome_version = random.choice(chrome_versions)
+        
+        # Platform-specific user agents
+        system = platform.system()
+        if system == "Windows":
+            user_agents = [
+                f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36",
+                f"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36 Edg/{chrome_version}",
+            ]
+        elif system == "Darwin":  # macOS
+            user_agents = [
+                f"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36",
+                f"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_6_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36",
+            ]
+        else:  # Linux
+            user_agents = [
+                f"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36",
+                f"Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36",
+            ]
+        
+        return random.choice(user_agents)
+    
+    async def _create_page(self) -> Page:
+        """Create a new page with enhanced stealth configuration"""
+        page = await self.context.new_page()
+        
+        # Inject stealth scripts before any navigation
+        await StealthInjector.inject_all(page, self.config)
+        
+        # Add additional initialization scripts for specific bypasses
+        if self.config.disable_runtime_enable:
+            # Prevent Runtime.enable detection by overriding execution context
+            await page.add_init_script("""
+                // Override execution context creation
+                if (window.chrome && window.chrome.runtime) {
+                    const runtime = window.chrome.runtime;
+                    const originalGetURL = runtime.getURL;
+                    runtime.getURL = function(path) {
+                        if (path && path.includes('_generated_background_page')) {
+                            return '';
+                        }
+                        return originalGetURL.call(this, path);
+                    };
+                }
+            """)
+        
+        # Set up page-level event handlers
+        page.on("dialog", lambda dialog: dialog.dismiss())
+        page.on("popup", lambda popup: popup.close())
+        
+        # Intercept and modify requests if needed
+        if self.config.patch_cdp_detection:
+            page.on("request", self._handle_request)
+            page.on("response", self._handle_response)
+        
+        return page
+    
+    async def _handle_request(self, request):
+        """Handle and potentially modify requests"""
+        # Block requests that might be used for bot detection
+        url = request.url
+        if any(pattern in url for pattern in [
+            '/cdn-cgi/challenge-platform',
+            '/cdn-cgi/bm/',
+            'datadome.co',
+            'perimeterx.net',
+        ]):
+            logger.debug(f"Blocking detection request: {url}")
+            try:
+                await request.abort()
+            except:
+                pass
+    
+    async def _handle_response(self, response):
+        """Handle and log responses for debugging"""
+        if response.status == 403 or response.status == 429:
+            logger.debug(f"Potential bot detection response: {response.status} from {response.url}")
+    
+    async def _setup_resource_blocking(self):
+        """Set up resource blocking for performance"""
+        
+        async def route_handler(route):
+            resource_type = route.request.resource_type
+            
+            blocked = False
+            if self.config.block_images and resource_type == "image":
+                blocked = True
+            elif self.config.block_media and resource_type in ["media", "video"]:
+                blocked = True
+            elif self.config.block_fonts and resource_type == "font":
+                blocked = True
+            elif self.config.block_stylesheets and resource_type == "stylesheet":
+                blocked = True
+            
+            if blocked:
+                await route.abort()
+            else:
+                await route.continue_()
+        
+        await self.context.route("**/*", route_handler)
+    
+    async def _check_detection(self, page: Page) -> bool:
+        """Enhanced detection checking with specific service patterns"""
+        
+        try:
+            # Get page content and URL
+            page_content = await page.content()
+            page_url = page.url.lower()
+            page_title = await page.title()
+            
+            # Extended detection indicators
+            indicators = [
+                # General bot detection
+                "captcha",
+                "challenge",
+                "bot detected",
+                "automated traffic",
+                "suspicious activity",
+                "access denied",
+                "permission denied",
+                "security check",
+                "verification required",
+                "prove you're human",
+                "unusual traffic",
+                
+                # Service-specific patterns
+                "cf-browser-verification",  # Cloudflare
+                "cf-challenge",  # Cloudflare
+                "_cf_bm",  # Cloudflare bot management
+                "datadome",  # DataDome
+                "px-captcha",  # PerimeterX
+                "_px",  # PerimeterX
+                "kasada",  # Kasada
+                "akamai",  # Akamai
+                "incapsula",  # Incapsula
+                "distil",  # Distil Networks
+            ]
+            
+            content_lower = page_content.lower()
+            
+            for indicator in indicators:
+                if indicator in content_lower or indicator in page_url:
+                    logger.debug(f"Detection indicator found: {indicator}")
+                    return True
+            
+            # Check page title for detection
+            if page_title:
+                title_lower = page_title.lower()
+                if any(word in title_lower for word in ['blocked', 'denied', 'captcha', 'verification']):
+                    return True
+            
+            # Check for specific JavaScript challenges
+            js_check = await page.evaluate("""
+                () => {
+                    // Check for common challenge frameworks
+                    return !!(
+                        window._cf_chl_opt ||
+                        window.__CF$cv$ ||
+                        window.dd ||
+                        window._pxAppId ||
+                        window.kasada ||
+                        window.shapeSecurity ||
+                        document.querySelector('iframe[src*="challenges.cloudflare"]') ||
+                        document.querySelector('script[src*="datadome"]') ||
+                        document.querySelector('script[src*="perimeterx"]')
+                    );
+                }
+            """)
+            
+            if js_check:
+                logger.debug("JavaScript challenge detected")
+                return True
+                
+        except Exception as e:
+            logger.debug(f"Error checking detection: {e}")
+            
+        return False
+    
+    async def _attempt_bypass(self, page: Page, url: str):
+        """Enhanced bypass strategies for different detection services"""
+        
+        logger.info("Attempting advanced detection bypass...")
+        
+        try:
+            # Strategy 1: Clear all browser data and retry
+            await self.context.clear_cookies()
+            await self.context.clear_permissions()
+            
+            # Strategy 2: Add more human-like behavior before retry
+            await self.human_simulator.random_mouse_movement(page)
+            await asyncio.sleep(random.uniform(3, 6))
+            
+            # Strategy 3: Try different navigation approach
+            # First navigate to a safe page to build trust
+            safe_sites = [
+                "https://www.google.com",
+                "https://www.wikipedia.org",
+                "https://www.example.com"
+            ]
+            
+            if url not in safe_sites:
+                # Visit a safe site first
+                safe_url = random.choice(safe_sites)
+                await page.goto(safe_url, wait_until="domcontentloaded")
+                await asyncio.sleep(random.uniform(2, 4))
+                
+                # Perform some actions to appear human
+                await self.human_simulator.human_scroll(page)
+                await asyncio.sleep(random.uniform(1, 2))
+            
+            # Strategy 4: Inject additional stealth scripts for specific services
+            await page.evaluate("""
+                () => {
+                    // Override specific detection methods
+                    if (window.navigator && window.navigator.permissions) {
+                        const originalQuery = window.navigator.permissions.query;
+                        window.navigator.permissions.query = (params) => {
+                            return Promise.resolve({ state: 'granted' });
+                        };
+                    }
+                    
+                    // Clear any detection cookies
+                    document.cookie.split(';').forEach(c => {
+                        const eqPos = c.indexOf('=');
+                        const name = eqPos > -1 ? c.substr(0, eqPos).trim() : c.trim();
+                        if (name.includes('cf_') || name.includes('px') || name.includes('dd')) {
+                            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+                        }
+                    });
+                }
+            """)
+            
+            # Strategy 5: Retry with different timing
+            await page.goto(url, wait_until="networkidle", timeout=60000)
+            
+            # Strategy 6: If still detected, try slower approach
+            if await self._check_detection(page):
+                logger.info("Initial bypass failed, trying slower approach...")
+                
+                # Wait longer
+                await asyncio.sleep(random.uniform(10, 15))
+                
+                # Navigate very slowly
+                await page.goto(url, wait_until="domcontentloaded")
+                await asyncio.sleep(2)
+                await page.wait_for_load_state("networkidle")
+                
+                # More human actions
+                await self.human_simulator.random_mouse_movement(page)
+                await self.human_simulator.human_scroll(page)
+                
+        except Exception as e:
+            logger.error(f"Bypass attempt failed: {e}")
+
+# ============================================================================
+# REST API Server (Optional)
+# ============================================================================
+
+class StealthBrowserAPIServer:
+    """REST API server for browser service"""
+    
+    def __init__(self, browser_service: BrowserService, port: int = 9222):
+        self.browser_service = browser_service
+        self.port = port
+        self.app = None
+        
+    async def start(self):
+        """Start the API server"""
+        if not HAS_AIOHTTP:
+            logger.error("aiohttp not installed. Install with: pip install aiohttp")
+            return
+        
+        self.app = web.Application()
+        self.setup_routes()
+        
+        runner = web.AppRunner(self.app)
+        await runner.setup()
+        site = web.TCPSite(runner, 'localhost', self.port)
+        await site.start()
+        
+        logger.info(f"API server started on http://localhost:{self.port}")
+    
+    def setup_routes(self):
+        """Setup API routes"""
+        self.app.router.add_get('/api/status', self.handle_status)
+        self.app.router.add_post('/api/navigate', self.handle_navigate)
+        self.app.router.add_post('/api/click', self.handle_click)
+        self.app.router.add_post('/api/type', self.handle_type)
+        self.app.router.add_post('/api/screenshot', self.handle_screenshot)
+        self.app.router.add_post('/api/evaluate', self.handle_evaluate)
+        self.app.router.add_get('/api/cookies', self.handle_get_cookies)
+        self.app.router.add_post('/api/cookies', self.handle_set_cookies)
+    
+    async def handle_status(self, request):
+        """Get browser status"""
+        return web.json_response({
+            "status": "running" if self.browser_service._initialized else "stopped",
+            "browser_id": self.browser_service.browser_id,
+            "pages": len(self.browser_service.pages),
+            "config": {
+                "headless": self.browser_service.config.headless,
+                "stealth_level": self.browser_service.config.stealth_level,
+            }
+        })
+    
+    async def handle_navigate(self, request):
+        """Navigate to URL"""
+        data = await request.json()
+        url = data.get('url')
+        page_id = data.get('page_id')
+        
+        if not url:
+            return web.json_response({"error": "URL required"}, status=400)
+        
+        page = await self.browser_service.get_page(url, page_id)
+        success = await self.browser_service.navigate(page, url)
+        
+        return web.json_response({
+            "success": success,
+            "page_id": page_id or list(self.browser_service.pages.keys())[-1]
+        })
+    
+    async def handle_click(self, request):
+        """Click element"""
+        data = await request.json()
+        page_id = data.get('page_id')
+        selector = data.get('selector')
+        
+        if not page_id or not selector:
+            return web.json_response({"error": "page_id and selector required"}, status=400)
+        
+        if page_id not in self.browser_service.pages:
+            return web.json_response({"error": "Page not found"}, status=404)
+        
+        page = self.browser_service.pages[page_id]
+        success = await self.browser_service.click(page, selector)
+        
+        return web.json_response({"success": success})
+    
+    async def handle_type(self, request):
+        """Type text"""
+        data = await request.json()
+        page_id = data.get('page_id')
+        selector = data.get('selector')
+        text = data.get('text')
+        
+        if not all([page_id, selector, text]):
+            return web.json_response({"error": "page_id, selector, and text required"}, status=400)
+        
+        if page_id not in self.browser_service.pages:
+            return web.json_response({"error": "Page not found"}, status=404)
+        
+        page = self.browser_service.pages[page_id]
+        success = await self.browser_service.type(page, selector, text)
+        
+        return web.json_response({"success": success})
+    
+    async def handle_screenshot(self, request):
+        """Take screenshot"""
+        data = await request.json()
+        page_id = data.get('page_id')
+        
+        if not page_id:
+            return web.json_response({"error": "page_id required"}, status=400)
+        
+        if page_id not in self.browser_service.pages:
+            return web.json_response({"error": "Page not found"}, status=404)
+        
+        page = self.browser_service.pages[page_id]
+        screenshot = await self.browser_service.screenshot(page)
+        
+        if screenshot:
+            return web.Response(
+                body=screenshot if isinstance(screenshot, bytes) else b"",
+                content_type='image/png'
+            )
+        else:
+            return web.json_response({"error": "Screenshot failed"}, status=500)
+    
+    async def handle_evaluate(self, request):
+        """Evaluate JavaScript"""
+        data = await request.json()
+        page_id = data.get('page_id')
+        script = data.get('script')
+        
+        if not page_id or not script:
+            return web.json_response({"error": "page_id and script required"}, status=400)
+        
+        if page_id not in self.browser_service.pages:
+            return web.json_response({"error": "Page not found"}, status=404)
+        
+        page = self.browser_service.pages[page_id]
+        result = await self.browser_service.evaluate(page, script)
+        
+        return web.json_response({"result": result})
+    
+    async def handle_get_cookies(self, request):
+        """Get cookies"""
+        page_id = request.query.get('page_id')
+        
+        if not page_id:
+            return web.json_response({"error": "page_id required"}, status=400)
+        
+        if page_id not in self.browser_service.pages:
+            return web.json_response({"error": "Page not found"}, status=404)
+        
+        page = self.browser_service.pages[page_id]
+        cookies = await self.browser_service.get_cookies(page)
+        
+        return web.json_response({"cookies": cookies})
+    
+    async def handle_set_cookies(self, request):
+        """Set cookies"""
+        data = await request.json()
+        page_id = data.get('page_id')
+        cookies = data.get('cookies')
+        
+        if not page_id or not cookies:
+            return web.json_response({"error": "page_id and cookies required"}, status=400)
+        
+        if page_id not in self.browser_service.pages:
+            return web.json_response({"error": "Page not found"}, status=404)
+        
+        page = self.browser_service.pages[page_id]
+        success = await self.browser_service.set_cookies(page, cookies)
+        
+        return web.json_response({"success": success})
+
+# ============================================================================
+# Usage Examples
+# ============================================================================
+
+async def example_basic_usage():
+    """Basic usage example"""
+    # Create browser service
+    browser = BrowserService()
+    
+    # Start the service
+    await browser.start()
+    
+    # Get a page and navigate
+    page = await browser.get_page("https://example.com")
+    
+    # Interact with the page
+    await browser.click(page, "a[href='/more']")
+    await browser.type(page, "input[name='search']", "test query")
+    
+    # Take screenshot
+    screenshot = await browser.screenshot(page)
+    
+    # Evaluate JavaScript
+    title = await browser.evaluate(page, "document.title")
+    print(f"Page title: {title}")
+    
+    # Stop the service
+    await browser.stop()
+
+async def example_with_config():
+    """Example with custom configuration"""
+    # Configure browser
+    config = BrowserConfig(
+        headless=False,
+        stealth_level="ultimate",
+        enable_human_simulation=True,
+        viewport_width=1920,
+        viewport_height=1080,
+        proxy={
+            "server": "http://proxy.example.com:8080",
+            "username": "user",
+            "password": "pass"
+        }
+    )
+    
+    # Create and use browser
+    browser = BrowserService(config)
+    await browser.start()
+    
+    page = await browser.get_page("https://protected-site.com")
+    
+    # Browser will automatically:
+    # - Use stealth techniques
+    # - Simulate human behavior
+    # - Route through proxy
+    
+    await browser.stop()
+
+async def example_api_server():
+    """Example running as API server"""
+    # Create browser and API server
+    browser = BrowserService()
+    server = StealthBrowserAPIServer(browser, port=9222)
+    
+    # Start services
+    await browser.start()
+    await server.start()
+    
+    # Now the browser can be controlled via HTTP API:
+    # curl http://localhost:9222/api/navigate -d '{"url": "https://example.com"}'
+    
+    # Keep server running
+    await asyncio.Event().wait()
+
+# ============================================================================
+# Main Entry Point
+# ============================================================================
+
+def main():
+    """Main entry point for standalone execution"""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Standalone Stealth Browser Service")
+    parser.add_argument("--server", action="store_true", help="Run as API server")
+    parser.add_argument("--port", type=int, default=9222, help="API server port")
+    parser.add_argument("--headless", action="store_true", help="Run in headless mode")
+    parser.add_argument("--url", help="URL to navigate to (for testing)")
+    
+    args = parser.parse_args()
+    
+    async def run():
+        if args.server:
+            # Run as API server
+            config = BrowserConfig(headless=args.headless)
+            browser = BrowserService(config)
+            server = StealthBrowserAPIServer(browser, port=args.port)
+            
+            await browser.start()
+            await server.start()
+            
+            print(f"Stealth Browser API Server running on http://localhost:{args.port}")
+            print("Press Ctrl+C to stop")
+            
+            try:
+                await asyncio.Event().wait()
+            except KeyboardInterrupt:
+                await browser.stop()
+        
+        elif args.url:
+            # Test navigation
+            config = BrowserConfig(headless=args.headless)
+            browser = BrowserService(config)
+            
+            await browser.start()
+            page = await browser.get_page(args.url)
+            
+            print(f"Successfully navigated to {args.url}")
+            print("Taking screenshot...")
+            
+            await browser.screenshot(page, "test_screenshot.png")
+            print("Screenshot saved as test_screenshot.png")
+            
+            await browser.stop()
+        
+        else:
+            # Run basic example
+            await example_basic_usage()
+    
+    asyncio.run(run())
+
+if __name__ == "__main__":
+    main()</pre>
+<h2>C:\Users\kleiy\OneDrive\Desktop\python-ai-apps\ai_apps\simple_apps_v2\shared_modules\ui_web_auto_testing_v2\element_extractor.py</h2>
+<pre>"""
+Element Extractor for UI Testing
+Extracts all testable elements from a webpage using browser automation
+"""
+
+import asyncio
+import json
+import logging
+from typing import Any, Dict, List, Optional
+from pathlib import Path
+import sys
+import re
+from datetime import datetime
+
+# Add simple_apps_v2 root to path for imports
+simple_apps_v2_root = Path(__file__).parent.parent.parent
+if str(simple_apps_v2_root) not in sys.path:
+    sys.path.insert(0, str(simple_apps_v2_root))
+
+# Import browser functionality
+from shared_modules.ui_web_auto_testing_v2.browser import BrowserService, BrowserConfig
+from shared_modules.ui_web_auto_testing_v2.element_structure import (
+    ElementCategory,
+    InteractionPattern,
+    TestPriority,
+    ValidationRule
+)
+
+# Import LLM functionality  
+from backend.shared.llm import query_llm
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class ElementExtractor:
+    """Extracts testable elements from web pages"""
+    
+    def __init__(self, headless: bool = False):
+        """Initialize the element extractor
+        
+        Args:
+            headless: Whether to run browser in headless mode
+        """
+        self.config = BrowserConfig(
+            headless=headless,
+            stealth_level="maximum",
+            enable_stealth=True,
+            enable_human_simulation=True
+        )
+        self.browser_service = BrowserService(self.config)
+        self.extracted_elements = []
+        
+    async def extract_elements(self, url: str) -> List[Dict[str, Any]]:
+        """Extract all testable elements from a URL
+        
+        Args:
+            url: The URL to extract elements from
+            
+        Returns:
+            List of extracted elements with their properties
+            
+        Raises:
+            Exception: With specific error details for different failure scenarios
+        """
+        try:
+            # Start browser service
+            try:
+                await self.browser_service.start()
+            except Exception as e:
+                error_msg = f"Browser initialization failed: {str(e)}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
+            
+            # Get page and navigate
+            logger.info(f"Navigating to {url}")
+            try:
+                self.page = await self.browser_service.get_page(url)
+                
+                if not self.page:
+                    error_msg = f"Failed to navigate to {url}: Browser could not create page"
+                    logger.error(error_msg)
+                    raise Exception(error_msg)
+            except Exception as e:
+                # Always raise navigation errors
+                error_msg = f"Navigation failed for {url}: {str(e)}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
+            
+            # Extract elements
+            logger.info("Extracting elements from page")
+            try:
+                elements = await self._extract_page_elements()
+                
+                if not elements:
+                    logger.warning(f"No elements found on {url}")
+                    # Return empty list but don't fail - this might be valid
+                    return []
+                    
+            except Exception as e:
+                error_msg = f"Element extraction failed: {str(e)}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
+            
+            # Process and categorize elements
+            try:
+                processed_elements = self._process_elements(elements)
+            except Exception as e:
+                error_msg = f"Element processing failed: {str(e)}"
+                logger.error(error_msg)
+                raise Exception(error_msg)
+            
+            self.extracted_elements = processed_elements
+            return processed_elements
+            
+        except Exception as e:
+            # Re-raise with original error message
+            logger.error(f"Error extracting elements: {e}")
+            raise
+        finally:
+            # Cleanup
+            try:
+                await self.browser_service.stop()
+            except Exception as cleanup_error:
+                logger.warning(f"Cleanup error: {cleanup_error}")
+    
+    async def _extract_page_elements(self) -> List[Dict[str, Any]]:
+        """Extract elements using browser's extraction capabilities"""
+        
+        extraction_script = """
+        () => {
+            const elements = [];
+            
+            // Helper to get element properties
+            const getElementInfo = (element) => {
+                const rect = element.getBoundingClientRect();
+                const styles = window.getComputedStyle(element);
+                
+                return {
+                    tag_name: element.tagName.toLowerCase(),
+                    id: element.id || null,
+                    className: element.className || '',
+                    name: element.name || null,
+                    type: element.type || null,
+                    href: element.href || null,
+                    text: element.textContent?.trim().substring(0, 200) || '',
+                    value: element.value || null,
+                    placeholder: element.placeholder || null,
+                    
+                    // State
+                    isEnabled: !element.disabled,
+                    isVisible: rect.width > 0 && rect.height > 0 && styles.visibility !== 'hidden',
+                    isRequired: element.required || false,
+                    isReadonly: element.readOnly || false,
+                    
+                    // Position
+                    position: {
+                        x: Math.round(rect.x),
+                        y: Math.round(rect.y),
+                        width: Math.round(rect.width),
+                        height: Math.round(rect.height)
+                    },
+                    
+                    // Accessibility
+                    ariaLabel: element.getAttribute('aria-label'),
+                    ariaRole: element.getAttribute('role'),
+                    tabIndex: element.tabIndex,
+                    
+                    // Validation
+                    pattern: element.pattern || null,
+                    minLength: element.minLength || null,
+                    maxLength: element.maxLength || null,
+                    min: element.min || null,
+                    max: element.max || null,
+                    
+                    // Selectors
+                    xpath: (() => {
+                        let path = '';
+                        let current = element;
+                        while (current && current.nodeType === Node.ELEMENT_NODE) {
+                            let index = 0;
+                            let sibling = current.previousSibling;
+                            while (sibling) {
+                                if (sibling.nodeType === Node.ELEMENT_NODE && 
+                                    sibling.nodeName === current.nodeName) {
+                                    index++;
+                                }
+                                sibling = sibling.previousSibling;
+                            }
+                            const tagName = current.nodeName.toLowerCase();
+                            const xpathIndex = index > 0 ? `[${index + 1}]` : '';
+                            path = `/${tagName}${xpathIndex}${path}`;
+                            current = current.parentNode;
+                        }
+                        return path;
+                    })(),
+                    
+                    cssSelector: (() => {
+                        if (element.id) return `#${element.id}`;
+                        let selector = element.tagName.toLowerCase();
+                        if (element.className) {
+                            const classes = element.className.split(' ').filter(c => c);
+                            if (classes.length > 0) {
+                                selector += `.${classes.join('.')}`;
+                            }
+                        }
+                        return selector;
+                    })()
+                };
+            };
+            
+            // Interactive element selectors
+            const selectors = [
+                'input:not([type="hidden"])',
+                'textarea',
+                'select',
+                'button',
+                'a[href]',
+                '[role="button"]',
+                '[role="link"]',
+                '[onclick]',
+                '[role="checkbox"]',
+                '[role="radio"]',
+                '[contenteditable="true"]',
+                'label[for]'
+            ];
+            
+            // Extract all interactive elements
+            document.querySelectorAll(selectors.join(', ')).forEach(element => {
+                try {
+                    const info = getElementInfo(element);
+                    // Only include visible elements
+                    if (info.isVisible) {
+                        elements.push(info);
+                    }
+                } catch (e) {
+                    console.error('Error extracting element:', e);
+                }
+            });
+            
+            // Also extract forms for context
+            document.querySelectorAll('form').forEach(form => {
+                elements.push({
+                    tag_name: 'form',
+                    id: form.id || null,
+                    name: form.name || null,
+                    action: form.action || null,
+                    method: form.method || null,
+                    isForm: true
+                });
+            });
+            
+            return elements;
+        }
+        """
+        
+        # Execute extraction script on the page
+        try:
+            result = await self.page.evaluate(extraction_script)
+            return result if result else []
+        except Exception as e:
+            logger.error(f"Failed to extract elements: {e}")
+            return []
+    
+    def _process_elements(self, elements: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Process and categorize extracted elements"""
+        
+        processed = []
+        
+        for element in elements:
+            # Skip form containers (keep only for context)
+            if element.get('isForm'):
+                continue
+                
+            # Categorize element
+            category = self._categorize_element(element)
+            
+            # Determine interaction pattern
+            interaction = self._get_interaction_pattern(element)
+            
+            # Determine test priority
+            priority = self._get_test_priority(element)
+            
+            # Add processing metadata
+            element['category'] = category
+            element['interaction_pattern'] = interaction
+            element['test_priority'] = priority
+            
+            # Add human-readable description
+            element['description'] = self._generate_description(element)
+            
+            processed.append(element)
+        
+        return processed
+    
+    def _categorize_element(self, element: Dict[str, Any]) -> str:
+        """Categorize element based on its properties"""
+        
+        tag = element.get('tag_name', '')
+        type_attr = element.get('type', '')
+        role = element.get('ariaRole', '')
+        text = (element.get('text', '') or '').lower()
+        
+        # Authentication elements
+        if type_attr == 'password' or 'login' in text or 'sign in' in text:
+            return ElementCategory.AUTHENTICATION.value
+            
+        # Search elements  
+        if type_attr == 'search' or 'search' in text:
+            return ElementCategory.SEARCH.value
+            
+        # Navigation elements
+        if tag == 'a' or role == 'navigation':
+            return ElementCategory.NAVIGATION.value
+            
+        # Form inputs
+        if tag in ['input', 'textarea', 'select']:
+            return ElementCategory.FORM_INPUT.value
+            
+        # Action elements
+        if tag == 'button' or role == 'button':
+            return ElementCategory.ACTION.value
+            
+        # Default to interactive
+        return ElementCategory.INTERACTIVE.value
+    
+    def _get_interaction_pattern(self, element: Dict[str, Any]) -> str:
+        """Determine primary interaction pattern for element"""
+        
+        tag = element.get('tag_name', '')
+        type_attr = element.get('type', '')
+        
+        if tag in ['input', 'textarea']:
+            if type_attr == 'file':
+                return InteractionPattern.UPLOAD_FILE.value
+            return InteractionPattern.TYPE_TEXT.value
+            
+        if tag == 'select':
+            return InteractionPattern.SELECT_OPTION.value
+            
+        if tag in ['button', 'a'] or element.get('ariaRole') == 'button':
+            return InteractionPattern.CLICK.value
+            
+        return InteractionPattern.CLICK.value
+    
+    def _get_test_priority(self, element: Dict[str, Any]) -> str:
+        """Determine test priority for element"""
+        
+        text = (element.get('text', '') or '').lower()
+        type_attr = element.get('type', '')
+        
+        # Critical elements
+        if type_attr == 'submit' or 'submit' in text or 'login' in text:
+            return TestPriority.CRITICAL.value
+            
+        # High priority
+        if element.get('isRequired') or type_attr == 'password':
+            return TestPriority.HIGH.value
+            
+        # Medium priority
+        if element.get('tag_name') in ['input', 'select', 'textarea']:
+            return TestPriority.MEDIUM.value
+            
+        return TestPriority.LOW.value
+    
+    def _generate_description(self, element: Dict[str, Any]) -> str:
+        """Generate human-readable description of element"""
+        
+        tag = element.get('tag_name', 'element')
+        text = element.get('text', '')
+        placeholder = element.get('placeholder', '')
+        aria_label = element.get('ariaLabel', '')
+        element_id = element.get('id', '')
+        
+        # Build description
+        desc_parts = [f"{tag}"]
+        
+        if element_id:
+            desc_parts.append(f"with id '{element_id}'")
+        
+        if aria_label:
+            desc_parts.append(f"labeled '{aria_label}'")
+        elif placeholder:
+            desc_parts.append(f"with placeholder '{placeholder}'")
+        elif text and len(text) < 50:
+            desc_parts.append(f"containing '{text}'")
+        
+        return " ".join(desc_parts)
+    
+    async def analyze_with_llm(self, elements: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Use LLM to analyze extracted elements and suggest test scenarios
+        
+        Args:
+            elements: List of extracted elements
+            
+        Returns:
+            LLM analysis with test suggestions or error details
+        """
+        
+        # Prepare context for LLM
+        element_summary = []
+        for elem in elements[:20]:  # Limit to first 20 for token efficiency
+            element_summary.append({
+                'type': elem.get('tag_name'),
+                'category': elem.get('category'),
+                'description': elem.get('description'),
+                'priority': elem.get('test_priority'),
+                'interaction': elem.get('interaction_pattern')
+            })
+        
+        prompt = f"""Analyze these UI elements and suggest test scenarios:
+
+Elements:
+{json.dumps(element_summary, indent=2)}
+
+Please provide:
+1. Critical user flows to test
+2. Key validation scenarios
+3. Edge cases to consider
+4. Accessibility concerns
+5. Security test recommendations
+
+Format as JSON with these keys: critical_flows, validation_scenarios, edge_cases, accessibility_concerns, security_tests"""
+
+        try:
+            # Create messages format for LLM
+            messages = [
+                {"role": "system", "content": "You are a UI testing expert. Analyze the provided UI elements and suggest comprehensive test scenarios."},
+                {"role": "user", "content": prompt}
+            ]
+            
+            # Call LLM with correct parameters
+            logger.info("Calling LLM for analysis...")
+            response = await asyncio.to_thread(
+                query_llm,
+                "gemini",  # provider
+                "gemini-2.0-flash-exp",  # model
+                messages  # messages
+            )
+            
+            # Extract content from response
+            if response and response.choices and response.choices[0].message.content:
+                content = response.choices[0].message.content
+                # Try to extract JSON from response
+                try:
+                    # Look for JSON in response
+                    json_match = re.search(r'\{.*\}', content, re.DOTALL)
+                    if json_match:
+                        analysis = json.loads(json_match.group())
+                        logger.info("LLM analysis completed successfully")
+                        return analysis
+                except Exception as json_err:
+                    logger.warning(f"Failed to parse LLM JSON response: {json_err}")
+                    
+                return {'raw_analysis': content}
+            else:
+                logger.warning("LLM returned empty response")
+                return {
+                    'error': 'LLM returned empty response',
+                    'reason': 'No content in LLM response',
+                    'message': 'Element extraction completed without AI analysis'
+                }
+            
+        except Exception as e:
+            error_details = str(e).lower()
+            
+            # Categorize the error
+            if 'api key' in error_details or 'authentication' in error_details:
+                error_msg = 'LLM authentication failed'
+                suggestion = 'Please check your API key configuration'
+            elif 'rate limit' in error_details:
+                error_msg = 'LLM rate limit exceeded'
+                suggestion = 'Please wait a moment and try again'
+            elif 'timeout' in error_details:
+                error_msg = 'LLM request timed out'
+                suggestion = 'The LLM service may be experiencing high load'
+            elif 'connection' in error_details or 'network' in error_details:
+                error_msg = 'LLM connection failed'
+                suggestion = 'Please check your internet connection'
+            else:
+                error_msg = 'LLM analysis unavailable'
+                suggestion = 'The AI analysis service is temporarily unavailable'
+            
+            logger.error(f"LLM analysis failed: {e}")
+            
+            # Return error info but don't fail the entire extraction
+            return {
+                'error': error_msg,
+                'reason': str(e),
+                'suggestion': suggestion,
+                'message': 'Element extraction completed without AI analysis'
+            }
+            
+        return {}
+
+
+async def extract_elements_from_url(url: str, headless: bool = False, analyze: bool = False) -> Dict[str, Any]:
+    """Main function to extract elements from a URL
+    
+    Args:
+        url: The URL to extract from
+        headless: Whether to run browser in headless mode
+        analyze: Whether to analyze with LLM
+        
+    Returns:
+        Dictionary containing extracted elements and optional analysis
+    """
+    
+    extractor = ElementExtractor(headless=headless)
+    
+    # Extract elements
+    elements = await extractor.extract_elements(url)
+    
+    result = {
+        'url': url,
+        'timestamp': str(datetime.now()),
+        'total_elements': len(elements),
+        'elements': elements
+    }
+    
+    # Categorize by type
+    by_category = {}
+    for elem in elements:
+        cat = elem.get('category', 'unknown')
+        if cat not in by_category:
+            by_category[cat] = []
+        by_category[cat].append(elem)
+    
+    result['elements_by_category'] = by_category
+    
+    # Add LLM analysis if requested
+    if analyze:
+        logger.info("Analyzing with LLM...")
+        analysis = await extractor.analyze_with_llm(elements)
+        result['llm_analysis'] = analysis
+    
+    return result
+
+
+# Example usage
+if __name__ == "__main__":
+    async def main():
+        # Test with a simple website
+        url = "https://example.com"
+        
+        print(f"Extracting elements from {url}...")
+        result = await extract_elements_from_url(url, headless=False, analyze=True)
+        
+        print(f"\n✅ Extracted {result['total_elements']} elements")
+        
+        # Show category breakdown
+        print("\nElements by category:")
+        for category, elems in result.get('elements_by_category', {}).items():
+            print(f"  {category}: {len(elems)} elements")
+        
+        # Show first few elements
+        print("\nFirst 5 elements:")
+        for i, elem in enumerate(result['elements'][:5], 1):
+            print(f"\n{i}. {elem['description']}")
+            print(f"   Category: {elem.get('category')}")
+            print(f"   Priority: {elem.get('test_priority')}")
+            print(f"   Interaction: {elem.get('interaction_pattern')}")
+        
+        # Show LLM analysis if available
+        if 'llm_analysis' in result:
+            print("\n📊 LLM Analysis:")
+            print(json.dumps(result['llm_analysis'], indent=2))
+        
+        # Save to file
+        output_file = "extracted_elements.json"
+        with open(output_file, 'w') as f:
+            json.dump(result, f, indent=2)
+        print(f"\n💾 Results saved to {output_file}")
+    
+    asyncio.run(main())</pre>
+<h2>C:\Users\kleiy\OneDrive\Desktop\python-ai-apps\ai_apps\simple_apps_v2\shared_modules\ui_web_auto_testing_v2\element_structure.py</h2>
+<pre>#!/usr/bin/env python3
+"""
+LLM-Optimized Element Extraction Structure for UI Test Generation
+
+This module defines the optimal JSON structure for element extraction that maximizes
+the quality of test cases generated by LLMs. Based on research and best practices
+for LLM interaction, structured outputs, and UI testing requirements.
+
+The structure is designed to:
+1. Provide rich semantic context for LLMs to understand the UI
+2. Include hierarchical relationships for understanding page structure
+3. Capture interaction patterns and user journeys
+4. Enable generation of comprehensive test scenarios
+5. Support both functional and non-functional test generation
+"""
+
+from typing import List, Dict, Any, Optional, Union, Literal
+from datetime import datetime
+from enum import Enum
+from pydantic import BaseModel, Field, ConfigDict, field_validator
+import json
+
+
+# ============================================================================
+# ENHANCED ENUMS FOR BETTER LLM UNDERSTANDING
+# ============================================================================
+
+class ElementCategory(str, Enum):
+    """High-level element categories that LLMs can reason about"""
+    NAVIGATION = "navigation"          # Navigation elements
+    FORM_INPUT = "form_input"         # Form inputs and fields
+    ACTION = "action"                 # Buttons, links that trigger actions
+    CONTENT = "content"               # Static content display
+    MEDIA = "media"                   # Images, videos, audio
+    FEEDBACK = "feedback"             # Alerts, notifications, messages
+    DATA_DISPLAY = "data_display"     # Tables, lists, grids
+    INTERACTIVE = "interactive"       # Dropdowns, sliders, toggles
+    AUTHENTICATION = "authentication" # Login, signup, password elements
+    PAYMENT = "payment"               # Payment-related elements
+    SEARCH = "search"                 # Search bars and filters
+    SOCIAL = "social"                 # Social media elements
+
+class InteractionPattern(str, Enum):
+    """Common interaction patterns for test generation"""
+    CLICK = "click"
+    TYPE_TEXT = "type_text"
+    SELECT_OPTION = "select_option"
+    DRAG_DROP = "drag_drop"
+    HOVER = "hover"
+    SCROLL = "scroll"
+    UPLOAD_FILE = "upload_file"
+    KEYBOARD_SHORTCUT = "keyboard_shortcut"
+    MULTI_STEP = "multi_step"
+    VALIDATE = "validate"
+    WAIT = "wait"
+
+class TestPriority(str, Enum):
+    """Test priority based on element importance"""
+    CRITICAL = "critical"     # Core functionality
+    HIGH = "high"            # Important features
+    MEDIUM = "medium"        # Standard features
+    LOW = "low"              # Nice-to-have features
+    EXPLORATORY = "exploratory"  # Edge cases
+
+class ValidationRule(str, Enum):
+    """Validation rules that can be tested"""
+    REQUIRED = "required"
+    FORMAT = "format"
+    LENGTH = "length"
+    RANGE = "range"
+    PATTERN = "pattern"
+    UNIQUENESS = "uniqueness"
+    DEPENDENCY = "dependency"
+    BUSINESS_LOGIC = "business_logic"
+
+
+# ============================================================================
+# SEMANTIC CONTEXT FOR LLM UNDERSTANDING
+# ============================================================================
+
+class SemanticContext(BaseModel):
+    """Rich semantic context to help LLMs understand the element's purpose"""
+    
+    # Primary purpose
+    primary_purpose: str = Field(
+        ..., 
+        description="Clear description of what this element does"
+    )
+    
+    # Business context
+    business_function: Optional[str] = Field(
+        None,
+        description="Business function this element serves (e.g., 'customer registration', 'payment processing')"
+    )
+    
+    # User intent
+    user_intent: Optional[str] = Field(
+        None,
+        description="What the user is trying to accomplish"
+    )
+    
+    # Related features
+    related_features: List[str] = Field(
+        default_factory=list,
+        description="Related features or functionalities"
+    )
+    
+    # Keywords for search
+    keywords: List[str] = Field(
+        default_factory=list,
+        description="Keywords that describe this element"
+    )
+    
+    # Domain-specific tags
+    domain_tags: List[str] = Field(
+        default_factory=list,
+        description="Domain-specific tags (e.g., 'e-commerce', 'banking', 'healthcare')"
+    )
+
+
+# ============================================================================
+# INTERACTION CONTEXT FOR TEST GENERATION
+# ============================================================================
+
+class InteractionContext(BaseModel):
+    """Context about how users interact with this element"""
+    
+    # Interaction patterns
+    primary_interaction: InteractionPattern = Field(
+        ...,
+        description="Primary way users interact with this element"
+    )
+    
+    # Alternative interactions
+    alternative_interactions: List[InteractionPattern] = Field(
+        default_factory=list,
+        description="Alternative ways to interact"
+    )
+    
+    # Prerequisites
+    prerequisites: List[str] = Field(
+        default_factory=list,
+        description="What needs to happen before interacting with this element"
+    )
+    
+    # Expected outcomes
+    expected_outcomes: List[str] = Field(
+        default_factory=list,
+        description="What should happen after interaction"
+    )
+    
+    # Common user flows
+    common_flows: List[str] = Field(
+        default_factory=list,
+        description="Common user flows involving this element"
+    )
+    
+    # Error scenarios
+    error_scenarios: List[str] = Field(
+        default_factory=list,
+        description="Common error scenarios to test"
+    )
+    
+    # Timing constraints
+    timing_constraints: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Timing requirements (e.g., timeouts, delays)"
+    )
+
+
+# ============================================================================
+# VALIDATION CONTEXT FOR COMPREHENSIVE TESTING
+# ============================================================================
+
+class ValidationContext(BaseModel):
+    """Validation rules and constraints for testing"""
+    
+    # Validation rules
+    rules: List[ValidationRule] = Field(
+        default_factory=list,
+        description="Applicable validation rules"
+    )
+    
+    # Specific constraints
+    constraints: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Specific validation constraints"
+    )
+    
+    # Valid values
+    valid_values: List[Any] = Field(
+        default_factory=list,
+        description="Examples of valid input values"
+    )
+    
+    # Invalid values
+    invalid_values: List[Any] = Field(
+        default_factory=list,
+        description="Examples of invalid input values for negative testing"
+    )
+    
+    # Edge cases
+    edge_cases: List[str] = Field(
+        default_factory=list,
+        description="Edge cases to test"
+    )
+    
+    # Error messages
+    error_messages: Dict[str, str] = Field(
+        default_factory=dict,
+        description="Expected error messages for validation failures"
+    )
+
+
+# ============================================================================
+# ACCESSIBILITY CONTEXT FOR INCLUSIVE TESTING
+# ============================================================================
+
+class AccessibilityContext(BaseModel):
+    """Accessibility information for inclusive test generation"""
+    
+    # ARIA attributes
+    aria_role: Optional[str] = Field(None, description="ARIA role")
+    aria_label: Optional[str] = Field(None, description="ARIA label")
+    aria_description: Optional[str] = Field(None, description="ARIA description")
+    aria_properties: Dict[str, Any] = Field(default_factory=dict, description="Other ARIA properties")
+    
+    # Keyboard navigation
+    keyboard_accessible: bool = Field(True, description="Is keyboard accessible")
+    tab_index: Optional[int] = Field(None, description="Tab index")
+    keyboard_shortcuts: List[str] = Field(default_factory=list, description="Keyboard shortcuts")
+    
+    # Screen reader
+    screen_reader_text: Optional[str] = Field(None, description="Screen reader text")
+    
+    # WCAG compliance
+    wcag_level: Optional[Literal["A", "AA", "AAA"]] = Field(None, description="WCAG compliance level")
+    wcag_issues: List[str] = Field(default_factory=list, description="Known WCAG issues")
+
+
+# ============================================================================
+# HIERARCHICAL CONTEXT FOR PAGE STRUCTURE
+# ============================================================================
+
+class HierarchicalContext(BaseModel):
+    """Element's position in the page hierarchy"""
+    
+    # Parent context
+    parent_section: Optional[str] = Field(None, description="Parent section/container")
+    parent_form: Optional[str] = Field(None, description="Parent form if applicable")
+    
+    # Sibling elements
+    siblings: List[str] = Field(default_factory=list, description="Sibling element identifiers")
+    
+    # Child elements
+    children: List[str] = Field(default_factory=list, description="Child element identifiers")
+    
+    # Navigation context
+    navigation_order: Optional[int] = Field(None, description="Order in navigation flow")
+    
+    # Group context
+    element_group: Optional[str] = Field(None, description="Logical group this element belongs to")
+    group_role: Optional[str] = Field(None, description="Role within the group")
+
+
+# ============================================================================
+# VISUAL CONTEXT FOR UI TESTING
+# ============================================================================
+
+class VisualContext(BaseModel):
+    """Visual properties for UI-specific testing"""
+    
+    # Position
+    x: int = Field(0, description="X coordinate")
+    y: int = Field(0, description="Y coordinate")
+    width: int = Field(0, description="Width in pixels")
+    height: int = Field(0, description="Height in pixels")
+    
+    # Visibility
+    is_visible: bool = Field(True, description="Is currently visible")
+    is_above_fold: bool = Field(False, description="Is visible without scrolling")
+    z_index: Optional[int] = Field(None, description="Z-index for layering")
+    
+    # Visual state
+    is_highlighted: bool = Field(False, description="Is currently highlighted/focused")
+    has_error_styling: bool = Field(False, description="Has error styling applied")
+    
+    # Responsive behavior
+    responsive_behavior: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="How element behaves at different screen sizes"
+    )
+
+
+# ============================================================================
+# STATE CONTEXT FOR DYNAMIC TESTING
+# ============================================================================
+
+class StateContext(BaseModel):
+    """Element state information for dynamic testing"""
+    
+    # Current state
+    is_enabled: bool = Field(True, description="Is currently enabled")
+    is_readonly: bool = Field(False, description="Is read-only")
+    is_required: bool = Field(False, description="Is required field")
+    is_selected: bool = Field(False, description="Is currently selected")
+    is_checked: bool = Field(False, description="Is checked (for checkboxes)")
+    
+    # State transitions
+    possible_states: List[str] = Field(default_factory=list, description="Possible states")
+    state_triggers: Dict[str, str] = Field(default_factory=dict, description="What triggers state changes")
+    
+    # Dynamic behavior
+    updates_dynamically: bool = Field(False, description="Updates without page reload")
+    update_triggers: List[str] = Field(default_factory=list, description="What triggers updates")
+    
+    # Dependencies
+    depends_on: List[str] = Field(default_factory=list, description="Other elements this depends on")
+    affects: List[str] = Field(default_factory=list, description="Other elements this affects")
+
+
+# ============================================================================
+# MAIN LLM-OPTIMIZED ELEMENT STRUCTURE
+# ============================================================================
+
+class LLMOptimizedElement(BaseModel):
+    """
+    Comprehensive element structure optimized for LLM test generation.
+    
+    This structure provides multiple layers of context to help LLMs:
+    1. Understand the element's purpose and business context
+    2. Generate meaningful test scenarios
+    3. Create comprehensive test coverage
+    4. Handle edge cases and error scenarios
+    5. Consider accessibility and non-functional requirements
+    """
+    
+    model_config = ConfigDict(extra="allow")
+    
+    # ========== CORE IDENTIFICATION ==========
+    element_id: str = Field(..., description="Unique identifier for this element")
+    tag_name: str = Field(..., description="HTML tag name")
+    element_category: ElementCategory = Field(..., description="High-level category")
+    
+    # ========== SELECTORS FOR TEST EXECUTION ==========
+    selectors: Dict[str, str] = Field(
+        ...,
+        description="Multiple selector strategies",
+        example={
+            "id": "submit-button",
+            "css": ".btn.btn-primary",
+            "xpath": "//button[@type='submit']",
+            "data_testid": "submit-form-button"
+        }
+    )
+    
+    # ========== SEMANTIC CONTEXT ==========
+    semantic: SemanticContext = Field(
+        ...,
+        description="Rich semantic context for LLM understanding"
+    )
+    
+    # ========== INTERACTION CONTEXT ==========
+    interaction: InteractionContext = Field(
+        ...,
+        description="How users interact with this element"
+    )
+    
+    # ========== CONTENT ==========
+    content: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Element content",
+        example={
+            "text": "Submit Order",
+            "placeholder": "Enter email",
+            "label": "Email Address",
+            "value": "current value",
+            "options": ["Option 1", "Option 2"]
+        }
+    )
+    
+    # ========== VALIDATION CONTEXT ==========
+    validation: Optional[ValidationContext] = Field(
+        None,
+        description="Validation rules and constraints"
+    )
+    
+    # ========== ACCESSIBILITY CONTEXT ==========
+    accessibility: Optional[AccessibilityContext] = Field(
+        None,
+        description="Accessibility information"
+    )
+    
+    # ========== HIERARCHICAL CONTEXT ==========
+    hierarchy: Optional[HierarchicalContext] = Field(
+        None,
+        description="Position in page hierarchy"
+    )
+    
+    # ========== VISUAL CONTEXT ==========
+    visual: Optional[VisualContext] = Field(
+        None,
+        description="Visual properties"
+    )
+    
+    # ========== STATE CONTEXT ==========
+    state: Optional[StateContext] = Field(
+        None,
+        description="Element state information"
+    )
+    
+    # ========== TEST METADATA ==========
+    test_priority: TestPriority = Field(
+        TestPriority.MEDIUM,
+        description="Priority for test generation"
+    )
+    
+    suggested_test_types: List[str] = Field(
+        default_factory=list,
+        description="Suggested types of tests for this element",
+        example=["functional", "validation", "accessibility", "performance", "security"]
+    )
+    
+    test_data_examples: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="Example test data for this element"
+    )
+    
+    # ========== METADATA ==========
+    confidence_score: float = Field(
+        1.0,
+        ge=0.0,
+        le=1.0,
+        description="Confidence in element extraction"
+    )
+    
+    extraction_timestamp: datetime = Field(
+        default_factory=datetime.now,
+        description="When element was extracted"
+    )
+    
+    page_context: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Page-level context",
+        example={
+            "url": "https://example.com/checkout",
+            "page_title": "Checkout",
+            "page_type": "e-commerce_checkout"
+        }
+    )
+
+
+# ============================================================================
+# PAGE-LEVEL STRUCTURE FOR COMPREHENSIVE TEST GENERATION
+# ============================================================================
+
+class PageStructure(BaseModel):
+    """Complete page structure for holistic test generation"""
+    
+    # Page identification
+    url: str = Field(..., description="Page URL")
+    title: str = Field(..., description="Page title")
+    page_type: str = Field(..., description="Type of page (e.g., 'login', 'checkout', 'dashboard')")
+    
+    # Page metadata
+    description: str = Field("", description="Page description for LLM context")
+    business_purpose: str = Field("", description="Business purpose of this page")
+    
+    # Elements organized by category
+    elements_by_category: Dict[ElementCategory, List[LLMOptimizedElement]] = Field(
+        default_factory=dict,
+        description="Elements organized by category"
+    )
+    
+    # User journeys
+    user_journeys: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="Common user journeys on this page"
+    )
+    
+    # Page-level validations
+    page_validations: List[str] = Field(
+        default_factory=list,
+        description="Page-level validation rules"
+    )
+    
+    # Critical paths
+    critical_paths: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        description="Critical user paths that must be tested"
+    )
+    
+    # Performance requirements
+    performance_requirements: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Performance requirements for the page"
+    )
+    
+    # Security considerations
+    security_considerations: List[str] = Field(
+        default_factory=list,
+        description="Security aspects to test"
+    )
+
+
+# ============================================================================
+# LLM PROMPT OPTIMIZATION STRUCTURE
+# ============================================================================
+
+class LLMTestGenerationRequest(BaseModel):
+    """
+    Optimized structure for requesting test generation from LLMs.
+    Follows best practices for structured outputs and prompt engineering.
+    """
+    
+    # Context setting
+    context: Dict[str, Any] = Field(
+        ...,
+        description="Context for test generation",
+        example={
+            "application_type": "e-commerce",
+            "testing_framework": "playwright",
+            "test_style": "BDD",
+            "coverage_goals": ["functional", "edge_cases", "accessibility"]
+        }
+    )
+    
+    # Page structure
+    page: PageStructure = Field(
+        ...,
+        description="Complete page structure with elements"
+    )
+    
+    # Specific requirements
+    requirements: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Specific test requirements",
+        example={
+            "focus_areas": ["payment_flow", "form_validation"],
+            "exclude": ["performance_testing"],
+            "max_scenarios": 10,
+            "priority": "critical_paths_only"
+        }
+    )
+    
+    # Output format specification
+    output_format: Dict[str, Any] = Field(
+        default_factory=lambda: {
+            "format": "gherkin",
+            "include_examples": True,
+            "include_test_data": True,
+            "group_by": "user_journey"
+        },
+        description="Desired output format"
+    )
+    
+    def to_llm_prompt(self) -> str:
+        """Convert to optimized LLM prompt"""
+        return f"""
+You are an expert QA engineer. Generate comprehensive test cases for the following web page.
+
+CONTEXT:
+{json.dumps(self.context, indent=2)}
+
+PAGE STRUCTURE:
+{json.dumps(self.page.model_dump(), indent=2)}
+
+REQUIREMENTS:
+{json.dumps(self.requirements, indent=2)}
+
+OUTPUT FORMAT:
+{json.dumps(self.output_format, indent=2)}
+
+Generate test cases that:
+1. Cover all critical user journeys
+2. Include positive, negative, and edge cases
+3. Consider accessibility requirements
+4. Follow the specified output format exactly
+5. Use the provided selectors for test implementation
+
+Return ONLY valid JSON matching the specified format.
+"""
+
+
+# ============================================================================
+# HELPER FUNCTIONS FOR ELEMENT ENRICHMENT
+# ============================================================================
+
+def enrich_element_for_llm(basic_element: Dict[str, Any]) -> LLMOptimizedElement:
+    """
+    Enrich a basic extracted element with LLM-optimized context.
+    This function adds semantic understanding and test-relevant metadata.
+    """
+    
+    # Determine element category based on tag and attributes
+    category = determine_element_category(basic_element)
+    
+    # Build semantic context
+    semantic = build_semantic_context(basic_element, category)
+    
+    # Build interaction context
+    interaction = build_interaction_context(basic_element, category)
+    
+    # Create enriched element
+    enriched = LLMOptimizedElement(
+        element_id=basic_element.get('element_id', generate_element_id(basic_element)),
+        tag_name=basic_element.get('tag_name', 'unknown'),
+        element_category=category,
+        selectors=extract_selectors(basic_element),
+        semantic=semantic,
+        interaction=interaction,
+        content=extract_content(basic_element),
+        validation=build_validation_context(basic_element) if needs_validation(basic_element) else None,
+        accessibility=build_accessibility_context(basic_element),
+        hierarchy=build_hierarchy_context(basic_element),
+        visual=build_visual_context(basic_element),
+        state=build_state_context(basic_element),
+        test_priority=determine_test_priority(basic_element, category),
+        suggested_test_types=suggest_test_types(basic_element, category),
+        test_data_examples=generate_test_data_examples(basic_element, category)
+    )
+    
+    return enriched
+
+
+def determine_element_category(element: Dict[str, Any]) -> ElementCategory:
+    """Determine the high-level category of an element"""
+    tag = element.get('tag_name', '').lower()
+    element_type = element.get('element_type', '').lower()
+    role = element.get('role', '').lower()
+    
+    # Navigation elements
+    if tag in ['nav', 'header', 'footer'] or role == 'navigation':
+        return ElementCategory.NAVIGATION
+    
+    # Form inputs
+    if tag in ['input', 'textarea', 'select'] or element_type in ['input', 'textarea', 'dropdown']:
+        return ElementCategory.FORM_INPUT
+    
+    # Action elements
+    if tag in ['button', 'a'] or element_type == 'button' or role == 'button':
+        return ElementCategory.ACTION
+    
+    # Media elements
+    if tag in ['img', 'video', 'audio', 'picture']:
+        return ElementCategory.MEDIA
+    
+    # Data display
+    if tag in ['table', 'ul', 'ol', 'dl']:
+        return ElementCategory.DATA_DISPLAY
+    
+    # Default to content
+    return ElementCategory.CONTENT
+
+
+def build_semantic_context(element: Dict[str, Any], category: ElementCategory) -> SemanticContext:
+    """Build semantic context for an element"""
+    text = element.get('text_content', '')
+    aria_label = element.get('aria_label', '')
+    
+    # Determine purpose based on text and category
+    purpose = f"{category.value} element"
+    if text:
+        purpose = f"{category.value}: {text[:50]}"
+    elif aria_label:
+        purpose = f"{category.value}: {aria_label}"
+    
+    return SemanticContext(
+        primary_purpose=purpose,
+        keywords=extract_keywords(element),
+        domain_tags=[]  # Would be enriched based on page context
+    )
+
+
+def build_interaction_context(element: Dict[str, Any], category: ElementCategory) -> InteractionContext:
+    """Build interaction context for an element"""
+    # Determine primary interaction based on category
+    interaction_map = {
+        ElementCategory.ACTION: InteractionPattern.CLICK,
+        ElementCategory.FORM_INPUT: InteractionPattern.TYPE_TEXT,
+        ElementCategory.NAVIGATION: InteractionPattern.CLICK,
+        ElementCategory.DATA_DISPLAY: InteractionPattern.VALIDATE,
+        ElementCategory.INTERACTIVE: InteractionPattern.SELECT_OPTION
+    }
+    
+    return InteractionContext(
+        primary_interaction=interaction_map.get(category, InteractionPattern.CLICK),
+        alternative_interactions=[],
+        prerequisites=[],
+        expected_outcomes=[],
+        common_flows=[],
+        error_scenarios=[]
+    )
+
+
+def extract_selectors(element: Dict[str, Any]) -> Dict[str, str]:
+    """Extract multiple selector strategies"""
+    selectors = {}
+    
+    if element.get('id'):
+        selectors['id'] = element['id']
+    
+    if element.get('css_selector'):
+        selectors['css'] = element['css_selector']
+    
+    if element.get('xpath'):
+        selectors['xpath'] = element['xpath']
+    
+    if element.get('data-testid'):
+        selectors['data_testid'] = element['data-testid']
+    
+    return selectors
+
+
+def extract_content(element: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract element content"""
+    content = {}
+    
+    if element.get('text_content'):
+        content['text'] = element['text_content']
+    
+    if element.get('placeholder'):
+        content['placeholder'] = element['placeholder']
+    
+    if element.get('value'):
+        content['value'] = element['value']
+    
+    if element.get('options'):
+        content['options'] = element['options']
+    
+    return content
+
+
+def build_validation_context(element: Dict[str, Any]) -> ValidationContext:
+    """Build validation context for form elements"""
+    rules = []
+    
+    if element.get('required'):
+        rules.append(ValidationRule.REQUIRED)
+    
+    if element.get('pattern'):
+        rules.append(ValidationRule.PATTERN)
+    
+    if element.get('minlength') or element.get('maxlength'):
+        rules.append(ValidationRule.LENGTH)
+    
+    return ValidationContext(
+        rules=rules,
+        constraints={},
+        valid_values=[],
+        invalid_values=[],
+        edge_cases=[],
+        error_messages={}
+    )
+
+
+def build_accessibility_context(element: Dict[str, Any]) -> AccessibilityContext:
+    """Build accessibility context"""
+    return AccessibilityContext(
+        aria_role=element.get('role'),
+        aria_label=element.get('aria_label'),
+        aria_description=element.get('aria_describedby'),
+        keyboard_accessible=element.get('tab_index', -1) >= 0,
+        tab_index=element.get('tab_index'),
+        screen_reader_text=element.get('aria_label') or element.get('text_content')
+    )
+
+
+def build_hierarchy_context(element: Dict[str, Any]) -> HierarchicalContext:
+    """Build hierarchical context"""
+    return HierarchicalContext(
+        parent_section=element.get('parent_section'),
+        parent_form=element.get('parent_form'),
+        siblings=[],
+        children=[],
+        navigation_order=element.get('tab_index')
+    )
+
+
+def build_visual_context(element: Dict[str, Any]) -> VisualContext:
+    """Build visual context"""
+    return VisualContext(
+        x=element.get('x', 0),
+        y=element.get('y', 0),
+        width=element.get('width', 0),
+        height=element.get('height', 0),
+        is_visible=element.get('is_visible', True),
+        is_above_fold=element.get('y', 0) < 768  # Approximate fold
+    )
+
+
+def build_state_context(element: Dict[str, Any]) -> StateContext:
+    """Build state context"""
+    return StateContext(
+        is_enabled=element.get('is_enabled', True),
+        is_readonly=element.get('readonly', False),
+        is_required=element.get('required', False),
+        is_selected=element.get('selected', False),
+        is_checked=element.get('checked', False),
+        possible_states=[],
+        state_triggers={},
+        updates_dynamically=False,
+        update_triggers=[],
+        depends_on=[],
+        affects=[]
+    )
+
+
+def needs_validation(element: Dict[str, Any]) -> bool:
+    """Check if element needs validation context"""
+    return element.get('tag_name', '').lower() in ['input', 'textarea', 'select']
+
+
+def determine_test_priority(element: Dict[str, Any], category: ElementCategory) -> TestPriority:
+    """Determine test priority based on element characteristics"""
+    # Critical elements
+    if category in [ElementCategory.AUTHENTICATION, ElementCategory.PAYMENT]:
+        return TestPriority.CRITICAL
+    
+    # High priority elements
+    if category in [ElementCategory.ACTION, ElementCategory.FORM_INPUT]:
+        return TestPriority.HIGH
+    
+    # Default to medium
+    return TestPriority.MEDIUM
+
+
+def suggest_test_types(element: Dict[str, Any], category: ElementCategory) -> List[str]:
+    """Suggest appropriate test types for an element"""
+    test_types = ["functional"]
+    
+    if category == ElementCategory.FORM_INPUT:
+        test_types.extend(["validation", "boundary"])
+    
+    if element.get('aria_label') or element.get('role'):
+        test_types.append("accessibility")
+    
+    if category in [ElementCategory.AUTHENTICATION, ElementCategory.PAYMENT]:
+        test_types.append("security")
+    
+    return test_types
+
+
+def generate_test_data_examples(element: Dict[str, Any], category: ElementCategory) -> List[Dict[str, Any]]:
+    """Generate example test data for an element"""
+    examples = []
+    
+    if category == ElementCategory.FORM_INPUT:
+        input_type = element.get('input_type', 'text')
+        
+        if input_type == 'email':
+            examples.extend([
+                {"value": "test@example.com", "expected": "valid"},
+                {"value": "invalid-email", "expected": "invalid"},
+                {"value": "", "expected": "required_error"}
+            ])
+        elif input_type == 'number':
+            examples.extend([
+                {"value": "123", "expected": "valid"},
+                {"value": "abc", "expected": "invalid"},
+                {"value": "-1", "expected": "range_error"}
+            ])
+    
+    return examples
+
+
+def extract_keywords(element: Dict[str, Any]) -> List[str]:
+    """Extract keywords from element for semantic understanding"""
+    keywords = []
+    
+    # Extract from text content
+    if element.get('text_content'):
+        words = element['text_content'].lower().split()
+        keywords.extend([w for w in words if len(w) > 3][:5])
+    
+    # Extract from aria-label
+    if element.get('aria_label'):
+        words = element['aria_label'].lower().split()
+        keywords.extend([w for w in words if len(w) > 3][:3])
+    
+    return list(set(keywords))
+
+
+def generate_element_id(element: Dict[str, Any]) -> str:
+    """Generate unique element ID"""
+    import hashlib
+    
+    # Create ID from element properties
+    id_source = f"{element.get('tag_name', '')}_{element.get('xpath', '')}_{element.get('text_content', '')}"
+    return hashlib.md5(id_source.encode()).hexdigest()[:8]
+
+
+# ============================================================================
+# EXAMPLE USAGE
+# ============================================================================
+
+if __name__ == "__main__":
+    # Example of enriching a basic element
+    basic_element = {
+        "tag_name": "button",
+        "element_type": "button",
+        "text_content": "Submit Order",
+        "id": "submit-btn",
+        "css_selector": "#submit-btn",
+        "xpath": "//button[@id='submit-btn']",
+        "is_visible": True,
+        "is_enabled": True,
+        "aria_label": "Submit your order"
+    }
+    
+    # Enrich for LLM
+    enriched = enrich_element_for_llm(basic_element)
+    
+    # Convert to JSON for LLM
+    print(json.dumps(enriched.model_dump(), indent=2, default=str))
+    
+    # Example of creating a test generation request
+    page = PageStructure(
+        url="https://example.com/checkout",
+        title="Checkout",
+        page_type="e-commerce_checkout",
+        description="Checkout page for completing purchase",
+        business_purpose="Allow customers to complete their purchase"
+    )
+    
+    request = LLMTestGenerationRequest(
+        context={
+            "application_type": "e-commerce",
+            "testing_framework": "playwright",
+            "test_style": "BDD"
+        },
+        page=page,
+        requirements={
+            "focus_areas": ["payment_validation", "form_submission"],
+            "max_scenarios": 5
+        }
+    )
+    
+    # Generate LLM prompt
+    print("\n" + "="*50)
+    print("LLM PROMPT:")
+    print("="*50)
+    print(request.to_llm_prompt())</pre>
+<h2>C:\Users\kleiy\OneDrive\Desktop\python-ai-apps\ai_apps\simple_apps_v2\shared_modules\ui_web_auto_testing_v2\llm_test_generation.py</h2>
+<pre>"""
+LLM-Powered Gherkin Test Generation System
+Generates high-quality BDD test scenarios using live LLM (Gemini-2.5-flash)
+"""
+
+import asyncio
+import json
+import logging
+from typing import Any, Dict, List, Optional
+from pathlib import Path
+import sys
+from datetime import datetime
+import re
+
+# Add simple_apps_v2 root to path for imports
+simple_apps_v2_root = Path(__file__).parent.parent.parent
+if str(simple_apps_v2_root) not in sys.path:
+    sys.path.insert(0, str(simple_apps_v2_root))
+
+# Import LLM functionality
+from backend.shared.llm import query_llm
+
+# Import element extraction
+from shared_modules.ui_web_auto_testing_v2.element_extractor import extract_elements_from_url
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class GherkinTestGenerator:
+    """Generates high-quality Gherkin test scenarios using LLM"""
+    
+    def __init__(self, model: str = "gemini-2.5-flash"):
+        """Initialize the Gherkin test generator
+        
+        Args:
+            model: The LLM model to use for generation
+        """
+        self.model = model
+        self.provider = "gemini"
+        
+    async def generate_gherkin_tests(
+        self, 
+        extraction_data: Dict[str, Any],
+        test_categories: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """Generate comprehensive Gherkin test scenarios from extracted elements
+        
+        Args:
+            extraction_data: The extracted elements and LLM analysis
+            test_categories: Specific test categories to focus on
+            
+        Returns:
+            Dictionary containing generated Gherkin features and scenarios
+        """
+        
+        if not test_categories:
+            test_categories = [
+                "functional",
+                "validation", 
+                "edge_cases",
+                "security",
+                "accessibility",
+                "performance"
+            ]
+        
+        # Prepare context from extraction data
+        context = self._prepare_context(extraction_data)
+        
+        # Generate tests for each category
+        all_features = {}
+        
+        for category in test_categories:
+            logger.info(f"Generating {category} tests...")
+            feature = await self._generate_feature_for_category(
+                context, 
+                category,
+                extraction_data.get('llm_analysis', {})
+            )
+            if feature:
+                all_features[category] = feature
+        
+        # Generate comprehensive test suite
+        test_suite = await self._generate_comprehensive_suite(all_features, context)
+        
+        return {
+            "url": extraction_data.get("url"),
+            "timestamp": str(datetime.now()),
+            "features": all_features,
+            "test_suite": test_suite,
+            "statistics": self._calculate_statistics(all_features)
+        }
+    
+    def _prepare_context(self, extraction_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Prepare context for LLM from extraction data"""
+        
+        elements = extraction_data.get("elements", [])
+        
+        # Group elements by category
+        elements_by_category = extraction_data.get("elements_by_category", {})
+        
+        # Extract key elements for testing
+        form_inputs = []
+        buttons = []
+        links = []
+        auth_elements = []
+        
+        for element in elements:
+            category = element.get("category")
+            tag = element.get("tag_name")
+            
+            if category == "form_input":
+                form_inputs.append({
+                    "id": element.get("id"),
+                    "name": element.get("name"),
+                    "type": element.get("type"),
+                    "required": element.get("isRequired"),
+                    "selector": element.get("cssSelector") or element.get("xpath"),
+                    "description": element.get("description")
+                })
+            elif tag == "button" or element.get("type") == "submit":
+                buttons.append({
+                    "text": element.get("text") or element.get("value"),
+                    "selector": element.get("cssSelector") or element.get("xpath"),
+                    "description": element.get("description")
+                })
+            elif tag == "a":
+                links.append({
+                    "text": element.get("text"),
+                    "href": element.get("href"),
+                    "selector": element.get("cssSelector") or element.get("xpath"),
+                    "description": element.get("description")
+                })
+            elif category == "authentication":
+                auth_elements.append({
+                    "type": element.get("type"),
+                    "selector": element.get("cssSelector") or element.get("xpath"),
+                    "description": element.get("description")
+                })
+        
+        return {
+            "url": extraction_data.get("url"),
+            "total_elements": len(elements),
+            "form_inputs": form_inputs,
+            "buttons": buttons,
+            "links": links,
+            "auth_elements": auth_elements,
+            "categories": list(elements_by_category.keys())
+        }
+    
+    async def _generate_feature_for_category(
+        self, 
+        context: Dict[str, Any],
+        category: str,
+        llm_analysis: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Generate Gherkin feature for a specific test category"""
+        
+        # Build category-specific prompt
+        prompt = self._build_category_prompt(context, category, llm_analysis)
+        
+        # Create messages for LLM
+        messages = [
+            {
+                "role": "system", 
+                "content": """You are an expert QA automation engineer specializing in BDD/Gherkin test creation.
+                Generate high-quality, comprehensive Gherkin scenarios following these principles:
+                1. Use clear, business-readable language
+                2. Follow Given-When-Then format strictly
+                3. Include both positive and negative test cases
+                4. Add appropriate tags for test organization
+                5. Include data tables for parameterized tests where applicable
+                6. Ensure scenarios are atomic and independent
+                7. Use Background for common setup steps
+                8. Follow the single responsibility principle - one scenario tests one thing
+                9. Make assertions specific and measurable
+                10. Include scenario outlines for data-driven tests"""
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+        
+        try:
+            # Call LLM
+            response = await asyncio.to_thread(
+                query_llm,
+                self.provider,
+                self.model,
+                messages
+            )
+            
+            if response and response.choices and response.choices[0].message.content:
+                content = response.choices[0].message.content
+                
+                # Parse the Gherkin content
+                return self._parse_gherkin_response(content, category)
+            
+        except Exception as e:
+            logger.error(f"Failed to generate {category} tests: {e}")
+            
+        return None
+    
+    def _build_category_prompt(
+        self, 
+        context: Dict[str, Any], 
+        category: str,
+        llm_analysis: Dict[str, Any]
+    ) -> str:
+        """Build category-specific prompt for LLM"""
+        
+        base_info = f"""
+Page URL: {context.get('url')}
+Total Elements: {context.get('total_elements')}
+
+Form Inputs:
+{json.dumps(context.get('form_inputs', []), indent=2)}
+
+Buttons:
+{json.dumps(context.get('buttons', []), indent=2)}
+
+Links:
+{json.dumps(context.get('links', []), indent=2)}
+"""
+        
+        category_prompts = {
+            "functional": f"""
+{base_info}
+
+Critical Flows from Analysis:
+{json.dumps(llm_analysis.get('critical_flows', []), indent=2)}
+
+Generate a comprehensive Gherkin feature file for FUNCTIONAL testing.
+Include scenarios for:
+1. Happy path user flows
+2. All critical user journeys
+3. Form submissions
+4. Navigation flows
+5. Data entry and submission
+
+Format as a complete .feature file with Feature description, Background (if needed), and multiple Scenarios.
+Use appropriate tags like @smoke, @regression, @critical.
+""",
+            
+            "validation": f"""
+{base_info}
+
+Validation Scenarios from Analysis:
+{json.dumps(llm_analysis.get('validation_scenarios', []), indent=2)}
+
+Generate a Gherkin feature file for VALIDATION testing.
+Include scenarios for:
+1. Required field validation
+2. Field format validation (email, phone, etc.)
+3. Length constraints
+4. Pattern matching
+5. Error message verification
+6. Boundary value testing
+
+Use Scenario Outlines with Examples tables for different test data.
+Include tags like @validation, @boundary, @negative.
+""",
+            
+            "edge_cases": f"""
+{base_info}
+
+Edge Cases from Analysis:
+{json.dumps(llm_analysis.get('edge_cases', []), indent=2)}
+
+Generate a Gherkin feature file for EDGE CASE testing.
+Include scenarios for:
+1. Special characters in inputs
+2. Very long input strings
+3. Empty/null values
+4. Unicode characters
+5. Concurrent operations
+6. Browser back/forward navigation
+7. Session timeout handling
+
+Focus on unusual but valid user behaviors.
+Use tags like @edge_case, @exploratory, @resilience.
+""",
+            
+            "security": f"""
+{base_info}
+
+Security Tests from Analysis:
+{json.dumps(llm_analysis.get('security_tests', []), indent=2)}
+
+Generate a Gherkin feature file for SECURITY testing.
+Include scenarios for:
+1. SQL injection attempts
+2. XSS (Cross-site scripting) prevention
+3. CSRF protection verification
+4. Authentication bypass attempts
+5. Authorization checks
+6. Session management
+7. Input sanitization
+
+Use tags like @security, @penetration, @vulnerability.
+Note: These are defensive security tests only.
+""",
+            
+            "accessibility": f"""
+{base_info}
+
+Accessibility Concerns from Analysis:
+{json.dumps(llm_analysis.get('accessibility_concerns', []), indent=2)}
+
+Generate a Gherkin feature file for ACCESSIBILITY testing.
+Include scenarios for:
+1. Keyboard navigation (Tab order)
+2. Screen reader compatibility
+3. ARIA labels and roles
+4. Focus management
+5. Color contrast verification
+6. Error announcement
+7. Form field associations
+
+Follow WCAG 2.1 AA guidelines.
+Use tags like @accessibility, @wcag, @a11y.
+""",
+            
+            "performance": f"""
+{base_info}
+
+Generate a Gherkin feature file for PERFORMANCE testing.
+Include scenarios for:
+1. Page load time verification
+2. Form submission response time
+3. Search/filter response time
+4. Concurrent user operations
+5. Large data handling
+6. Network latency simulation
+7. Resource usage monitoring
+
+Include specific performance thresholds.
+Use tags like @performance, @load, @stress.
+"""
+        }
+        
+        prompt = category_prompts.get(category, category_prompts["functional"])
+        prompt += """
+
+IMPORTANT: 
+- Generate ONLY the .feature file content, no explanations
+- Use realistic test data
+- Make selectors specific using the provided CSS selectors or element IDs
+- Each scenario should be complete and executable
+- Include at least 5-10 scenarios per feature
+"""
+        
+        return prompt
+    
+    def _parse_gherkin_response(self, content: str, category: str) -> Dict[str, Any]:
+        """Parse Gherkin content from LLM response"""
+        
+        # Extract feature content
+        feature_match = re.search(r'Feature:.*?(?=Feature:|$)', content, re.DOTALL)
+        if not feature_match:
+            # Try to use the entire content if no explicit Feature found
+            feature_content = content
+        else:
+            feature_content = feature_match.group(0)
+        
+        # Parse scenarios
+        scenarios = []
+        scenario_matches = re.findall(
+            r'(Scenario(?: Outline)?:.*?)(?=Scenario|Feature:|$)', 
+            feature_content, 
+            re.DOTALL
+        )
+        
+        for match in scenario_matches:
+            scenario_text = match[0] if isinstance(match, tuple) else match
+            
+            # Extract scenario title
+            title_match = re.search(r'Scenario(?: Outline)?:\s*(.+)', scenario_text)
+            title = title_match.group(1).strip() if title_match else "Untitled Scenario"
+            
+            # Extract tags
+            tags = re.findall(r'@(\w+)', scenario_text)
+            
+            # Extract steps
+            steps = []
+            for step_match in re.finditer(r'(Given|When|Then|And|But)\s+(.+)', scenario_text):
+                steps.append({
+                    "keyword": step_match.group(1),
+                    "text": step_match.group(2).strip()
+                })
+            
+            # Extract examples if it's a Scenario Outline
+            examples = None
+            examples_match = re.search(r'Examples?:\s*\n(.*?)(?=Scenario|$)', scenario_text, re.DOTALL)
+            if examples_match:
+                examples = examples_match.group(1).strip()
+            
+            scenarios.append({
+                "title": title,
+                "tags": tags,
+                "steps": steps,
+                "examples": examples,
+                "is_outline": "Scenario Outline" in scenario_text
+            })
+        
+        # Extract feature title and description
+        feature_title_match = re.search(r'Feature:\s*(.+)', feature_content)
+        feature_title = feature_title_match.group(1).strip() if feature_title_match else f"{category.title()} Tests"
+        
+        # Extract feature description (lines after Feature: before first tag or scenario)
+        desc_match = re.search(r'Feature:.*?\n\s*(.+?)(?=@|Scenario|Background)', feature_content, re.DOTALL)
+        feature_description = desc_match.group(1).strip() if desc_match else ""
+        
+        # Extract background if present
+        background = None
+        background_match = re.search(r'Background:(.*?)(?=Scenario|$)', feature_content, re.DOTALL)
+        if background_match:
+            background_steps = []
+            for step_match in re.finditer(r'(Given|When|Then|And|But)\s+(.+)', background_match.group(1)):
+                background_steps.append({
+                    "keyword": step_match.group(1),
+                    "text": step_match.group(2).strip()
+                })
+            background = background_steps
+        
+        return {
+            "category": category,
+            "feature_title": feature_title,
+            "feature_description": feature_description,
+            "background": background,
+            "scenarios": scenarios,
+            "raw_content": feature_content
+        }
+    
+    async def _generate_comprehensive_suite(
+        self, 
+        all_features: Dict[str, Any],
+        context: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Generate a comprehensive test suite summary"""
+        
+        # Create suite summary prompt
+        features_summary = {
+            category: {
+                "title": feature.get("feature_title"),
+                "scenarios_count": len(feature.get("scenarios", [])),
+                "has_background": feature.get("background") is not None
+            }
+            for category, feature in all_features.items()
+        }
+        
+        prompt = f"""
+Based on these generated test features:
+{json.dumps(features_summary, indent=2)}
+
+For the page: {context.get('url')}
+
+Create a comprehensive test suite summary including:
+1. Test execution strategy (order of execution, dependencies)
+2. Test data requirements
+3. Environment setup requirements
+4. Risk coverage assessment
+5. Recommended CI/CD integration approach
+6. Estimated execution time
+7. Maintenance considerations
+
+Format as JSON with these keys: 
+execution_strategy, data_requirements, setup_requirements, risk_coverage, 
+ci_cd_integration, estimated_time, maintenance_tips
+"""
+        
+        messages = [
+            {
+                "role": "system",
+                "content": "You are a QA architect designing comprehensive test strategies."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+        
+        try:
+            response = await asyncio.to_thread(
+                query_llm,
+                self.provider,
+                self.model,
+                messages
+            )
+            
+            if response and response.choices and response.choices[0].message.content:
+                content = response.choices[0].message.content
+                
+                # Try to parse JSON from response
+                try:
+                    json_match = re.search(r'\{.*\}', content, re.DOTALL)
+                    if json_match:
+                        return json.loads(json_match.group())
+                except:
+                    pass
+                
+                return {"summary": content}
+                
+        except Exception as e:
+            logger.error(f"Failed to generate suite summary: {e}")
+            
+        return {}
+    
+    def _calculate_statistics(self, all_features: Dict[str, Any]) -> Dict[str, Any]:
+        """Calculate test suite statistics"""
+        
+        total_scenarios = 0
+        total_steps = 0
+        scenario_outlines = 0
+        tags_used = set()
+        
+        for category, feature in all_features.items():
+            scenarios = feature.get("scenarios", [])
+            total_scenarios += len(scenarios)
+            
+            for scenario in scenarios:
+                total_steps += len(scenario.get("steps", []))
+                tags_used.update(scenario.get("tags", []))
+                if scenario.get("is_outline"):
+                    scenario_outlines += 1
+        
+        return {
+            "total_features": len(all_features),
+            "total_scenarios": total_scenarios,
+            "total_steps": total_steps,
+            "scenario_outlines": scenario_outlines,
+            "unique_tags": list(tags_used),
+            "categories_covered": list(all_features.keys())
+        }
+    
+    def save_feature_files(self, test_results: Dict[str, Any], output_dir: str = "."):
+        """Save generated features as .feature files
+        
+        Args:
+            test_results: The generated test results
+            output_dir: Directory to save feature files
+        """
+        
+        output_path = Path(output_dir)
+        output_path.mkdir(exist_ok=True)
+        
+        features = test_results.get("features", {})
+        
+        for category, feature in features.items():
+            filename = f"{category}_tests.feature"
+            filepath = output_path / filename
+            
+            # Write the raw Gherkin content
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(feature.get("raw_content", ""))
+            
+            logger.info(f"Saved {category} tests to {filepath}")
+        
+        # Save the complete test results as JSON
+        results_file = output_path / "test_generation_results.json"
+        with open(results_file, 'w', encoding='utf-8') as f:
+            json.dump(test_results, f, indent=2)
+        
+        logger.info(f"Saved complete results to {results_file}")
+
+
+async def generate_tests_from_url(
+    url: str,
+    categories: Optional[List[str]] = None,
+    save_files: bool = True
+) -> Dict[str, Any]:
+    """Generate Gherkin tests from a URL
+    
+    Args:
+        url: The URL to test
+        categories: Test categories to generate
+        save_files: Whether to save .feature files
+        
+    Returns:
+        Generated test results
+    """
+    
+    logger.info(f"Starting test generation for {url}")
+    
+    # Extract elements with LLM analysis
+    logger.info("Extracting elements from page...")
+    extraction_data = await extract_elements_from_url(url, analyze=True)
+    
+    # Generate Gherkin tests
+    logger.info("Generating Gherkin tests...")
+    generator = GherkinTestGenerator()
+    test_results = await generator.generate_gherkin_tests(extraction_data, categories)
+    
+    # Save feature files if requested
+    if save_files:
+        generator.save_feature_files(test_results)
+    
+    # Print summary
+    stats = test_results.get("statistics", {})
+    print(f"\n[TEST GENERATION COMPLETE]")
+    print(f"  Features Generated: {stats.get('total_features')}")
+    print(f"  Total Scenarios: {stats.get('total_scenarios')}")
+    print(f"  Total Steps: {stats.get('total_steps')}")
+    print(f"  Categories: {', '.join(stats.get('categories_covered', []))}")
+    
+    return test_results
+
+
+async def generate_from_extraction_file(
+    extraction_file: str,
+    categories: Optional[List[str]] = None,
+    save_files: bool = True
+) -> Dict[str, Any]:
+    """Generate Gherkin tests from saved extraction data
+    
+    Args:
+        extraction_file: Path to extraction JSON file
+        categories: Test categories to generate
+        save_files: Whether to save .feature files
+        
+    Returns:
+        Generated test results
+    """
+    
+    # Load extraction data
+    with open(extraction_file, 'r', encoding='utf-8') as f:
+        extraction_data = json.load(f)
+    
+    logger.info(f"Loaded extraction data from {extraction_file}")
+    
+    # Generate tests
+    generator = GherkinTestGenerator()
+    test_results = await generator.generate_gherkin_tests(extraction_data, categories)
+    
+    # Save feature files if requested
+    if save_files:
+        generator.save_feature_files(test_results)
+    
+    return test_results
+
+
+# Example usage
+if __name__ == "__main__":
+    async def main():
+        # Option 1: Generate from URL
+        # url = "https://quotes.toscrape.com/login"
+        # test_results = await generate_tests_from_url(url)
+        
+        # Option 2: Generate from saved extraction file
+        extraction_file = "llm_extraction_output.json"
+        
+        # Generate specific categories or all
+        categories = ["functional", "validation", "security", "accessibility"]
+        
+        print("[GHERKIN TEST GENERATION]")
+        print("=" * 50)
+        print(f"Using extraction: {extraction_file}")
+        print(f"Categories: {', '.join(categories)}")
+        print()
+        
+        test_results = await generate_from_extraction_file(
+            extraction_file,
+            categories=categories,
+            save_files=True
+        )
+        
+        # Display sample scenario
+        if test_results.get("features"):
+            first_category = list(test_results["features"].keys())[0]
+            first_feature = test_results["features"][first_category]
+            
+            print(f"\n[SAMPLE FEATURE - {first_category.upper()}]")
+            print("-" * 50)
+            print(first_feature.get("raw_content", "")[:1000])
+            print("...")
+        
+        print("\n[Files saved in current directory]")
+    
+    asyncio.run(main())</pre>
+</body>
+</html>

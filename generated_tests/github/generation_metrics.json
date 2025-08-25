@@ -1,0 +1,23 @@
+{
+  "result": {
+    "features": [],
+    "scenarios_count": 0,
+    "strategies_applied": [],
+    "improvement_metrics": {},
+    "generation_time": 4.8160552978515625e-05,
+    "success": false,
+    "errors": [
+      "EnhancedElement.__init__() got an unexpected keyword argument 'selector'. Did you mean 'selectors'?"
+    ],
+    "warnings": []
+  },
+  "metrics": {
+    "total_scenarios": 0,
+    "strategies_used": [],
+    "opro_iterations": 0,
+    "self_consistency_samples": 0,
+    "dspy_refinements": 0,
+    "average_generation_time": 0,
+    "expected_improvement": "78-157% over baseline (per research)"
+  }
+}

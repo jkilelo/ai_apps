@@ -1,0 +1,32 @@
+[
+  {
+    "scenario": "Invalid Model",
+    "expected_to_fail": true,
+    "actually_failed": true,
+    "error_type": "AttributeError",
+    "classified_error": "unknown",
+    "expected_error": "model_not_found",
+    "response_time": 4.187211513519287,
+    "error_message": "'types.SimpleNamespace' object has no attribute 'content'"
+  },
+  {
+    "scenario": "Excessive Token Request",
+    "expected_to_fail": true,
+    "actually_failed": true,
+    "error_type": "TypeError",
+    "classified_error": "invalid_request",
+    "expected_error": "invalid_request",
+    "response_time": 3.337860107421875e-06,
+    "error_message": "query_llm() got an unexpected keyword argument 'max_tokens'"
+  },
+  {
+    "scenario": "Invalid Temperature",
+    "expected_to_fail": true,
+    "actually_failed": true,
+    "error_type": "TypeError",
+    "classified_error": "invalid_parameter",
+    "expected_error": "invalid_parameter",
+    "response_time": 1.430511474609375e-06,
+    "error_message": "query_llm() got an unexpected keyword argument 'temperature'"
+  }
+]

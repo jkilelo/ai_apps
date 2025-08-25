@@ -1,0 +1,37 @@
+[
+  {
+    "strategy": "chain_of_thought",
+    "success": false,
+    "error": "'PromptEngine' object has no attribute 'execute_strategy'"
+  },
+  {
+    "strategy": "tree_of_thoughts",
+    "success": false,
+    "error": "'PromptEngine' object has no attribute 'execute_strategy'"
+  },
+  {
+    "strategy": "constitutional_ai",
+    "success": false,
+    "error": "'PromptEngine' object has no attribute 'execute_strategy'"
+  },
+  {
+    "strategy": "self_consistency",
+    "success": false,
+    "error": "'PromptEngine' object has no attribute 'execute_strategy'"
+  },
+  {
+    "strategy": "react",
+    "success": false,
+    "error": "'PromptEngine' object has no attribute 'execute_strategy'"
+  },
+  {
+    "strategy": "few_shot",
+    "success": false,
+    "error": "'PromptEngine' object has no attribute 'execute_strategy'"
+  },
+  {
+    "strategy": "opro",
+    "success": false,
+    "error": "'PromptEngine' object has no attribute 'execute_strategy'"
+  }
+]

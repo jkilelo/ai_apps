@@ -1,0 +1,189 @@
+{
+  "test_date": "2025-08-23T14:33:30.141794",
+  "module": "element_extractor_no_llm",
+  "summary": {
+    "total_sites_tested": 4,
+    "successful": 4,
+    "failed": 0,
+    "success_rate": 100.0,
+    "total_elements_extracted": 786,
+    "average_elements_per_site": 196.5,
+    "average_extraction_time": 40.89
+  },
+  "element_breakdown": {
+    "buttons": 16,
+    "links": 115,
+    "inputs": 0,
+    "forms": 1,
+    "images": 10,
+    "text": 568
+  },
+  "quality_metrics": {
+    "with_selectors": 4,
+    "with_attributes": 3,
+    "with_text": 4,
+    "with_hierarchy": 4
+  },
+  "by_category": {
+    "Bot Protection": {
+      "total": 1,
+      "success": 1,
+      "total_elements": 465,
+      "sites": [
+        "Cloudflare"
+      ]
+    },
+    "E-commerce": {
+      "total": 2,
+      "success": 2,
+      "total_elements": 310,
+      "sites": [
+        "Nike",
+        "Supreme"
+      ]
+    },
+    "Social Media": {
+      "total": 1,
+      "success": 1,
+      "total_elements": 11,
+      "sites": [
+        "Instagram"
+      ]
+    }
+  },
+  "by_difficulty": {
+    "high": {
+      "total": 1,
+      "success": 1
+    },
+    "very_high": {
+      "total": 2,
+      "success": 2
+    },
+    "extreme": {
+      "total": 1,
+      "success": 1
+    }
+  },
+  "best_extraction": {
+    "site": "Cloudflare",
+    "elements": 465,
+    "time": 75.48
+  },
+  "worst_extraction": {
+    "site": "Instagram",
+    "elements": 11,
+    "time": 5.98
+  },
+  "failed_sites": [],
+  "detailed_results": [
+    {
+      "id": 1,
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com",
+      "category": "Bot Protection",
+      "difficulty": "high",
+      "protection_system": "Cloudflare",
+      "timestamp": "2025-08-23T14:30:40.579780",
+      "success": true,
+      "error": null,
+      "extraction_time": 75.48,
+      "elements_extracted": {
+        "total": 465,
+        "buttons": 10,
+        "links": 52,
+        "inputs": 0,
+        "forms": 0,
+        "images": 7,
+        "text": 377
+      },
+      "extraction_quality": {
+        "has_selectors": true,
+        "has_attributes": true,
+        "has_text": true,
+        "has_hierarchy": true
+      }
+    },
+    {
+      "id": 4,
+      "name": "Nike",
+      "url": "https://www.nike.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "protection_system": "Akamai + Custom",
+      "timestamp": "2025-08-23T14:31:58.065149",
+      "success": true,
+      "error": null,
+      "extraction_time": 77.43,
+      "elements_extracted": {
+        "total": 232,
+        "buttons": 5,
+        "links": 40,
+        "inputs": 0,
+        "forms": 1,
+        "images": 3,
+        "text": 150
+      },
+      "extraction_quality": {
+        "has_selectors": true,
+        "has_attributes": true,
+        "has_text": true,
+        "has_hierarchy": true
+      }
+    },
+    {
+      "id": 5,
+      "name": "Supreme",
+      "url": "https://www.supreme.com",
+      "category": "E-commerce",
+      "difficulty": "extreme",
+      "protection_system": "PerimeterX",
+      "timestamp": "2025-08-23T14:33:17.498533",
+      "success": true,
+      "error": null,
+      "extraction_time": 4.65,
+      "elements_extracted": {
+        "total": 78,
+        "buttons": 1,
+        "links": 23,
+        "inputs": 0,
+        "forms": 0,
+        "images": 0,
+        "text": 30
+      },
+      "extraction_quality": {
+        "has_selectors": true,
+        "has_attributes": false,
+        "has_text": true,
+        "has_hierarchy": true
+      }
+    },
+    {
+      "id": 10,
+      "name": "Instagram",
+      "url": "https://www.instagram.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "timestamp": "2025-08-23T14:33:24.158787",
+      "success": true,
+      "error": null,
+      "extraction_time": 5.98,
+      "elements_extracted": {
+        "total": 11,
+        "buttons": 0,
+        "links": 0,
+        "inputs": 0,
+        "forms": 0,
+        "images": 0,
+        "text": 11
+      },
+      "extraction_quality": {
+        "has_selectors": true,
+        "has_attributes": true,
+        "has_text": true,
+        "has_hierarchy": true
+      }
+    }
+  ]
+}
