@@ -1,0 +1,17 @@
+[
+  {
+    "profile": "E-Commerce Browsing",
+    "success": false,
+    "error": "'dict' object has no attribute 'headless'"
+  },
+  {
+    "profile": "Social Media Automation",
+    "success": false,
+    "error": "'dict' object has no attribute 'headless'"
+  },
+  {
+    "profile": "Research Data Collection",
+    "success": false,
+    "error": "'dict' object has no attribute 'headless'"
+  }
+]

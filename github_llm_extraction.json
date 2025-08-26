@@ -1,0 +1,590 @@
+{
+  "url": "https://example.com",
+  "elements": [
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "text": "More information...",
+      "value": null,
+      "attributes": {
+        "href": "https://www.iana.org/domains/example"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "a:has-text('More information...')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "/html/body/div[1]/p[2]/a[1]",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "a",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "/html/body/div[1]/p[2]/a[1]",
+      "css_path": "a",
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "is_clickable": true,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.8289268,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "text": "More information...",
+      "value": null,
+      "attributes": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(56, 72, 143)",
+        "fontSize": "16px",
+        "zIndex": "auto"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "a:has-text('More information...')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//a",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "a",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//a",
+      "css_path": "a",
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.8289304,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "text": "More information...",
+      "value": null,
+      "attributes": {
+        "ariaExpanded": null,
+        "ariaSelected": null,
+        "ariaChecked": null,
+        "ariaHidden": null,
+        "ariaControls": null,
+        "accessibleName": "More information...",
+        "isRequired": false,
+        "isReadOnly": false
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "a:has-text('More information...')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//a[@role='a']",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "[role='a']",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//a[@role='a']",
+      "css_path": "[role='a']",
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.8289375,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "p",
+      "element_type": "paragraph",
+      "text": "This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission.",
+      "value": null,
+      "attributes": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "16px",
+        "zIndex": "auto"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "p:has-text('This domain is for use in illustrative examples in')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//p",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "p",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//p",
+      "css_path": "p",
+      "interaction_types": [
+        "none"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.8289216,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "p",
+      "element_type": "paragraph",
+      "text": "More information...",
+      "value": null,
+      "attributes": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "16px",
+        "zIndex": "auto"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "p:has-text('More information...')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//p",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "p",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//p",
+      "css_path": "p",
+      "interaction_types": [
+        "none"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.828934,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "html",
+      "element_type": "unknown",
+      "text": "Example Domain\n\n    \n    \n    \n    \n    body {\n        background-color: #f0f0f2;\n        margin: 0;\n        padding: 0;\n        font-family: -apple-system, system-ui, BlinkMacSystemFont, \"Segoe",
+      "value": null,
+      "attributes": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "16px",
+        "zIndex": "auto"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "html:has-text('Example Domain\n\n    \n    \n    \n    \n    body {\n   ')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//html",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "html",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//html",
+      "css_path": "html",
+      "interaction_types": [
+        "none"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.8288872,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "body",
+      "element_type": "unknown",
+      "text": "Example Domain\n    This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission.\n    More informati",
+      "value": null,
+      "attributes": {
+        "backgroundColor": "rgb(240, 240, 242)",
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "16px",
+        "zIndex": "auto"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "body:has-text('Example Domain\n    This domain is for use in illus')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//body",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "body",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//body",
+      "css_path": "body",
+      "interaction_types": [
+        "none"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.828903,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "div",
+      "element_type": "unknown",
+      "text": "Example Domain\n    This domain is for use in illustrative examples in documents. You may use this\n    domain in literature without prior coordination or asking for permission.\n    More informatio",
+      "value": null,
+      "attributes": {
+        "backgroundColor": "rgb(253, 253, 255)",
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "16px",
+        "zIndex": "auto"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "div:has-text('Example Domain\n    This domain is for use in illus')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//div",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "div",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//div",
+      "css_path": "div",
+      "interaction_types": [
+        "none"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.8289106,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    },
+    {
+      "tag_name": "h1",
+      "element_type": "heading",
+      "text": "Example Domain",
+      "value": null,
+      "attributes": {
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "32px",
+        "zIndex": "auto"
+      },
+      "bounding_box": null,
+      "computed_style": null,
+      "selectors": [
+        {
+          "strategy": "text-content",
+          "value": "h1:has-text('Example Domain')",
+          "score": 0.5,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "xpath",
+          "value": "//h1",
+          "score": 0.4,
+          "is_unique": false,
+          "parent_context": null
+        },
+        {
+          "strategy": "css-selector",
+          "value": "h1",
+          "score": 0.3,
+          "is_unique": false,
+          "parent_context": null
+        }
+      ],
+      "xpath": "//h1",
+      "css_path": "h1",
+      "interaction_types": [
+        "none"
+      ],
+      "is_clickable": false,
+      "is_enabled": true,
+      "is_editable": false,
+      "confidence": 0.9999999999999999,
+      "stability_score": 0.0,
+      "extraction_method": "dom_query",
+      "extraction_timestamp": 1756166096.8289163,
+      "is_shadow_element": false,
+      "is_iframe_element": false,
+      "shadow_host": null,
+      "frame_url": null,
+      "is_valid": true,
+      "validation_issues": []
+    }
+  ],
+  "extraction_time": 7.902236461639404,
+  "success": true,
+  "errors": [],
+  "warnings": [],
+  "statistics": {
+    "total_elements": 9,
+    "extraction_time": 7.902077674865723,
+    "element_types": {
+      "unknown": 3,
+      "heading": 1,
+      "paragraph": 2,
+      "link": 3
+    },
+    "avg_confidence": 0.9999999999999998,
+    "min_confidence": 0.9999999999999999,
+    "max_confidence": 0.9999999999999999,
+    "selector_strategies": {
+      "text-content": 9
+    },
+    "extraction_methods": {
+      "dom_query": 9
+    },
+    "shadow_elements": 0,
+    "iframe_elements": 0,
+    "clickable_elements": 1,
+    "editable_elements": 0
+  },
+  "screenshots": [],
+  "metadata": {
+    "config": {
+      "enable_shadow_dom": true,
+      "enable_iframe_traversal": true,
+      "enable_dynamic_wait": true,
+      "enable_mutation_observer": false,
+      "max_depth": 10,
+      "max_elements": 30,
+      "extraction_timeout": 20000,
+      "filter_invisible": true,
+      "filter_duplicates": true,
+      "min_element_size": 5,
+      "enable_stealth": true,
+      "randomize_delays": true,
+      "min_delay": 0.1,
+      "max_delay": 0.5,
+      "batch_size": 100,
+      "enable_caching": true,
+      "cache_ttl": 3600,
+      "include_computed_styles": true,
+      "include_accessibility_info": true,
+      "include_event_listeners": false,
+      "capture_screenshots": true,
+      "screenshot_full_page": true,
+      "screenshot_format": "png",
+      "screenshot_quality": 90,
+      "highlight_elements": true,
+      "highlight_color": "red",
+      "highlight_width": 2
+    },
+    "timestamp": 1756166096.829234,
+    "ai_enhancement": {
+      "semantic_context": {
+        "page_purpose": null,
+        "page_type": null,
+        "user_intent": null,
+        "interaction_flow": [],
+        "key_actions": [],
+        "domain_context": null,
+        "language": "en",
+        "cultural_context": null
+      },
+      "strategies_used": [
+        "dom_analysis",
+        "semantic_understanding",
+        "visual_ai_analysis",
+        "context_aware_extraction",
+        "accessibility_analysis",
+        "interaction_prediction"
+      ],
+      "llm_provider": "openai",
+      "confidence_threshold": 0.7,
+      "enhancement_time": 18.127938508987427
+    }
+  }
+}

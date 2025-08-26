@@ -1,0 +1,77 @@
+{
+  "templates": {
+    "research_and_plan": {
+      "strategy": "tree_of_thoughts",
+      "template": "## Research Phase\n\n### Branch 1: Understanding Current State\n- Analyze existing code structure\n- Identify dependencies and relationships\n- Document current functionality\n\n### Branch 2: Problem Analysis\n- Define the core problem/requirement\n- Identify constraints and edge cases\n- Consider performance implications\n\n### Branch 3: Solution Design\n- Explore multiple implementation approaches\n- Evaluate trade-offs of each approach\n- Select optimal solution with justification\n\n## Planning Phase\n\n1. **Prerequisites**\n   - Required imports/dependencies\n   - Environment setup needed\n   - Potential breaking changes\n\n2. **Implementation Steps**\n   - [ ] Step 1: {specific_action}\n   - [ ] Step 2: {specific_action}\n   - [ ] Step 3: {specific_action}\n\n3. **Testing Strategy**\n   - Unit tests required\n   - Integration points to verify\n   - Performance benchmarks\n\n4. **Documentation Updates**\n   - Files to update\n   - New documentation needed\n   - API changes to document",
+      "use_for": ["new_features", "complex_refactoring", "architecture_changes"]
+    },
+    
+    "debug_with_react": {
+      "strategy": "react",
+      "template": "## Debugging with ReAct Pattern\n\n**Thought 1**: What is the observed behavior?\n- Error message: {error}\n- Expected behavior: {expected}\n- Current behavior: {actual}\n\n**Action 1**: Examine the error context\n```bash\n{examine_command}\n```\n\n**Observation 1**: {observation}\n\n**Thought 2**: What could be causing this?\n- Hypothesis 1: {hypothesis}\n- Hypothesis 2: {hypothesis}\n- Most likely cause: {likely_cause}\n\n**Action 2**: Test the hypothesis\n```python\n{test_code}\n```\n\n**Observation 2**: {result}\n\n**Thought 3**: How to fix it?\n- Solution approach: {approach}\n- Implementation: {implementation}\n\n**Action 3**: Apply the fix\n```python\n{fix_code}\n```\n\n**Final Observation**: Verify the fix works",
+      "use_for": ["debugging", "error_investigation", "performance_issues"]
+    },
+    
+    "generate_with_constitutional_ai": {
+      "strategy": "constitutional_ai",
+      "template": "## Code Generation with Constitutional Principles\n\n### Constitutional Principles\n1. **Security First**: No exposed secrets, sanitized inputs\n2. **Clean Architecture**: Separation of concerns, single responsibility\n3. **Defensive Programming**: Comprehensive error handling\n4. **Performance Aware**: Optimize for common cases\n5. **Maintainable**: Clear naming, good documentation\n\n### Generation Request\n**Task**: {task_description}\n\n### Implementation\n\n#### Step 1: Design with Principles\n- Apply Principle 1: {security_consideration}\n- Apply Principle 2: {architecture_consideration}\n- Apply Principle 3: {error_handling_approach}\n- Apply Principle 4: {performance_optimization}\n- Apply Principle 5: {maintainability_approach}\n\n#### Step 2: Generate Code\n```python\n{generated_code}\n```\n\n#### Step 3: Principle Validation\n- [ ] Security check: No hardcoded secrets\n- [ ] Architecture check: Clear separation\n- [ ] Error handling: Try-except blocks present\n- [ ] Performance: No obvious bottlenecks\n- [ ] Readability: Clear variable names\n\n#### Step 4: Refinement\n{refinements_based_on_validation}",
+      "use_for": ["code_generation", "api_design", "security_features"]
+    },
+    
+    "optimize_with_self_consistency": {
+      "strategy": "self_consistency",
+      "template": "## Optimization Through Self-Consistency\n\n### Multiple Solution Paths\n\n#### Path 1: Performance Optimization\n```python\n{performance_solution}\n```\n- Pros: {pros}\n- Cons: {cons}\n- Confidence: {score}/10\n\n#### Path 2: Memory Optimization\n```python\n{memory_solution}\n```\n- Pros: {pros}\n- Cons: {cons}\n- Confidence: {score}/10\n\n#### Path 3: Readability Optimization\n```python\n{readability_solution}\n```\n- Pros: {pros}\n- Cons: {cons}\n- Confidence: {score}/10\n\n### Consistency Analysis\n- Common elements across all paths: {common_elements}\n- Divergent approaches: {divergences}\n- Convergence point: {best_combined_approach}\n\n### Final Optimized Solution\n```python\n{final_solution}\n```\n\n### Validation\n- Performance benchmark: {benchmark}\n- Memory usage: {memory}\n- Code complexity: {complexity}\n- Test coverage: {coverage}%",
+      "use_for": ["optimization", "refactoring", "performance_tuning"]
+    },
+    
+    "analyze_with_meta_prompting": {
+      "strategy": "meta_prompting",
+      "template": "## Meta-Level Analysis\n\n### Level 1: Direct Analysis\n**Question**: {primary_question}\n**Answer**: {direct_answer}\n\n### Level 2: Analysis of Analysis\n**Meta-Question**: How comprehensive was the Level 1 analysis?\n- Coverage: {aspects_covered}\n- Gaps: {aspects_missed}\n- Biases: {identified_biases}\n\n### Level 3: Optimal Analysis Strategy\n**Meta-Meta-Question**: What would be the ideal way to analyze this?\n\n1. **Framework Selection**\n   - Best framework for this type: {framework}\n   - Why this framework: {justification}\n\n2. **Analysis Dimensions**\n   - Technical: {technical_aspects}\n   - Business: {business_aspects}\n   - User Experience: {ux_aspects}\n   - Maintainability: {maintenance_aspects}\n\n3. **Synthesis Method**\n   - How to combine insights: {synthesis_approach}\n   - Priority weighting: {priorities}\n\n### Level 4: Enhanced Analysis\n{enhanced_analysis_using_optimal_strategy}\n\n### Meta-Insights\n- Key learning: {learning}\n- Process improvement: {improvement}\n- Future application: {future_use}",
+      "use_for": ["complex_analysis", "architecture_review", "decision_making"]
+    }
+  },
+  
+  "strategy_selector": {
+    "rules": [
+      {
+        "condition": "task_complexity == 'simple'",
+        "strategy": "chain_of_thought"
+      },
+      {
+        "condition": "task_complexity == 'moderate' && task_type == 'analytical'",
+        "strategy": "self_consistency"
+      },
+      {
+        "condition": "task_complexity == 'complex'",
+        "strategy": "tree_of_thoughts"
+      },
+      {
+        "condition": "task_complexity == 'paradoxical'",
+        "strategy": "meta_prompting"
+      },
+      {
+        "condition": "task_type == 'debugging'",
+        "strategy": "react"
+      },
+      {
+        "condition": "task_type == 'code_generation'",
+        "strategy": "constitutional_ai"
+      },
+      {
+        "condition": "requires_exploration",
+        "strategy": "tree_of_thoughts"
+      },
+      {
+        "condition": "requires_validation",
+        "strategy": "self_consistency"
+      }
+    ]
+  },
+  
+  "combinations": {
+    "ultimate_problem_solver": ["tree_of_thoughts", "self_consistency", "meta_prompting"],
+    "robust_code_generator": ["constitutional_ai", "self_consistency", "chain_of_thought"],
+    "deep_debugger": ["react", "tree_of_thoughts", "chain_of_thought"],
+    "architecture_designer": ["meta_prompting", "tree_of_thoughts", "constitutional_ai"]
+  }
+}

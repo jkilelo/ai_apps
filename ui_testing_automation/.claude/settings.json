@@ -1,0 +1,205 @@
+{
+  "version": "1.0.0",
+  "name": "UI Testing Automation Framework",
+  "description": "Production-ready web automation with AI-powered analysis",
+  
+  "permissions": {
+    "allowlist": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(npm install:*)",
+      "Bash(git:*)",
+      "Bash(mypy:*)",
+      "Bash(flake8:*)",
+      "Bash(black:*)",
+      "Bash(pytest:*)",
+      "Bash(.venv\\Scripts\\python.exe:*)",
+      "Bash(playwright:*)",
+      "WebSearch",
+      "WebFetch",
+      "TodoWrite"
+    ],
+    "auto_approve_patterns": [
+      "test_*.py",
+      "*_test.py",
+      "*.md",
+      ".env.example"
+    ],
+    "require_confirmation": [
+      "Bash(rm:*)",
+      "Bash(del:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ]
+  },
+  
+  "behavior": {
+    "auto_research": true,
+    "plan_before_code": true,
+    "test_after_implementation": true,
+    "commit_style": "conventional",
+    "documentation_level": "comprehensive",
+    "error_handling": "defensive",
+    "optimization_level": "balanced"
+  },
+  
+  "code_style": {
+    "language_defaults": {
+      "python": {
+        "formatter": "black",
+        "linter": "flake8",
+        "type_checker": "mypy",
+        "max_line_length": 120,
+        "docstring_style": "google",
+        "import_order": "isort"
+      }
+    },
+    "naming_conventions": {
+      "classes": "PascalCase",
+      "functions": "snake_case",
+      "constants": "UPPER_SNAKE_CASE",
+      "private": "_leading_underscore"
+    }
+  },
+  
+  "project_specific": {
+    "virtual_env": ".venv",
+    "test_command": "python test_integration_complete.py",
+    "main_modules": [
+      "browser.py",
+      "llm.py",
+      "prompts.py",
+      "browser_with_llm.py"
+    ],
+    "architecture": {
+      "layer_0": ["browser.py", "llm.py", "prompts.py"],
+      "layer_1": ["browser_with_llm.py"],
+      "layer_2": [
+        "elements_extractor_no_llm.py",
+        "elements_extractor_with_llm.py",
+        "test_generation_with_llm.py",
+        "code_generation_with_llm.py"
+      ]
+    }
+  },
+  
+  "ai_strategies": {
+    "default_strategy": "chain_of_thought",
+    "complex_tasks": ["tree_of_thoughts", "meta_prompting"],
+    "code_generation": "constitutional_ai",
+    "debugging": "react",
+    "optimization": "self_consistency"
+  },
+  
+  "shortcuts": {
+    "test": "python test_integration_complete.py",
+    "typecheck": "mypy {file} --ignore-missing-imports --strict",
+    "lint": "flake8 {file} --max-line-length=120",
+    "format": "black {file} --line-length=120",
+    "health": "python -c \"from browser import UltimateStealthBrowser; from llm import call_default_llm; from prompts import PromptEngine; print('✅ Health check passed')\""
+  },
+  
+  "mcp_servers": {
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "scope": "user",
+      "description": "Persistent memory across sessions"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "--root", "."],
+      "scope": "project",
+      "description": "Enhanced file operations"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "scope": "user",
+      "description": "GitHub integration for issues and PRs"
+    }
+  },
+  
+  "workflows": {
+    "new_feature": [
+      "research",
+      "create_plan",
+      "implement",
+      "test",
+      "document",
+      "commit"
+    ],
+    "bug_fix": [
+      "reproduce",
+      "analyze",
+      "fix",
+      "test",
+      "verify",
+      "commit"
+    ],
+    "refactor": [
+      "analyze_current",
+      "plan_changes",
+      "implement",
+      "ensure_no_regression",
+      "update_docs",
+      "commit"
+    ]
+  },
+  
+  "quality_gates": {
+    "pre_commit": [
+      "mypy --strict",
+      "flake8 --max-line-length=120",
+      "black --check",
+      "python test_integration_complete.py"
+    ],
+    "coverage_minimum": 80,
+    "complexity_threshold": 10
+  },
+  
+  "prompt_optimization": {
+    "enabled": true,
+    "auto_optimize": true,
+    "min_quality_score": 80,
+    "preferred_strategies": [
+      "constitutional_ai",
+      "self_consistency",
+      "meta_prompting",
+      "tree_of_thoughts"
+    ],
+    "templates": {
+      "code_generation": ".claude/prompt_templates/code_generation_template.md",
+      "qa_review": ".claude/prompt_templates/qa_review_template.md",
+      "integration": ".claude/prompt_templates/integration_template.md"
+    },
+    "historical_analysis": ".claude/prompt_analysis_report.md",
+    "optimizer_path": ".claude/prompt_optimizer.py"
+  },
+  
+  "effective_patterns": {
+    "expert_role": {
+      "effectiveness": 95,
+      "template": "You are an expert {role} with 30+ years of experience"
+    },
+    "explicit_criteria": {
+      "effectiveness": 92,
+      "template": "Success Criteria:\n- [ ] {criterion}"
+    },
+    "strategy_reference": {
+      "effectiveness": 90,
+      "template": "Apply {strategies} from master_prompt_strategies"
+    },
+    "dry_enforcement": {
+      "effectiveness": 85,
+      "template": "DRY: Reuse {modules}. Never duplicate {avoid}"
+    },
+    "progressive_refinement": {
+      "effectiveness": 88,
+      "template": "Phase 1: {task1}\nPhase 2: {task2}\nPhase 3: {task3}"
+    }
+  }
+}

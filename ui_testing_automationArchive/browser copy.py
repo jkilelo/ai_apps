@@ -2,22 +2,14 @@
 """
 Ultimate Stealth Browser - Comprehensive unified browser automation with maximum anti-detection.
 """
-# Standard library imports
-import asyncio
+# Security imports
 import hashlib
-import json
-import logging
-import os
-import platform
-import random
-import sys
-import time
-from abc import ABC, abstractmethod
-from dataclasses import dataclass, field, asdict
-from datetime import datetime
-from enum import Enum
 from functools import wraps
-from typing import Optional, Dict, List, Any, Union, Tuple, Callable, TypeVar
+import asyncio
+from asyncio import Semaphore, Lock
+from typing import Optional, Dict, List, Any, Union, Tuple, Callable, TypeVar, cast
+from dataclasses import dataclass, field
+import logging
 
 # Configure secure logging
 logging.basicConfig(
@@ -30,8 +22,45 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def monitor_performance(func: Callable) -> Callable:
+    """Decorator to monitor function performance"""
+    @wraps(func)
+    async def wrapper(self, *args, **kwargs):
+        start_time = time.time()
+        try:
+            result = await func(self, *args, **kwargs)
+            self._metrics['requests_success'] += 1
+            return result
+        except Exception as e:
+            self._metrics['requests_failed'] += 1
+            self._metrics['errors'].append(str(e)[:100])
+            raise
+        finally:
+            elapsed = time.time() - start_time
+            self._metrics['requests_total'] += 1
+            # Update rolling average
+            n = self._metrics['requests_total']
+            self._metrics['avg_response_time'] = (
+                (self._metrics['avg_response_time'] * (n - 1) + elapsed) / n
+            )
+    return wrapper
+
+
 # Type variables for generic typing
 T = TypeVar('T')
+
+import sys
+import os
+import platform
+import re
+import random
+import json
+import time
+from abc import ABC, abstractmethod
+from datetime import datetime
+from enum import Enum
+from collections import defaultdict
+from pathlib import Path
 
 # Add path for utils module
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -47,9 +76,11 @@ try:
     HAS_NUMPY = True
 except ImportError:
     HAS_NUMPY = False
+    
 try:
     from playwright.async_api import (
-        BrowserContext, Page, async_playwright
+        Browser, BrowserContext, Page, ElementHandle,
+        Error as PlaywrightError, async_playwright
     )
     HAS_PLAYWRIGHT = True
 except ImportError:
@@ -57,13 +88,19 @@ except ImportError:
     print("Warning: Playwright not installed. Install with: pip install playwright")
 
 try:
-    from pydantic import BaseModel, Field
+    from pydantic import BaseModel, Field, field_validator, ConfigDict
     HAS_PYDANTIC = True
 except ImportError:
     HAS_PYDANTIC = False
-    BaseModel = object  # type: ignore
-    def Field(*args, **kwargs) -> None: return None
+    BaseModel = object
+    Field = lambda *args, **kwargs: None
 
+# Configure structured logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='{"time":"%(asctime)s","level":"%(levelname)s","module":"%(name)s","message":"%(message)s"}'
+)
+logger = logging.getLogger(__name__)
 
 # ============================================================================
 # FOUNDATION LAYER - Configuration and Data Models
@@ -90,29 +127,6 @@ class ExtractionStrategy(Enum):
     HYBRID = "hybrid"
 
 
-def monitor_performance(func: Callable[..., Any]) -> Callable[..., Any]:
-    """Decorator to monitor function performance"""
-    @wraps(func)
-    async def wrapper(self, *args, **kwargs):
-        start_time = time.time()
-        try:
-            result = await func(self, *args, **kwargs)
-            self._metrics['requests_success'] += 1
-            return result
-        except Exception as e:
-            self._metrics['requests_failed'] += 1
-            self._metrics['errors'].append(str(e)[:100])
-            raise
-        finally:
-            elapsed = time.time() - start_time
-            self._metrics['requests_total'] += 1
-            # Update rolling average
-            n = self._metrics['requests_total']
-            self._metrics['avg_response_time'] = (
-                (self._metrics['avg_response_time'] * (n - 1) + elapsed) / n
-            )
-    return wrapper
-
 
 # ============================================================================
 # BROWSER PROFILES SYSTEM (from ui_testing_v2/core/browser_profiles.py)
@@ -129,11 +143,11 @@ class ProfileType(str, Enum):
 @dataclass
 class TimingProfile:
     """Timing configuration for human-like behavior"""
-    element_analysis_delay: Tuple[int, int] = (10, 50)  # min, max in ms
-    cookie_consent_wait: Tuple[int, int] = (1500, 2500)
-    cookie_button_hover: Tuple[int, int] = (300, 700)
-    cookie_post_click: Tuple[int, int] = (500, 1000)
-    trust_initial_wait: Tuple[int, int] = (2000, 4000)
+    element_analysis_delay: tuple = (10, 50)  # min, max in ms
+    cookie_consent_wait: tuple = (1500, 2500)
+    cookie_button_hover: tuple = (300, 700)
+    cookie_post_click: tuple = (500, 1000)
+    trust_initial_wait: tuple = (2000, 4000)
     trust_link_hover: tuple = (500, 1000)
     trust_scroll_pause: tuple = (500, 2000)
     stability_initial: tuple = (500, 1500)
@@ -1071,7 +1085,7 @@ class StealthInjector:
 class HumanSimulator:
     """Advanced human behavior simulation"""
     
-    def __init__(self, config: StealthConfig) -> None:
+    def __init__(self, config: StealthConfig) -> Any:
         self.config = config
         self.last_action_time = time.time()
         
@@ -1156,7 +1170,7 @@ class HumanSimulator:
                 await page.mouse.move(x, y)
                 await asyncio.sleep(random.uniform(0.01, 0.03))
     
-    def _generate_bspline_points(self, x1: float, y1: float, x2: float, y2: float) -> List[Dict[str, int]]:
+    def _generate_bspline_points(self, x1: float, y1: float, x2: float, y2: float) -> List[Dict[str, float]]:
         """Generate B-spline curve points for smooth mouse movement"""
         
         points = []
@@ -1227,10 +1241,10 @@ class HumanSimulator:
                 # Make typo
                 wrong_char = random.choice('abcdefghijklmnopqrstuvwxyz')
                 await element.type(wrong_char)
-                await asyncio.sleep(random.randint(100, 300) / 1000.0)
+                await asyncio.sleep(random.randint(100, 300) / 1000)
                 # Correct it
                 await page.keyboard.press('Backspace')
-                await asyncio.sleep(random.randint(50, 150) / 1000.0)
+                await asyncio.sleep(random.randint(50, 150) / 1000)
     
     async def simulate_scrolling(self, page: Page) -> Any:
         """Simulate human-like scrolling behavior"""
@@ -1415,7 +1429,7 @@ class DetectionSystem:
     async def detect_captcha(page: Page) -> Dict[str, Any]:
         """Detect CAPTCHA presence and type"""
         
-        captcha_info: Dict[str, Any] = {
+        captcha_info = {
             'detected': False,
             'type': None,
             'selectors': [],
@@ -1501,6 +1515,7 @@ class DetectionSystem:
                         )
                         break
                 except (AttributeError, KeyError, ValueError, TypeError) as e:
+
                     logger.debug(f"Handled expected error: {e}")
                     continue
             
@@ -1584,7 +1599,7 @@ class DetectionSystem:
 class ContextMonitor:
     """Monitor and maintain browser context stability"""
     
-    def __init__(self, page: Page) -> None:
+    def __init__(self, page: Page) -> Any:
         self.page = page
         self.stable = True
         self.last_check = time.time()
@@ -1605,13 +1620,13 @@ class ContextMonitor:
         except Exception as e:
             logger.error(f"Failed to start monitoring: {e}")
     
-    def _on_crash(self, page: Page) -> None:
+    def _on_crash(self) -> Any:
         """Handle page crash"""
         self.stable = False
         self.error_count += 1
         logger.error("Page crashed - attempting recovery")
     
-    def _on_error(self, error: Exception) -> None:
+    def _on_error(self, error) -> Any:
         """Handle page errors"""
         self.error_count += 1
         logger.warning(f"Page error: {error}")
@@ -3263,52 +3278,48 @@ if __name__ == "__main__":
         async def run_examples():
             """Run 2 automatic examples."""
             
-            # Example 1: Extract elements from example.com (fast site)
-            print("\n[Example 1] Extracting elements from example.com")
+            # Example 1: Extract elements from GitHub
+            print("\n[Example 1] Extracting elements from GitHub")
             print("-" * 40)
             try:
                 config = StealthConfig()
                 config.headless = True
-                config.level = StealthLevel.BASIC  # Faster with basic level
-                config.request_timeout = 5000  # 5 second timeout
+                config.level = StealthLevel.HIGH
                 browser = UltimateStealthBrowser(config)
                 await browser.initialize()
                 
-                result = await browser.extract_elements("https://example.com")
-                print(f"[SUCCESS] Extracted {len(result.elements)} elements from example.com")
+                result = await browser.extract_elements("https://github.com/trending")
+                print(f"[SUCCESS] Extracted {len(result.elements)} elements from GitHub Trending")
                 print(f"   - Links found: {len([e for e in result.elements if e.tag_name == 'a'])}")
-                print(f"   - Headers found: {len([e for e in result.elements if e.tag_name in ['h1', 'h2', 'h3']])}")
-                print(f"   - Paragraphs: {len([e for e in result.elements if e.tag_name == 'p'])}")
+                print(f"   - Buttons found: {len([e for e in result.elements if e.tag_name == 'button'])}")
+                print(f"   - Input fields: {len([e for e in result.elements if e.tag_name == 'input'])}")
                 
                 await browser.cleanup()
             except Exception as e:
                 print(f"[FAILED] Example 1 failed: {e}")
             
-            # Example 2: Extract elements from httpbin.org (lightweight API test site)
-            print("\n[Example 2] Extracting elements from httpbin.org")
+            # Example 2: Extract elements from Python.org
+            print("\n[Example 2] Extracting elements from Python.org")
             print("-" * 40)
             try:
                 config = StealthConfig()
                 config.headless = True
-                config.level = StealthLevel.BASIC  # Basic level for speed
+                config.level = StealthLevel.ENHANCED
                 config.block_media = True  # Block images for faster loading
-                config.request_timeout = 5000  # 5 second timeout
                 browser = UltimateStealthBrowser(config)
                 await browser.initialize()
                 
-                result = await browser.extract_elements("https://httpbin.org/")
-                print(f"[SUCCESS] Extracted {len(result.elements)} elements from httpbin.org")
-                print(f"   - Links found: {len([e for e in result.elements if e.tag_name == 'a'])}")
-                print(f"   - List items: {len([e for e in result.elements if e.tag_name == 'li'])}")
-                print(f"   - Headers: {len([e for e in result.elements if e.tag_name in ['h1', 'h2', 'h3']])}")
+                result = await browser.extract_elements("https://www.python.org/")
+                print(f"[SUCCESS] Extracted {len(result.elements)} elements from Python.org")
+                print(f"   - Navigation links: {len([e for e in result.elements if 'nav' in (e.attributes.get('class', '') + ' ' + e.attributes.get('id', '')).lower()])}")
+                print(f"   - Buttons found: {len([e for e in result.elements if e.tag_name == 'button'])}")
+                print(f"   - Page structure: {result.metadata.get('page_type', 'Unknown')}")
                 
                 # Show a sample of extracted elements
                 print("\n   Sample of extracted elements:")
-                for i, elem in enumerate(result.elements[:3], 1):
+                for i, elem in enumerate(result.elements[:5], 1):
                     text = elem.text_content if hasattr(elem, 'text_content') and elem.text_content else "No text"
-                    if text:
-                        text = text.strip()[:40]
-                    print(f"     {i}. <{elem.tag_name}> - {text}...")
+                    print(f"     {i}. <{elem.tag_name}> - {text[:50]}...")
                 
                 await browser.cleanup()
             except Exception as e:

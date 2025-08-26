@@ -6,7 +6,7 @@
       "OPRO (+8-50% improvement)"
     ],
     "improvement_metrics": {},
-    "generation_time": 0.0010197162628173828,
+    "generation_time": 0.0014591217041015625,
     "success": false,
     "errors": [
       "PromptRequest.__init__() got an unexpected keyword argument 'strategy'"
@@ -16,7 +16,7 @@
   "metrics": {
     "total_scenarios": 0,
     "strategies_used": [],
-    "opro_iterations": 3,
+    "opro_iterations": 2,
     "self_consistency_samples": 0,
     "dspy_refinements": 0,
     "average_generation_time": 0,

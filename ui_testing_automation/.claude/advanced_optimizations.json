@@ -1,0 +1,369 @@
+{
+  "version": "2.0.0",
+  "description": "Cutting-edge Claude Code optimizations for 2025",
+  "last_updated": "2025-08-26",
+  
+  "performance_optimizations": {
+    "prompt_caching": {
+      "enabled": true,
+      "cache_ttl": 3600,
+      "max_cache_size_mb": 500,
+      "strategies": [
+        {
+          "name": "semantic_deduplication",
+          "description": "Cache semantically similar prompts",
+          "similarity_threshold": 0.85
+        },
+        {
+          "name": "frequency_based",
+          "description": "Prioritize frequently used prompts",
+          "min_frequency": 3
+        },
+        {
+          "name": "project_context",
+          "description": "Cache project-specific context",
+          "contexts": ["architecture", "dependencies", "patterns"]
+        }
+      ]
+    },
+    
+    "context_window_management": {
+      "max_tokens": 200000,
+      "smart_truncation": true,
+      "priority_rules": [
+        {"type": "imports", "priority": 10},
+        {"type": "class_definitions", "priority": 9},
+        {"type": "function_signatures", "priority": 8},
+        {"type": "docstrings", "priority": 7},
+        {"type": "recent_changes", "priority": 6},
+        {"type": "test_files", "priority": 5}
+      ],
+      "dynamic_context": {
+        "enabled": true,
+        "adjust_based_on": ["task_complexity", "file_size", "error_context"]
+      }
+    },
+    
+    "token_optimization": {
+      "compression_enabled": true,
+      "techniques": [
+        {
+          "name": "ast_compression",
+          "description": "Use AST representation for code",
+          "savings": "40-60%"
+        },
+        {
+          "name": "semantic_summarization",
+          "description": "Summarize non-critical sections",
+          "savings": "20-30%"
+        },
+        {
+          "name": "reference_linking",
+          "description": "Use references instead of duplication",
+          "savings": "15-25%"
+        }
+      ],
+      "adaptive_detail_level": {
+        "high": ["current_file", "error_location"],
+        "medium": ["imported_modules", "parent_classes"],
+        "low": ["distant_dependencies", "documentation"]
+      }
+    },
+    
+    "parallel_processing": {
+      "enabled": true,
+      "max_concurrent_operations": 5,
+      "operations": [
+        "file_analysis",
+        "test_execution",
+        "linting",
+        "type_checking",
+        "documentation_generation"
+      ],
+      "smart_batching": {
+        "batch_similar_tasks": true,
+        "optimal_batch_size": 10
+      }
+    },
+    
+    "incremental_processing": {
+      "enabled": true,
+      "track_changes": true,
+      "cache_intermediate_results": true,
+      "reprocess_only_affected": true
+    }
+  },
+  
+  "advanced_mcp_servers": {
+    "essential_servers": [
+      {
+        "name": "github-advanced",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"],
+        "features": ["issue_analysis", "pr_automation", "code_review"],
+        "performance_impact": "low"
+      },
+      {
+        "name": "sequential-thinking",
+        "command": "npx",
+        "args": ["-y", "sequential-thinking-server"],
+        "features": ["complex_reasoning", "step_by_step_analysis"],
+        "performance_impact": "medium"
+      },
+      {
+        "name": "memory-persistent",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-memory"],
+        "features": ["context_persistence", "learning_from_sessions"],
+        "performance_impact": "low"
+      },
+      {
+        "name": "code-intelligence",
+        "command": "npx",
+        "args": ["-y", "code-intelligence-server"],
+        "features": ["ast_analysis", "dependency_graph", "refactoring"],
+        "performance_impact": "medium"
+      },
+      {
+        "name": "test-automation",
+        "command": "npx",
+        "args": ["-y", "test-automation-server"],
+        "features": ["test_generation", "coverage_analysis", "mutation_testing"],
+        "performance_impact": "high"
+      }
+    ],
+    
+    "project_specific_servers": [
+      {
+        "name": "ui-testing-automation",
+        "path": "./mcp_servers/ui_testing_server.js",
+        "features": ["element_extraction", "test_generation", "browser_automation"],
+        "custom": true
+      }
+    ]
+  },
+  
+  "automation_workflows": {
+    "smart_workflows": [
+      {
+        "name": "intelligent_refactor",
+        "triggers": ["complexity_threshold", "duplicate_detection"],
+        "steps": [
+          "analyze_codebase",
+          "identify_patterns",
+          "suggest_refactoring",
+          "preview_changes",
+          "apply_incrementally",
+          "run_tests",
+          "measure_improvement"
+        ]
+      },
+      {
+        "name": "performance_optimization",
+        "triggers": ["slow_execution", "memory_usage"],
+        "steps": [
+          "profile_execution",
+          "identify_bottlenecks",
+          "suggest_optimizations",
+          "implement_changes",
+          "benchmark_results"
+        ]
+      },
+      {
+        "name": "security_audit",
+        "triggers": ["dependency_update", "code_change"],
+        "steps": [
+          "scan_vulnerabilities",
+          "check_secrets",
+          "audit_permissions",
+          "generate_report",
+          "suggest_fixes"
+        ]
+      }
+    ]
+  },
+  
+  "ai_enhanced_features": {
+    "predictive_coding": {
+      "enabled": true,
+      "learn_from_patterns": true,
+      "suggest_next_steps": true,
+      "confidence_threshold": 0.8
+    },
+    
+    "intelligent_error_handling": {
+      "auto_diagnose": true,
+      "suggest_fixes": true,
+      "learn_from_fixes": true,
+      "prevention_suggestions": true
+    },
+    
+    "code_review_ai": {
+      "enabled": true,
+      "checks": [
+        "security_vulnerabilities",
+        "performance_issues",
+        "code_smells",
+        "best_practices",
+        "accessibility",
+        "documentation_quality"
+      ],
+      "severity_levels": ["critical", "major", "minor", "info"],
+      "auto_fix_capability": true
+    },
+    
+    "test_intelligence": {
+      "auto_generate_tests": true,
+      "coverage_target": 85,
+      "mutation_testing": true,
+      "edge_case_discovery": true,
+      "flaky_test_detection": true
+    }
+  },
+  
+  "monitoring_and_analytics": {
+    "performance_tracking": {
+      "metrics": [
+        "response_time",
+        "token_usage",
+        "cache_hit_rate",
+        "error_rate",
+        "completion_accuracy"
+      ],
+      "dashboards": ["realtime", "daily", "weekly"],
+      "alerts": {
+        "slow_response": "> 5s",
+        "high_token_usage": "> 10000",
+        "low_cache_hit": "< 50%",
+        "error_spike": "> 5%"
+      }
+    },
+    
+    "usage_analytics": {
+      "track_patterns": true,
+      "identify_bottlenecks": true,
+      "suggest_improvements": true,
+      "export_reports": true
+    },
+    
+    "learning_metrics": {
+      "track_corrections": true,
+      "measure_improvement": true,
+      "identify_knowledge_gaps": true
+    }
+  },
+  
+  "experimental_features": {
+    "quantum_strategies": {
+      "enabled": false,
+      "description": "Experimental superposition of multiple strategies",
+      "strategies": ["parallel_exploration", "quantum_annealing"]
+    },
+    
+    "neural_code_synthesis": {
+      "enabled": false,
+      "description": "Direct neural network code generation",
+      "models": ["codegen-2025", "neural-architect"]
+    },
+    
+    "swarm_intelligence": {
+      "enabled": false,
+      "description": "Multiple AI agents working in coordination",
+      "agents": ["explorer", "validator", "optimizer", "documenter"]
+    }
+  },
+  
+  "slash_commands": {
+    "/optimize": {
+      "description": "Optimize current code for performance",
+      "strategy": "self_consistency",
+      "parallel": true
+    },
+    "/secure": {
+      "description": "Security audit and fixes",
+      "strategy": "constitutional_ai",
+      "comprehensive": true
+    },
+    "/refactor": {
+      "description": "Intelligent refactoring suggestions",
+      "strategy": "tree_of_thoughts",
+      "preview": true
+    },
+    "/test": {
+      "description": "Generate comprehensive tests",
+      "strategy": "meta_prompting",
+      "coverage_target": 90
+    },
+    "/profile": {
+      "description": "Performance profiling and optimization",
+      "strategy": "react",
+      "detailed": true
+    },
+    "/document": {
+      "description": "Generate intelligent documentation",
+      "strategy": "chain_of_thought",
+      "format": ["markdown", "docstring", "readme"]
+    },
+    "/review": {
+      "description": "AI-powered code review",
+      "strategy": "debate",
+      "thorough": true
+    },
+    "/architect": {
+      "description": "Architecture analysis and suggestions",
+      "strategy": "meta_prompting",
+      "visualize": true
+    }
+  },
+  
+  "headless_mode": {
+    "ci_integration": {
+      "enabled": true,
+      "commands": [
+        "claude --dangerously-skip-permissions -p 'Fix all linting errors' --output-format stream-json",
+        "claude -p 'Generate tests for new functions' --headless",
+        "claude -p 'Update documentation' --auto-commit"
+      ]
+    },
+    
+    "pre_commit_hooks": {
+      "enabled": true,
+      "hooks": [
+        {
+          "name": "lint-fix",
+          "command": "claude -p 'Fix linting issues' --headless"
+        },
+        {
+          "name": "test-gen",
+          "command": "claude -p 'Generate missing tests' --headless"
+        },
+        {
+          "name": "security-check",
+          "command": "claude -p 'Check for security issues' --headless"
+        }
+      ]
+    }
+  },
+  
+  "team_collaboration": {
+    "shared_configurations": {
+      "enabled": true,
+      "sync_method": "git",
+      "config_path": ".claude/team/"
+    },
+    
+    "knowledge_sharing": {
+      "enabled": true,
+      "share_patterns": true,
+      "share_fixes": true,
+      "centralized_learning": true
+    },
+    
+    "code_standards": {
+      "enforce": true,
+      "standards_file": ".claude/standards.json",
+      "auto_format": true,
+      "block_on_violation": false
+    }
+  }
+}
