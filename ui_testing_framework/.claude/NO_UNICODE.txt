@@ -1,0 +1,62 @@
+STRICT RULE: NO UNICODE CHARACTERS
+
+This file enforces ASCII-only output to prevent encoding errors.
+
+BANNED (with mandatory replacements):
+===================================
+✓ -> [OK]
+✗ -> [FAIL]  
+✅ -> [PASS]
+❌ -> [ERROR]
+→ -> ->
+← -> <-
+↑ -> ^
+↓ -> v
+• -> -
+◦ -> o
+▪ -> *
+— -> --
+– -> -
+' -> '
+' -> '
+" -> "
+" -> "
+… -> ...
+° -> deg
+× -> x
+÷ -> /
+± -> +/-
+≈ -> ~
+≠ -> !=
+≤ -> <=
+≥ -> >=
+∞ -> inf
+π -> pi
+🎉 -> [SUCCESS]
+🚀 -> [LAUNCH]
+💡 -> [IDEA]
+⚠️ -> [WARNING]
+🔧 -> [FIX]
+📝 -> [NOTE]
+🐛 -> [BUG]
+✨ -> [NEW]
+🔥 -> [HOT]
+📦 -> [PACKAGE]
+🎨 -> [STYLE]
+⚡ -> [FAST]
+🔒 -> [SECURE]
+🔓 -> [UNSECURE]
+💬 -> [COMMENT]
+📚 -> [DOCS]
+🌟 -> [STAR]
+
+ENCODING ISSUES TO PREVENT:
+- UnicodeEncodeError: 'charmap' codec can't encode character
+- UnicodeDecodeError in Windows terminals
+- Broken output in logs and CI/CD systems
+
+ENFORCEMENT:
+- Use only ASCII characters (0-127)
+- Always use the replacements above
+- Test all strings with .encode('ascii')
+- Never trust that Unicode will work on all systems

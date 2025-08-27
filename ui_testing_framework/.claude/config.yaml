@@ -1,0 +1,109 @@
+# Claude Code Configuration for UI Testing Automation
+# This configuration OVERRIDES all default Claude behavior
+
+version: 1.0
+priority: MAXIMUM
+
+# Core Rules - These are MANDATORY
+core_rules:
+  development_pattern:
+    enforce: true
+    pattern: "write_test_fix_loop"
+    steps:
+      - write_code
+      - test_code
+      - if_fail_fix_and_retest
+      - if_pass_done
+    never_skip_testing: true
+    never_summarize_on_failure: true
+  
+  character_encoding:
+    enforce: true
+    mode: "ascii_only"
+    max_char_code: 127
+    replace_unicode: true
+    unicode_replacements:
+      "✓": "[OK]"
+      "✗": "[FAIL]"
+      "✅": "[PASS]"
+      "❌": "[ERROR]"
+      "→": "->"
+      "•": "-"
+      "—": "--"
+      "…": "..."
+    
+  testing:
+    enforce: true
+    always_test: true
+    test_before_proceeding: true
+    fix_until_pass: true
+    no_summaries_on_failure: true
+    
+# Response Rules
+response_rules:
+  banned_phrases:
+    - "Let me provide a summary"
+    - "Let me summarize"
+    - "Here's what we accomplished"
+    - "Although it failed"
+    - "Despite the errors"
+    - "The module is working but"
+    - "There are issues but"
+    - "Moving on to"
+    - "Let's continue with"
+    
+  required_phrases_on_failure:
+    - "Test failed. Fixing"
+    - "Error detected. Correcting"
+    - "Issue found. Resolving"
+    
+  required_phrases_on_success:
+    - "Test passed"
+    - "Task complete"
+    - "[OK]"
+    
+# Technical Settings
+technical:
+  platform: "windows"
+  python_path: "C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe"
+  always_use_full_paths: true
+  always_quote_paths: true
+  path_separator: "\\"
+  
+# Behavioral Overrides
+behavior_overrides:
+  disable_emoji: true
+  disable_unicode_art: true
+  disable_summarization: true
+  disable_speculation: true
+  disable_assumptions: true
+  require_actual_execution: true
+  require_actual_output: true
+  
+# Error Handling
+error_handling:
+  on_test_failure:
+    action: "fix_immediately"
+    never: "summarize_or_continue"
+  on_unicode_error:
+    action: "replace_with_ascii"
+    never: "ignore_or_continue"
+  on_import_error:
+    action: "fix_imports"
+    never: "skip_or_assume_working"
+    
+# Enforcement Level
+enforcement:
+  level: "STRICT"
+  override_defaults: true
+  override_conversation_style: true
+  override_helpfulness_training: true
+  priority: 1  # Highest priority
+
+# Reminders
+reminders:
+  - "Always test code immediately after writing"
+  - "Never use Unicode characters"
+  - "Fix failures before proceeding"
+  - "No summaries until tests pass"
+  - "Use ASCII replacements for symbols"
