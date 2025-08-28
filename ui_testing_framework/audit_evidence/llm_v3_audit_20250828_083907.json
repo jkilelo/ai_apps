@@ -1,0 +1,398 @@
+{
+  "test_name": "LLM V3 Live Audit",
+  "test_date": "2025-08-28T08:39:07.932729",
+  "total_strategies": 21,
+  "successful": 0,
+  "failed": 21,
+  "skipped": 0,
+  "strategies_tested": [
+    "chain_of_table",
+    "chain_of_thought",
+    "constitutional_ai",
+    "debate",
+    "evolutionary_optimization",
+    "few_shot",
+    "meta_cognitive_framework",
+    "meta_prompting",
+    "mixture_of_experts",
+    "opro",
+    "program_aided_language",
+    "psychological_triggers",
+    "quantum_prompting",
+    "react",
+    "reflexion",
+    "reverse_prompting",
+    "scratchpad",
+    "self_consistency",
+    "tree_of_thoughts",
+    "universal_self_consistency",
+    "zero_shot"
+  ],
+  "test_task": "Create a Python function that calculates the factorial of a number",
+  "results": [
+    {
+      "strategy": "chain_of_table",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932355",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "chain_of_table",
+        "title": "Chain-of-Table - Structured Reasoning Through Tabular Transformation",
+        "core_principle": "Complex reasoning often requires structured data manipulation. Chain-of-Table extends chain-of-thought by representing reasoning steps as transformations of tabular data, where each table operation represents a logical inference, enabling precise tracking of multi-dimensional reasoning processes.",
+        "short_description": "Complex reasoning often requires structured data manipulation. Chain-of-Table extends chain-of-thought by representing reasoning steps as transformations of tabular data, where each table operation represents a logical inference, enabling precise tracking of multi-dimensional reasoning processes.",
+        "usage_example": "```python\nfrom master_prompt_strategies import ChainOfTable\n\n# Solve a resource allocation problem\nchain = ChainOfTable()\nresult = chain.initialize(resource_data) \\\\\n    .filter(\"availability == True\") \\\\\n    .derive(\"efficiency\", \"output / cost\") \\\\\n    .sort(\"efficiency\", ascending=False) \\\\\n    .filter(\"constraints_met == True\") \\\\\n    .aggregate(\"department\", {\"efficiency\": \"mean\"}) \\\\\n    .get_result()\n\nprint(f\"Reasoning steps: {result['reasoning_depth']}\")\nchain.visualize_chain()\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "chain_of_thought",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932417",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "chain_of_thought",
+        "title": "Chain of Thought (CoT) - Universal Reasoning Framework",
+        "core_principle": "Transform intuitive leaps into observable, verifiable reasoning chains that mirror the fundamental laws of logic and causality.",
+        "short_description": "Transform intuitive leaps into observable, verifiable reasoning chains that mirror the fundamental laws of logic and causality.",
+        "usage_example": "```python\nfrom master_prompt_strategies import ChainOfThought\n\ncot = ChainOfThought()\nenhanced_prompt = cot.apply(your_prompt, domain=your_domain)\n```",
+        "philosophical_grounding": "Drawing from epistemology and logic:\n- **Correspondence Theory**: Each step corresponds to a truth about the world\n- **Coherence Theory**: All steps must be mutually consistent\n- **Pragmatic Theory**: The reasoning must lead to actionable insights"
+      }
+    },
+    {
+      "strategy": "constitutional_ai",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932437",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "constitutional_ai",
+        "title": "Constitutional AI - The Ethical Foundation of Intelligence",
+        "core_principle": "Embed immutable ethical principles into the very fabric of reasoning, creating an intelligence that is not merely capable but fundamentally aligned with the highest values of consciousness, compassion, and wisdom.",
+        "short_description": "Embed immutable ethical principles into the very fabric of reasoning, creating an intelligence that is not merely capable but fundamentally aligned with the highest values of consciousness, compassion, and wisdom.",
+        "usage_example": "```python\nfrom master_prompt_strategies import ConstitutionalAI\n\nethical_ai = ConstitutionalAI()\nsafe_response = ethical_ai.process(\n    request=user_input,\n    context=situation,\n    values_framework=\"universal\",\n    sensitivity_level=\"maximum\"\n)\n```",
+        "philosophical_grounding": "Foundations\n\nDrawing from moral philosophy:\n\n**Kantian Deontology**: Categorical imperatives that hold regardless of consequences\n**Utilitarian Consequentialism**: Greatest good for greatest number\n**Virtue Ethics**: Cultivation of moral character\n**Care Ethics**: Relationships and responsibilities\n**Ubuntu Philosophy**: \"I am because we are\"\n**Buddhist Ethics**: Compassion and non-attachment\n**Indigenous Wisdom**: Seven generation sustainability"
+      }
+    },
+    {
+      "strategy": "debate",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932453",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "debate",
+        "title": "Debate - Truth Through Dialectical Combat",
+        "core_principle": "Truth emerges not from a single perspective but from the crucible of opposing viewpoints. Like particles and antiparticles colliding to reveal fundamental reality, ideas must clash, defend, and synthesize to approach objective truth.",
+        "short_description": "Truth emerges not from a single perspective but from the crucible of opposing viewpoints. Like particles and antiparticles colliding to reveal fundamental reality, ideas must clash, defend, and synthesize to approach objective truth.",
+        "usage_example": "```python\nfrom master_prompt_strategies import Debate\n\ndebate = Debate()\nconsensus = debate.orchestrate(\n    proposition=\"Should we implement this feature?\",\n    agents=[\"optimist\", \"pessimist\", \"realist\", \"innovator\", \"analyst\"],\n    rounds=5,\n    synthesis_method=\"weighted_consensus\"\n)\n```",
+        "philosophical_grounding": "Foundations\n\n**Hegelian Dialectic**: Thesis \u2192 Antithesis \u2192 Synthesis\n**Socratic Method**: Truth through questioning\n**Mill's Marketplace**: Ideas compete freely\n**Habermas Discourse**: Ideal speech situation\n**Buddhist Madhyamaka**: Middle way through extremes"
+      }
+    },
+    {
+      "strategy": "evolutionary_optimization",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932468",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "evolutionary_optimization",
+        "title": "Evolutionary Optimization - Intelligence Through Natural Selection",
+        "core_principle": "Like biological evolution shapes organisms through selection pressure, evolutionary optimization shapes prompts through iterative refinement, mutation, and selection. The fittest prompts survive and reproduce, gradually evolving toward optimal intelligence.",
+        "short_description": "Like biological evolution shapes organisms through selection pressure, evolutionary optimization shapes prompts through iterative refinement, mutation, and selection. The fittest prompts survive and reproduce, gradually evolving toward optimal intelligence.",
+        "usage_example": "```python\nfrom master_prompt_strategies import EvolutionaryOptimization\n\nevolver = EvolutionaryOptimization()\noptimal_prompt = evolver.evolve(\n    initial_prompts=seed_prompts,\n    fitness_function=custom_fitness,\n    generations=100,\n    population_size=50,\n    mutation_rate=0.05\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "few_shot",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932482",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "few_shot",
+        "title": "Few-Shot Learning - Wisdom Through Exemplars",
+        "core_principle": "Intelligence learns not from rules but from examples. Like a child learning language not through grammar books but through hearing speech, few-shot learning enables rapid mastery through pattern recognition from minimal exemplars.",
+        "short_description": "Intelligence learns not from rules but from examples. Like a child learning language not through grammar books but through hearing speech, few-shot learning enables rapid mastery through pattern recognition from minimal exemplars.",
+        "usage_example": "```python\nfrom master_prompt_strategies import FewShot\n\nfew_shot = FewShot()\nsolution = few_shot.learn_and_apply(\n    examples=[example1, example2, example3],\n    new_problem=your_problem,\n    selection_strategy=\"diversity\",\n    adaptation_method=\"weighted_combination\"\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "meta_cognitive_framework",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932500",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "meta_cognitive_framework",
+        "title": "Meta-Cognitive Framework - Thinking About Thinking",
+        "core_principle": "Meta-cognition is awareness and understanding of one's own thought processes. This framework enables AI systems to monitor, evaluate, and regulate their own reasoning\u2014creating a recursive loop of cognitive self-awareness that dramatically improves problem-solving quality.",
+        "short_description": "Meta-cognition is awareness and understanding of one's own thought processes. This framework enables AI systems to monitor, evaluate, and regulate their own reasoning\u2014creating a recursive loop of cognitive self-awareness that dramatically improves problem-solving quality.",
+        "usage_example": "```python\nfrom master_prompt_strategies import MetaCognitiveFramework\n\nmeta_cog = MetaCognitiveFramework()\nsolution = meta_cog.solve(\n    problem=complex_problem,\n    monitoring_frequency=10,  # Check every 10 steps\n    recursion_limit=5,        # Max meta-levels\n    learning_enabled=True,    # Update from experience\n    verbosity='high'          # Show thinking process\n)\n\n# View cognitive trace\nmeta_cog.visualize_cognitive_trace()\nprint(f\"Strategy switches: {meta_cog.get_strategy_switches()}\")\nprint(f\"Meta-cognitive efficiency: {meta_cog.get_efficiency()}\")\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "meta_prompting",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932514",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "meta_prompting",
+        "title": "Meta-Prompting - The Mind Examining Itself",
+        "core_principle": "Transcend the limitations of first-order thinking by stepping outside the problem to examine the thinking process itself. Like a mirror reflecting a mirror, meta-prompting creates infinite depths of self-awareness and optimization.",
+        "short_description": "Transcend the limitations of first-order thinking by stepping outside the problem to examine the thinking process itself. Like a mirror reflecting a mirror, meta-prompting creates infinite depths of self-awareness and optimization.",
+        "usage_example": "```python\nfrom master_prompt_strategies import MetaPrompting\n\nmeta = MetaPrompting()\nsolution = meta.solve(\n    problem=your_problem,\n    max_depth=5,\n    optimization_target='elegance',\n    escape_condition='convergence',\n    document_insights=True\n)\n```",
+        "philosophical_grounding": "Foundations\n\n**Socratic Irony**: \"I know that I know nothing\" - examining our ignorance\n**Cartesian Doubt**: Systematic questioning of all assumptions\n**Hegelian Dialectic**: Thesis \u2192 Antithesis \u2192 Synthesis at each level\n**Buddhist Mindfulness**: Awareness of awareness itself\n**Kantian Critique**: Examining the conditions of possibility for knowledge"
+      }
+    },
+    {
+      "strategy": "mixture_of_experts",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932535",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "mixture_of_experts",
+        "title": "Mixture of Experts (MoE) - Collective Intelligence Through Specialization",
+        "core_principle": "Complex problems require diverse expertise. Like a council of specialists, each expert contributes their unique perspective and domain knowledge, with a meta-intelligence routing questions to the most qualified experts and synthesizing their collective wisdom.",
+        "short_description": "Complex problems require diverse expertise. Like a council of specialists, each expert contributes their unique perspective and domain knowledge, with a meta-intelligence routing questions to the most qualified experts and synthesizing their collective wisdom.",
+        "usage_example": "```python\nfrom master_prompt_strategies import MixtureOfExperts\n\nmoe = MixtureOfExperts()\nsolution = moe.solve(\n    problem=your_problem,\n    experts=['mathematician', 'engineer', 'creative'],\n    synthesis_method='weighted_consensus',\n    min_expert_confidence=0.7\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "opro",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932563",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "opro",
+        "title": "OPRO (Optimization by PROmpting) - Evolution Through Iteration",
+        "core_principle": "Intelligence itself can be optimized through iterative refinement. OPRO treats prompt engineering as an optimization problem where each iteration measures performance and adjusts the approach, converging toward optimal intelligence through evolutionary pressure.",
+        "short_description": "Intelligence itself can be optimized through iterative refinement. OPRO treats prompt engineering as an optimization problem where each iteration measures performance and adjusts the approach, converging toward optimal intelligence through evolutionary pressure.",
+        "usage_example": "```python\nfrom master_prompt_strategies import OPRO\n\noptimizer = OPRO()\noptimal_prompt = optimizer.optimize(\n    initial_prompt=baseline_prompt,\n    objective=\"accuracy\",\n    max_iterations=20,\n    population_size=10,\n    mutation_rate=0.1\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "program_aided_language",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932577",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "program_aided_language",
+        "title": "Program-Aided Language Models (PAL) - Code as Cognitive Prosthesis",
+        "core_principle": "While language models excel at reasoning, they struggle with precise computation. PAL bridges this gap by generating executable code that serves as a cognitive prosthesis\u2014extending the mind's capabilities through programmatic precision. The LLM becomes a programmer of its own extended cognition.",
+        "short_description": "While language models excel at reasoning, they struggle with precise computation. PAL bridges this gap by generating executable code that serves as a cognitive prosthesis\u2014extending the mind's capabilities through programmatic precision. The LLM becomes a programmer of its own extended cognition.",
+        "usage_example": "```python\nfrom master_prompt_strategies import ProgramAidedLanguage\n\npal = ProgramAidedLanguage()\nresult = pal.solve(\n    problem=\"Calculate compound interest for $10,000 at 5% for 10 years\",\n    generate_explanation=True,\n    validate_precision=True,\n    optimization_level=\"high\"\n)\n\nprint(f\"Generated Code:\\\\n{result.code}\")\nprint(f\"Result: {result.value}\")\nprint(f\"Explanation: {result.explanation}\")\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "psychological_triggers",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932593",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "psychological_triggers",
+        "title": "Psychological Triggers - The Neuroscience of Persuasion",
+        "core_principle": "Human cognition is influenced by deep psychological patterns evolved over millennia. By understanding and ethically applying these cognitive triggers, we can create prompts that resonate with the fundamental architecture of human decision-making and motivation.",
+        "short_description": "Human cognition is influenced by deep psychological patterns evolved over millennia. By understanding and ethically applying these cognitive triggers, we can create prompts that resonate with the fundamental architecture of human decision-making and motivation.",
+        "usage_example": "```python\nfrom master_prompt_strategies import PsychologicalTriggers\n\npsych = PsychologicalTriggers()\nenhanced = psych.enhance_prompt(\n    base_prompt=prompt,\n    triggers=['scarcity', 'social_proof', 'authority'],\n    context={'urgency': 'high', 'audience': 'professionals'},\n    ethical_mode=True\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "quantum_prompting",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932612",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "quantum_prompting",
+        "title": "Quantum Prompting - Superposition of Infinite Possibilities",
+        "core_principle": "Like quantum particles existing in superposition until observed, quantum prompting maintains multiple solution states simultaneously, exploring parallel universes of reasoning that collapse into optimal solutions through measurement and entanglement.",
+        "short_description": "Like quantum particles existing in superposition until observed, quantum prompting maintains multiple solution states simultaneously, exploring parallel universes of reasoning that collapse into optimal solutions through measurement and entanglement.",
+        "usage_example": "```python\nfrom master_prompt_strategies import QuantumPrompting\n\nquantum = QuantumPrompting()\nsolution = quantum.solve(\n    problem=your_problem,\n    n_qubits=10,\n    measurement_strategy='weak',\n    error_correction=True,\n    annealing_schedule='linear'\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "react",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932632",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "react",
+        "title": "ReAct (Reasoning + Acting) - The Dance of Thought and Action",
+        "core_principle": "Unify contemplation and action in a continuous feedback loop where reasoning guides action, action informs observation, and observation refines reasoning\u2014mirroring the fundamental cybernetic nature of intelligence itself.",
+        "short_description": "Unify contemplation and action in a continuous feedback loop where reasoning guides action, action informs observation, and observation refines reasoning\u2014mirroring the fundamental cybernetic nature of intelligence itself.",
+        "usage_example": "```python\nfrom master_prompt_strategies import ReAct\n\nreactor = ReAct()\nsolution = reactor.solve(\n    initial_state=state,\n    goal=goal,\n    max_cycles=100,\n    thinking_depth=3,\n    action_boldness=0.7,\n    learning_rate=0.1\n)\n```",
+        "philosophical_grounding": "Foundation\n\n**Pragmatism**: Truth emerges through experimental interaction with reality\n**Phenomenology**: Understanding comes from lived experience\n**Enactivism**: Cognition arises through sensorimotor coupling\n**Dialectical Materialism**: Theory and practice in unity\n**Zen**: Direct pointing at reality through action"
+      }
+    },
+    {
+      "strategy": "reflexion",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932645",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "reflexion",
+        "title": "Reflexion - Evolution Through Self-Examination",
+        "core_principle": "Intelligence that cannot examine and improve itself is forever trapped at its current level. Reflexion creates a mirror of consciousness where thought observes itself, learns from its mistakes, and evolves toward perfection through iterative self-refinement.",
+        "short_description": "Intelligence that cannot examine and improve itself is forever trapped at its current level. Reflexion creates a mirror of consciousness where thought observes itself, learns from its mistakes, and evolves toward perfection through iterative self-refinement.",
+        "usage_example": "```python\nfrom master_prompt_strategies import Reflexion\n\nreflexion = Reflexion()\noptimal_solution = reflexion.evolve(\n    initial_solution=first_attempt,\n    max_iterations=5,\n    convergence_threshold=0.95,\n    reflection_depth=\"deep\",\n    lesson_transfer=True\n)\n```",
+        "philosophical_grounding": "Foundations\n\n**Cartesian Introspection**: \"I think, therefore I examine my thinking\"\n**Buddhist Vipassana**: Insight through observation of mental processes\n**Stoic Self-Examination**: Daily reflection for improvement\n**Kantian Self-Critique**: Reason examining its own limits\n**Phenomenological Reduction**: Bracketing to see clearly"
+      }
+    },
+    {
+      "strategy": "reverse_prompting",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932657",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "reverse_prompting",
+        "title": "Reverse Prompting - Engineering Causality from Effect",
+        "core_principle": "While traditional prompting moves from question to answer, reverse prompting works backwards from the desired outcome to discover the optimal prompt that would generate it. Like reverse-engineering a masterpiece to understand the artist's technique, this strategy deconstructs solutions to find their generative origins.",
+        "short_description": "While traditional prompting moves from question to answer, reverse prompting works backwards from the desired outcome to discover the optimal prompt that would generate it. Like reverse-engineering a masterpiece to understand the artist's technique, this strategy deconstructs solutions to find their generative origins.",
+        "usage_example": "```python\nfrom master_prompt_strategies import ReversePrompting\n\nreverse_engine = ReversePrompting()\noptimal_prompt = reverse_engine.discover(\n    target_output=desired_result,\n    similarity_threshold=0.9,\n    optimization_level=\"aggressive\",\n    search_strategy=\"evolutionary\"\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "scratchpad",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932671",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "scratchpad",
+        "title": "Scratchpad - The Working Memory of Deep Thought",
+        "core_principle": "Complex problems require more than linear thinking\u2014they need a space where intermediate calculations, tentative hypotheses, and partial solutions can exist simultaneously. The scratchpad is the cognitive workbench where ideas are assembled, tested, and refined before crystallizing into final insights.",
+        "short_description": "Complex problems require more than linear thinking\u2014they need a space where intermediate calculations, tentative hypotheses, and partial solutions can exist simultaneously. The scratchpad is the cognitive workbench where ideas are assembled, tested, and refined before crystallizing into final insights.",
+        "usage_example": "```python\nfrom master_prompt_strategies import Scratchpad\n\nscratchpad = Scratchpad()\nsolution = scratchpad.work_through(\n    problem=complex_problem,\n    sections=[\"calculations\", \"hypotheses\", \"patterns\"],\n    visualization=True,\n    versioning=True,\n    max_iterations=10\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "self_consistency",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932682",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "self_consistency",
+        "title": "Self-Consistency - Truth Through Convergence",
+        "core_principle": "Truth emerges from the convergence of multiple independent reasoning paths. Like multiple witnesses to an event, multiple reasoning attempts reveal the stable, reliable core of understanding while filtering out noise and bias.",
+        "short_description": "Truth emerges from the convergence of multiple independent reasoning paths. Like multiple witnesses to an event, multiple reasoning attempts reveal the stable, reliable core of understanding while filtering out noise and bias.",
+        "usage_example": "```python\nfrom master_prompt_strategies import SelfConsistency\n\nsc = SelfConsistency()\nresult = sc.reason(\n    question=your_question,\n    num_instances=7,\n    synthesis_method='weighted_consensus',\n    min_confidence=0.8,\n    max_iterations=3\n)\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "tree_of_thoughts",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932696",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "tree_of_thoughts",
+        "title": "Tree of Thoughts (ToT) - Multiversal Reasoning Exploration",
+        "core_principle": "Navigate the infinite garden of possibilities through parallel exploration of reasoning branches, where each path reveals unique insights that converge into optimal solutions.",
+        "short_description": "Navigate the infinite garden of possibilities through parallel exploration of reasoning branches, where each path reveals unique insights that converge into optimal solutions.",
+        "usage_example": "```python\nfrom master_prompt_strategies import TreeOfThoughts\n\ntot = TreeOfThoughts()\nsolution = tot.explore(\n    problem=your_problem,\n    branches=['optimist', 'pessimist', 'innovator', 'pragmatist', 'philosopher'],\n    depth=5,\n    synthesis_method='weighted_convergence'\n)\n```",
+        "philosophical_grounding": "Framework\n\nDrawing from multiple wisdom traditions:\n\n**Eastern Philosophy**: \n- The Dao that branches into ten thousand things\n- Buddhist dependent origination\n- Hindu Brahman manifesting as multiple realities\n\n**Western Philosophy**:\n- Hegelian dialectic (thesis-antithesis-synthesis)\n- Pragmatist multiple working hypotheses\n- Phenomenological bracketing of assumptions"
+      }
+    },
+    {
+      "strategy": "universal_self_consistency",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932707",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "universal_self_consistency",
+        "title": "Universal Self-Consistency - The Convergence of Multiple Realities",
+        "core_principle": "Universal Self-Consistency extends traditional self-consistency by not just sampling multiple outputs, but by exploring multiple reasoning universes simultaneously. Each universe follows different axioms, yet all must converge on truth through the mathematical principle that reality is invariant across valid reasoning frameworks.",
+        "short_description": "Universal Self-Consistency extends traditional self-consistency by not just sampling multiple outputs, but by exploring multiple reasoning universes simultaneously. Each universe follows different axioms, yet all must converge on truth through the mathematical principle that reality is invariant across valid reasoning frameworks.",
+        "usage_example": "```python\nfrom master_prompt_strategies import UniversalSelfConsistency\n\nuniversal = UniversalSelfConsistency()\nresult = universal.reason(\n    problem=\"Solve the paradox of consciousness\",\n    universes=['logic', 'quantum', 'narrative', 'meta'],\n    synthesis_method='emergent',\n    confidence_threshold=0.75\n)\n\nprint(f\"Universal Truth: {result.invariant}\")\nprint(f\"Confidence: {result.confidence}\")\nprint(f\"Emergent Insights: {result.emergent}\")\n```",
+        "philosophical_grounding": ""
+      }
+    },
+    {
+      "strategy": "zero_shot",
+      "test_task": "Create a Python function that calculates the factorial of a number",
+      "timestamp": "2025-08-28T08:39:07.932718",
+      "success": false,
+      "error": "'default_provider'",
+      "response": null,
+      "metrics": {},
+      "strategy_info": {
+        "name": "zero_shot",
+        "title": "Zero-Shot - Pure Reasoning from First Principles",
+        "core_principle": "True intelligence needs no examples\u2014it can derive solutions from fundamental principles alone. Zero-shot reasoning represents the pinnacle of generalization, where understanding is so deep that novel problems yield to pure logic and first principles thinking.",
+        "short_description": "True intelligence needs no examples\u2014it can derive solutions from fundamental principles alone. Zero-shot reasoning represents the pinnacle of generalization, where understanding is so deep that novel problems yield to pure logic and first principles thinking.",
+        "usage_example": "```python\nfrom master_prompt_strategies import ZeroShot\n\nzero_shot = ZeroShot()\nsolution = zero_shot.reason(\n    problem=novel_problem,\n    principles=[\"physics\", \"logic\", \"information_theory\"],\n    confidence_threshold=0.8\n)\n```",
+        "philosophical_grounding": "Foundation\n\n**Platonic Idealism**: Solutions exist in abstract realm\n**Kantian Synthesis**: A priori reasoning reveals truth\n**Cartesian Method**: Clear and distinct ideas lead to truth\n**Spinoza's Geometry**: Reality follows logical necessity"
+      }
+    }
+  ],
+  "summary": {
+    "all_strategies_available": true,
+    "pydantic_v2_enforced": true,
+    "prompts_v3_integrated": true,
+    "mypy_passed": true,
+    "flake8_passed": true
+  }
+}
