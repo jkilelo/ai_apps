@@ -83,8 +83,10 @@ class PromptStrategy:
         if task and task not in prompt:
             prompt = f"Task: {task}\n\n{prompt}"
 
-        # Replace variables
-        prompt = prompt.format(task=task, **kwargs)
+        # Only apply format if there are actual kwargs AND no format placeholders in prompt
+        # Most prompts_v3 strategies don't have {placeholders} so this should work
+        if kwargs and '{' in prompt and '}' in prompt:
+            prompt = prompt.format(task=task, **kwargs)
 
         return prompt.strip()
 

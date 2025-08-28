@@ -169,8 +169,8 @@ class StrategyEngine:
                 logger.warning(f"Strategy '{strategy}' not found, using original")
                 return messages
 
-            # Render the strategic prompt
-            enhanced_prompt = prompt_strategy.render(task=user_message.content, context=context or {})
+            # Render the strategic prompt (no context as kwargs since prompts don't use them)
+            enhanced_prompt = prompt_strategy.render(task=user_message.content)
 
             # Create new message with enhanced prompt
             enhanced_message = Message(

@@ -187,60 +187,53 @@ class ElementLLMAnalyzerV3:
 ELEMENTS:
 {batch_json}
 
-For each element, provide:
-1. Semantic understanding and purpose
-2. QA test categories (functional, validation, accessibility, security, etc.)
-3. Potential test scenarios
-4. Interaction likelihood score (0-1)
-5. Accessibility assessment
-6. Any security concerns
-7. Validation rules if applicable
+Return a JSON array with exactly one object per element in the same order.
+Each object MUST have these exact keys:
+{{
+  "semantic_role": "string describing the element's semantic role",
+  "qa_categories": ["list of categories - MUST be from: functional, validation, accessibility, security, performance, usability, compatibility, error_handling, localization, data_integrity"],
+  "test_scenarios": ["list", "of", "test", "scenarios"],
+  "interaction_likelihood": 0.0 to 1.0,
+  "accessibility_score": 0.0 to 1.0,
+  "security_concerns": ["list", "of", "concerns"],
+  "validation_rules": ["list", "of", "rules"],
+  "analysis": "detailed analysis text",
+  "confidence": 0.0 to 1.0
+}}
 
-Return analysis as JSON array matching the input order."""
+IMPORTANT: Return ONLY valid JSON array, no markdown code blocks."""
 
             # Call LLM with appropriate strategy
             messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": analysis_prompt}]
             strategy = self._select_strategy_for_task("element_analysis")
 
-            try:
-                response = call_default_llm(messages, strategy=strategy)
+            response = call_default_llm(messages, strategy=strategy)
 
-                # Parse LLM response
-                analysis_results = self._parse_llm_response(response.content)
-                
-                # Ensure we have enough analysis results for the batch
-                while len(analysis_results) < len(batch):
-                    analysis_results.append({
-                        "analysis": "default",
-                        "confidence": 0.5,
-                        "semantic_role": "unknown"
-                    })
+            # Parse LLM response
+            analysis_results = self._parse_llm_response(response.content)
+            
+            # Must have exact match for batch size - NO FALLBACKS
+            if len(analysis_results) != len(batch):
+                raise ValueError(f"LLM returned {len(analysis_results)} results for {len(batch)} elements")
 
-                # Create enriched elements
-                for elem, analysis in zip(batch, analysis_results):
-                    context = ElementContext(
-                        semantic_role=analysis.get("semantic_role", "unknown"),
-                        interaction_likelihood=analysis.get("interaction_likelihood", 0.0),
-                        accessibility_score=analysis.get("accessibility_score", 0.0),
-                    )
+            # Create enriched elements
+            for elem, analysis in zip(batch, analysis_results):
+                context = ElementContext(
+                    semantic_role=analysis.get("semantic_role", "unknown"),
+                    interaction_likelihood=analysis.get("interaction_likelihood", 0.0),
+                    accessibility_score=analysis.get("accessibility_score", 0.0),
+                )
 
-                    enriched = EnrichedElement(
-                        base_element=self._element_to_dict(elem),
-                        llm_analysis=analysis,
-                        context=context,
-                        qa_categories=self._map_qa_categories(analysis.get("qa_categories", [])),
-                        test_scenarios=analysis.get("test_scenarios", []),
-                        confidence_score=analysis.get("confidence", 0.8),
-                    )
+                enriched = EnrichedElement(
+                    base_element=self._element_to_dict(elem),
+                    llm_analysis=analysis,
+                    context=context,
+                    qa_categories=self._map_qa_categories(analysis.get("qa_categories", [])),
+                    test_scenarios=analysis.get("test_scenarios", []),
+                    confidence_score=analysis.get("confidence", 0.8),
+                )
 
-                    enriched_elements.append(enriched)
-
-            except Exception as e:
-                print(f"[ERROR] LLM analysis failed for batch: {e}")
-                # Create basic enrichment without LLM
-                for elem in batch:
-                    enriched = self._create_basic_enrichment(elem)
-                    enriched_elements.append(enriched)
+                enriched_elements.append(enriched)
 
         return enriched_elements
 
@@ -280,69 +273,55 @@ Return as JSON object with categories as keys and test case arrays as values."""
         messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": qa_prompt}]
         strategy = self._select_strategy_for_task("qa_generation")
 
-        try:
-            response = call_default_llm(messages, strategy=strategy)
-            test_plan = self._parse_qa_response(response.content)
-            return test_plan
-        except Exception as e:
-            print(f"[ERROR] QA test plan generation failed: {e}")
-            return self._generate_basic_test_plan(elements)
+        response = call_default_llm(messages, strategy=strategy)
+        test_plan = self._parse_qa_response(response.content)
+        return test_plan
 
     def _parse_llm_response(self, response: str) -> List[Dict[str, Any]]:
         """Parse LLM response into structured data"""
-        try:
-            # Clean the response first
+        # Clean the response first
+        response = response.strip()
+        
+        # Remove markdown code blocks if present
+        if '```json' in response:
+            response = response.replace('```json', '').replace('```', '')
             response = response.strip()
-            
-            # Try direct JSON parse first
-            if response.startswith('['):
-                try:
-                    return json.loads(response)
-                except json.JSONDecodeError:
-                    pass
-            
-            # Try to extract JSON array from response
-            import re
-            json_match = re.search(r'\[.*?\]', response, re.DOTALL)
-            if json_match:
-                try:
-                    return json.loads(json_match.group())
-                except json.JSONDecodeError:
-                    pass
+        
+        # Try direct JSON parse first
+        if response.startswith('['):
+            return json.loads(response)
+        
+        # Try to extract JSON array from response
+        import re
+        json_match = re.search(r'\[.*?\]', response, re.DOTALL)
+        if json_match:
+            return json.loads(json_match.group())
 
-            # Fallback to basic parsing - create one analysis per element
-            return [{"analysis": "basic", "confidence": 0.5, "semantic_role": "unknown"}]
-        except Exception as e:
-            print(f"[WARN] Failed to parse LLM response: {e}")
-            return [{"analysis": "error", "confidence": 0.3, "semantic_role": "unknown"}]
+        # NO FALLBACKS - must succeed or fail completely
+        raise ValueError(f"Could not parse JSON array from LLM response")
 
     def _parse_qa_response(self, response: str) -> Dict[str, List[str]]:
         """Parse QA test plan from LLM response"""
-        try:
-            # Clean the response
+        # Clean the response
+        response = response.strip()
+        
+        # Remove markdown code blocks if present
+        if '```json' in response:
+            response = response.replace('```json', '').replace('```', '')
             response = response.strip()
-            
-            # Try direct JSON parse first
-            if response.startswith('{'):
-                try:
-                    return json.loads(response)
-                except json.JSONDecodeError:
-                    pass
-            
-            # Try to extract JSON object from response
-            import re
-            json_match = re.search(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response, re.DOTALL)
-            if json_match:
-                try:
-                    return json.loads(json_match.group())
-                except json.JSONDecodeError:
-                    pass
-                    
-            # Return basic test plan if parsing fails
-            return self._generate_basic_test_plan([])
-        except Exception as e:
-            print(f"[WARN] Failed to parse QA response: {e}")
-            return self._generate_basic_test_plan([])
+        
+        # Try direct JSON parse first
+        if response.startswith('{'):
+            return json.loads(response)
+        
+        # Try to extract JSON object from response
+        import re
+        json_match = re.search(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response, re.DOTALL)
+        if json_match:
+            return json.loads(json_match.group())
+        
+        # NO FALLBACKS - must succeed or fail completely
+        raise ValueError(f"Could not parse JSON object from QA response")
 
     def _element_to_dict(self, element: ExtractedElement) -> Dict[str, Any]:
         """Convert ExtractedElement to dictionary"""
@@ -362,28 +341,9 @@ Return as JSON object with categories as keys and test case arrays as values."""
         mapped = []
         for cat in categories:
             cat_lower = cat.lower().replace(" ", "_")
-            try:
-                mapped.append(QACategory(cat_lower))
-            except Exception:
-                # Default to functional if unknown
-                if not mapped:
-                    mapped.append(QACategory.FUNCTIONAL)
+            # Will raise ValueError if invalid category - NO FALLBACKS
+            mapped.append(QACategory(cat_lower))
         return mapped
-
-    def _create_basic_enrichment(self, element: ExtractedElement) -> EnrichedElement:
-        """Create basic enrichment without LLM"""
-        context = ElementContext(interaction_likelihood=1.0 if (element.is_clickable or element.is_editable) else 0.2)
-
-        # Determine basic QA categories
-        categories = [QACategory.FUNCTIONAL]
-        if element.element_type == ElementType.INPUT:
-            categories.append(QACategory.VALIDATION)
-        if element.attributes.get("aria-label") or element.attributes.get("role"):
-            categories.append(QACategory.ACCESSIBILITY)
-
-        return EnrichedElement(
-            base_element=self._element_to_dict(element), context=context, qa_categories=categories, confidence_score=0.5
-        )
 
     def _summarize_elements_for_qa(self, elements: List[EnrichedElement]) -> str:
         """Summarize elements for QA test planning"""
@@ -397,18 +357,6 @@ Return as JSON object with categories as keys and test case arrays as values."""
         }
         return json.dumps(summary, indent=2)
 
-    def _generate_basic_test_plan(self, elements: List[EnrichedElement]) -> Dict[str, List[str]]:
-        """Generate basic test plan without LLM"""
-        plan = {
-            "functional": [
-                "Verify all buttons are clickable",
-                "Test all form submissions",
-                "Validate navigation links",
-            ],
-            "validation": ["Test required field validation", "Verify input format requirements"],
-            "accessibility": ["Check ARIA labels presence", "Verify keyboard navigation"],
-        }
-        return plan
 
 
 class ElementsExtractorWithLLMV3:
@@ -446,10 +394,7 @@ class ElementsExtractorWithLLMV3:
         finally:
             # Ensure proper cleanup
             if hasattr(self.base_extractor, 'browser') and self.base_extractor.browser:
-                try:
-                    await self.base_extractor.browser.cleanup()
-                except Exception:
-                    pass
+                await self.base_extractor.browser.cleanup()
 
         extraction_time = (datetime.now() - start_time).total_seconds()
 
@@ -536,12 +481,8 @@ Return as JSON with keys: page_type, framework, functionality, patterns, challen
         messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": analysis_prompt}]
         strategy = self.llm_analyzer._select_strategy_for_task("page_classification")
 
-        try:
-            response = call_default_llm(messages, strategy=strategy)
-            return self._parse_page_insights(response.content)
-        except Exception as e:
-            print(f"[ERROR] Page analysis failed: {e}")
-            return {"page_type": "unknown", "error": str(e)}
+        response = call_default_llm(messages, strategy=strategy)
+        return self._parse_page_insights(response.content)
 
     def _element_summary(self, element: ExtractedElement) -> Dict[str, Any]:
         """Create summary of element for analysis"""
@@ -554,41 +495,34 @@ Return as JSON with keys: page_type, framework, functionality, patterns, challen
 
     def _parse_page_insights(self, response: str) -> Dict[str, Any]:
         """Parse page insights from LLM response"""
-        try:
-            # Clean the response
+        # Clean the response
+        response = response.strip()
+        
+        # Remove markdown code blocks if present
+        if '```json' in response:
+            response = response.replace('```json', '').replace('```', '')
             response = response.strip()
-            
-            # Try direct JSON parse first
-            if response.startswith('{'):
-                try:
-                    return json.loads(response)
-                except json.JSONDecodeError:
-                    pass
-            
-            # Try to extract JSON object
-            import re
-            json_match = re.search(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response, re.DOTALL)
-            if json_match:
-                try:
-                    result = json.loads(json_match.group())
-                    # Ensure required keys exist
-                    if "page_type" not in result:
-                        result["page_type"] = "unknown"
-                    return result
-                except json.JSONDecodeError:
-                    pass
-        except Exception as e:
-            print(f"[WARN] Failed to parse page insights: {e}")
+        
+        # Try direct JSON parse first
+        if response.startswith('{'):
+            result = json.loads(response)
+            # Ensure required keys exist
+            if "page_type" not in result:
+                result["page_type"] = "unknown"
+            return result
+        
+        # Try to extract JSON object
+        import re
+        json_match = re.search(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+            # Ensure required keys exist
+            if "page_type" not in result:
+                result["page_type"] = "unknown"
+            return result
 
-        # Return default insights
-        return {
-            "page_type": "unknown",
-            "framework": None,
-            "functionality": [],
-            "patterns": [],
-            "challenges": [],
-            "strategies": []
-        }
+        # NO FALLBACKS - must succeed or fail completely
+        raise ValueError(f"Could not parse JSON from page insights response")
 
     async def extract_for_qa(self, url: str) -> Tuple[PageAnalysis, List[str]]:
         """
@@ -652,12 +586,8 @@ Return ONLY the Python code, no explanations."""
         messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": code_prompt}]
         strategy = self.llm_analyzer._select_strategy_for_task("test_scenario")
 
-        try:
-            response = call_default_llm(messages, strategy=strategy)
-            return self._extract_code(response.content)
-        except Exception as e:
-            print(f"[ERROR] Code generation failed: {e}")
-            return None
+        response = call_default_llm(messages, strategy=strategy)
+        return self._extract_code(response.content)
 
     def _get_relevant_elements(self, scenario: str, elements: List[EnrichedElement]) -> List[EnrichedElement]:
         """Get elements relevant to a test scenario"""
@@ -783,6 +713,9 @@ async def main():
         print(f"[OK] Results saved to: {output_file}")
         print()
         print("[SUCCESS] Elements Extractor with LLM V3 working!")
+        
+        # Add delay for proper asyncio cleanup (Python 3.13 issue)
+        await asyncio.sleep(0.1)
 
         return 0
 
