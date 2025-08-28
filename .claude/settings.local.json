@@ -447,7 +447,14 @@
       "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" -m flake8 \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\llm_v3.py\" --max-line-length=120 --count --statistics)",
       "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" -m black \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\llm_v3.py\" --line-length=120)",
       "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\test_llm_v3_live_audit.py\")",
-      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\test_llm_v3_single.py\")"
+      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\test_llm_v3_single.py\")",
+      "Bash(C:UserskleiyOneDriveDesktoppython-ai-appsai_apps.venvScriptspython.exe ui_testing_frameworkelements_extractor_with_llm_v3.py)",
+      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\elements_extractor_with_llm_v3.py\")",
+      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" -c \"import sys; sys.path.insert(0, r''C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_automation''); from elements_extractor_no_llm import ExtractionResult; print([attr for attr in dir(ExtractionResult()) if not attr.startswith(''_'')])\")",
+      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" -m mypy \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\elements_extractor_with_llm_v3.py\" --ignore-missing-imports)",
+      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" -m flake8 \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\elements_extractor_with_llm_v3.py\" --max-line-length=120 --count --statistics)",
+      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" -m black \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\elements_extractor_with_llm_v3.py\" --line-length=120)",
+      "Bash(\"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\.venv\\Scripts\\python.exe\" -m flake8 \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\elements_extractor_with_llm_v3.py\" --max-line-length=120 --count --statistics --ignore=E402,W391)"
     ],
     "deny": [],
     "additionalDirectories": [
