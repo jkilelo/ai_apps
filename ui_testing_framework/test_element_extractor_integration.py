@@ -251,6 +251,8 @@ class TestUltimateElementExtractor:
         mock_browser.get_page.return_value = mock_page
         
         extractor = UltimateElementExtractor(browser=mock_browser)
+        # Set the page before calling _detect_frameworks
+        extractor.page = mock_page
         frameworks = await extractor._detect_frameworks()
         
         assert "React" in frameworks

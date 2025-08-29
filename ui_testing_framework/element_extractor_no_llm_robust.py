@@ -582,6 +582,9 @@ class ExtractionResult(BaseModel):
     warnings: List[str] = Field(default_factory=list)
     errors: List[str] = Field(default_factory=list)
 
+    # Additional properties for extensions (screenshots, validation reports, etc.)
+    properties: Dict[str, Any] = Field(default_factory=dict)
+
     model_config = ConfigDict(
         extra="allow",
         json_encoders={datetime: lambda v: v.isoformat()},
@@ -1906,17 +1909,36 @@ class ElementEnricher:
 
     def enrich_element(self, element: ElementData) -> ElementData:
         """Add semantic understanding to element"""
-        # Determine semantic category
-        element_text = (element.text_content or "").lower()
-        element_classes = " ".join(element.class_list).lower()
-        element_id = (element.element_id or "").lower()
+        # First check if the tag itself indicates a category
+        tag = element.tag_name.lower()
+        
+        # Direct tag mapping takes priority
+        if tag in ["nav", "navigation"]:
+            element.properties["semantic_category"] = "navigation"
+        elif tag in ["header", "footer", "aside"]:
+            element.properties["semantic_category"] = "navigation"
+        elif tag in ["article", "section", "main"]:
+            element.properties["semantic_category"] = "content"
+        elif tag in ["form", "input", "select", "textarea"]:
+            element.properties["semantic_category"] = "form"
+        elif tag in ["img", "video", "audio", "picture"]:
+            element.properties["semantic_category"] = "media"
+        else:
+            # If no direct tag match, check text/class/id patterns
+            element_text = (element.text_content or "").lower()
+            element_classes = " ".join(element.class_list).lower()
+            element_id = (element.element_id or "").lower()
 
-        combined_text = f"{element_text} {element_classes} {element_id}"
+            combined_text = f"{element_text} {element_classes} {element_id}"
 
-        for category, patterns in self.semantic_patterns.items():
-            for pattern in patterns:
-                if pattern in combined_text:
-                    element.properties["semantic_category"] = category
+            category_found = False
+            for category, patterns in self.semantic_patterns.items():
+                for pattern in patterns:
+                    if pattern in combined_text:
+                        element.properties["semantic_category"] = category
+                        category_found = True
+                        break
+                if category_found:
                     break
 
         # Add interaction hints
@@ -1957,11 +1979,7 @@ class ElementValidator:
             "statistics": {},
         }
 
-        # Check for minimum elements
-        if result.total_elements < 10:
-            validation_report["issues"].append("Very few elements extracted")
-
-        # Check for duplicate IDs
+        # Check for duplicate IDs first (higher priority)
         id_counts = {}
         for element in result.elements:
             if element.element_id in id_counts:
@@ -1971,7 +1989,11 @@ class ElementValidator:
 
         duplicates = [id for id, count in id_counts.items() if count > 1]
         if duplicates:
-            validation_report["issues"].append(f"Duplicate element IDs found: {duplicates[:5]}")
+            validation_report["issues"].insert(0, f"Duplicate element IDs found: {duplicates[:5]}")
+
+        # Check for minimum elements (lower priority)
+        if result.total_elements < 10:
+            validation_report["issues"].append("Very few elements extracted")
 
         # Check element distribution
         type_distribution = {}
@@ -1981,8 +2003,13 @@ class ElementValidator:
         validation_report["statistics"]["type_distribution"] = type_distribution
 
         # Calculate quality score
+        # Adjust element count factor to be more penalizing for very few elements
+        element_count_factor = min(result.total_elements / 100, 1.0)
+        if result.total_elements < 10:
+            element_count_factor = result.total_elements / 100  # Will be 0.01 to 0.09 for 1-9 elements
+        
         quality_factors = [
-            min(result.total_elements / 100, 1.0),  # Element count factor
+            element_count_factor,  # Element count factor
             1.0 if not duplicates else 0.5,  # Uniqueness factor
             min(len(result.interactive_elements) / 10, 1.0),  # Interactivity factor
             1.0 if result.errors == [] else 0.7,  # Error-free factor
@@ -2152,6 +2179,10 @@ class UltimateElementExtractor:
         frameworks = []
 
         try:
+            if not self.page:
+                logger.warning("No page available for framework detection")
+                return frameworks
+                
             detection_script = """
                 () => {
                     const detected = [];
@@ -2213,7 +2244,12 @@ class UltimateElementExtractor:
                 }
             """
 
-            frameworks = await self.page.evaluate(detection_script)
+            result = await self.page.evaluate(detection_script)
+            # Ensure we always get a list back
+            if isinstance(result, list):
+                frameworks = result
+            else:
+                logger.warning(f"Framework detection returned unexpected type: {type(result)}")
 
         except Exception as e:
             logger.warning(f"Framework detection failed: {e}")
@@ -2259,7 +2295,6 @@ class UltimateElementExtractor:
         if validate:
             validator = ElementValidator()
             validation_report = validator.validate_extraction(result)
-            result.properties = result.properties or {}
             result.properties["validation_report"] = validation_report
             logger.info(f"Validation complete. Quality score: {validation_report['quality_score']:.2f}")
 
@@ -2327,7 +2362,6 @@ class UltimateElementExtractor:
         if screenshot_path and self.page:
             try:
                 await self.page.screenshot(path=str(screenshot_path), full_page=True)
-                result.properties = result.properties or {}
                 result.properties["screenshot_path"] = str(screenshot_path)
                 logger.info(f"Screenshot saved to {screenshot_path}")
             except Exception as e:

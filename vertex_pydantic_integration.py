@@ -41,9 +41,12 @@ class VertexAIWrapper(Model):
         system_instruction: Optional[List[str]] = None,
     ):
 
-        self.model_name = model_name
+        self._model_name = model_name
         self.vertex_project = vertex_project
         self.gemini_url = gemini_url
+        self._system_instruction = system_instruction or [
+            "You are a helpful assistant."
+        ]
 
         # Initialize Vertex AI exactly as you do
         if credentials is None:
@@ -62,12 +65,18 @@ class VertexAIWrapper(Model):
         # Create the GenerativeModel exactly as you do
         self.llm = GenerativeModel(
             model_name=model_name,
-            system_instruction=system_instruction or ["You are a helpful assistant."],
+            system_instruction=self._system_instruction,
         )
 
-    def name(self) -> str:
-        """Return the model name"""
-        return self.model_name
+    @property
+    def model_name(self) -> str:
+        """Return the model name - required abstract property"""
+        return self._model_name
+
+    @property
+    def system(self) -> Optional[str]:
+        """Return the system prompt - required abstract property"""
+        return "\n".join(self._system_instruction) if self._system_instruction else None
 
     async def request(
         self,

@@ -1,0 +1,11 @@
+{
+  "tests_passed": 0,
+  "tests_failed": 0,
+  "details": [
+    {
+      "test": "General",
+      "status": "FATAL ERROR",
+      "error": "UltimateElementExtractor.__init__() got an unexpected keyword argument 'browser_context'"
+    }
+  ]
+}
