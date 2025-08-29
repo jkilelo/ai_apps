@@ -8,6 +8,8 @@
 .envrc
 *.png
 *Archive
+.claude
+.mypy*
 
 # API Keys and credentials
 config/secrets.json

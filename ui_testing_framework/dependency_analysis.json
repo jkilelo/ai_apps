@@ -1,0 +1,372 @@
+{
+  "modules": {
+    "audit_pipeline": {
+      "internal": [],
+      "external": [
+        "requests",
+        "utils",
+        "browser",
+        "datetime",
+        "subprocess",
+        "typing",
+        "asyncio",
+        "importlib",
+        "json",
+        "pathlib",
+        "prompts",
+        "llm",
+        "sys",
+        "os"
+      ],
+      "stdlib": []
+    },
+    "browser": {
+      "internal": [],
+      "external": [
+        "tempfile",
+        "typing",
+        "platform",
+        "asyncio",
+        "logging",
+        "pathlib",
+        "functools",
+        "pydantic",
+        "json",
+        "playwright",
+        "abc",
+        "datetime",
+        "time",
+        "numpy",
+        "os",
+        "random",
+        "enum",
+        "hashlib",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "elements_extractor_no_llm": {
+      "internal": [
+        "browser"
+      ],
+      "external": [
+        "tempfile",
+        "typing",
+        "asyncio",
+        "logging",
+        "pathlib",
+        "functools",
+        "pydantic",
+        "re",
+        "json",
+        "gc",
+        "threading",
+        "time",
+        "os",
+        "base64",
+        "collections",
+        "urllib",
+        "enum",
+        "hashlib",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "elements_extractor_optimized": {
+      "internal": [
+        "elements_extractor_no_llm",
+        "test_optimization_module",
+        "llm"
+      ],
+      "external": [
+        "pydantic",
+        "datetime",
+        "typing",
+        "asyncio",
+        "re",
+        "json",
+        "pathlib",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "elements_extractor_with_llm": {
+      "internal": [
+        "elements_extractor_no_llm",
+        "llm"
+      ],
+      "external": [
+        "pydantic",
+        "datetime",
+        "typing",
+        "asyncio",
+        "re",
+        "json",
+        "pathlib",
+        "enum",
+        "traceback",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "element_extractor_no_llm_cli": {
+      "internal": [
+        "elements_extractor_no_llm",
+        "utils"
+      ],
+      "external": [
+        "pydantic",
+        "datetime",
+        "typing",
+        "asyncio",
+        "json",
+        "logging",
+        "pathlib",
+        "sys",
+        "argparse"
+      ],
+      "stdlib": []
+    },
+    "element_extractor_with_llm_cli": {
+      "internal": [
+        "utils",
+        "elements_extractor_with_llm"
+      ],
+      "external": [
+        "pydantic",
+        "datetime",
+        "typing",
+        "asyncio",
+        "json",
+        "logging",
+        "pathlib",
+        "sys",
+        "argparse"
+      ],
+      "stdlib": []
+    },
+    "llm": {
+      "internal": [
+        "prompts",
+        "test_optimization_module"
+      ],
+      "external": [
+        "dotenv",
+        "pydantic",
+        "datetime",
+        "typing",
+        "anthropic",
+        "json",
+        "pathlib",
+        "logging",
+        "enum",
+        "openai",
+        "google",
+        "os"
+      ],
+      "stdlib": []
+    },
+    "prompts": {
+      "internal": [],
+      "external": [
+        "typing",
+        "dataclasses",
+        "enum",
+        "hashlib",
+        "__future__"
+      ],
+      "stdlib": []
+    },
+    "run_full_pipeline": {
+      "internal": [],
+      "external": [
+        "requests",
+        "datetime",
+        "time",
+        "subprocess",
+        "asyncio",
+        "json",
+        "pathlib",
+        "sys",
+        "os"
+      ],
+      "stdlib": []
+    },
+    "run_optimized_pipeline": {
+      "internal": [
+        "test_optimization_module",
+        "test_generation_optimized",
+        "elements_extractor_optimized"
+      ],
+      "external": [
+        "datetime",
+        "typing",
+        "asyncio",
+        "json",
+        "pathlib",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "simple_server": {
+      "internal": [],
+      "external": [
+        "datetime",
+        "http",
+        "pathlib",
+        "socketserver",
+        "sys",
+        "os"
+      ],
+      "stdlib": []
+    },
+    "test_generation_optimized": {
+      "internal": [
+        "elements_extractor_optimized",
+        "test_optimization_module",
+        "llm"
+      ],
+      "external": [
+        "pydantic",
+        "datetime",
+        "typing",
+        "asyncio",
+        "re",
+        "json",
+        "pathlib",
+        "enum",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "test_generation_with_llm": {
+      "internal": [
+        "elements_extractor_with_llm",
+        "llm"
+      ],
+      "external": [
+        "dotenv",
+        "pydantic",
+        "datetime",
+        "typing",
+        "asyncio",
+        "re",
+        "json",
+        "logging",
+        "enum",
+        "pathlib",
+        "traceback",
+        "sys",
+        "os"
+      ],
+      "stdlib": []
+    },
+    "test_generation_with_llm_cli": {
+      "internal": [
+        "test_generation_with_llm",
+        "utils"
+      ],
+      "external": [
+        "pydantic",
+        "datetime",
+        "typing",
+        "asyncio",
+        "json",
+        "logging",
+        "pathlib",
+        "sys",
+        "argparse"
+      ],
+      "stdlib": []
+    },
+    "test_local_extraction": {
+      "internal": [
+        "elements_extractor_no_llm"
+      ],
+      "external": [
+        "asyncio",
+        "json",
+        "pathlib",
+        "logging",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "test_optimization_module": {
+      "internal": [],
+      "external": [
+        "datetime",
+        "collections",
+        "typing",
+        "re",
+        "json",
+        "enum",
+        "hashlib",
+        "tiktoken"
+      ],
+      "stdlib": []
+    },
+    "test_step4_v3": {
+      "internal": [
+        "elements_extractor_with_llm"
+      ],
+      "external": [
+        "asyncio",
+        "json",
+        "pathlib",
+        "logging",
+        "traceback",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "test_step5_v3": {
+      "internal": [
+        "test_generation_with_llm"
+      ],
+      "external": [
+        "asyncio",
+        "json",
+        "pathlib",
+        "logging",
+        "traceback",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "test_with_llm_extraction": {
+      "internal": [
+        "elements_extractor_no_llm",
+        "elements_extractor_with_llm"
+      ],
+      "external": [
+        "asyncio",
+        "json",
+        "pathlib",
+        "logging",
+        "sys"
+      ],
+      "stdlib": []
+    },
+    "utils": {
+      "internal": [],
+      "external": [
+        "pathlib",
+        "re",
+        "json",
+        "typing"
+      ],
+      "stdlib": []
+    }
+  },
+  "core_modules": [
+    "audit_pipeline",
+    "browser",
+    "prompts",
+    "run_full_pipeline",
+    "simple_server",
+    "test_optimization_module",
+    "utils"
+  ],
+  "total_modules": 21
+}

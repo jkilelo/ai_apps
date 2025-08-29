@@ -1,907 +1,762 @@
 #!/usr/bin/env python3
 """
-ELEMENTS EXTRACTOR WITH LLM - Production-Ready LLM-Enhanced Element Extraction
-===============================================================================
-LLM-powered element enrichment module that enhances DOM extraction with semantic analysis.
+Elements Extractor with LLM V3 - Clean implementation using llm_v3.py
 
-This module:
-- Uses elements_extractor_no_llm.py for base DOM extraction (DRY compliance)
-- Enriches ExtractedElement objects with LLM analysis via existing AI fields
-- Maintains 100% data contract compatibility with existing modules
-- Leverages 21 master prompt strategies for optimal AI analysis
-- Provides fallback to base extraction if LLM fails (production reliability)
-- Includes comprehensive QA testing information for thorough test coverage
+This module extracts web elements and enriches them with LLM analysis
+using appropriate prompt strategies from prompts_v3.py via llm_v3.py
 
-Architecture: Composition over Inheritance
-- Composes ElementsExtractorNoLLM (no duplicate code)
-- Uses existing ExtractedElement/ExtractionResult models
-- Enhances ai_description, test_suggestions, ai_confidence fields
-
-Author: Senior Software Engineer (30+ years experience)
-Version: 4.1.0 - Production-Ready with Full QA Support
-Status: Production Ready - Passes All Quality Checks
+Author: Senior Software Engineer
+Date: 2025-08-28
 """
 
 import asyncio
-import hashlib
 import json
-import logging
-import os
 import sys
-import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import List, Dict, Any, Optional, Union, Tuple
+from datetime import datetime
+from enum import Enum
+from pydantic import BaseModel, Field, ConfigDict
 
-# Load environment variables from correct path
-try:
-    from dotenv import load_dotenv
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
 
-    env_path = Path(__file__).parent.parent / ".env"
-    load_dotenv(env_path)
-    logging.info(f"Loaded environment from {env_path}")
-except Exception as e:
-    logging.warning(f"Could not load .env file: {e}")
-
-# Add path for imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-# Import existing data models (DRY compliance)
-from elements_extractor_no_llm import (  # noqa: E402
+# Import base extractor - from same directory
+from elements_extractor_no_llm import (
     ElementsExtractorNoLLM,
     ExtractionConfig,
-    ExtractionResult,
     ExtractedElement,
-    retry_with_backoff,
+    ExtractionResult,
+    ElementType,
 )
 
-# Import LLM integration
-from base.llm import call_default_llm, LLMResponse  # noqa: E402
-from base.prompts import PromptEngine, PromptRequest, PromptStrategy, TaskType, ComplexityLevel  # noqa: E402
-
-# Import structured output enforcer for guaranteed type safety
-try:
-    from structured_output_enforcer import (  # noqa: E402
-        StructuredOutputEnforcer,
-        StructuredOutputConfig,
-        StructuredOutputValidator,
-    )
-    from pydantic import BaseModel, Field as PydanticField  # noqa: E402
-    STRUCTURED_OUTPUT_AVAILABLE = True
-except ImportError:
-    logger.warning("Structured output enforcer not available, using fallback JSON parsing")
-    STRUCTURED_OUTPUT_AVAILABLE = False
-    BaseModel = object  # Fallback
-    PydanticField = lambda *args, **kwargs: None  # Fallback
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
+# Import our new LLM V3
+from llm import call_default_llm, Message
 
 
-# ==================== STRUCTURED OUTPUT MODELS ====================
-
-
-if STRUCTURED_OUTPUT_AVAILABLE:
-    class LLMElementAnalysis(BaseModel):
-        """Structured model for LLM element analysis response"""
-        semantic_role: str = PydanticField("unknown", description="Semantic role (login, navigation, search, etc.)")
-        business_purpose: str = PydanticField("generic", description="Business purpose and functionality")
-        security_risks: List[str] = PydanticField(default_factory=list, description="Security vulnerabilities")
-        accessibility_issues: List[str] = PydanticField(default_factory=list, description="WCAG compliance issues")
-        test_scenarios: List[Dict[str, Any]] = PydanticField(default_factory=list, description="Test scenarios")
-        test_data_examples: List[str] = PydanticField(default_factory=list, description="Test data with edge cases")
-        boundary_values: Dict[str, Any] = PydanticField(default_factory=dict, description="Boundary value tests")
-        interaction_patterns: List[str] = PydanticField(default_factory=list, description="User interaction patterns")
-        validation_rules: List[str] = PydanticField(default_factory=list, description="Input validation rules")
-        performance_considerations: List[str] = PydanticField(default_factory=list, description="Performance points")
-        confidence_score: float = PydanticField(0.95, ge=0, le=1, description="Analysis confidence")
-
-    class BatchElementAnalysis(BaseModel):
-        """Structured model for batch element analysis"""
-        elements: List[LLMElementAnalysis] = PydanticField(..., description="Analysis for each element")
-        page_context: str = PydanticField("web page", description="Overall page context and purpose")
-        critical_paths: List[str] = PydanticField(default_factory=list, description="Critical user paths")
-        integration_points: List[str] = PydanticField(default_factory=list, description="Integration test points")
-        overall_confidence: float = PydanticField(0.9, ge=0, le=1, description="Overall confidence")
-
-
-# ==================== CONFIGURATION ====================
-
-
-class LLMAnalysisConfig:
-    """Configuration for LLM analysis with QA-focused defaults"""
-
-    # Batch processing
-    DEFAULT_BATCH_SIZE = 5
-    MAX_BATCH_SIZE = 10
-
-    # Analysis timeouts
-    ANALYSIS_TIMEOUT_SECONDS = 120
-    RETRY_ATTEMPTS = 3
-
-    # Cache settings
-    CACHE_TTL_SECONDS = 3600
-    MAX_CACHE_SIZE = 1000
-
-    # QA Analysis depth
-    COMPREHENSIVE_ANALYSIS = True
-    SECURITY_TESTING_ENABLED = True
-    ACCESSIBILITY_TESTING_ENABLED = True
-    PERFORMANCE_TESTING_ENABLED = True
-
-
-# ==================== QA-ENHANCED DATA MODELS ====================
-
-
-class QATestCategory:
-    """Categories of tests that QA engineers need"""
+# QA Test Categories
+class QACategory(str, Enum):
+    """Categories for QA testing scenarios"""
 
     FUNCTIONAL = "functional"
-    SECURITY = "security"
+    VALIDATION = "validation"
     ACCESSIBILITY = "accessibility"
+    SECURITY = "security"
     PERFORMANCE = "performance"
     USABILITY = "usability"
     COMPATIBILITY = "compatibility"
-    EDGE_CASES = "edge_cases"
-    VALIDATION = "validation"
+    ERROR_HANDLING = "error_handling"
+    LOCALIZATION = "localization"
+    DATA_INTEGRITY = "data_integrity"
 
 
-class ElementQAAnalysis:
-    """Comprehensive QA analysis data for elements"""
+# Pydantic Models for Type Safety
+class ElementContext(BaseModel):
+    """Context information for an element"""
 
-    def __init__(self):
-        # Core QA information
-        self.test_categories: Dict[str, List[str]] = {}
-        self.security_risks: List[str] = []
-        self.accessibility_issues: List[str] = []
-        self.performance_considerations: List[str] = []
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
-        # Form validation data
-        self.validation_rules: Dict[str, Any] = {}
-        self.input_constraints: Dict[str, Any] = {}
-        self.required_fields: List[str] = []
-
-        # Element relationships
-        self.form_associations: List[str] = []
-        self.label_associations: List[str] = []
-        self.parent_context: Optional[str] = None
-        self.child_elements: List[str] = []
-
-        # Dynamic behavior
-        self.event_handlers: List[str] = []
-        self.state_variations: List[str] = []
-        self.interaction_patterns: List[str] = []
-
-        # Visual/positioning data
-        self.visual_context: Dict[str, Any] = {}
-        self.layout_role: Optional[str] = None
-        self.responsive_behavior: List[str] = []
-
-        # Test data generation
-        self.test_data_suggestions: Dict[str, List[str]] = {}
-        self.boundary_values: Dict[str, List[Any]] = {}
-        self.mock_requirements: List[str] = []
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for serialization"""
-        return {
-            "test_categories": self.test_categories,
-            "security_risks": self.security_risks,
-            "accessibility_issues": self.accessibility_issues,
-            "performance_considerations": self.performance_considerations,
-            "validation_rules": self.validation_rules,
-            "input_constraints": self.input_constraints,
-            "required_fields": self.required_fields,
-            "form_associations": self.form_associations,
-            "label_associations": self.label_associations,
-            "parent_context": self.parent_context,
-            "child_elements": self.child_elements,
-            "event_handlers": self.event_handlers,
-            "state_variations": self.state_variations,
-            "interaction_patterns": self.interaction_patterns,
-            "visual_context": self.visual_context,
-            "layout_role": self.layout_role,
-            "responsive_behavior": self.responsive_behavior,
-            "test_data_suggestions": self.test_data_suggestions,
-            "boundary_values": self.boundary_values,
-            "mock_requirements": self.mock_requirements,
-        }
+    parent_hierarchy: List[str] = Field(default_factory=list)
+    siblings_count: int = 0
+    position_in_parent: int = 0
+    visual_prominence: float = 0.0
+    interaction_likelihood: float = 0.0
+    semantic_role: Optional[str] = None
+    accessibility_score: float = 0.0
 
 
-# ==================== LLM ENRICHMENT ENGINE ====================
+class EnrichedElement(BaseModel):
+    """Element enriched with LLM analysis"""
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    base_element: Dict[str, Any]
+    llm_analysis: Dict[str, Any] = Field(default_factory=dict)
+    context: ElementContext
+    qa_categories: List[QACategory] = Field(default_factory=list)
+    test_scenarios: List[str] = Field(default_factory=list)
+    confidence_score: float = 0.0
+    extraction_timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
 
 
-class ElementLLMAnalyzer:
-    """
-    Handles LLM-powered analysis of individual elements with comprehensive QA focus.
-    Uses composition with existing modules for DRY compliance.
-    """
+class PageAnalysis(BaseModel):
+    """Complete page analysis with LLM insights"""
 
-    def __init__(self, config: Optional[LLMAnalysisConfig] = None):
-        """Initialize LLM analyzer with prompt engine and QA configuration"""
-        self.config = config or LLMAnalysisConfig()
-        self.prompt_engine = PromptEngine()
-        self.analysis_cache: Dict[str, Dict[str, Any]] = {}
-        self.performance_metrics: Dict[str, List[float]] = {
-            "analysis_times": [],
-            "cache_hit_rates": [],
-            "success_rates": [],
-        }
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    def _create_element_hash(self, element: ExtractedElement) -> str:
-        """Create hash key for caching based on element characteristics"""
-        cache_data = (
-            f"{element.tag_name}:{element.element_type.value}:"
-            f"{element.text}:{element.selector}:{element.attributes}"
-        )
-        return hashlib.md5(cache_data.encode()).hexdigest()
+    url: str
+    title: str = ""
+    page_type: str = "unknown"
+    framework_detected: Optional[str] = None
+    total_elements: int = 0
+    interactive_elements: int = 0
+    form_elements: int = 0
+    navigation_elements: int = 0
+    enriched_elements: List[EnrichedElement] = Field(default_factory=list)
+    qa_test_plan: Dict[str, List[str]] = Field(default_factory=dict)
+    llm_insights: Dict[str, Any] = Field(default_factory=dict)
+    extraction_time: float = 0.0
+    llm_processing_time: float = 0.0
 
-    def _extract_comprehensive_element_data(self, element: ExtractedElement) -> Dict[str, Any]:
-        """Extract comprehensive element data for QA analysis"""
-        return {
-            "core_attributes": {
-                "tag": element.tag_name,
-                "type": element.element_type.value,
-                "text": element.text or "",
-                "value": element.value or "",
-                "placeholder": element.placeholder or "",
-                "selector": element.selector,
-                "xpath": element.xpath or "",
-                "css_path": element.css_path or "",
-            },
-            "interaction_capabilities": {
-                "is_clickable": element.is_clickable,
-                "is_editable": element.is_editable,
-                "is_visible": element.is_visible,
-                "is_enabled": element.is_enabled,
-                "interaction_types": [it.value for it in element.interaction_types],
-            },
-            "form_context": {
-                "id": element.id or "",
-                "name": element.name or "",
-                "classes": element.classes,
-                "required": element.attributes.get("required", False),
-                "pattern": element.attributes.get("pattern", ""),
-                "min": element.attributes.get("min", ""),
-                "max": element.attributes.get("max", ""),
-                "maxlength": element.attributes.get("maxlength", ""),
-                "autocomplete": element.attributes.get("autocomplete", ""),
-            },
-            "accessibility_attributes": {
-                "aria_label": element.attributes.get("aria-label", ""),
-                "aria_labelledby": element.attributes.get("aria-labelledby", ""),
-                "aria_describedby": element.attributes.get("aria-describedby", ""),
-                "aria_required": element.attributes.get("aria-required", ""),
-                "role": element.attributes.get("role", ""),
-                "tabindex": element.attributes.get("tabindex", ""),
-            },
-            "security_context": {
-                "accepts_user_input": element.is_editable,
-                "form_submission": element.tag_name in ["button", "input"],
-                "data_attributes": {k: v for k, v in element.attributes.items() if k.startswith("data-")},
-                "event_handlers": {k: v for k, v in element.attributes.items() if k.startswith("on")},
-            },
-            "hierarchy": {
-                "parent_selector": element.parent_selector or "",
-                "child_count": element.child_count,
-                "depth": element.depth,
-            },
-            "quality_metrics": {
-                "confidence": element.confidence,
-                "importance_score": element.importance_score,
-                "is_valid": element.is_valid,
-                "validation_errors": element.validation_errors,
-            },
-        }
 
-    def _create_comprehensive_analysis_prompt(self, elements: List[ExtractedElement]) -> str:
-        """Create comprehensive LLM prompt for QA-focused element analysis"""
+class ElementLLMAnalyzerV3:
+    """Analyzes elements using LLM V3 with appropriate strategies"""
 
-        # Use Constitutional AI strategy for safe, comprehensive analysis
-        request = PromptRequest(
-            task=f"Comprehensive QA analysis of {len(elements)} web UI elements for test automation",
-            task_type=TaskType.ANALYTICAL,
-            complexity=ComplexityLevel.VERY_COMPLEX,
-            preferred_strategies=[
-                PromptStrategy.CONSTITUTIONAL_AI,
-                PromptStrategy.CHAIN_OF_THOUGHT,
-                PromptStrategy.MIXTURE_OF_EXPERTS,
-                PromptStrategy.SELF_CONSISTENCY,
-            ],
-            context={
-                "domain": "comprehensive_qa_testing",
-                "output_format": "structured_json",
-                "safety_level": "high",
-                "analysis_depth": "comprehensive",
-                "element_count": len(elements),
-            },
-        )
-
-        prompt_response = self.prompt_engine.generate_prompt(request)
-
-        # Build comprehensive element data
-        elements_data = []
-        for i, element in enumerate(elements, 1):
-            element_data = self._extract_comprehensive_element_data(element)
-            element_data["index"] = i
-            elements_data.append(element_data)
-
-        analysis_prompt = f"""
-{prompt_response.enhanced_prompt}
-
-**WEB ELEMENTS FOR COMPREHENSIVE QA ANALYSIS**:
-{json.dumps(elements_data, indent=2)}
-
-**COMPREHENSIVE ANALYSIS REQUIREMENTS**:
-For each element, provide detailed analysis covering:
-
-1. **ai_description**: Clear, semantic description of element's purpose and role
-2. **test_suggestions**: 5-8 comprehensive test scenarios covering:
-   - Functional testing (core functionality)
-   - Security testing (XSS, injection, validation bypass)
-   - Accessibility testing (screen readers, keyboard navigation)
-   - Performance testing (load times, responsiveness)
-   - Edge cases and boundary conditions
-   - Cross-browser compatibility scenarios
-   - Mobile/responsive testing
-   - Usability and UX testing
-
-3. **ai_confidence**: Confidence score (0.1-1.0) in the analysis
-4. **qa_analysis**: Comprehensive QA data including:
-   - security_risks: List of potential security vulnerabilities
-   - accessibility_issues: List of accessibility concerns
-   - validation_rules: Form validation requirements
-   - test_data_suggestions: Recommended test data sets
-   - boundary_values: Edge case values for testing
-   - performance_considerations: Performance testing aspects
-
-**OUTPUT FORMAT** (JSON):
-{{
-  "element_analyses": [
-    {{
-      "index": 1,
-      "ai_description": "Detailed semantic description with context",
-      "test_suggestions": [
-        "Functional: Verify element responds to user interaction",
-        "Security: Test for XSS vulnerability in input field",
-        "Accessibility: Verify screen reader compatibility",
-        "Performance: Measure interaction response time",
-        "Edge Case: Test with maximum input length",
-        "Cross-browser: Verify behavior in Chrome, Firefox, Safari",
-        "Mobile: Test touch interaction on mobile devices",
-        "Usability: Verify clear visual feedback on interaction"
-      ],
-      "ai_confidence": 0.95,
-      "qa_analysis": {{
-        "security_risks": ["XSS injection point", "CSRF vulnerability"],
-        "accessibility_issues": ["Missing aria-label", "Low contrast"],
-        "validation_rules": {{"required": true, "pattern": "email"}},
-        "test_data_suggestions": {{"valid": ["test@example.com"], "invalid": ["invalid-email"]}},
-        "boundary_values": {{"min_length": 0, "max_length": 255}},
-        "performance_considerations": ["Input debouncing", "Validation timing"]
-      }}
-    }}
-  ],
-  "overall_confidence": 0.90,
-  "analysis_metadata": {{
-    "total_elements": {len(elements)},
-    "comprehensive_analysis": true,
-    "security_focused": true,
-    "accessibility_focused": true
-  }}
-}}
-
-Generate comprehensive, actionable test scenarios suitable for enterprise-level QA testing.
-"""
-
-        return analysis_prompt
-
-    def _create_fallback_analysis(self, expected_count: int) -> Dict[str, Any]:
-        """Create fallback analysis structure (DRY: single implementation)"""
-        fallback_elements = []
-
-        for i in range(expected_count):
-            fallback_elements.append(
-                {
-                    "ai_description": f"Interactive web element {i+1} requiring comprehensive testing",
-                    "test_suggestions": [
-                        "Functional: Verify element presence and visibility",
-                        "Security: Test for basic input validation",
-                        "Accessibility: Verify keyboard navigation support",
-                        "Performance: Measure element load time",
-                        "Edge Case: Test element behavior with invalid input",
-                        "Cross-browser: Verify consistent behavior across browsers",
-                    ],
-                    "ai_confidence": 0.5,
-                    "qa_analysis": {
-                        "security_risks": ["Potential input validation bypass"],
-                        "accessibility_issues": ["May lack proper ARIA attributes"],
-                        "validation_rules": {},
-                        "test_data_suggestions": {"valid": ["standard input"], "invalid": [""]},
-                        "boundary_values": {},
-                        "performance_considerations": ["Standard interaction timing"],
-                    },
-                }
-            )
-
-        return {
-            "element_analyses": fallback_elements,
-            "overall_confidence": 0.5,
-            "analysis_metadata": {
-                "total_elements": expected_count,
-                "fallback_analysis": True,
-                "comprehensive_analysis": False,
-            },
-        }
-
-    @retry_with_backoff(max_attempts=LLMAnalysisConfig.RETRY_ATTEMPTS)
-    async def analyze_elements_batch(self, elements: List[ExtractedElement]) -> List[ExtractedElement]:
+    def __init__(self, batch_size: int = 10):
         """
-        Analyze a batch of elements with comprehensive LLM analysis and populate AI fields.
-        Uses retry logic for production reliability.
-        """
-        if not elements:
-            return elements
-
-        start_time = time.time()
-
-        try:
-            # Check cache first
-            enriched_elements = []
-            elements_to_analyze = []
-            cache_hits = 0
-
-            for element in elements:
-                element_hash = self._create_element_hash(element)
-                if element_hash in self.analysis_cache:
-                    cached_analysis = self.analysis_cache[element_hash]
-                    self._apply_cached_analysis(element, cached_analysis)
-                    enriched_elements.append(element)
-                    cache_hits += 1
-                else:
-                    elements_to_analyze.append((element, element_hash))
-
-            # Track cache performance
-            cache_hit_rate = cache_hits / len(elements) if elements else 0
-            self.performance_metrics["cache_hit_rates"].append(cache_hit_rate)
-
-            # Analyze uncached elements
-            if elements_to_analyze:
-                logger.info(f"Analyzing {len(elements_to_analyze)} elements with comprehensive LLM analysis")
-
-                # Create comprehensive LLM prompt
-                elements_for_prompt = [elem for elem, _ in elements_to_analyze]
-                analysis_prompt = self._create_comprehensive_analysis_prompt(elements_for_prompt)
-
-                # Call LLM with comprehensive system message
-                messages = [
-                    {
-                        "role": "system",
-                        "content": (
-                            "You are a Senior QA Engineer with 30+ years experience in comprehensive "
-                            "web application testing. Provide detailed, actionable analysis covering "
-                            "functional, security, accessibility, performance, and usability testing."
-                        ),
-                    },
-                    {"role": "user", "content": analysis_prompt},
-                ]
-
-                # Try structured output first if available
-                if STRUCTURED_OUTPUT_AVAILABLE:
-                    try:
-                        # Initialize structured output enforcer
-                        enforcer = StructuredOutputEnforcer(
-                            StructuredOutputConfig(
-                                provider=os.getenv("DEFAULT_LLM_PROVIDER", "google"),
-                                model=os.getenv("GOOGLE_GENAI_MODEL", "gemini-2.0-flash"),
-                                strict=True,
-                                temperature=0.0,
-                                fix_json_errors=True,
-                                validate_on_parse=True
-                            )
-                        )
-
-                        # Get structured batch analysis
-                        batch_analysis = enforcer.enforce_output(
-                            model_class=BatchElementAnalysis,
-                            messages=messages
-                        )
-                        
-                        # Convert to expected format
-                        analysis_data = {
-                            "element_analyses": [
-                                elem.model_dump() for elem in batch_analysis.elements
-                            ],
-                            "page_context": batch_analysis.page_context,
-                            "critical_paths": batch_analysis.critical_paths,
-                            "confidence": batch_analysis.overall_confidence
-                        }
-                        logger.info("[OK] Successfully used structured output enforcer")
-                    except Exception as e:
-                        logger.warning(f"Structured output failed, using fallback: {e}")
-                        # Fallback to regular LLM call
-                        llm_response: LLMResponse = call_default_llm(messages)
-                        analysis_data = self._parse_comprehensive_analysis(llm_response.content, len(elements_for_prompt))
-                else:
-                    # Use regular LLM call if structured output not available
-                    llm_response: LLMResponse = call_default_llm(messages)
-                    analysis_data = self._parse_comprehensive_analysis(llm_response.content, len(elements_for_prompt))
-
-                # Apply analysis to elements
-                success_count = 0
-                for i, (element, element_hash) in enumerate(elements_to_analyze):
-                    if i < len(analysis_data.get("element_analyses", [])):
-                        analysis = analysis_data["element_analyses"][i]
-                        self._apply_comprehensive_analysis(element, analysis)
-
-                        # Cache analysis for future use
-                        self._cache_analysis(element_hash, analysis)
-                        enriched_elements.append(element)
-                        success_count += 1
-
-                        logger.debug(f"Enhanced element: {element.selector} - {element.ai_description}")
-
-                logger.info(f"Successfully analyzed {success_count} elements with comprehensive QA data")
-
-            # Track performance metrics
-            analysis_time = time.time() - start_time
-            self.performance_metrics["analysis_times"].append(analysis_time)
-            success_rate = len(enriched_elements) / len(elements) if elements else 0
-            self.performance_metrics["success_rates"].append(success_rate)
-
-            return enriched_elements
-
-        except Exception as e:
-            logger.warning(f"Comprehensive LLM analysis failed: {e}. Returning elements without AI enhancement.")
-            # Return original elements without AI fields (graceful degradation)
-            return elements
-
-    def _apply_cached_analysis(self, element: ExtractedElement, cached_analysis: Dict[str, Any]) -> None:
-        """Apply cached analysis to element"""
-        element.ai_description = cached_analysis.get("ai_description")
-        element.test_suggestions = cached_analysis.get("test_suggestions", [])
-        element.ai_confidence = cached_analysis.get("ai_confidence")
-
-    def _apply_comprehensive_analysis(self, element: ExtractedElement, analysis: Dict[str, Any]) -> None:
-        """Apply comprehensive analysis to element with QA data"""
-        # Populate standard AI fields
-        element.ai_description = analysis.get("ai_description")
-        element.test_suggestions = analysis.get("test_suggestions", [])
-        element.ai_confidence = analysis.get("ai_confidence", 0.5)
-
-    def _cache_analysis(self, element_hash: str, analysis: Dict[str, Any]) -> None:
-        """Cache analysis for future use with TTL management"""
-        self.analysis_cache[element_hash] = {
-            "ai_description": analysis.get("ai_description"),
-            "test_suggestions": analysis.get("test_suggestions", []),
-            "ai_confidence": analysis.get("ai_confidence"),
-            "qa_analysis": analysis.get("qa_analysis", {}),
-            "cached_at": time.time(),
-        }
-
-        # Manage cache size
-        if len(self.analysis_cache) > self.config.MAX_CACHE_SIZE:
-            self._cleanup_cache()
-
-    def _cleanup_cache(self) -> None:
-        """Clean up old cache entries"""
-        current_time = time.time()
-        expired_keys = [
-            key
-            for key, value in self.analysis_cache.items()
-            if current_time - value.get("cached_at", 0) > self.config.CACHE_TTL_SECONDS
-        ]
-        for key in expired_keys:
-            del self.analysis_cache[key]
-
-    def _parse_comprehensive_analysis(self, llm_content: str, expected_count: int) -> Dict[str, Any]:
-        """Parse comprehensive LLM response into structured analysis data"""
-        try:
-            # Try to extract JSON from response
-            content = llm_content.strip()
-
-            # Find JSON block in response
-            json_start = content.find("{")
-            json_end = content.rfind("}") + 1
-
-            if json_start >= 0 and json_end > json_start:
-                json_content = content[json_start:json_end]
-                analysis_data = json.loads(json_content)
-
-                # Validate comprehensive structure
-                if "element_analyses" in analysis_data and isinstance(analysis_data["element_analyses"], list):
-                    return analysis_data
-
-            # Fallback: create comprehensive fallback analysis (DRY: single implementation)
-            logger.warning("Could not parse comprehensive LLM analysis response, using fallback")
-            return self._create_fallback_analysis(expected_count)
-
-        except Exception as e:
-            logger.error(f"Failed to parse comprehensive LLM analysis: {e}")
-            return self._create_fallback_analysis(expected_count)
-
-    def get_performance_metrics(self) -> Dict[str, Any]:
-        """Get analyzer performance metrics"""
-        metrics = {}
-        for metric_name, values in self.performance_metrics.items():
-            if values:
-                metrics[f"avg_{metric_name}"] = sum(values) / len(values)
-                metrics[f"min_{metric_name}"] = min(values)
-                metrics[f"max_{metric_name}"] = max(values)
-            else:
-                metrics[f"avg_{metric_name}"] = 0
-                metrics[f"min_{metric_name}"] = 0
-                metrics[f"max_{metric_name}"] = 0
-
-        metrics["cache_size"] = len(self.analysis_cache)
-        return metrics
-
-
-# ==================== MAIN EXTRACTOR CLASS ====================
-
-
-class ElementsExtractorWithLLM:
-    """
-    Production-ready LLM-enhanced element extractor with comprehensive QA support.
-
-    Uses composition with ElementsExtractorNoLLM for DRY compliance.
-    Maintains 100% data contract compatibility with existing modules.
-    Provides comprehensive QA testing information for thorough test coverage.
-    Includes fallback to base extraction if LLM fails.
-    """
-
-    def __init__(self, config: Optional[ExtractionConfig] = None, llm_config: Optional[LLMAnalysisConfig] = None):
-        """
-        Initialize comprehensive LLM-enhanced extractor.
+        Initialize the LLM analyzer
 
         Args:
-            config: ExtractionConfig from elements_extractor_no_llm.py (reused for DRY compliance)
-            llm_config: LLMAnalysisConfig for LLM analysis settings
+            batch_size: Number of elements to process in each LLM call
         """
-        # Use existing config and base extractor (composition, not inheritance)
-        self.config = config or ExtractionConfig()
-        self.llm_config = llm_config or LLMAnalysisConfig()
-        self.base_extractor = ElementsExtractorNoLLM(self.config)
-        self.llm_analyzer = ElementLLMAnalyzer(self.llm_config)
+        self.batch_size = batch_size
+        self.analysis_cache: Dict[str, Any] = {}
 
-        # Comprehensive performance tracking
-        self.stats = {
-            "total_extractions": 0,
-            "llm_enhanced_extractions": 0,
-            "fallback_extractions": 0,
-            "total_elements_analyzed": 0,
-            "comprehensive_qa_analyses": 0,
-            "security_risks_identified": 0,
-            "accessibility_issues_found": 0,
-            "performance_considerations_noted": 0,
-            "average_confidence_score": 0.0,
-            "total_test_suggestions_generated": 0,
+    def _select_strategy_for_task(self, task_type: str) -> str:
+        """
+        Select appropriate prompt strategy based on task type
+
+        Args:
+            task_type: Type of analysis task
+
+        Returns:
+            Strategy name from prompts_v3
+        """
+        strategy_map = {
+            "element_analysis": "chain_of_thought",
+            "qa_generation": "tree_of_thoughts",
+            "semantic_understanding": "meta_cognitive_framework",
+            "test_scenario": "program_aided_language",
+            "accessibility": "constitutional_ai",
+            "security": "debate",
+            "validation": "self_consistency",
+            "page_classification": "few_shot",
+            "framework_detection": "chain_of_table",
+            "interaction_prediction": "reflexion",
+        }
+        return strategy_map.get(task_type, "chain_of_thought")
+
+    def _prepare_element_batch(self, elements: List[ExtractedElement]) -> str:
+        """
+        Prepare a batch of elements for LLM analysis
+
+        Args:
+            elements: List of extracted elements
+
+        Returns:
+            JSON string representation of elements
+        """
+        batch_data = []
+        for elem in elements:
+            elem_dict = {
+                "tag": elem.tag_name,
+                "type": elem.element_type.value if elem.element_type else "unknown",
+                "text": elem.text[:100] if elem.text else "",
+                "attributes": elem.attributes or {},
+                "selector": elem.selector,
+                "xpath": elem.xpath,
+                "is_interactive": elem.is_clickable or elem.is_editable,
+                "is_visible": elem.is_visible,
+                "aria_label": elem.attributes.get("aria-label"),
+                "role": elem.attributes.get("role"),
+            }
+            batch_data.append(elem_dict)
+
+        return json.dumps(batch_data, indent=2)
+
+    async def analyze_elements(self, elements: List[ExtractedElement]) -> List[EnrichedElement]:
+        """
+        Analyze elements with LLM enrichment
+
+        Args:
+            elements: List of extracted elements
+
+        Returns:
+            List of enriched elements with LLM analysis
+        """
+        enriched_elements = []
+
+        # Process in batches
+        for i in range(0, len(elements), self.batch_size):
+            batch = elements[i:i + self.batch_size]
+            batch_json = self._prepare_element_batch(batch)
+
+            # Prepare analysis prompt
+            analysis_prompt = f"""Analyze these web elements and provide enrichment:
+
+ELEMENTS:
+{batch_json}
+
+Return a JSON array with exactly one object per element in the same order.
+Each object MUST have these exact keys:
+{{
+  "semantic_role": "string describing the element's semantic role",
+  "qa_categories": ["list of categories - MUST be from: functional, validation, accessibility, security, performance, usability, compatibility, error_handling, localization, data_integrity"],
+  "test_scenarios": ["list", "of", "test", "scenarios"],
+  "interaction_likelihood": 0.0 to 1.0,
+  "accessibility_score": 0.0 to 1.0,
+  "security_concerns": ["list", "of", "concerns"],
+  "validation_rules": ["list", "of", "rules"],
+  "analysis": "detailed analysis text",
+  "confidence": 0.0 to 1.0
+}}
+
+IMPORTANT: Return ONLY valid JSON array starting with [ and ending with ].
+No markdown, no explanations, just the JSON array."""
+
+            # Call LLM with appropriate strategy
+            messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": analysis_prompt}]
+            strategy = self._select_strategy_for_task("element_analysis")
+
+            response = call_default_llm(messages, strategy=strategy)
+
+            # Parse LLM response
+            analysis_results = self._parse_llm_response(response.content)
+            
+            # Must have exact match for batch size - NO FALLBACKS
+            if len(analysis_results) != len(batch):
+                raise ValueError(f"LLM returned {len(analysis_results)} results for {len(batch)} elements")
+
+            # Create enriched elements
+            for elem, analysis in zip(batch, analysis_results):
+                context = ElementContext(
+                    semantic_role=analysis.get("semantic_role", "unknown"),
+                    interaction_likelihood=analysis.get("interaction_likelihood", 0.0),
+                    accessibility_score=analysis.get("accessibility_score", 0.0),
+                )
+
+                enriched = EnrichedElement(
+                    base_element=self._element_to_dict(elem),
+                    llm_analysis=analysis,
+                    context=context,
+                    qa_categories=self._map_qa_categories(analysis.get("qa_categories", [])),
+                    test_scenarios=analysis.get("test_scenarios", []),
+                    confidence_score=analysis.get("confidence", 0.8),
+                )
+
+                enriched_elements.append(enriched)
+
+        return enriched_elements
+
+    async def generate_qa_test_plan(self, elements: List[EnrichedElement], url: str) -> Dict[str, List[str]]:
+        """
+        Generate comprehensive QA test plan using LLM
+
+        Args:
+            elements: List of enriched elements
+            url: Page URL
+
+        Returns:
+            QA test plan organized by category
+        """
+        # Prepare context for test generation
+        element_summary = self._summarize_elements_for_qa(elements)
+
+        qa_prompt = f"""Generate a QA test plan for this web page. Return ONLY a valid JSON object.
+
+URL: {url}
+ELEMENTS SUMMARY:
+{element_summary}
+
+Return a JSON object with these exact keys:
+{{
+  "functional": ["test case 1", "test case 2"],
+  "validation": ["test case 1"],
+  "accessibility": ["test case 1"],
+  "security": ["test case 1"],
+  "performance": ["test case 1"],
+  "error_handling": ["test case 1"],
+  "cross_browser": ["test case 1"],
+  "localization": ["test case 1"]
+}}
+
+Each key should have an array of specific test cases. 
+If a category doesn't apply, use empty array [].
+Start your response with {{ and end with }}"""
+
+        messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": qa_prompt}]
+        strategy = self._select_strategy_for_task("qa_generation")
+
+        response = call_default_llm(messages, strategy=strategy)
+        test_plan = self._parse_qa_response(response.content)
+        return test_plan
+
+    def _parse_llm_response(self, response: str) -> List[Dict[str, Any]]:
+        """Parse LLM response into structured data"""
+        # Clean the response first
+        response = response.strip()
+        
+        # Remove markdown code blocks if present
+        if '```json' in response:
+            response = response.replace('```json', '').replace('```', '')
+            response = response.strip()
+        
+        # Try direct JSON parse first
+        if response.startswith('['):
+            return json.loads(response)
+        
+        # Try to extract JSON array from response
+        import re
+        json_match = re.search(r'\[.*?\]', response, re.DOTALL)
+        if json_match:
+            json_str = json_match.group()
+            try:
+                return json.loads(json_str)
+            except json.JSONDecodeError:
+                pass
+
+        # NO FALLBACKS - must succeed or fail completely
+        raise ValueError(f"Could not parse JSON array from LLM response")
+
+    def _parse_qa_response(self, response: str) -> Dict[str, List[str]]:
+        """Parse QA test plan from LLM response"""
+        # Clean the response
+        response = response.strip()
+        
+        # Remove markdown code blocks if present
+        if '```json' in response:
+            response = response.replace('```json', '').replace('```', '')
+            response = response.strip()
+        elif response.startswith('```'):
+            lines = response.split('\n')
+            if len(lines) > 2:
+                response = '\n'.join(lines[1:-1]).strip()
+        
+        # Try direct JSON parse first
+        if response.startswith('{'):
+            try:
+                return json.loads(response)
+            except json.JSONDecodeError:
+                pass
+        
+        # Try to find complete JSON object with balanced braces
+        import re
+        
+        brace_count = 0
+        json_start = -1
+        
+        for i, char in enumerate(response):
+            if char == '{':
+                if brace_count == 0:
+                    json_start = i
+                brace_count += 1
+            elif char == '}':
+                brace_count -= 1
+                if brace_count == 0 and json_start != -1:
+                    # Found complete JSON object
+                    json_str = response[json_start:i+1]
+                    try:
+                        return json.loads(json_str)
+                    except json.JSONDecodeError:
+                        continue
+        
+        # NO FALLBACKS - must succeed or fail completely
+        raise ValueError(f"Could not parse JSON object from QA response: {response[:200]}...")
+
+    def _element_to_dict(self, element: ExtractedElement) -> Dict[str, Any]:
+        """Convert ExtractedElement to dictionary"""
+        return {
+            "tag_name": element.tag_name,
+            "element_type": element.element_type.value if element.element_type else None,
+            "text": element.text,
+            "selector": element.selector,
+            "xpath": element.xpath,
+            "attributes": element.attributes,
+            "is_interactive": element.is_clickable or element.is_editable,
+            "is_visible": element.is_visible,
         }
 
-        logger.info("ElementsExtractorWithLLM initialized with comprehensive QA analysis capabilities")
+    def _map_qa_categories(self, categories: List[str]) -> List[QACategory]:
+        """Map string categories to QACategory enum"""
+        mapped = []
+        for cat in categories:
+            cat_lower = cat.lower().replace(" ", "_")
+            # Will raise ValueError if invalid category - NO FALLBACKS
+            mapped.append(QACategory(cat_lower))
+        return mapped
 
-    async def extract_from_url(self, url: str) -> ExtractionResult:
+    def _summarize_elements_for_qa(self, elements: List[EnrichedElement]) -> str:
+        """Summarize elements for QA test planning"""
+        summary = {
+            "total_elements": len(elements),
+            "interactive": sum(1 for e in elements if e.context.interaction_likelihood > 0.5),
+            "forms": sum(1 for e in elements if "form" in str(e.base_element.get("tag_name", "")).lower()),
+            "buttons": sum(1 for e in elements if e.base_element.get("element_type") == "button"),
+            "links": sum(1 for e in elements if e.base_element.get("element_type") == "link"),
+            "inputs": sum(1 for e in elements if e.base_element.get("element_type") == "input"),
+        }
+        return json.dumps(summary, indent=2)
+
+
+
+class ElementsExtractorWithLLMV3:
+    """Main class for extracting and enriching web elements with LLM V3"""
+
+    def __init__(self, extraction_config: Optional[ExtractionConfig] = None):
         """
-        Extract and comprehensively LLM-enhance elements from URL.
+        Initialize the extractor
 
-        Returns same ExtractionResult format as base extractor for 100% compatibility,
-        but with comprehensive QA testing information.
+        Args:
+            extraction_config: Configuration for element extraction
         """
-        start_time = time.time()
-        self.stats["total_extractions"] += 1
+        self.extraction_config = extraction_config or ExtractionConfig()
+        self.base_extractor = ElementsExtractorNoLLM(self.extraction_config)
+        self.llm_analyzer = ElementLLMAnalyzerV3()
+        self.browser = None
 
+    async def extract_and_analyze(self, url: str, analyze_with_llm: bool = True) -> PageAnalysis:
+        """
+        Extract elements from URL and analyze with LLM
+
+        Args:
+            url: URL to extract elements from
+            analyze_with_llm: Whether to enrich with LLM analysis
+
+        Returns:
+            Complete page analysis with enriched elements
+        """
+        start_time = datetime.now()
+
+        # Extract base elements
+        print(f"[INFO] Extracting elements from: {url}")
         try:
-            logger.info(f"Starting comprehensive LLM-enhanced extraction from {url}")
+            extraction_result = await self.base_extractor.extract_from_url(url)
+        finally:
+            # Ensure proper cleanup
+            if hasattr(self.base_extractor, 'browser') and self.base_extractor.browser:
+                await self.base_extractor.browser.cleanup()
 
-            # Step 1: Use base extractor for DOM extraction (DRY compliance)
-            base_result: ExtractionResult = await self.base_extractor.extract_from_url(url)
+        extraction_time = (datetime.now() - start_time).total_seconds()
 
-            if not base_result.success:
-                logger.warning(f"Base extraction failed for {url}")
-                return base_result
-
-            logger.info(f"Base extraction completed: {len(base_result.elements)} elements found")
-
-            # Step 2: Comprehensive LLM enhancement of elements
-            if base_result.elements:
-                enhanced_elements = await self._enhance_elements_with_comprehensive_llm(base_result.elements)
-
-                # Update result with comprehensively enhanced elements (same data structure)
-                base_result.elements = enhanced_elements
-                self.stats["llm_enhanced_extractions"] += 1
-                self.stats["total_elements_analyzed"] += len(enhanced_elements)
-                self._update_qa_statistics(enhanced_elements)
-
-                # Add comprehensive LLM metadata to result
-                base_result.metadata.update(
-                    {
-                        "llm_enhanced": True,
-                        "comprehensive_qa_analysis": True,
-                        "llm_analyzed_elements": len(enhanced_elements),
-                        "llm_enhancement_time": time.time() - start_time,
-                        "qa_categories_covered": [
-                            QATestCategory.FUNCTIONAL,
-                            QATestCategory.SECURITY,
-                            QATestCategory.ACCESSIBILITY,
-                            QATestCategory.PERFORMANCE,
-                            QATestCategory.USABILITY,
-                            QATestCategory.COMPATIBILITY,
-                            QATestCategory.EDGE_CASES,
-                            QATestCategory.VALIDATION,
-                        ],
-                    }
-                )
-
-            total_time = time.time() - start_time
-            logger.info(f"Comprehensive LLM enhancement completed in {total_time:.2f}s")
-            return base_result
-
-        except Exception as e:
-            logger.error(f"Comprehensive LLM-enhanced extraction failed for {url}: {e}")
-            self.stats["fallback_extractions"] += 1
-
-            # Fallback: return base extraction without LLM enhancement
-            try:
-                base_result = await self.base_extractor.extract_from_url(url)
-                base_result.metadata.update(
-                    {"llm_enhanced": False, "llm_fallback_reason": str(e), "comprehensive_qa_analysis": False}
-                )
-                return base_result
-            except Exception as fallback_error:
-                logger.error(f"Fallback extraction also failed: {fallback_error}")
-                # Return minimal error result using same data structure
-                return ExtractionResult(
-                    url=url,
-                    elements=[],
-                    extraction_time=time.time() - start_time,
-                    success=False,
-                    errors=[f"Both comprehensive LLM and base extraction failed: {e}, {fallback_error}"],
-                )
-
-    async def _enhance_elements_with_comprehensive_llm(
-        self, elements: List[ExtractedElement]
-    ) -> List[ExtractedElement]:
-        """Enhance elements with comprehensive LLM analysis using efficient batching"""
-        if not elements:
-            return elements
-
-        enhanced_elements = []
-        batch_size = self.llm_config.DEFAULT_BATCH_SIZE
-
-        # Process elements in batches for efficiency
-        total_batches = (len(elements) + batch_size - 1) // batch_size
-        for i in range(0, len(elements), batch_size):
-            batch_num = (i // batch_size) + 1
-            batch = elements[i:i + batch_size]
-
-            logger.debug(
-                f"Processing comprehensive analysis batch {batch_num}/{total_batches}: " f"{len(batch)} elements"
+        if not extraction_result.success:
+            return PageAnalysis(
+                url=url, extraction_time=extraction_time, llm_insights={"error": "Base extraction failed"}
             )
 
-            try:
-                enhanced_batch = await self.llm_analyzer.analyze_elements_batch(batch)
-                enhanced_elements.extend(enhanced_batch)
-            except Exception as e:
-                logger.warning(f"Batch {batch_num} comprehensive analysis failed: {e}. " "Using original elements.")
-                enhanced_elements.extend(batch)
+        # Start page analysis
+        page_analysis = PageAnalysis(
+            url=url,
+            title="",  # title can be extracted from elements if needed
+            total_elements=len(extraction_result.elements),
+            extraction_time=extraction_time,
+        )
 
-        return enhanced_elements
+        # Count element types
+        for elem in extraction_result.elements:
+            if elem.is_clickable or elem.is_editable:
+                page_analysis.interactive_elements += 1
+            if elem.element_type == ElementType.INPUT:
+                page_analysis.form_elements += 1
+            # NAV might not be in ElementType, check if tag is nav instead
+            if elem.tag_name.lower() == "nav":
+                page_analysis.navigation_elements += 1
 
-    def _update_qa_statistics(self, elements: List[ExtractedElement]) -> None:
-        """Update QA-related statistics from analyzed elements"""
-        total_confidence = 0.0
-        total_test_suggestions = 0
+        if analyze_with_llm and extraction_result.elements:
+            llm_start = datetime.now()
 
-        for element in elements:
-            if element.ai_confidence:
-                total_confidence += element.ai_confidence
-            if element.test_suggestions:
-                total_test_suggestions += len(element.test_suggestions)
-                self.stats["comprehensive_qa_analyses"] += 1
+            # Enrich elements with LLM
+            print(f"[INFO] Enriching {len(extraction_result.elements)} elements with LLM...")
+            enriched = await self.llm_analyzer.analyze_elements(extraction_result.elements)
+            page_analysis.enriched_elements = enriched
 
-        if elements:
-            self.stats["average_confidence_score"] = total_confidence / len(elements)
-        self.stats["total_test_suggestions_generated"] += total_test_suggestions
+            # Generate QA test plan
+            print("[INFO] Generating QA test plan...")
+            test_plan = await self.llm_analyzer.generate_qa_test_plan(enriched, url)
+            page_analysis.qa_test_plan = test_plan
 
-    async def cleanup(self) -> None:
-        """Clean up resources with comprehensive cleanup"""
-        if hasattr(self.base_extractor, "cleanup"):
-            await self.base_extractor.cleanup()
+            # Detect framework and page type
+            page_insights = await self._analyze_page_characteristics(extraction_result, url)
+            page_analysis.page_type = page_insights.get("page_type", "unknown")
+            page_analysis.framework_detected = page_insights.get("framework")
+            page_analysis.llm_insights = page_insights
 
-        # Clear LLM analyzer cache and cleanup performance metrics
-        self.llm_analyzer.analysis_cache.clear()
-        self.llm_analyzer.performance_metrics.clear()
+            page_analysis.llm_processing_time = (datetime.now() - llm_start).total_seconds()
 
-        logger.info("ElementsExtractorWithLLM comprehensive cleanup completed")
+        return page_analysis
 
-    def get_comprehensive_stats(self) -> Dict[str, Any]:
-        """Get comprehensive performance and QA statistics"""
-        base_stats = {
-            **self.stats,
-            "llm_enhancement_rate": (self.stats["llm_enhanced_extractions"] / max(1, self.stats["total_extractions"])),
-            "avg_test_suggestions_per_element": (
-                self.stats["total_test_suggestions_generated"] / max(1, self.stats["total_elements_analyzed"])
-            ),
+    async def _analyze_page_characteristics(self, extraction_result: ExtractionResult, url: str) -> Dict[str, Any]:
+        """
+        Analyze overall page characteristics using LLM
+
+        Args:
+            extraction_result: Base extraction results
+            url: Page URL
+
+        Returns:
+            Page insights including type and framework
+        """
+        # Prepare page summary
+        page_summary = {
+            "url": url,
+            "title": "",  # Could extract from page title element if present
+            "total_elements": len(extraction_result.elements),
+            "sample_elements": [self._element_summary(elem) for elem in extraction_result.elements[:20]],
         }
 
-        # Add analyzer performance metrics
-        analyzer_metrics = self.llm_analyzer.get_performance_metrics()
-        base_stats.update({f"analyzer_{k}": v for k, v in analyzer_metrics.items()})
+        analysis_prompt = f"""Analyze this web page and determine:
 
-        return base_stats
+PAGE DATA:
+{json.dumps(page_summary, indent=2)}
+
+Please identify:
+1. Page type (login, dashboard, e-commerce, blog, etc.)
+2. Frontend framework if detectable (React, Vue, Angular, etc.)
+3. Key functionality areas
+4. User interaction patterns
+5. Potential testing challenges
+6. Recommended testing strategies
+
+Return as JSON with keys: page_type, framework, functionality, patterns, challenges, strategies"""
+
+        messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": analysis_prompt}]
+        strategy = self.llm_analyzer._select_strategy_for_task("page_classification")
+
+        response = call_default_llm(messages, strategy=strategy)
+        return self._parse_page_insights(response.content)
+
+    def _element_summary(self, element: ExtractedElement) -> Dict[str, Any]:
+        """Create summary of element for analysis"""
+        return {
+            "tag": element.tag_name,
+            "type": element.element_type.value if element.element_type else None,
+            "text": element.text[:50] if element.text else None,
+            "interactive": element.is_clickable or element.is_editable,
+        }
+
+    def _parse_page_insights(self, response: str) -> Dict[str, Any]:
+        """Parse page insights from LLM response"""
+        # Clean the response
+        response = response.strip()
+        
+        # Remove markdown code blocks if present
+        if '```json' in response:
+            response = response.replace('```json', '').replace('```', '')
+            response = response.strip()
+        
+        # Try direct JSON parse first
+        if response.startswith('{'):
+            result = json.loads(response)
+            # Ensure required keys exist
+            if "page_type" not in result:
+                result["page_type"] = "unknown"
+            return result
+        
+        # Try to extract JSON object
+        import re
+        json_match = re.search(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', response, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+            # Ensure required keys exist
+            if "page_type" not in result:
+                result["page_type"] = "unknown"
+            return result
+
+        # NO FALLBACKS - must succeed or fail completely
+        raise ValueError(f"Could not parse JSON from page insights response")
+
+    async def extract_for_qa(self, url: str) -> Tuple[PageAnalysis, List[str]]:
+        """
+        Extract elements and generate executable QA test code
+
+        Args:
+            url: URL to analyze
+
+        Returns:
+            Tuple of page analysis and list of test code snippets
+        """
+        # Get page analysis
+        analysis = await self.extract_and_analyze(url, analyze_with_llm=True)
+
+        # Generate test code for top scenarios
+        test_code_snippets = []
+
+        if analysis.qa_test_plan:
+            print("[INFO] Generating Playwright test code...")
+
+            for category, scenarios in list(analysis.qa_test_plan.items())[:3]:  # Top 3 categories
+                for scenario in scenarios[:2]:  # Top 2 scenarios per category
+                    code = await self._generate_test_code(scenario, analysis, category)
+                    if code:
+                        test_code_snippets.append(code)
+
+        return analysis, test_code_snippets
+
+    async def _generate_test_code(self, scenario: str, analysis: PageAnalysis, category: str) -> Optional[str]:
+        """
+        Generate executable Playwright test code for a scenario
+
+        Args:
+            scenario: Test scenario description
+            analysis: Page analysis data
+            category: Test category
+
+        Returns:
+            Executable Playwright code or None
+        """
+        # Get relevant elements for the scenario
+        relevant_elements = self._get_relevant_elements(scenario, analysis.enriched_elements)
+
+        code_prompt = f"""Generate executable Playwright test code for this scenario:
+
+SCENARIO: {scenario}
+CATEGORY: {category}
+URL: {analysis.url}
+
+RELEVANT ELEMENTS:
+{json.dumps([e.base_element for e in relevant_elements[:5]], indent=2)}
+
+Generate complete, executable Playwright code that:
+1. Navigates to the URL
+2. Performs the test scenario
+3. Includes assertions
+4. Handles errors gracefully
+
+Return ONLY the Python code, no explanations."""
+
+        messages: List[Union[Message, Dict[str, str]]] = [{"role": "user", "content": code_prompt}]
+        strategy = self.llm_analyzer._select_strategy_for_task("test_scenario")
+
+        response = call_default_llm(messages, strategy=strategy)
+        return self._extract_code(response.content)
+
+    def _get_relevant_elements(self, scenario: str, elements: List[EnrichedElement]) -> List[EnrichedElement]:
+        """Get elements relevant to a test scenario"""
+        scenario_lower = scenario.lower()
+        relevant = []
+
+        for elem in elements:
+            elem_text = str(elem.base_element.get("text", "")).lower()
+            elem_type = str(elem.base_element.get("element_type", "")).lower()
+
+            # Simple relevance matching
+            if any(keyword in scenario_lower for keyword in [elem_text[:20], elem_type]):
+                relevant.append(elem)
+            elif elem.context.interaction_likelihood > 0.7:
+                relevant.append(elem)
+
+        return relevant[:10]  # Return top 10 most relevant
+
+    def _extract_code(self, response: str) -> str:
+        """Extract Python code from LLM response"""
+        import re
+
+        # Try to find code block
+        code_match = re.search(r"```python\n(.*?)```", response, re.DOTALL)
+        if code_match:
+            return code_match.group(1).strip()
+
+        # Try to find async def
+        code_match = re.search(r"(async def test.*?(?=\n\nasync def|\n\n#|\Z))", response, re.DOTALL)
+        if code_match:
+            return code_match.group(1).strip()
+
+        # Return as is if it looks like code
+        if "async def" in response or "page.goto" in response:
+            return response.strip()
+
+        return ""
 
 
-# ==================== STANDALONE EXECUTION ====================
+# Convenience functions
+async def extract_and_analyze(url: str, config: Optional[ExtractionConfig] = None) -> PageAnalysis:
+    """
+    Extract and analyze web elements from a URL
+
+    Args:
+        url: URL to analyze
+        config: Optional extraction configuration
+
+    Returns:
+        Complete page analysis with LLM enrichment
+    """
+    extractor = ElementsExtractorWithLLMV3(config)
+    return await extractor.extract_and_analyze(url, analyze_with_llm=True)
 
 
-async def main() -> None:
-    """Comprehensive standalone execution for testing"""
-    logger.info("[COMPREHENSIVE ELEMENTS EXTRACTOR WITH LLM] Production Testing")
-    logger.info("=" * 70)
+async def generate_qa_tests(url: str) -> Tuple[PageAnalysis, List[str]]:
+    """
+    Generate QA test code for a URL
 
-    # Test configuration with comprehensive settings
-    config = ExtractionConfig(
-        max_elements=15, enable_stealth=True, capture_screenshots=False, extraction_timeout=30000  # 30 seconds
-    )
+    Args:
+        url: URL to test
 
-    llm_config = LLMAnalysisConfig()
-    llm_config.COMPREHENSIVE_ANALYSIS = True
-    llm_config.SECURITY_TESTING_ENABLED = True
-    llm_config.ACCESSIBILITY_TESTING_ENABLED = True
+    Returns:
+        Page analysis and test code snippets
+    """
+    extractor = ElementsExtractorWithLLMV3()
+    return await extractor.extract_for_qa(url)
 
-    # Initialize comprehensive extractor
-    extractor = ElementsExtractorWithLLM(config, llm_config)
 
-    # Test URLs with varying complexity
-    test_urls = ["https://example.com", "https://httpbin.org/forms/post"]
+# Main execution for testing
+async def main():
+    """Test the implementation with a real URL"""
+    print("=" * 60)
+    print("ELEMENTS EXTRACTOR WITH LLM V3")
+    print("=" * 60)
+    print()
 
-    for url in test_urls:
-        logger.info(f"\n[COMPREHENSIVE TEST] Extracting from {url}")
-        logger.info("-" * 50)
+    # Test URL
+    test_url = "https://example.com"
 
-        try:
-            result = await extractor.extract_from_url(url)
+    print(f"[TEST] Analyzing: {test_url}")
+    print()
 
-            logger.info(f"Success: {result.success}")
-            logger.info(f"Elements found: {len(result.elements)}")
-            logger.info(f"Comprehensive LLM enhanced: {result.metadata.get('llm_enhanced', False)}")
-            logger.info(f"QA analysis enabled: {result.metadata.get('comprehensive_qa_analysis', False)}")
+    try:
+        # Extract and analyze
+        analysis = await extract_and_analyze(test_url)
 
-            # Show sample comprehensively enhanced elements
-            enhanced_count = 0
-            for element in result.elements[:3]:  # Show first 3
-                if element.ai_description:
-                    enhanced_count += 1
-                    logger.info(f"\n  Element: {element.tag_name} ({element.element_type.value})")
-                    logger.info(f"  AI Description: {element.ai_description}")
-                    logger.info(f"  Test Suggestions: {len(element.test_suggestions)} comprehensive scenarios")
-                    logger.info(f"  AI Confidence: {element.ai_confidence}")
+        print("[OK] Extraction completed")
+        print(f"     Total elements: {analysis.total_elements}")
+        print(f"     Interactive elements: {analysis.interactive_elements}")
+        print(f"     Enriched elements: {len(analysis.enriched_elements)}")
+        print(f"     Page type: {analysis.page_type}")
+        print(f"     Framework: {analysis.framework_detected or 'Not detected'}")
+        print(f"     Extraction time: {analysis.extraction_time:.2f}s")
+        print(f"     LLM processing time: {analysis.llm_processing_time:.2f}s")
 
-                    # Show sample test suggestions
-                    for i, suggestion in enumerate(element.test_suggestions[:2], 1):
-                        logger.info(f"    {i}. {suggestion}")
+        if analysis.qa_test_plan:
+            print()
+            print("[OK] QA Test Plan Generated:")
+            for category, tests in list(analysis.qa_test_plan.items())[:3]:
+                print(f"     {category}: {len(tests)} test scenarios")
 
-            logger.info(f"\nComprehensively enhanced elements: {enhanced_count}/{len(result.elements)}")
+        # Save results
+        output_file = Path(__file__).parent / "test_results_v3.json"
+        with open(output_file, "w") as f:
+            # Convert to dict for JSON serialization
+            result_dict = {
+                "url": analysis.url,
+                "title": analysis.title,
+                "page_type": analysis.page_type,
+                "framework": analysis.framework_detected,
+                "stats": {
+                    "total_elements": analysis.total_elements,
+                    "interactive": analysis.interactive_elements,
+                    "enriched": len(analysis.enriched_elements),
+                },
+                "qa_test_categories": list(analysis.qa_test_plan.keys()) if analysis.qa_test_plan else [],
+                "timing": {"extraction": analysis.extraction_time, "llm_processing": analysis.llm_processing_time},
+            }
+            json.dump(result_dict, f, indent=2)
 
-        except Exception as e:
-            logger.error(f"Error: {e}")
+        print()
+        print(f"[OK] Results saved to: {output_file}")
+        print()
+        print("[SUCCESS] Elements Extractor with LLM V3 working!")
+        
+        # Add delay for proper asyncio cleanup (Python 3.13 issue)
+        await asyncio.sleep(0.1)
 
-    # Show comprehensive statistics
-    stats = extractor.get_comprehensive_stats()
-    logger.info("\n[COMPREHENSIVE STATISTICS]")
-    logger.info(f"Total extractions: {stats['total_extractions']}")
-    logger.info(f"LLM enhanced: {stats['llm_enhanced_extractions']}")
-    logger.info(f"Fallback extractions: {stats['fallback_extractions']}")
-    logger.info(f"Elements analyzed: {stats['total_elements_analyzed']}")
-    logger.info(f"QA analyses performed: {stats['comprehensive_qa_analyses']}")
-    logger.info(f"Enhancement rate: {stats['llm_enhancement_rate']:.2%}")
-    logger.info(f"Average confidence: {stats['average_confidence_score']:.3f}")
-    logger.info(f"Total test suggestions: {stats['total_test_suggestions_generated']}")
-    logger.info(f"Avg suggestions/element: {stats['avg_test_suggestions_per_element']:.1f}")
+        return 0
 
-    await extractor.cleanup()
-    logger.info("\n[COMPLETE] Comprehensive testing finished successfully")
+    except Exception as e:
+        print(f"[ERROR] Test failed: {e}")
+        import traceback
+
+        traceback.print_exc()
+        return 1
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    sys.exit(asyncio.run(main()))
+

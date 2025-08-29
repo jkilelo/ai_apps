@@ -1,0 +1,2250 @@
+{
+  "url": "http://localhost:8000",
+  "formatted_url": "localhost_8000",
+  "success": true,
+  "timestamp": "2025-08-28T18:16:09.302201",
+  "elements_count": 4,
+  "page_type": "login",
+  "framework_detected": "Undetermined",
+  "total_scenarios": 26,
+  "categories_covered": [
+    "functional",
+    "validation",
+    "accessibility",
+    "security",
+    "performance",
+    "error_handling"
+  ],
+  "test_suite": {
+    "feature_name": "Login Page Comprehensive Testing",
+    "feature_description": "This feature encompasses a thorough testing suite for the login page located at http://localhost:8000. It includes 26 distinct test scenarios covering performance, security, accessibility, functional correctness, input validation, and robust error handling to ensure a reliable and secure user authentication process.",
+    "url": "http://localhost:8000",
+    "scenarios": [
+      {
+        "name": "Successful User Login",
+        "description": "Verify that a registered user can successfully log in with valid credentials.",
+        "category": "functional",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "the login page is accessible at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I have a valid username and password",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I enter my valid username in the username field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I enter my valid password in the password field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should be redirected to the user dashboard",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I should see a welcome message with my username",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "valid_user",
+          "password": "valid_password"
+        },
+        "expected_results": [
+          "User is successfully authenticated.",
+          "User is redirected to the correct post-login page.",
+          "A personalized welcome message is displayed."
+        ],
+        "tags": [
+          "functional",
+          "login",
+          "positive",
+          "authentication"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login with Invalid Credentials",
+        "description": "Verify that an error message is displayed when a user attempts to log in with invalid credentials.",
+        "category": "functional",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "the login page is accessible at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I have an invalid username or password",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I enter an invalid username in the username field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I enter an invalid password in the password field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should remain on the login page",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "an error message indicating 'Invalid username or password' is displayed",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "invalid_user",
+          "password": "invalid_password"
+        },
+        "expected_results": [
+          "User is not authenticated.",
+          "User remains on the login page.",
+          "An informative error message is displayed."
+        ],
+        "tags": [
+          "functional",
+          "login",
+          "negative",
+          "authentication",
+          "error_handling"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login with Empty Credentials",
+        "description": "Verify that the system prevents login attempts with empty username and password fields and displays appropriate validation messages.",
+        "category": "functional",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "the login page is accessible at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I leave the username field empty",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I leave the password field empty",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should remain on the login page",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "a validation message indicating 'Username is required' is displayed next to the username field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "a validation message indicating 'Password is required' is displayed next to the password field",
+            "data_table": null
+          }
+        ],
+        "test_data": {},
+        "expected_results": [
+          "Login attempt is blocked.",
+          "User remains on the login page.",
+          "Appropriate validation messages are shown for both empty fields."
+        ],
+        "tags": [
+          "functional",
+          "login",
+          "validation",
+          "empty_fields",
+          "error_handling"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login with Only Username Provided",
+        "description": "Verify that the system prevents login attempts when only the username is provided and the password field is empty.",
+        "category": "functional",
+        "priority": "medium",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "the login page is accessible at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I have a valid username",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I enter my valid username in the username field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I leave the password field empty",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should remain on the login page",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "a validation message indicating 'Password is required' is displayed next to the password field",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "valid_user"
+        },
+        "expected_results": [
+          "Login attempt is blocked.",
+          "User remains on the login page.",
+          "A validation message for the empty password field is displayed."
+        ],
+        "tags": [
+          "functional",
+          "login",
+          "validation",
+          "partial_input",
+          "error_handling"
+        ],
+        "confidence_score": 0.9
+      },
+      {
+        "name": "Login with Only Password Provided",
+        "description": "Verify that the system prevents login attempts when only the password is provided and the username field is empty.",
+        "category": "functional",
+        "priority": "medium",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "the login page is accessible at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I have a valid password",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I leave the username field empty",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I enter my valid password in the password field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should remain on the login page",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "a validation message indicating 'Username is required' is displayed next to the username field",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "password": "valid_password"
+        },
+        "expected_results": [
+          "Login attempt is blocked.",
+          "User remains on the login page.",
+          "A validation message for the empty username field is displayed."
+        ],
+        "tags": [
+          "functional",
+          "login",
+          "validation",
+          "partial_input",
+          "error_handling"
+        ],
+        "confidence_score": 0.9
+      },
+      {
+        "name": "Test Scenario: Empty Username and Password Fields",
+        "description": "Verify that the login form displays appropriate validation messages when both username and password fields are left empty.",
+        "category": "validation",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The user is on the login page http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The user clicks the login button without entering any credentials",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The system should display a validation message for the username field indicating it is required",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The system should display a validation message for the password field indicating it is required",
+            "data_table": null
+          }
+        ],
+        "test_data": {},
+        "expected_results": [
+          "An error message is displayed next to the username input field, stating 'Username is required'.",
+          "An error message is displayed next to the password input field, stating 'Password is required'.",
+          "The user is not logged in."
+        ],
+        "tags": [
+          "validation",
+          "login",
+          "empty_fields",
+          "critical"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Test Scenario: Invalid Username Format",
+        "description": "Verify that the login form displays an appropriate validation message when the username field is entered with an invalid format (e.g., special characters not allowed).",
+        "category": "validation",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The user is on the login page http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The user enters 'invalid-user!' in the username field and a valid password",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user clicks the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The system should display a validation message for the username field indicating an invalid format",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "invalid-user!",
+          "password": "validPassword123"
+        },
+        "expected_results": [
+          "An error message is displayed next to the username input field, stating 'Invalid username format. Please use only letters and numbers.' (or similar based on defined format).",
+          "The user is not logged in."
+        ],
+        "tags": [
+          "validation",
+          "login",
+          "invalid_format",
+          "username"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Keyboard Navigation for Login Form",
+        "description": "Verify that the login form can be fully navigated and interacted with using only a keyboard, ensuring users who cannot use a mouse can still log in.",
+        "category": "accessibility",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I use the Tab key to navigate through interactive elements",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I can reach the username input field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I can reach the password input field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I can reach the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I press Enter on the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The login process is initiated without requiring a mouse click",
+            "data_table": null
+          }
+        ],
+        "test_data": {},
+        "expected_results": [
+          "Focus indicator is clearly visible on each interactive element as it is tabbed to.",
+          "Tab order follows a logical sequence (e.g., username, password, login button).",
+          "Users can successfully submit the form using the Enter key on the login button."
+        ],
+        "tags": [
+          "accessibility",
+          "keyboard-navigation",
+          "login",
+          "critical"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Screen Reader Compatibility for Login Form",
+        "description": "Ensure that a screen reader can correctly interpret and announce all elements of the login form, including labels, input fields, and the login button, to visually impaired users.",
+        "category": "accessibility",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000 with a screen reader activated",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The page loads",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The screen reader announces the purpose of the page (e.g., 'Login page')",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I navigate to the username input field",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The screen reader announces 'username' or a similar descriptive label",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I navigate to the password input field",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The screen reader announces 'password' or a similar descriptive label",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I navigate to the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The screen reader announces 'Login' or 'Sign In'",
+            "data_table": null
+          }
+        ],
+        "test_data": {},
+        "expected_results": [
+          "All form elements have associated and programmatically linked labels.",
+          "Input fields are correctly identified by their labels.",
+          "Buttons are clearly identified by their accessible name."
+        ],
+        "tags": [
+          "accessibility",
+          "screen-reader",
+          "login",
+          "critical"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Sufficient Color Contrast for Login Form Elements",
+        "description": "Verify that the color contrast between text and background on the login form meets WCAG AA standards, ensuring readability for users with low vision or color blindness.",
+        "category": "accessibility",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I inspect the color contrast of the text and background for all visible elements",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The contrast ratio for text within input fields meets or exceeds 4.5:1",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The contrast ratio for the login button text against its background meets or exceeds 4.5:1",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The contrast ratio for any placeholder text in input fields meets or exceeds 4.5:1",
+            "data_table": null
+          }
+        ],
+        "test_data": {},
+        "expected_results": [
+          "Text is easily readable against its background.",
+          "No essential information is conveyed solely through color."
+        ],
+        "tags": [
+          "accessibility",
+          "color-contrast",
+          "login",
+          "high"
+        ],
+        "confidence_score": 0.9
+      },
+      {
+        "name": "ARIA Attributes for Form Structure and Input Types",
+        "description": "Check for the correct use of ARIA attributes to enhance the semantic structure of the login form for assistive technologies.",
+        "category": "accessibility",
+        "priority": "medium",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I inspect the HTML structure of the login form",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The form element has an appropriate role, if necessary (e.g., role='form')",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The input fields have appropriate `type` attributes (e.g., `type='text'`, `type='password'`)",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The login button has an appropriate `type` attribute (e.g., `type='button'`, `type='submit'`) and an accessible name",
+            "data_table": null
+          }
+        ],
+        "test_data": {},
+        "expected_results": [
+          "Form elements are semantically clear for assistive technologies.",
+          "Input fields are correctly identified by their type, aiding browser and assistive technology behavior."
+        ],
+        "tags": [
+          "accessibility",
+          "aria",
+          "semantics",
+          "login",
+          "medium"
+        ],
+        "confidence_score": 0.85
+      },
+      {
+        "name": "Focus Management on Login Error",
+        "description": "Verify that when a login error occurs, focus is appropriately managed to guide the user to correct the issue.",
+        "category": "accessibility",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I have entered invalid credentials",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "An error message is displayed indicating the login failure",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "Focus is programmatically moved to the first field that requires correction (e.g., username or password)",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "invaliduser",
+          "password": "wrongpassword"
+        },
+        "expected_results": [
+          "Users are clearly informed of the login error.",
+          "Assistive technology users are directed to the input field that needs attention, facilitating correction."
+        ],
+        "tags": [
+          "accessibility",
+          "focus-management",
+          "error-handling",
+          "login",
+          "high"
+        ],
+        "confidence_score": 0.9
+      },
+      {
+        "name": "Attempt Login with Invalid Credentials",
+        "description": "Verify that the login page prevents unauthorized access when incorrect username and password combinations are provided.",
+        "category": "security",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The user is on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The user enters an invalid username 'invalid_user'",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user enters an invalid password 'wrong_password'",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user clicks the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The user should not be logged in",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "An appropriate error message should be displayed indicating invalid credentials",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "invalid_user",
+          "password": "wrong_password"
+        },
+        "expected_results": [
+          "User remains on the login page.",
+          "An error message like 'Invalid username or password.' is displayed."
+        ],
+        "tags": [
+          "security",
+          "authentication",
+          "invalid_credentials",
+          "login"
+        ],
+        "confidence_score": 0.98
+      },
+      {
+        "name": "Check for SQL Injection Vulnerability in Username Field",
+        "description": "Test if the username input field is vulnerable to SQL injection attacks by attempting to inject malicious SQL code.",
+        "category": "security",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The user is on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The user enters a SQL injection payload in the username field, e.g., ' OR '1'='1",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user enters any password",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user clicks the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The user should not be logged in with unauthorized access",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The system should not execute the injected SQL query or return an error indicating a database issue",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "' OR '1'='1",
+          "password": "any_password"
+        },
+        "expected_results": [
+          "User remains on the login page.",
+          "No successful login occurs.",
+          "No database errors are exposed."
+        ],
+        "tags": [
+          "security",
+          "sql_injection",
+          "authentication",
+          "input_validation"
+        ],
+        "confidence_score": 0.97
+      },
+      {
+        "name": "Check for SQL Injection Vulnerability in Password Field",
+        "description": "Test if the password input field is vulnerable to SQL injection attacks by attempting to inject malicious SQL code.",
+        "category": "security",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The user is on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The user enters a valid or invalid username",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user enters a SQL injection payload in the password field, e.g., ' OR '1'='1",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user clicks the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The user should not be logged in with unauthorized access",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The system should not execute the injected SQL query or return an error indicating a database issue",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "any_user",
+          "password": "' OR '1'='1"
+        },
+        "expected_results": [
+          "User remains on the login page.",
+          "No successful login occurs.",
+          "No database errors are exposed."
+        ],
+        "tags": [
+          "security",
+          "sql_injection",
+          "authentication",
+          "input_validation"
+        ],
+        "confidence_score": 0.97
+      },
+      {
+        "name": "Verify Password Field Masking",
+        "description": "Ensure that the password field masks the entered characters to prevent shoulder surfing and unauthorized viewing of the password.",
+        "category": "security",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The user is on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The user enters characters into the password input field",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The entered characters in the password field should be masked (e.g., displayed as asterisks or dots)",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "password": "s3cur3p@ssw0rd"
+        },
+        "expected_results": [
+          "Characters entered into the password field are replaced with masking characters (e.g., '********')."
+        ],
+        "tags": [
+          "security",
+          "password_masking",
+          "ui",
+          "authentication"
+        ],
+        "confidence_score": 0.99
+      },
+      {
+        "name": "Test Brute-Force Attack Prevention (Account Lockout)",
+        "description": "Verify that the system implements measures to prevent brute-force attacks by locking out an account after a certain number of failed login attempts.",
+        "category": "security",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The user is on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The user attempts to log in with an existing username but an incorrect password for a defined number of times (e.g., 5 times)",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The user attempts to log in with the correct username and correct password after the failed attempts",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The login attempt with correct credentials should fail",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "An account lockout message should be displayed",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "valid_user",
+          "incorrect_password": "wrong_password",
+          "correct_password": "correct_password",
+          "failed_attempts": 5
+        },
+        "expected_results": [
+          "After 'failed_attempts' invalid login attempts for 'valid_user', the account is temporarily locked.",
+          "Subsequent login attempts with correct credentials for 'valid_user' are denied.",
+          "A message indicating account lockout is displayed."
+        ],
+        "tags": [
+          "security",
+          "brute_force",
+          "account_lockout",
+          "authentication"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login Page Load Time Under Normal Load",
+        "description": "Measure the time it takes for the login page to fully load and become interactive when a moderate number of concurrent users are accessing it.",
+        "category": "performance",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The performance testing tool is configured to simulate 100 concurrent users.",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The simulated users access the login page at http://localhost:8000.",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The login page should load and be interactive within 3 seconds.",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "concurrent_users": 100,
+          "max_load_time_seconds": 3
+        },
+        "expected_results": [
+          "The login page's DOM content is fully loaded.",
+          "All interactive elements (input fields, buttons) are visible and responsive.",
+          "The average page load time is less than or equal to 3 seconds."
+        ],
+        "tags": [
+          "PERFORMANCE",
+          "LOGIN",
+          "LOAD_TESTING",
+          "CRITICAL"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login Page Response Time Under Peak Load",
+        "description": "Assess the login page's response time when subjected to a high volume of concurrent users to identify potential bottlenecks.",
+        "category": "performance",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The performance testing tool is configured to simulate 500 concurrent users.",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The simulated users access the login page at http://localhost:8000.",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The login page should remain responsive, with load times not exceeding 8 seconds for 95% of users.",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "concurrent_users": 500,
+          "percentile_95_max_load_time_seconds": 8
+        },
+        "expected_results": [
+          "The login page continues to load without significant errors.",
+          "The 95th percentile of page load times is below 8 seconds.",
+          "Server CPU and memory utilization remain within acceptable thresholds (e.g., below 80%)."
+        ],
+        "tags": [
+          "PERFORMANCE",
+          "LOGIN",
+          "STRESS_TESTING",
+          "HIGH"
+        ],
+        "confidence_score": 0.93
+      },
+      {
+        "name": "Login Form Submission Latency",
+        "description": "Measure the time taken for the login form to submit and for a response to be received under normal load conditions.",
+        "category": "performance",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "A valid set of login credentials is prepared.",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "The performance testing tool is configured to simulate 50 concurrent users performing login actions.",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "Each simulated user submits the login form with the valid credentials on http://localhost:8000.",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The form submission and response should complete within 2 seconds for 90% of submissions.",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "testuser",
+          "password": "password123",
+          "concurrent_users": 50,
+          "percentile_90_max_submission_time_seconds": 2
+        },
+        "expected_results": [
+          "The login submission is processed by the server.",
+          "A successful login response (or appropriate error message) is received.",
+          "The average time from form submission to receiving a response is less than 2 seconds."
+        ],
+        "tags": [
+          "PERFORMANCE",
+          "LOGIN",
+          "SUBMISSION_LATENCY",
+          "HIGH"
+        ],
+        "confidence_score": 0.94
+      },
+      {
+        "name": "Login Page Resource Utilization",
+        "description": "Monitor the resource consumption (CPU, memory) of the server when the login page is accessed by a moderate number of concurrent users.",
+        "category": "performance",
+        "priority": "medium",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The performance testing tool is configured to simulate 75 concurrent users accessing the login page.",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The simulated users repeatedly access the login page at http://localhost:8000 over a 5-minute period.",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The server's CPU utilization should not exceed 60% and memory utilization should not exceed 70%.",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "concurrent_users": 75,
+          "test_duration_minutes": 5,
+          "max_cpu_utilization_percent": 60,
+          "max_memory_utilization_percent": 70
+        },
+        "expected_results": [
+          "Server CPU usage remains below 60% on average.",
+          "Server memory usage remains below 70% on average.",
+          "No memory leaks are detected during the test period."
+        ],
+        "tags": [
+          "PERFORMANCE",
+          "LOGIN",
+          "RESOURCE_MONITORING",
+          "MEDIUM"
+        ],
+        "confidence_score": 0.92
+      },
+      {
+        "name": "Login Page Scalability with Increasing Load",
+        "description": "Gradually increase the number of concurrent users accessing the login page to identify the performance breaking point and observe how response times degrade.",
+        "category": "performance",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "The performance testing tool will gradually increase concurrent users from 50 to 500.",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "The simulated users access the login page at http://localhost:8000 with a ramp-up of 10 users every 30 seconds.",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "The average login page load time should remain below 5 seconds until 300 concurrent users, after which it can degrade gracefully up to 8 seconds at 500 users.",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "initial_users": 50,
+          "max_users": 500,
+          "ramp_up_increment": 10,
+          "ramp_up_interval_seconds": 30,
+          "threshold_users": 300,
+          "threshold_max_load_time_seconds": 5,
+          "peak_max_load_time_seconds": 8
+        },
+        "expected_results": [
+          "Page load times remain consistent and acceptable up to 300 concurrent users.",
+          "As user load increases beyond 300, page load times increase progressively.",
+          "The system remains operational and does not crash up to 500 concurrent users, with load times not exceeding 8 seconds."
+        ],
+        "tags": [
+          "PERFORMANCE",
+          "LOGIN",
+          "SCALABILITY",
+          "LOAD_RAMP",
+          "HIGH"
+        ],
+        "confidence_score": 0.9
+      },
+      {
+        "name": "Login with invalid credentials",
+        "description": "Test the login functionality when a user provides invalid username and password combination.",
+        "category": "error_handling",
+        "priority": "critical",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I enter an invalid username and an invalid password",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should see an error message indicating invalid credentials",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I should remain on the login page",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "invalid_user",
+          "password": "wrong_password"
+        },
+        "expected_results": [
+          "An error message like 'Invalid username or password' is displayed.",
+          "The user is not redirected to any authenticated page.",
+          "The input fields might be cleared or retain the invalid input."
+        ],
+        "tags": [
+          "login",
+          "error_handling",
+          "invalid_credentials",
+          "negative_testing"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login with empty username field",
+        "description": "Test the login functionality when the username field is left empty.",
+        "category": "error_handling",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I leave the username field empty",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I enter a valid password",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should see a validation error message for the username field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I should remain on the login page",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "",
+          "password": "valid_password"
+        },
+        "expected_results": [
+          "A validation error message like 'Username is required' is displayed next to or near the username input.",
+          "The login attempt is prevented.",
+          "The user remains on the login page."
+        ],
+        "tags": [
+          "login",
+          "error_handling",
+          "empty_field",
+          "validation",
+          "negative_testing"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login with empty password field",
+        "description": "Test the login functionality when the password field is left empty.",
+        "category": "error_handling",
+        "priority": "high",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I enter a valid username",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I leave the password field empty",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should see a validation error message for the password field",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I should remain on the login page",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "valid_user",
+          "password": ""
+        },
+        "expected_results": [
+          "A validation error message like 'Password is required' is displayed next to or near the password input.",
+          "The login attempt is prevented.",
+          "The user remains on the login page."
+        ],
+        "tags": [
+          "login",
+          "error_handling",
+          "empty_field",
+          "validation",
+          "negative_testing"
+        ],
+        "confidence_score": 0.95
+      },
+      {
+        "name": "Login with both empty fields",
+        "description": "Test the login functionality when both username and password fields are left empty.",
+        "category": "error_handling",
+        "priority": "medium",
+        "steps": [
+          {
+            "keyword": "Given",
+            "text": "I am on the login page at http://localhost:8000",
+            "data_table": null
+          },
+          {
+            "keyword": "When",
+            "text": "I leave both the username and password fields empty",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I click the login button",
+            "data_table": null
+          },
+          {
+            "keyword": "Then",
+            "text": "I should see validation error messages for both fields",
+            "data_table": null
+          },
+          {
+            "keyword": "And",
+            "text": "I should remain on the login page",
+            "data_table": null
+          }
+        ],
+        "test_data": {
+          "username": "",
+          "password": ""
+        },
+        "expected_results": [
+          "Validation error messages for both 'Username is required' and 'Password is required' are displayed.",
+          "The login attempt is prevented.",
+          "The user remains on the login page."
+        ],
+        "tags": [
+          "login",
+          "error_handling",
+          "empty_fields",
+          "validation",
+          "negative_testing"
+        ],
+        "confidence_score": 0.95
+      }
+    ],
+    "total_scenarios": 26,
+    "generation_time": 78.152171
+  },
+  "test_scenarios": [
+    {
+      "name": "Successful User Login",
+      "category": "functional",
+      "description": "Verify that a registered user can successfully log in with valid credentials.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "the login page is accessible at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I have a valid username and password",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I enter my valid username in the username field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I enter my valid password in the password field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should be redirected to the user dashboard",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I should see a welcome message with my username",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with Invalid Credentials",
+      "category": "functional",
+      "description": "Verify that an error message is displayed when a user attempts to log in with invalid credentials.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "the login page is accessible at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I have an invalid username or password",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I enter an invalid username in the username field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I enter an invalid password in the password field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should remain on the login page",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "an error message indicating 'Invalid username or password' is displayed",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with Empty Credentials",
+      "category": "functional",
+      "description": "Verify that the system prevents login attempts with empty username and password fields and displays appropriate validation messages.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "the login page is accessible at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I leave the username field empty",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I leave the password field empty",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should remain on the login page",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "a validation message indicating 'Username is required' is displayed next to the username field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "a validation message indicating 'Password is required' is displayed next to the password field",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with Only Username Provided",
+      "category": "functional",
+      "description": "Verify that the system prevents login attempts when only the username is provided and the password field is empty.",
+      "priority": "medium",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "the login page is accessible at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I have a valid username",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I enter my valid username in the username field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I leave the password field empty",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should remain on the login page",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "a validation message indicating 'Password is required' is displayed next to the password field",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with Only Password Provided",
+      "category": "functional",
+      "description": "Verify that the system prevents login attempts when only the password is provided and the username field is empty.",
+      "priority": "medium",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "the login page is accessible at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I have a valid password",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I leave the username field empty",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I enter my valid password in the password field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should remain on the login page",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "a validation message indicating 'Username is required' is displayed next to the username field",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Test Scenario: Empty Username and Password Fields",
+      "category": "validation",
+      "description": "Verify that the login form displays appropriate validation messages when both username and password fields are left empty.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The user is on the login page http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The user clicks the login button without entering any credentials",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The system should display a validation message for the username field indicating it is required",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The system should display a validation message for the password field indicating it is required",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Test Scenario: Invalid Username Format",
+      "category": "validation",
+      "description": "Verify that the login form displays an appropriate validation message when the username field is entered with an invalid format (e.g., special characters not allowed).",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The user is on the login page http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The user enters 'invalid-user!' in the username field and a valid password",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user clicks the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The system should display a validation message for the username field indicating an invalid format",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Keyboard Navigation for Login Form",
+      "category": "accessibility",
+      "description": "Verify that the login form can be fully navigated and interacted with using only a keyboard, ensuring users who cannot use a mouse can still log in.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I use the Tab key to navigate through interactive elements",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I can reach the username input field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I can reach the password input field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I can reach the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I press Enter on the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The login process is initiated without requiring a mouse click",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Screen Reader Compatibility for Login Form",
+      "category": "accessibility",
+      "description": "Ensure that a screen reader can correctly interpret and announce all elements of the login form, including labels, input fields, and the login button, to visually impaired users.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000 with a screen reader activated",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The page loads",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The screen reader announces the purpose of the page (e.g., 'Login page')",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I navigate to the username input field",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The screen reader announces 'username' or a similar descriptive label",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I navigate to the password input field",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The screen reader announces 'password' or a similar descriptive label",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I navigate to the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The screen reader announces 'Login' or 'Sign In'",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Sufficient Color Contrast for Login Form Elements",
+      "category": "accessibility",
+      "description": "Verify that the color contrast between text and background on the login form meets WCAG AA standards, ensuring readability for users with low vision or color blindness.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I inspect the color contrast of the text and background for all visible elements",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The contrast ratio for text within input fields meets or exceeds 4.5:1",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The contrast ratio for the login button text against its background meets or exceeds 4.5:1",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The contrast ratio for any placeholder text in input fields meets or exceeds 4.5:1",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "ARIA Attributes for Form Structure and Input Types",
+      "category": "accessibility",
+      "description": "Check for the correct use of ARIA attributes to enhance the semantic structure of the login form for assistive technologies.",
+      "priority": "medium",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I inspect the HTML structure of the login form",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The form element has an appropriate role, if necessary (e.g., role='form')",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The input fields have appropriate `type` attributes (e.g., `type='text'`, `type='password'`)",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The login button has an appropriate `type` attribute (e.g., `type='button'`, `type='submit'`) and an accessible name",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Focus Management on Login Error",
+      "category": "accessibility",
+      "description": "Verify that when a login error occurs, focus is appropriately managed to guide the user to correct the issue.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I have entered invalid credentials",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "An error message is displayed indicating the login failure",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "Focus is programmatically moved to the first field that requires correction (e.g., username or password)",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Attempt Login with Invalid Credentials",
+      "category": "security",
+      "description": "Verify that the login page prevents unauthorized access when incorrect username and password combinations are provided.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The user is on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The user enters an invalid username 'invalid_user'",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user enters an invalid password 'wrong_password'",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user clicks the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The user should not be logged in",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "An appropriate error message should be displayed indicating invalid credentials",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Check for SQL Injection Vulnerability in Username Field",
+      "category": "security",
+      "description": "Test if the username input field is vulnerable to SQL injection attacks by attempting to inject malicious SQL code.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The user is on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The user enters a SQL injection payload in the username field, e.g., ' OR '1'='1",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user enters any password",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user clicks the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The user should not be logged in with unauthorized access",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The system should not execute the injected SQL query or return an error indicating a database issue",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Check for SQL Injection Vulnerability in Password Field",
+      "category": "security",
+      "description": "Test if the password input field is vulnerable to SQL injection attacks by attempting to inject malicious SQL code.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The user is on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The user enters a valid or invalid username",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user enters a SQL injection payload in the password field, e.g., ' OR '1'='1",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user clicks the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The user should not be logged in with unauthorized access",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The system should not execute the injected SQL query or return an error indicating a database issue",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Verify Password Field Masking",
+      "category": "security",
+      "description": "Ensure that the password field masks the entered characters to prevent shoulder surfing and unauthorized viewing of the password.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The user is on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The user enters characters into the password input field",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The entered characters in the password field should be masked (e.g., displayed as asterisks or dots)",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Test Brute-Force Attack Prevention (Account Lockout)",
+      "category": "security",
+      "description": "Verify that the system implements measures to prevent brute-force attacks by locking out an account after a certain number of failed login attempts.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The user is on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The user attempts to log in with an existing username but an incorrect password for a defined number of times (e.g., 5 times)",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The user attempts to log in with the correct username and correct password after the failed attempts",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The login attempt with correct credentials should fail",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "An account lockout message should be displayed",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login Page Load Time Under Normal Load",
+      "category": "performance",
+      "description": "Measure the time it takes for the login page to fully load and become interactive when a moderate number of concurrent users are accessing it.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The performance testing tool is configured to simulate 100 concurrent users.",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The simulated users access the login page at http://localhost:8000.",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The login page should load and be interactive within 3 seconds.",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login Page Response Time Under Peak Load",
+      "category": "performance",
+      "description": "Assess the login page's response time when subjected to a high volume of concurrent users to identify potential bottlenecks.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The performance testing tool is configured to simulate 500 concurrent users.",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The simulated users access the login page at http://localhost:8000.",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The login page should remain responsive, with load times not exceeding 8 seconds for 95% of users.",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login Form Submission Latency",
+      "category": "performance",
+      "description": "Measure the time taken for the login form to submit and for a response to be received under normal load conditions.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "A valid set of login credentials is prepared.",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "The performance testing tool is configured to simulate 50 concurrent users performing login actions.",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "Each simulated user submits the login form with the valid credentials on http://localhost:8000.",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The form submission and response should complete within 2 seconds for 90% of submissions.",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login Page Resource Utilization",
+      "category": "performance",
+      "description": "Monitor the resource consumption (CPU, memory) of the server when the login page is accessed by a moderate number of concurrent users.",
+      "priority": "medium",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The performance testing tool is configured to simulate 75 concurrent users accessing the login page.",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The simulated users repeatedly access the login page at http://localhost:8000 over a 5-minute period.",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The server's CPU utilization should not exceed 60% and memory utilization should not exceed 70%.",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login Page Scalability with Increasing Load",
+      "category": "performance",
+      "description": "Gradually increase the number of concurrent users accessing the login page to identify the performance breaking point and observe how response times degrade.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "The performance testing tool will gradually increase concurrent users from 50 to 500.",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "The simulated users access the login page at http://localhost:8000 with a ramp-up of 10 users every 30 seconds.",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "The average login page load time should remain below 5 seconds until 300 concurrent users, after which it can degrade gracefully up to 8 seconds at 500 users.",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with invalid credentials",
+      "category": "error_handling",
+      "description": "Test the login functionality when a user provides invalid username and password combination.",
+      "priority": "critical",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I enter an invalid username and an invalid password",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should see an error message indicating invalid credentials",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I should remain on the login page",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with empty username field",
+      "category": "error_handling",
+      "description": "Test the login functionality when the username field is left empty.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I leave the username field empty",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I enter a valid password",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should see a validation error message for the username field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I should remain on the login page",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with empty password field",
+      "category": "error_handling",
+      "description": "Test the login functionality when the password field is left empty.",
+      "priority": "high",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I enter a valid username",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I leave the password field empty",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should see a validation error message for the password field",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I should remain on the login page",
+          "data_table": null
+        }
+      ]
+    },
+    {
+      "name": "Login with both empty fields",
+      "category": "error_handling",
+      "description": "Test the login functionality when both username and password fields are left empty.",
+      "priority": "medium",
+      "steps": [
+        {
+          "keyword": "Given",
+          "text": "I am on the login page at http://localhost:8000",
+          "data_table": null
+        },
+        {
+          "keyword": "When",
+          "text": "I leave both the username and password fields empty",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I click the login button",
+          "data_table": null
+        },
+        {
+          "keyword": "Then",
+          "text": "I should see validation error messages for both fields",
+          "data_table": null
+        },
+        {
+          "keyword": "And",
+          "text": "I should remain on the login page",
+          "data_table": null
+        }
+      ]
+    }
+  ],
+  "test_code": {},
+  "generation_time": 78.152171,
+  "llm_processing_time": 26.306634999999993,
+  "strategies_used": [
+    "tree_of_thoughts",
+    "program_aided_language",
+    "self_consistency",
+    "debate",
+    "constitutional_ai",
+    "chain_of_thought",
+    "meta_cognitive_framework",
+    "reflexion",
+    "few_shot",
+    "chain_of_table"
+  ],
+  "errors": []
+}

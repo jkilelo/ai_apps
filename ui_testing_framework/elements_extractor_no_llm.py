@@ -49,7 +49,7 @@ logger = logging.getLogger(__name__)
 
 # Import browser module for DRY compliance
 try:
-    from base.browser import (
+    from browser import (
         UltimateStealthBrowser,
         StealthConfig,
         StealthLevel,
@@ -61,7 +61,7 @@ try:
 except ImportError:
     BROWSER_MODULE_AVAILABLE = False
 
-    logger.warning("Browser module not found. This module requires base/browser.py")
+    logger.warning("Browser module not found. This module requires browser.py")
 
     # Define minimal fallback types for type checking
     class StealthConfig:  # type: ignore

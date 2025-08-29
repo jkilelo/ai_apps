@@ -1,0 +1,369 @@
+{
+  "url": "http://localhost:8000",
+  "formatted_url": "localhost_8000",
+  "success": true,
+  "timestamp": "2025-08-28T18:14:21.386998",
+  "base_elements_count": 4,
+  "base_elements": [
+    {
+      "selector": "//button[contains(text(), 'Submit')]",
+      "element_type": "button",
+      "tag_name": "button",
+      "text": "Submit",
+      "value": null,
+      "placeholder": null,
+      "id": null,
+      "name": null,
+      "classes": [],
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "is_visible": true,
+      "is_enabled": true,
+      "parent_selector": null,
+      "child_count": 0,
+      "ai_description": null,
+      "test_suggestions": [],
+      "importance_score": 0.5
+    },
+    {
+      "selector": "//input[@id='username-field']",
+      "element_type": "input",
+      "tag_name": "input",
+      "text": "",
+      "value": null,
+      "placeholder": "Enter your username",
+      "id": "username-field",
+      "name": "username",
+      "classes": [],
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": true,
+      "is_visible": true,
+      "is_enabled": true,
+      "parent_selector": null,
+      "child_count": 0,
+      "ai_description": null,
+      "test_suggestions": [],
+      "importance_score": 0.5
+    },
+    {
+      "selector": "//label[contains(text(), 'Username:')]",
+      "element_type": "label",
+      "tag_name": "label",
+      "text": "Username:",
+      "value": null,
+      "placeholder": null,
+      "id": null,
+      "name": null,
+      "classes": [],
+      "attributes": {},
+      "is_clickable": false,
+      "is_editable": false,
+      "is_visible": true,
+      "is_enabled": true,
+      "parent_selector": null,
+      "child_count": 0,
+      "ai_description": null,
+      "test_suggestions": [],
+      "importance_score": 0.5
+    },
+    {
+      "selector": "//form[@id='username']",
+      "element_type": "form",
+      "tag_name": "form",
+      "text": "Username:\n        \n        Submit",
+      "value": null,
+      "placeholder": null,
+      "id": "username",
+      "name": null,
+      "classes": [],
+      "attributes": {},
+      "is_clickable": false,
+      "is_editable": false,
+      "is_visible": true,
+      "is_enabled": true,
+      "parent_selector": null,
+      "child_count": 0,
+      "ai_description": null,
+      "test_suggestions": [],
+      "importance_score": 0.5
+    }
+  ],
+  "screenshots_used": 2,
+  "page_type": "login",
+  "framework_detected": "Undetermined",
+  "enriched_elements": [
+    {
+      "base_element": {
+        "tag_name": "button",
+        "element_type": "button",
+        "text": "Submit",
+        "selector": "//button[contains(text(), 'Submit')]",
+        "xpath": "//button[contains(text(), 'Submit')]",
+        "attributes": {},
+        "is_interactive": true,
+        "is_visible": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Submit button",
+        "qa_categories": [
+          "functional",
+          "usability",
+          "accessibility"
+        ],
+        "test_scenarios": [
+          "Verify that clicking the 'Submit' button triggers the expected form submission action.",
+          "Test the button's appearance and behavior in different states (hover, active, disabled).",
+          "Ensure the button is clearly labeled and its purpose is understood by users.",
+          "Check if the button is accessible via keyboard navigation.",
+          "Verify that the button's text is localized correctly if applicable."
+        ],
+        "interaction_likelihood": 0.9,
+        "accessibility_score": 0.8,
+        "security_concerns": [],
+        "validation_rules": [],
+        "analysis": "This element is a button with the text 'Submit'. It is interactive and visible, indicating it's a primary action button for a form. Its presence suggests a form submission process. The lack of ARIA attributes or a specific role means its semantic meaning relies solely on the tag and text. Good usability would involve clear visual feedback on interaction and potentially a disabled state if form validation fails.",
+        "confidence": 0.9
+      },
+      "test_scenarios": [
+        "Verify that clicking the 'Submit' button triggers the expected form submission action.",
+        "Test the button's appearance and behavior in different states (hover, active, disabled).",
+        "Ensure the button is clearly labeled and its purpose is understood by users.",
+        "Check if the button is accessible via keyboard navigation.",
+        "Verify that the button's text is localized correctly if applicable."
+      ],
+      "qa_categories": [
+        "functional",
+        "usability",
+        "accessibility"
+      ],
+      "confidence_score": 0.9
+    },
+    {
+      "base_element": {
+        "tag_name": "input",
+        "element_type": "input",
+        "text": "",
+        "selector": "//input[@id='username-field']",
+        "xpath": "//input[@id='username-field']",
+        "attributes": {},
+        "is_interactive": true,
+        "is_visible": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Username input field",
+        "qa_categories": [
+          "functional",
+          "validation",
+          "usability",
+          "accessibility",
+          "data_integrity"
+        ],
+        "test_scenarios": [
+          "Verify that users can input text into the username field.",
+          "Test input validation for acceptable username formats (e.g., length, allowed characters).",
+          "Ensure the input field is clearly associated with its label.",
+          "Check for placeholder text or helpful hints for username entry.",
+          "Verify that the input field is accessible via keyboard navigation.",
+          "Test the behavior of the input field with various valid and invalid inputs.",
+          "Confirm that the input field correctly submits the entered username when the form is submitted."
+        ],
+        "interaction_likelihood": 1.0,
+        "accessibility_score": 0.8,
+        "security_concerns": [
+          "Potential for SQL injection or cross-site scripting (XSS) if input is not properly sanitized on the server-side."
+        ],
+        "validation_rules": [
+          "Username must not be empty.",
+          "Username should adhere to defined character restrictions (e.g., alphanumeric, specific symbols).",
+          "Username may have a minimum and maximum length."
+        ],
+        "analysis": "This is an input element of type 'input' with an ID 'username-field'. It is interactive and visible, intended for user input. The absence of a 'type' attribute in the provided JSON for this input element is unusual, as it's typically 'text' for a username. However, given the context, it's assumed to be a text input. It's highly probable this field is meant to capture a username. The lack of ARIA attributes means its association with the label is crucial for accessibility.",
+        "confidence": 0.95
+      },
+      "test_scenarios": [
+        "Verify that users can input text into the username field.",
+        "Test input validation for acceptable username formats (e.g., length, allowed characters).",
+        "Ensure the input field is clearly associated with its label.",
+        "Check for placeholder text or helpful hints for username entry.",
+        "Verify that the input field is accessible via keyboard navigation.",
+        "Test the behavior of the input field with various valid and invalid inputs.",
+        "Confirm that the input field correctly submits the entered username when the form is submitted."
+      ],
+      "qa_categories": [
+        "functional",
+        "validation",
+        "usability",
+        "accessibility",
+        "data_integrity"
+      ],
+      "confidence_score": 0.95
+    },
+    {
+      "base_element": {
+        "tag_name": "label",
+        "element_type": "label",
+        "text": "Username:",
+        "selector": "//label[contains(text(), 'Username:')]",
+        "xpath": "//label[contains(text(), 'Username:')]",
+        "attributes": {},
+        "is_interactive": false,
+        "is_visible": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Username label",
+        "qa_categories": [
+          "accessibility",
+          "usability"
+        ],
+        "test_scenarios": [
+          "Verify that the 'Username:' label is correctly associated with the username input field.",
+          "Ensure the label text is clear and accurately describes the input field.",
+          "Check that the label is visible and readable.",
+          "Test if clicking the label focuses the associated input field."
+        ],
+        "interaction_likelihood": 0.1,
+        "accessibility_score": 0.9,
+        "security_concerns": [],
+        "validation_rules": [],
+        "analysis": "This element is a label with the text 'Username:'. It is not interactive but is visible. Its primary role is to provide a descriptive name for an associated form control, likely the username input field. Proper association (e.g., via a 'for' attribute in HTML) is critical for screen readers and keyboard users to understand the purpose of the input field. The current data doesn't explicitly show this association, but it's implied by context.",
+        "confidence": 0.95
+      },
+      "test_scenarios": [
+        "Verify that the 'Username:' label is correctly associated with the username input field.",
+        "Ensure the label text is clear and accurately describes the input field.",
+        "Check that the label is visible and readable.",
+        "Test if clicking the label focuses the associated input field."
+      ],
+      "qa_categories": [
+        "accessibility",
+        "usability"
+      ],
+      "confidence_score": 0.95
+    },
+    {
+      "base_element": {
+        "tag_name": "form",
+        "element_type": "form",
+        "text": "Username:\n        \n        Submit",
+        "selector": "//form[@id='username']",
+        "xpath": "//form[@id='username']",
+        "attributes": {},
+        "is_interactive": false,
+        "is_visible": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Form",
+        "qa_categories": [
+          "functional",
+          "usability",
+          "accessibility",
+          "security",
+          "performance",
+          "data_integrity"
+        ],
+        "test_scenarios": [
+          "Verify that the form collects and submits the 'username' input.",
+          "Test the overall form submission process, including error handling if validation fails.",
+          "Ensure the form is logically structured and easy to navigate.",
+          "Check for any performance issues during form submission.",
+          "Validate that submitted data is handled securely.",
+          "Verify that the form is accessible and usable across different devices and browsers."
+        ],
+        "interaction_likelihood": 0.0,
+        "accessibility_score": 0.7,
+        "security_concerns": [
+          "Insecure data transmission (e.g., not using HTTPS).",
+          "Lack of server-side validation can lead to data corruption or security vulnerabilities.",
+          "Potential for cross-site request forgery (CSRF) if proper tokens are not implemented."
+        ],
+        "validation_rules": [
+          "All required fields within the form must be filled before submission.",
+          "Data submitted through the form must conform to defined business logic and data types."
+        ],
+        "analysis": "This element represents a form with the ID 'username'. It contains the 'Username:' label and the 'Submit' button. The form itself is not directly interactive in terms of user input but orchestrates the submission of its child elements. The text content suggests it's a simple username submission form. Key areas for testing include the submission process, data validation, and security of data transmission. The lack of explicit ARIA roles or attributes on the form itself limits its inherent semantic accessibility, relying on the accessibility of its child elements.",
+        "confidence": 0.95
+      },
+      "test_scenarios": [
+        "Verify that the form collects and submits the 'username' input.",
+        "Test the overall form submission process, including error handling if validation fails.",
+        "Ensure the form is logically structured and easy to navigate.",
+        "Check for any performance issues during form submission.",
+        "Validate that submitted data is handled securely.",
+        "Verify that the form is accessible and usable across different devices and browsers."
+      ],
+      "qa_categories": [
+        "functional",
+        "usability",
+        "accessibility",
+        "security",
+        "performance",
+        "data_integrity"
+      ],
+      "confidence_score": 0.95
+    }
+  ],
+  "llm_insights": {
+    "page_type": "login",
+    "framework": "Undetermined",
+    "functionality": [
+      "User authentication (likely)",
+      "Form submission"
+    ],
+    "patterns": [
+      "Standard form input with a submit button",
+      "Label-text association with input fields"
+    ],
+    "challenges": [
+      "Limited elements for comprehensive analysis (missing actual input field type, placeholder, etc.)",
+      "Localhost URL might indicate a development or internal tool, making generalizability harder",
+      "No explicit error handling or success messages shown in the sample"
+    ],
+    "strategies": [
+      "Functional testing of the login form (valid/invalid credentials)",
+      "Usability testing to ensure clear labeling and input fields",
+      "Accessibility testing for the form elements",
+      "Security testing for the submission process (if credentials were provided)",
+      "Cross-browser compatibility testing"
+    ]
+  },
+  "qa_test_plan": {
+    "functional": [
+      "Verify that the page loads successfully at http://localhost:8000.",
+      "Test the functionality of the single button element.",
+      "Verify that the single input field allows text entry.",
+      "Confirm that the form can be submitted (if applicable, assuming the button triggers form submission)."
+    ],
+    "validation": [
+      "Validate that the input field adheres to any expected format or type (e.g., text, number, email) if specified."
+    ],
+    "accessibility": [
+      "Check for proper ARIA attributes on interactive elements (button, input, form)."
+    ],
+    "security": [
+      "If the form submits data, ensure it is done via HTTPS (though localhost might not enforce this)."
+    ],
+    "performance": [
+      "Measure the page load time."
+    ],
+    "error_handling": [
+      "Test submitting the form with an empty input field (if validation rules exist)."
+    ],
+    "cross_browser": [
+      "Test page rendering and functionality in major browsers (e.g., Chrome, Firefox, Safari, Edge)."
+    ],
+    "localization": []
+  },
+  "test_scenarios": [
+    "from playwright.sync_api import sync_playwright, expect\n\ndef test_page_loads_successfully():\n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        page = browser.new_page()\n        try:\n            page.goto(\"http://localhost:8000\")\n            # Verify that the page has loaded by checking for a common element\n            # In this case, we'll check for the presence of the 'Submit' button\n            submit_button = page.locator(\"//button[contains(text(), 'Submit')]\")\n            expect(submit_button).to_be_visible()\n            print(\"Page loaded successfully and 'Submit' button is visible.\")\n\n            # Optionally, verify the username input field is also present\n            username_input = page.locator(\"//input[@id='username-field']\")\n            expect(username_input).to_be_visible()\n            print(\"Username input field is visible.\")\n\n        except Exception as e:\n            print(f\"An error occurred: {e}\")\n            # You might want to take a screenshot or log more details here\n            # page.screenshot(path=\"error_screenshot.png\")\n            raise  # Re-raise the exception to fail the test\n        finally:\n            browser.close()\n\nif __name__ == \"__main__\":\n    test_page_loads_successfully()",
+    "from playwright.sync_api import sync_playwright\n\ndef test_single_button_interactive():\n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        page = browser.new_page()\n        page.goto(\"http://localhost:8000\")\n\n        # Verify that the single button is present and interactive.\n        submit_button_selector = \"//button[contains(text(), 'Submit')]\"\n        username_input_selector = \"//input[@id='username-field']\"\n\n        # Assert that the submit button is visible and enabled\n        submit_button = page.locator(submit_button_selector)\n        assert submit_button.is_visible(), \"Submit button is not visible\"\n        assert submit_button.is_enabled(), \"Submit button is not enabled\"\n\n        # Assert that the username input field is visible and enabled\n        username_input = page.locator(username_input_selector)\n        assert username_input.is_visible(), \"Username input field is not visible\"\n        assert username_input.is_enabled(), \"Username input field is not enabled\"\n\n        # Optional: Interact with the button to further verify interactivity\n        # For this scenario, just checking is_enabled is sufficient as per the requirement.\n        # If interaction was implied, you might do:\n        # submit_button.click()\n        # assert page.url != \"http://localhost:8000\" # Example assertion after click\n\n        browser.close()\n\nif __name__ == \"__main__\":\n    test_single_button_interactive()",
+    "from playwright.sync_api import sync_playwright\n\ndef test_input_field_valid_data_types():\n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        page = browser.new_page()\n        page.goto(\"http://localhost:8000\")\n\n        # Define test data for valid input types\n        valid_data_types = [\n            \"testuser123\",\n            \"another_user_99\",\n            \"User_Name_With_Spaces\",\n            \"12345\",\n            \"Special!@#$%\",\n            \"a\" * 100 # Long string\n        ]\n\n        username_field = page.locator(\"//input[@id='username-field']\")\n\n        for data in valid_data_types:\n            username_field.fill(data)\n            page.locator(\"//button[contains(text(), 'Submit')]\").click()\n\n            # Basic assertion: check if the input field still contains the entered data\n            # In a real scenario, you would check for specific feedback or state changes.\n            # For this example, we assume successful submission means the data is accepted.\n            # A more robust test would involve inspecting elements that display the submitted data\n            # or checking for error messages.\n            assert username_field.input_value() == data, f\"Input '{data}' was not accepted correctly.\"\n\n            # Clear the field for the next iteration\n            username_field.fill(\"\")\n\n        browser.close()\n\nif __name__ == '__main__':\n    test_input_field_valid_data_types()",
+    "from playwright.sync_api import sync_playwright\n\ndef test_empty_required_fields():\n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        page = browser.new_page()\n        page.goto(\"http://localhost:8000\")\n\n        # Assuming the 'username-field' is the only required field for this scenario.\n        # We will attempt to submit the form with this field empty.\n\n        # Locate and click the submit button\n        submit_button_selector = \"//button[contains(text(), 'Submit')]\"\n        page.click(submit_button_selector)\n\n        # Add assertions to validate the behavior when required fields are empty.\n        # This is a placeholder assertion. You will need to adapt it based on\n        # how your application indicates an error for empty required fields.\n        # Common patterns include:\n        # - Displaying an error message next to the field.\n        # - Preventing form submission and staying on the same page.\n        # - Showing a general error message on the page.\n\n        # Example assertion: Check for an error message associated with the username field.\n        # This assumes an error message will appear with a specific selector.\n        # You'll need to inspect your application's HTML to find the correct selector.\n        # For demonstration, let's assume there's a div with class 'error-message'\n        # or an attribute like 'aria-invalid' on the input field.\n\n        # Option 1: Check for an error message near the username field\n        # This is a hypothetical selector for an error message.\n        # username_error_selector = \"//input[@id='username-field']/following-sibling::div[@class='error-message']\"\n        # try:\n        #     error_element = page.locator(username_error_selector)\n        #     assert error_element.is_visible()\n        #     assert \"This field is required\" in error_element.text_content()\n        # except Exception as e:\n        #     print(f\"Error message not found or incorrect: {e}\")\n        #     assert False, \"Error message for empty username not found or incorrect.\"\n\n        # Option 2: Check if the input field itself indicates an error (e.g., aria-invalid)\n        username_field_selector = \"//input[@id='username-field']\"\n        assert page.locator(username_field_selector).get_attribute(\"aria-invalid\") == \"true\", \"Username field should be marked as invalid\"\n\n        # Option 3: Check if the form submission was prevented (e.g., URL remains the same, no redirect)\n        # This is more complex and depends on the application's behavior.\n        # For this example, we'll assume the page doesn't navigate away.\n        initial_url = \"http://localhost:8000\"\n        assert page.url == initial_url, \"Form submission should be prevented when required fields are empty\"\n\n        browser.close()",
+    "from playwright.sync_api import sync_playwright, expect\n\ndef test_focusable_elements():\n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        page = browser.new_page()\n        \n        try:\n            page.goto(\"http://localhost:8000\")\n            \n            # Define interactive elements to test\n            interactive_elements = [\n                {\"selector\": \"//button[contains(text(), 'Submit')]\", \"description\": \"Submit button\"},\n                {\"selector\": \"//input[@id='username-field']\", \"description\": \"Username input field\"}\n            ]\n\n            for element_info in interactive_elements:\n                selector = element_info[\"selector\"]\n                description = element_info[\"description\"]\n                \n                # Check if the element exists and is visible before attempting to focus\n                element = page.locator(selector)\n                expect(element).to_be_visible()\n                expect(element).to_be_enabled() # Assuming focusable elements should also be enabled\n\n                # Attempt to focus using Tab key\n                element.focus()\n\n                # Verify focus by checking if the element is the active element\n                active_element = page.locator(\"*:focus\")\n                expect(active_element).to_have_attribute(\"id\", page.locator(selector).get_attribute(\"id\"))\n                \n                print(f\"Successfully focused: {description} ({selector})\")\n\n        except Exception as e:\n            print(f\"An error occurred: {e}\")\n            # Optionally, take a screenshot for debugging\n            # page.screenshot(path=\"error_screenshot.png\")\n            raise # Re-raise the exception to fail the test\n\n        finally:\n            browser.close()\n\nif __name__ == \"__main__\":\n    test_focusable_elements()",
+    "from playwright.sync_api import sync_playwright, expect\n\ndef test_input_has_associated_label():\n    with sync_playwright() as p:\n        browser = p.chromium.launch()\n        page = browser.new_page()\n        page.goto(\"http://localhost:8000\")\n\n        # Locate the input field\n        username_input = page.locator(\"//input[@id='username-field']\")\n\n        # Assert that the input field has an associated label\n        # Playwright's expect(locator).to_have_attribute('for', label_for_value) is a direct way\n        # to check if an input's 'id' matches a label's 'for' attribute.\n        # We can also check for the presence of a label that contains the expected text.\n\n        # First, find the label associated with the input field.\n        # A common pattern is that the label's 'for' attribute matches the input's 'id'.\n        # Or, the input is nested within the label.\n        # Based on the provided elements, we have an input with id='username-field'\n        # and a label with text 'Username:'. We assume the label is correctly associated.\n\n        # Verify that a label exists that is associated with the input field.\n        # The most robust way is to check if the label's 'for' attribute matches the input's 'id'.\n        # If the 'for' attribute isn't explicitly there, but the label contains the input,\n        # or the input is a descendant of the label, it's also considered associated.\n        # Given the provided elements, we'll check for a label with the correct text and\n        # infer association by the proximity or common ID/for relationship.\n\n        # Method 1: Check for a label whose 'for' attribute matches the input's 'id'\n        # This is the most direct accessibility check.\n        expected_input_id = username_input.get_attribute(\"id\")\n        if expected_input_id:\n            associated_label = page.locator(f\"//label[@for='{expected_input_id}']\")\n            expect(associated_label).to_be_visible()\n            expect(associated_label).to_have_text(\"Username:\")\n        else:\n            # Fallback if the input doesn't have an ID, though this is less common for accessibility.\n            # Or if the association is implicit (e.g., input is child of label).\n            # For this specific scenario with provided elements, the 'for' attribute check is primary.\n            # We can add a broader check for any visible label associated with the input.\n            # Playwright's accessibility tree can be queried, but for this specific element\n            # extraction, we'll rely on the provided selectors.\n            # If the input has no ID, and no explicit 'for', we can look for a label that\n            # semantically precedes or contains the input.\n            # Given the provided elements, we'll stick to the explicit association check.\n            # If the above check fails, it implies a lack of explicit association via 'for'.\n            # However, we also have a general label selector.\n            general_label = page.locator(\"//label[contains(text(), 'Username:')]\")\n            expect(general_label).to_be_visible()\n            # We can try to infer association by checking if the input is the next focusable element\n            # or if the label's text is semantically related.\n            # For this test, we'll assume the presence of a label with the correct text is sufficient\n            # if the 'for' attribute association isn't found (though it should be for good practice).\n            # If the input *must* have a direct 'for' association, the above check is sufficient.\n            # Let's refine this to ensure the label is *associated* with the input.\n\n            # A more robust check would be to ensure the label's 'for' attribute matches the input's 'id'.\n            # The provided elements have an input with id='username-field' and a label with text 'Username:'.\n            # We need to verify that this label is indeed linked to the input.\n            # The most common way is `label[for=\"username-field\"]`.\n            label_selector_for_input = page.locator(f\"//label[@for='{username_input.get_attribute('id')}']\")\n            expect(label_selector_for_input).to_be_visible()\n            expect(label_selector_for_input).to_have_text(\"Username:\")\n\n\n        # Alternative/Additional check: Ensure the input has an ID attribute\n        expect(username_input).to_have_attribute(\"id\", \"username-field\")\n\n        # Additionally, we can use Playwright's accessibility checks if available and configured,\n        # but for this task, we're simulating the check based on element relationships.\n\n        # Final assertion: Ensure the label text is present and linked.\n        # The previous checks cover this. If the label is visible and associated, the test passes.\n\n        browser.close()"
+  ],
+  "processing_time": 12.810631,
+  "llm_processing_time": 10.248504800000001,
+  "errors": []
+}

@@ -1,0 +1,108 @@
+Environment:
+    parent_dir=C:/Users/kleiy/OneDrive/Desktop/python-ai-apps/ai_apps
+    if not exists(parent_dir)
+        create
+    project_root= {parent_dir}/ui_testing_framework
+    if not exists(project_root)
+        create
+    venv= {parent_dir}/.venv
+    if not exists(venv)
+        create
+    python_exe={venv}/Scripts/python.exe
+
+TASKS:
+0. Do we have browser.py, llm.py, and prompts.py in project_root? [YES] or [NO]
+    Run each {python_exe} {project_root}/{browser.py, llm.py, prompts.py} to check for syntax errors
+       Do ALL {browser.py, llm.py, prompts.py} run without errors? [YES] or [NO]
+    if all audits pass:
+        Proceed to the next step.
+        Update progress
+    else:
+        Fix the issues in in this step until all audits pass.
+
+1. Create index.html in project root if not exists
+    It should contain simple semantic html form with id=username, and only one input field: "username"
+    Audit: Is index.html available? [YES] or [NO]
+    Audit: Does index.html contain a form with id=username and a field named "username"? [YES] or [NO]
+    if all audits pass:
+        Proceed to the next step.
+        Update progress
+    else:
+        Fix the issues in in this step until all audits pass.
+
+2. Is the web server running at http://localhost:8000? [YES] or [NO] 
+    If NO, Start web server to serve index.html at http://localhost:8000
+    If YES, kill the existing process then start the server
+    Audit: Is the web server running? [YES] or [NO]
+    Audit: Is index.html accessible at http://localhost:8000? [YES] or [NO]
+    if all audits pass:
+        Proceed to the next step.
+        Update progress
+     else:
+        Fix the issues in in this step until all audits pass.
+
+3. Run element_extractor_no_llm.py against http://localhost:8000
+    Check: Does element_extractor_no_llm.py has input-output pydantic v2 models that guarantees type safety for downstream modules? [YES] or [NO]
+    Action: Save the output to the project_root/{formatted_url}_no_llm_elements.json where {formatted_url} is the clean version of the URL http://localhost:8000 where all non-alphanumeric characters are replaced with underscores and first 30 characters are kept
+    Audit: Is element_extractor_no_llm.py using .\ui_testing_framework\browser.py? [YES] or [NO]
+    Audit: Does element_extractor_no_llm.py run without errors? [YES] or [NO]
+    Audit: Does element_extractor_no_llm.py extract the correct elements? [YES] or [NO]
+    Audit: Has element_extractor_no_llm.py taken screenshots? [YES] or [NO]
+    Audit: Is the output of the element extractor using pydantic v2 to enforce typing? [YES] or [NO]
+    Audit: Is element_extractor_no_llm.py fully using DRY principles? [YES] or [NO]
+    Audit: Did element_extractor_no_llm.py save the output as JSON? [YES] or [NO]
+    Action: Review the JSON output file: Is it well-formed and valid as per the pydantic v2 schema in element_extractor_no_llm.py that generated it? [YES] or [NO]
+    Action: Validate the JSON output against the Pydantic model: Is it valid? [YES] or [NO]
+    Check: Can element_extractor_no_llm.py run in cli mode when provided with a URL, e.g. python element_extractor_no_llm.py --url http://localhost:8000 [YES] or [NO]
+    if all audits pass:
+        Proceed to the next step.
+        Update progress
+    else:
+        Fix the issues in in this step until all audits pass.
+
+4. Run element_extractor_with_llm.py against http://localhost:8000
+    Check: Did step 3 save the output as project_root/{formatted_url}_no_llm_elements.json? [YES] or [NO]
+    Check: Is the input format expected by element_extractor_with_llm.py? same as the output of element_extractor_no_llm.py? [YES] or [NO]
+    Check: Can element_extractor_with_llm.py load it into a Pydantic model and use it? [YES] or [NO]
+    Action: Save the output to the project_root/{formatted_url}_with_llm_elements.json where {formatted_url} is the clean version of the URL http://localhost:8000 where all non-alphanumeric characters are replaced with underscores and first 30 characters are kept
+    Audit: Is element_extractor_with_llm.py fully using the output of element_extractor_no_llm.py? [YES] or [NO]
+    Audit: Is element_extractor_with_llm.py using pydantic v2 to enforce typing? [YES] or [NO]
+    Audit: Is element_extractor_with_llm.py using the screenshots taken by element_extractor_no_llm.py? [YES] or [NO]
+    Audit: Is element_extractor_with_llm.py fully using DRY principles? [YES] or [NO]
+    Audit: Does element_extractor_with_llm.py run without errors? [YES] or [NO]
+    Audit: Does element_extractor_with_llm.py extract the correct elements? [YES] or [NO]
+    Audit: Does element_extractor_with_llm.py use LLM for extraction? [YES] or [NO]
+    Audit: Does element_extractor_with_llm.py provide enriched element data? [YES] or [NO]
+    Audit: Has element_extractor_with_llm.py used screenshots in its analysis? [YES] or [NO]
+    Audit: Did element_extractor_with_llm.py save the output as JSON? [YES] or [NO]
+    Action: Review the JSON output file: Is it well-formed and valid as per the pydantic v2 schema in element_extractor_with_llm.py that generated it? [YES] or [NO]
+    Action: Validate the JSON output against the Pydantic model: Is it valid? [YES] or [NO]
+    Check: Can element_extractor_with_llm.py run in cli mode when provided with the json results from step 3, e.g. python element_extractor_with_llm.py --input project_root/{formatted_url}_no_llm_elements.json [YES] or [NO]
+    if all audits pass:
+        Proceed to the next step.
+        Update progress
+    else:
+        Fix the issues in in this step until all audits pass.
+
+5. Run test_generation_with_llm.py against http://localhost:8000
+    Check: Did step 4 save the output as project_root/{formatted_url}_with_llm_elements.json? [YES] or [NO]
+    Check: Is the input format expected by test_generation_with_llm.py? same as the output of element_extractor_with_llm.py? [YES] or [NO]
+    Check: Can test_generation_with_llm.py load it into a Pydantic model and use it? [YES] or [NO]
+    Check: Does test_generation_with_llm.py have input-output Pydantic v2 models that guarantee type safety for downstream modules? [YES] or [NO]
+    Check: Does test_generation_with_llm.py use the screenshots taken by element_extractor_with_llm.py? [YES] or [NO]
+    Action: Save the output to the project_root/{formatted_url}_with_llm_tests.json where {formatted_url} is the clean version of the URL http://localhost:8000 where all non-alphanumeric characters are replaced with underscores and first 30 characters are kept
+    Audit: Is test_generation_with_llm.py fully using the output of element_extractor_with_llm.py? [YES] or [NO]
+    Audit: Is test_generation_with_llm.py using pydantic v2 to enforce typing? [YES] or [NO]
+    Audit: Does test_generation_with_llm.py run without errors? [YES] or [NO]
+    Audit: Does test_generation_with_llm.py generate the correct tests? [YES] or [NO]
+    Audit: Does test_generation_with_llm.py use LLM for test generation? [YES] or [NO]
+    Audit: Does test_generation_with_llm.py provide enriched test data? [YES] or [NO]
+    Audit: Did test_generation_with_llm.py save the output as JSON? [YES] or [NO]
+    Action: Review the JSON output file: Is it well-formed and valid as per the pydantic v2 schema in test_generation_with_llm.py that generated it? [YES] or [NO]
+    Action: Validate the JSON output against the Pydantic model: Is it valid? [YES] or [NO]
+    Check: Can test_generation_with_llm.py run in cli mode when provided with the json results from step 4, e.g. python test_generation_with_llm.py --input project_root/{formatted_url}_with_llm_elements.json [YES] or [NO]
+    if all audits pass:
+        Proceed to the next step.
+        Update progress
+    else:
+        Fix the issues in in this step until all audits pass.
