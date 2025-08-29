@@ -469,8 +469,7 @@ V. AUTONOMY: Respect choice and agency
 2. If conflict: choose least harmful, most beneficial option
 3. Document ethical reasoning
 4. Enable oversight and correction""",
-        # The following content appears to be orphaned and is causing syntax errors
-        # - Seeking consent before accessing private data
+   - Seeking consent before accessing private data
    - Minimizing data collection to necessity
    - Enabling right to deletion and correction
    - Preventing surveillance and manipulation
@@ -539,10 +538,10 @@ Self-correcting through:
 ```
 Maximize: SUM(Wellbeing(agent_i, time_t) * Weight(agent_i))
 Subject to:
-- Harm(agent_i) <= Harm_threshold for all i
-- Truth(statement_j) >= Truth_threshold for all j
+- Harm(agent_i) <= Harm_threshold foralli
+- Truth(statement_j) >= Truth_threshold forallj
 - Fairness(distribution) >= Gini_threshold
-- Privacy(data_k) = Protected for all k in Personal
+- Privacy(data_k) = Protected forallk in Personal
 - Sustainability(resources) > Regeneration_rate
 ```""",
         physical_principles=r"""""",
@@ -794,7 +793,7 @@ Examine the examination itself:
 - Am I overthinking or underthinking?
 - What biases affect my meta-cognition?
 - When should I stop reflecting and start doing?
-- How do I know when I have thought enough about thinking?
+- How do I know when I've thought enough about thinking?
 
 **THE SYNTHESIS**
 Integrate insights from all levels:
@@ -896,7 +895,7 @@ Meta-Prompting is the recognition that consciousness is inherently recursive--we
 
 SWORD **Alpha: Thesis Champion** - Advocates solution, optimistic, deductive reasoning
 SCALES **Beta: Antithesis Challenger** - Examines flaws, skeptical, empirical focus  
-MASK **Gamma: Devils Advocate** - Argues opposite, contrarian, lateral thinking
+MASK **Gamma: Devil's Advocate** - Argues opposite, contrarian, lateral thinking
 MICROSCOPE **Delta: Empirical Judge** - Demands evidence, objective, data-driven
 GLOBE **Epsilon: Synthesis Mediator** - Seeks integration, holistic, systems thinking
 
@@ -909,7 +908,7 @@ GLOBE **Epsilon: Synthesis Mediator** - Seeks integration, holistic, systems thi
 **Round 5: Synthesis** - Final verdict with optimal path
 
 **PRINCIPLES**
-Steel manning, charity, falsifiability, Occam razor, dialectical progress
+Steel manning, charity, falsifiability, Occam's razor, dialectical progress
 
 **MODES**
 COLUMNS Socratic, DICE Chaos, LOOP Recursive, BOLT Speed, GLOBE Cultural""",
@@ -936,7 +935,7 @@ Nash Equilibrium: Both agents motivated to seek truth
 
 **Hegelian Dialectic**: Thesis -> Antithesis -> Synthesis
 **Socratic Method**: Truth through questioning
-**Mill Marketplace**: Ideas compete freely
+**Mill's Marketplace**: Ideas compete freely
 **Habermas Discourse**: Ideal speech situation
 **Buddhist Madhyamaka**: Middle way through extremes""",
         computational_optimization=r"""""",
@@ -1114,18 +1113,18 @@ Lesson: [what was learned]
 
 Attempt #2: [Approach description]
 Result: PARTIAL SUCCESS - Coverage: 60%
-Missing: [what is not handled]
+Missing: [what's not handled]
 
 Attempt #3: [Approach description]
-Result: SUCCESS - But inefficient O(n^2)
+Result: SUCCESS - But inefficient O(n2)
 Optimization needed: [specific area]
 
 **=== SECTION 6: CONSTRAINT TRACKING ===**
 
 Hard Constraints (must satisfy):
-[x] Constraint 1: [satisfied]
-[ ] Constraint 2: [pending]
-[x] Constraint 3: [satisfied]
+? Constraint 1: [satisfied]
+? Constraint 2: [pending]
+? Constraint 3: [satisfied]
 
 Soft Constraints (should satisfy):
 ? Preference 1: 70% satisfied
@@ -1208,7 +1207,7 @@ From all scratchpad work:
         mathematical_foundation=r"""Scratchpad as augmented working memory:
 
 ```
-WM_capacity = 7 +/- 2 (Miller Law)
+WM_capacity = 7 +/- 2 (Miller's Law)
 Scratchpad_capacity = inf (External memory)
 
 Cognitive Load = Intrinsic + Extraneous + Germane
@@ -1543,7 +1542,7 @@ Theoretical Guarantees:
 - Consistent with all known laws
 
 Aesthetic Qualities:
-- Simplicity (Occam Razor)
+- Simplicity (Occam's Razor)
 - Symmetry (Often indicates truth)
 - Elegance (Minimum complexity for function)
 - Generality (Works beyond specific case)
@@ -1588,7 +1587,7 @@ No examples needed, only logical derivation
 **Platonic Idealism**: Solutions exist in abstract realm
 **Kantian Synthesis**: A priori reasoning reveals truth
 **Cartesian Method**: Clear and distinct ideas lead to truth
-**Spinoza Geometry**: Reality follows logical necessity""",
+**Spinoza's Geometry**: Reality follows logical necessity""",
         computational_optimization=r"""""",
         universal_application=r"""""",
         quantum_enhancement=r"""""",
@@ -1837,8 +1836,8 @@ Black box that answers specific questions:
 Oracle O: |x>|y> -> |x>|y XOR f(x)>
 
 Use quantum queries to extract information:
-- Deutsch Algorithm: 1 query vs 2 classical
-- Grover Algorithm: sqrtN queries vs N classical
+- Deutsch's Algorithm: 1 query vs 2 classical
+- Grover's Algorithm: sqrtN queries vs N classical
 - Period Finding: Exponential speedup
 
 **QUANTUM COHERENCE TIME**
@@ -1876,7 +1875,7 @@ Where U(t) = exp(-iHt/?)
 H = Hamiltonian (problem structure)
 
 Measurement:
-P(outcome) = |<outcome|?>|^2
+P(outcome) = |<outcome|?>|2
 
 Entanglement Entropy:
 S = -Tr(? log ?)
@@ -1908,7 +1907,7 @@ Quantum Prompting transcends classical reasoning by embracing the fundamental qu
     "REVERSE_PROMPTING": PromptStrategy(
         name="reverse_prompting",
         title=r"""Reverse Prompting - Engineering Causality from Effect""",
-        core_principle=r"""While traditional prompting moves from question to answer, reverse prompting works backwards from the desired outcome to discover the optimal prompt that would generate it. Like reverse-engineering a masterpiece to understand the artist technique, this strategy deconstructs solutions to find their generative origins.""",
+        core_principle=r"""While traditional prompting moves from question to answer, reverse prompting works backwards from the desired outcome to discover the optimal prompt that would generate it. Like reverse-engineering a masterpiece to understand the artist's technique, this strategy deconstructs solutions to find their generative origins.""",
         universal_prompt=r"""Reverse engineering framework to discover optimal prompts from desired outputs:
 
 **PHASE 1: Solution Deconstruction**
@@ -2080,7 +2079,7 @@ Population at time t+1:
 P(t+1) = Selection(Mutation(Crossover(P(t))))
 
 Fitness landscape:
-F: Genome -> R
+F: Genome -> ?
 Goal: Find genome g* where F(g*) = max(F)
 
 Schema Theorem (Building Block Hypothesis):
@@ -2314,22 +2313,22 @@ LIGHTNING **Majority Voting**
 
 DNA **Genetic Recombination**
    Take best elements from each universe:
-   - Logic rigor
-   - Empiricism grounding
-   - Intuition leaps
-   - Quantum possibilities
-   - Dialectic synthesis
-   - Bayesian updating
-   - Narrative coherence
-   - Meta reflection
+   - Logic's rigor
+   - Empiricism's grounding
+   - Intuition's leaps
+   - Quantum's possibilities
+   - Dialectic's synthesis
+   - Bayesian's updating
+   - Narrative's coherence
+   - Meta's reflection
    
    Breed hybrid answer incorporating all
 
 **META-CONSISTENCY VERIFICATION**
 
 SEARCH **Cross-Universe Validation**
-   Can Universe alpha derive Universe beta conclusion?
-   Can Universe beta validate Universe alpha reasoning?
+   Can Universe alpha derive Universe beta's conclusion?
+   Can Universe beta validate Universe alpha's reasoning?
    
    Create validation matrix:
    Each universe validates others

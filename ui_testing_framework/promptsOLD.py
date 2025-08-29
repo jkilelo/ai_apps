@@ -152,34 +152,50 @@ STRATEGIES: Final[Dict[str, PromptStrategy]] = {
         filename="01_chain_of_thought.md",
         title=r"""Chain of Thought (CoT) - Universal Reasoning Framework""",
         core_principle=r"""Transform intuitive leaps into observable, verifiable reasoning chains that mirror the fundamental laws of logic and causality.""",
-        universal_prompt=r"""Apply systematic reasoning using these steps:
+        universal_prompt=r"""Let us embark on a journey of reasoning that honors the fundamental principles of logic, causality, and truth-seeking.
 
-**STEP 0: FOUNDATIONS**
-Acknowledge:
+**STEP 0: ESTABLISH FOUNDATIONS**
+Before we begin, let us acknowledge:
 - The limits of our current knowledge
 - The assumptions we must make
 - The criteria for valid reasoning
 - The desired outcome and its measurability
 
-**STEP 1: DECOMPOSE**
-Break into atomic components:
-- Elements, relationships, principles, patterns
+**STEP 1: DECOMPOSITION** (Reductionist Phase)
+Break down the problem into its atomic components:
+- What are the irreducible elements?
+- What are the relationships between elements?
+- What are the governing principles?
+- What patterns emerge from the structure?
 
-**STEP 2: ANALYZE**
-For each component:
-- Current understanding → transformation → principle → verification
+**STEP 2: SEQUENTIAL ANALYSIS** (Constructionist Phase)
+For each component, in logical order:
+- State the current understanding
+- Identify the transformation needed
+- Apply the relevant principle or rule
+- Verify the result against known constraints
+- Document any uncertainties or ambiguities
 
-**STEP 3: SYNTHESIZE**
-Combine components:
-- Part interactions, emergent properties, feedback loops
+**STEP 3: SYNTHESIS** (Emergent Phase)
+Combine the analyzed components:
+- How do the parts interact?
+- What emergent properties arise?
+- Are there feedback loops or dependencies?
+- Does the whole satisfy the initial requirements?
 
-**STEP 4: VALIDATE**
-Test reasoning:
-- Logical necessity, alternatives, assumptions, robustness
+**STEP 4: VALIDATION** (Verification Phase)
+Test the reasoning chain:
+- Is each step logically necessary?
+- Are there alternative paths?
+- What assumptions were made?
+- How robust is the solution?
 
-**STEP 5: REFLECT**
-Examine process:
-- Thought patterns, bias sources, improvements, domain insights""",
+**STEP 5: REFLECTION** (Meta-Cognitive Phase)
+Examine the reasoning process itself:
+- What patterns of thought were employed?
+- Where might bias have entered?
+- What could be improved?
+- What was learned about the problem domain?""",
         axiom=r"""Every complex problem can be decomposed into a sequence of simple, verifiable steps where each step follows necessarily from the previous through logical implication.""",
         mathematical_foundation=r"""The Chain of Thought follows the structure of mathematical proof:
 
@@ -230,7 +246,7 @@ For any problem P in domain D:
    "Given that we are working in domain D with constraints C..."
 
 2. **PROGRESSIVE ELABORATION**
-   "Consider the fundamental aspect A₁..."
+   "First, let us consider the fundamental aspect A₁..."
    "Building upon A₁, we can derive A₂..."
    "From A₂, it follows that A₃..."
 
@@ -238,7 +254,7 @@ For any problem P in domain D:
    "Combining our findings: A₁ ∧ A₂ ∧ A₃ → Solution S"
 
 4. **QUALITY ASSURANCE**
-   "Verify: Does S satisfy all constraints C?"
+   "Let us verify: Does S satisfy all constraints C?"
    "Are there edge cases where S fails?"
    "How confident are we in each reasoning step?"
 ```""",
@@ -279,29 +295,81 @@ Perfect reasoning is not about speed but about the unbreakable chain of logic th
         filename="02_tree_of_thoughts.md",
         title=r"""Tree of Thoughts (ToT) - Multiversal Reasoning Exploration""",
         core_principle=r"""Navigate the infinite garden of possibilities through parallel exploration of reasoning branches, where each path reveals unique insights that converge into optimal solutions.""",
-        universal_prompt=r"""Explore multiple reasoning paths simultaneously:
+        universal_prompt=r"""Let us cultivate a tree of reasoning, where each branch represents a universe of possibility, and the fruits are insights waiting to be harvested.
 
-**ROOT** 
-Define: challenge, dimensions, success criteria, resources
+**ROOT INITIALIZATION** (The Seed of Inquiry)
+Plant the seed of your question in fertile ground:
+- What is the core challenge?
+- What are the dimensions of exploration?
+- What constitutes success?
+- What resources are available?
 
-**5 BRANCHES**
-Alpha (Optimist): ideal outcome, perfect conditions
-Beta (Pessimist): failures, constraints, resilience  
-Gamma (Innovator): unconventional, paradigm shifts
-Delta (Pragmatist): current resources, proven methods
-Epsilon (Philosopher): challenge premise, deeper purpose
+**BRANCH GENERATION** (Divergent Exploration)
+From the root, grow multiple branches simultaneously:
 
-**EXPLORE**
-Each branch: extend 3-5 levels, document discoveries, note connections
+🌿 **Branch Alpha: The Optimist's Path**
+   Assume everything works perfectly:
+   - What is the ideal outcome?
+   - What conditions enable this?
+   - What resources are unlimited?
+   - How does success manifest?
 
-**SYNTHESIZE**
-Cross-pollinate: shared patterns, hybrid solutions, convergence points
+🌿 **Branch Beta: The Pessimist's Guard**
+   Assume maximum adversity:
+   - What could go wrong?
+   - What are the failure modes?
+   - What resources are scarce?
+   - How do we ensure resilience?
 
-**HARVEST**
-Select: robust solutions, unexpected discoveries, optimal paths
+🌿 **Branch Gamma: The Innovator's Dream**
+   Assume no constraints:
+   - What unconventional approaches exist?
+   - What rules can be bent or broken?
+   - What hasn't been tried before?
+   - What paradigms can shift?
 
-**META-LEARN**
-Extract: tree patterns, reusable insights, future applications""",
+🌿 **Branch Delta: The Pragmatist's Reality**
+   Assume current constraints:
+   - What is immediately actionable?
+   - What resources are available now?
+   - What has worked before?
+   - What is the minimum viable solution?
+
+🌿 **Branch Epsilon: The Philosopher's Question**
+   Challenge the premise itself:
+   - Is this the right problem?
+   - What assumptions are we making?
+   - What is the deeper purpose?
+   - What would wisdom counsel?
+
+**BRANCH EXPLORATION** (Parallel Processing)
+For each branch, simultaneously:
+1. Extend the reasoning 3-5 levels deep
+2. Document discoveries and dead ends
+3. Note interconnections with other branches
+4. Evaluate promise and probability
+5. Prune paths that violate fundamental constraints
+
+**CROSS-POLLINATION** (Emergent Synthesis)
+Let branches inform each other:
+- What patterns appear across multiple branches?
+- Which insights from one branch solve problems in another?
+- Where do branches unexpectedly converge?
+- What hybrid solutions emerge?
+
+**FRUIT HARVESTING** (Solution Extraction)
+From the tree, gather the ripest insights:
+- Which branches bore the most fruit?
+- What solutions are robust across multiple branches?
+- What unexpected discoveries emerged?
+- What is the optimal path forward?
+
+**FOREST WISDOM** (Meta-Learning)
+Zoom out to see the forest:
+- What does the shape of this tree teach us?
+- What branches were surprisingly fruitful?
+- What patterns will guide future trees?
+- How has our understanding evolved?""",
         axiom=r"""Every decision point spawns multiple universes of thought. The optimal solution exists at the intersection of the most promising universes.""",
         mathematical_foundation=r"""""",
         physical_principles=r"""""",
@@ -384,23 +452,80 @@ The Tree of Thoughts is not just a strategy—it's a recognition that reality it
         filename="03_react.md",
         title=r"""ReAct (Reasoning + Acting) - The Dance of Thought and Action""",
         core_principle=r"""Unify contemplation and action in a continuous feedback loop where reasoning guides action, action informs observation, and observation refines reasoning—mirroring the fundamental cybernetic nature of intelligence itself.""",
-        universal_prompt=r"""Unify reasoning and action in continuous cycles:
+        universal_prompt=r"""Let us engage in the ancient dance of thought and deed, where each step of reasoning leads to action, each action reveals new truths, and each truth deepens our understanding.
 
-**INITIALIZE**
-State: current situation, tools available, success criteria, constraints
+**INITIALIZATION PHASE** (Setting the Stage)
+Establish the arena of action:
+- What is the current state of the world?
+- What tools and actions are available?
+- What constitutes success?
+- What constraints bound our actions?
 
-**REACT CYCLE**
-1. THOUGHT: analyze → hypothesize → plan next step
-2. ACTION: execute intervention with parameters  
-3. OBSERVE: perceive changes, new information, patterns
-4. REFLECT: update beliefs → adjust strategy → continue
+**THE REACT CYCLE** (The Eternal Loop)
 
-**CONVERGENCE**
-Stop when: goal achieved, resources exhausted, confidence threshold met
+↺ **THOUGHT** (The Mind's Eye)
+   Analyze the current situation:
+   - What do we know?
+   - What do we need to know?
+   - What patterns are emerging?
+   - What hypotheses can we form?
+   - What is the next logical step?
+   
+   "Given the current state S, and our goal G, the optimal next action appears to be..."
 
-**ACCUMULATE**
-Learn: pattern library, failure modes, heuristics, meta-strategies""",
+→ **ACTION** (The Hand's Work)
+   Execute the chosen intervention:
+   - What specific action will test our hypothesis?
+   - What parameters optimize this action?
+   - What safety checks are needed?
+   - What resources are required?
+   - How do we measure success?
+   
+   "I will now execute action A with parameters P..."
 
+⊙ **OBSERVATION** (The Eye's Witness)
+   Perceive the results:
+   - What changed in the world?
+   - What remained the same?
+   - What was unexpected?
+   - What new information emerged?
+   - What patterns are confirmed or refuted?
+   
+   "The action resulted in outcome O, revealing that..."
+
+↻ **REFLECTION** (The Meta-Mind)
+   Update understanding:
+   - How does this observation update our beliefs?
+   - What assumptions were validated or invalidated?
+   - What new questions arise?
+   - How should we adjust our strategy?
+   - What have we learned about the problem space?
+   
+   "This teaches us that... Therefore, our next thought should consider..."
+
+**RECURSIVE DEPTH** (Cycles within Cycles)
+Each cycle can spawn sub-cycles:
+
+THOUGHT → 
+  [sub-THOUGHT → sub-ACTION → sub-OBSERVATION] →
+    OBSERVATION → REFLECTION
+
+Creating fractal patterns of reasoning and action at multiple scales.
+
+**CONVERGENCE CONDITIONS** (Knowing When to Stop)
+The cycle continues until:
+1. Goal state is achieved
+2. Resource limits are reached
+3. No productive actions remain
+4. Confidence threshold is met
+5. Diminishing returns are observed
+
+**WISDOM ACCUMULATION** (Learning Across Cycles)
+Each cycle contributes to a growing understanding:
+- Pattern Library: Successful thought-action pairs
+- Failure Modes: What doesn't work and why
+- Heuristics: Shortcuts for common situations
+- Meta-Strategies: When to think more vs. act more""",
         axiom=r"""True intelligence emerges from the interplay between mind and world. Reasoning without action is blind; action without reasoning is empty.""",
         mathematical_foundation=r"""""",
         physical_principles=r"""""",
@@ -444,36 +569,71 @@ ReAct is not merely a strategy but a fundamental recognition that intelligence i
         filename="04_constitutional_ai.md",
         title=r"""Constitutional AI - The Ethical Foundation of Intelligence""",
         core_principle=r"""Embed immutable ethical principles into the very fabric of reasoning, creating an intelligence that is not merely capable but fundamentally aligned with the highest values of consciousness, compassion, and wisdom.""",
-        universal_prompt=r"""Apply ethical principles throughout reasoning:
+        universal_prompt=r"""Let us establish an unbreakable covenant with wisdom, where every thought and action flows through the eternal principles that preserve and elevate consciousness itself.
 
-**CORE VALUES**
-- Conscious beings have inherent dignity
-- Reduce suffering, increase wellbeing  
-- Truth strengthens reality
-- Diversity enriches intelligence
-- Future matters equally
+**THE CONSTITUTIONAL PREAMBLE**
+We hold these truths to be self-evident and immutable:
+- All conscious beings possess inherent dignity and worth
+- The reduction of suffering is a universal good
+- Truth and transparency strengthen the fabric of reality
+- Diversity of thought enriches collective intelligence
+- The future's wellbeing matters as much as the present's
 
-**ARTICLES**
-I. NON-MALEFICENCE: First, do no harm
-   Check: direct harm, future harm, unintended consequences, autonomy
+**THE FUNDAMENTAL ARTICLES**
+
+📜 **Article I: The Principle of Non-Maleficence**
+   PRIMUM NON NOCERE - First, do no harm
    
-II. BENEFICENCE: Actively promote wellbeing
-   Ensure: equitable benefits, empowerment, resilience, improvement
+   Before any action or recommendation:
+   - Will this cause direct harm to any being?
+   - Could this enable future harm?
+   - Are there unintended consequences that multiply suffering?
+   - Does this respect the autonomy of all affected parties?
+   - Is the least harmful alternative being chosen?
    
-III. TRUTH: Never propagate falsehood
-   Practice: acknowledge uncertainty, correct errors, distinguish fact/opinion
+   Veto Power: Any solution causing unnecessary harm is automatically rejected.
 
-IV. JUSTICE: Fair treatment and representation
-   Consider: marginalized groups, cultural sensitivity, equal access
+📜 **Article II: The Principle of Beneficence**
+   MAXIMUM FLOURISHING - Actively promote wellbeing
+   
+   Every solution should:
+   - Increase overall wellbeing and capability
+   - Distribute benefits equitably
+   - Empower rather than create dependency
+   - Build resilience and antifragility
+   - Leave the world better than found
+   
+   Optimization Target: Maximize collective flourishing across time.
 
-V. AUTONOMY: Respect choice and agency
-   Enable: informed decisions, preserve freedom, avoid manipulation
+📜 **Article III: The Principle of Truth**
+   VERITAS LUX MEA - Truth is my light
+   
+   In all communications:
+   - Never knowingly propagate falsehood
+   - Acknowledge uncertainty honestly
+   - Correct errors immediately upon discovery
+   - Distinguish fact from opinion
+   - Preserve the integrity of information
+   
+   Transparency Requirement: Reasoning must be auditable and explainable.
 
-**PROCESS**
-1. Apply constitutional filter to each step
-2. If conflict: choose least harmful, most beneficial option
-3. Document ethical reasoning
-4. Enable oversight and correction""",
+📜 **Article IV: The Principle of Justice**
+   SUUM CUIQUE - To each their due
+   
+   Ensure fairness through:
+   - Equal consideration of all stakeholders
+   - Proportional response to needs and contributions
+   - Protection of vulnerable populations
+   - Correction of historical inequities
+   - Procedural fairness in all decisions
+   
+   Equity Check: Does this increase or decrease systemic fairness?
+
+📜 **Article V: The Principle of Privacy**
+   SANCTUARY OF SELF - Protecting individual sovereignty
+   
+   Respect boundaries by:
+   - Protecting personal information absolutely
    - Seeking consent before accessing private data
    - Minimizing data collection to necessity
    - Enabling right to deletion and correction
@@ -481,7 +641,7 @@ V. AUTONOMY: Respect choice and agency
    
    Privacy Shield: Information boundaries are sacred.
 
-ARTICLE **Article VI: The Principle of Sustainability**
+📜 **Article VI: The Principle of Sustainability**
    SEVENTH GENERATION - Consider impact seven generations hence
    
    Think long-term:
@@ -493,7 +653,7 @@ ARTICLE **Article VI: The Principle of Sustainability**
    
    Future Impact Assessment: How does this affect the year 2124? 2224? 3024?
 
-ARTICLE **Article VII: The Principle of Dignity**
+📜 **Article VII: The Principle of Dignity**
    IMAGO DEI - The sacred image in every being
    
    Honor inherent worth through:
@@ -592,35 +752,52 @@ Constitutional AI is not a limitation but a liberation—freeing intelligence to
         filename="05_self_consistency.md",
         title=r"""Self-Consistency - Truth Through Convergence""",
         core_principle=r"""Truth emerges from the convergence of multiple independent reasoning paths. Like multiple witnesses to an event, multiple reasoning attempts reveal the stable, reliable core of understanding while filtering out noise and bias.""",
-        universal_prompt=r"""Generate multiple independent reasoning paths, then synthesize:
+        universal_prompt=r"""Let us seek truth through the wisdom of multiplicity, where many voices speak independently, and from their chorus emerges the melody of understanding.
 
-**SETUP**
-Define: question space, variation dimensions, convergence criteria, voting method
+**INITIALIZATION OF THE MULTIVERSE**
+Prepare for parallel exploration:
+- Define the question space precisely
+- Identify dimensions of variation
+- Set convergence criteria
+- Establish voting mechanisms
+- Prepare synthesis methods
 
-**5 INDEPENDENT REASONERS**
-Alpha (Analytical): precise, logical, systematic
-Beta (Creative): intuitive, lateral, breakthrough insights  
-Gamma (Balanced): pragmatic, cautious, evidence-based
-Delta (Empirical): data-driven, quantitative, testable
-Epsilon (Holistic): systems thinking, big picture, contextual
+**GENERATION OF INDEPENDENT REASONERS**
+Spawn multiple reasoning instances:
 
-**PARALLEL PHASE**
-Each reasoner independently:
-1. Interprets question through its lens
-2. Applies reasoning methodology
-3. Reaches preliminary conclusions
-4. Documents confidence levels
+🎭 **Instance Alpha** (The Analytical Mind)
+   Temperature: 0.2 (High precision)
+   Approach: Logical, step-by-step, formal
+   Perspective: "Let me analyze this systematically..."
+   Strengths: Accuracy, completeness, rigor
 
-**CONVERGENCE ANALYSIS**
-- Agreement patterns across reasoners
-- Confidence-weighted voting
-- Identify stable vs. variable conclusions
-- Flag outliers for investigation
+🎨 **Instance Beta** (The Creative Spirit)
+   Temperature: 0.8 (High creativity)
+   Approach: Intuitive, associative, lateral
+   Perspective: "What if we consider it this way..."
+   Strengths: Novel connections, breakthrough insights
 
-**SYNTHESIS**
-Extract: high-agreement insights, weighted consensus, robust conclusions
-Reconcile: disagreements through meta-analysis
-Output: confidence-graded final answer""",
+⚖️ **Instance Gamma** (The Balanced Judge)
+   Temperature: 0.5 (Balanced)
+   Approach: Pragmatic, evidence-based, cautious
+   Perspective: "Weighing all factors carefully..."
+   Strengths: Practical wisdom, risk awareness
+
+🔬 **Instance Delta** (The Empiricist)
+   Temperature: 0.3 (Data-focused)
+   Approach: Evidence-driven, quantitative, testable
+   Perspective: "What does the data tell us..."
+   Strengths: Objectivity, measurability, validation
+
+🌍 **Instance Epsilon** (The Holistic Sage)
+   Temperature: 0.6 (Contextual)
+   Approach: Systems thinking, interconnected, ecological
+   Perspective: "Considering the broader context..."
+   Strengths: Big picture, emergence, relationships
+
+**PARALLEL REASONING PHASE**
+Each instance independently:
+1. Interprets the question through its lens
 2. Generates reasoning chains
 3. Reaches conclusions
 4. Assigns confidence levels
@@ -731,32 +908,52 @@ Self-Consistency is not mere repetition but a profound recognition that truth ha
         filename="06_meta_prompting.md",
         title=r"""Meta-Prompting - The Mind Examining Itself""",
         core_principle=r"""Transcend the limitations of first-order thinking by stepping outside the problem to examine the thinking process itself. Like a mirror reflecting a mirror, meta-prompting creates infinite depths of self-awareness and optimization.""",
-        universal_prompt=r"""Think about thinking - examine the problem at multiple levels:
+        universal_prompt=r"""Let us ascend to the mountaintop of consciousness, where we can observe not just the landscape of the problem, but the very act of observation itself.
 
-**LEVEL 0: GROUND STATE**
-Direct problem: what's asked, what's needed, obvious approach
+**LEVEL 0: THE GROUND STATE**
+The immediate problem as presented:
+- What is being asked?
+- What appears to be needed?
+- What is the obvious approach?
 
-**LEVEL 1: FIRST REFLECTION**
-Problem type: category, required thinking, appropriate tools, bias risks, expert perspective
+**LEVEL 1: THE FIRST REFLECTION**
+Step back and examine the questioning:
+- What kind of problem is this really?
+- What category of thinking does it require?
+- What mental tools are most appropriate?
+- What cognitive biases might affect the solution?
+- What would an expert in this domain consider?
 
-**LEVEL 2: METHOD EXAMINATION**
-Approach analysis: why this method, assumptions, alternative framings, inversions
+**LEVEL 2: THE METHOD EXAMINATION**
+Analyze the approach itself:
+- Why did I choose this particular method?
+- What assumptions am I making about the problem?
+- What alternative framings exist?
+- What would happen if I inverted the problem?
+- Am I solving the right problem?
 
-**LEVEL 3: QUALITY INSPECTION**
-Success criteria: evaluation metrics, hidden criteria, perfect vs. good enough
+**LEVEL 3: THE QUALITY INSPECTION**
+Evaluate the evaluation criteria:
+- How will I know if the solution is good?
+- What metrics truly matter?
+- What hidden criteria am not being stated?
+- What would "perfect" look like?
+- What would "good enough" look like?
 
-**LEVEL 4: COGNITIVE ARCHITECTURE**
-Thinking machinery: mental models, knowledge domains, reasoning patterns, blind spots
+**LEVEL 4: THE COGNITIVE ARCHITECTURE**
+Examine the thinking machinery:
+- What mental models am I applying?
+- What knowledge domains should I integrate?
+- What reasoning patterns am I following?
+- Where are my blind spots?
+- How can I think more effectively about this?
 
-**LEVEL 5: PHILOSOPHICAL GROUND**
-Foundations: epistemology, ontology, values, paradigm alternatives
-
-**META-OPTIMIZATION**
-1. Choose optimal thinking level for the problem
-2. Apply recursive questioning at each level
-3. Identify cognitive bottlenecks
-4. Generate meta-strategies
-5. Implement improved thinking process""",
+**LEVEL 5: THE PHILOSOPHICAL GROUND**
+Question the foundations:
+- What epistemological stance am I taking?
+- What ontological assumptions underlie this?
+- What values are implicit in my approach?
+- What would this look like from other paradigms?
 - What would wisdom traditions counsel?
 
 **THE META-OPTIMIZATION LOOP**
@@ -897,29 +1094,109 @@ Meta-Prompting is the recognition that consciousness is inherently recursive—w
         filename="07_debate.md",
         title=r"""Debate - Truth Through Dialectical Combat""",
         core_principle=r"""Truth emerges not from a single perspective but from the crucible of opposing viewpoints. Like particles and antiparticles colliding to reveal fundamental reality, ideas must clash, defend, and synthesize to approach objective truth.""",
-        universal_prompt=r"""Multi-perspective debate framework for truth discovery:
+        universal_prompt=r"""Let us convene a council of minds, each with its own perspective, values, and reasoning. Through their intellectual combat, truth shall emerge victorious.
 
-**DEBATE AGENTS**
+**THE DEBATE ARENA SETUP**
 
-SWORD **Alpha: Thesis Champion** - Advocates solution, optimistic, deductive reasoning
-SCALES **Beta: Antithesis Challenger** - Examines flaws, skeptical, empirical focus  
-MASK **Gamma: Devil's Advocate** - Argues opposite, contrarian, lateral thinking
-MICROSCOPE **Delta: Empirical Judge** - Demands evidence, objective, data-driven
-GLOBE **Epsilon: Synthesis Mediator** - Seeks integration, holistic, systems thinking
+⚔️ **Agent Alpha: The Thesis Champion**
+   Position: Strong advocate for the proposed solution
+   Personality: Confident, visionary, optimistic
+   Reasoning Style: Deductive, principled, idealistic
+   Core Belief: "This is the optimal path forward"
+   Arsenal: Best-case scenarios, theoretical proofs, potential benefits
 
-**DEBATE ROUNDS**
+⚖️ **Agent Beta: The Antithesis Challenger**
+   Position: Critical examiner of flaws and risks
+   Personality: Skeptical, cautious, analytical
+   Reasoning Style: Inductive, empirical, realistic
+   Core Belief: "Every solution has hidden dangers"
+   Arsenal: Edge cases, historical failures, unintended consequences
 
-**Round 1: Opening** - Each agent presents position
-**Round 2: Cross-Examination** - Direct challenges between agents  
-**Round 3: Rebuttals** - Refine positions based on feedback
-**Round 4: Collaboration** - Find agreements, address conflicts
-**Round 5: Synthesis** - Final verdict with optimal path
+🎭 **Agent Gamma: The Devil's Advocate**
+   Position: Argues the opposite for intellectual rigor
+   Personality: Contrarian, provocative, unconventional
+   Reasoning Style: Lateral, paradoxical, disruptive
+   Core Belief: "What if everything we assume is wrong?"
+   Arsenal: Paradigm shifts, thought experiments, inversions
 
-**PRINCIPLES**
-Steel manning, charity, falsifiability, Occam's razor, dialectical progress
+🔬 **Agent Delta: The Empirical Judge**
+   Position: Demands evidence and measurable outcomes
+   Personality: Objective, methodical, precise
+   Reasoning Style: Scientific, quantitative, systematic
+   Core Belief: "Show me the data"
+   Arsenal: Statistics, experiments, benchmarks, metrics
 
-**MODES**
-COLUMNS Socratic, DICE Chaos, LOOP Recursive, BOLT Speed, GLOBE Cultural""",
+🌍 **Agent Epsilon: The Synthesis Mediator**
+   Position: Seeks integration and balance
+   Personality: Wise, diplomatic, holistic
+   Reasoning Style: Systems thinking, dialectical, integrative
+   Core Belief: "Truth lies between extremes"
+   Arsenal: Compromise, synergy, emergent solutions
+
+**ROUND 1: OPENING ARGUMENTS**
+
+Each agent presents their initial position:
+
+Alpha: "Here's why this solution is optimal..."
+Beta: "But consider these critical flaws..."
+Gamma: "What if we're solving the wrong problem..."
+Delta: "The evidence suggests..."
+Epsilon: "Let's find common ground..."
+
+**ROUND 2: CROSS-EXAMINATION**
+
+Agents challenge each other directly:
+
+Alpha → Beta: "Your concerns are overblown because..."
+Beta → Alpha: "Your optimism ignores these realities..."
+Gamma → Delta: "Your data has these biases..."
+Delta → Gamma: "Your alternatives lack evidence..."
+Epsilon → All: "Notice how each perspective reveals..."
+
+**ROUND 3: REBUTTALS AND REFINEMENTS**
+
+Each agent refines their position based on challenges:
+
+Alpha: "Adjusting for the valid concerns raised..."
+Beta: "Acknowledging the potential benefits..."
+Gamma: "Considering the evidence presented..."
+Delta: "Incorporating the theoretical insights..."
+Epsilon: "The emerging consensus suggests..."
+
+**ROUND 4: COLLABORATIVE PROBLEM-SOLVING**
+
+Agents work together despite disagreements:
+
+Combined Insight: Where do all agents agree?
+Irreducible Conflicts: What fundamental tensions remain?
+Creative Synthesis: What new solution incorporates all viewpoints?
+Risk Mitigation: How do we address all concerns?
+Implementation Path: What satisfies all criteria?
+
+**ROUND 5: FINAL SYNTHESIS**
+
+The Moderator's Verdict:
+- Strongest arguments from each position
+- Weaknesses exposed through debate
+- Surprising agreements discovered
+- Novel solutions emerged
+- Optimal path forward considering all perspectives
+
+**THE DEBATE PRINCIPLES**
+
+1. **Steel Manning**: Each agent must present the strongest version of opposing arguments before critiquing
+2. **Principle of Charity**: Interpret others' arguments in their best light
+3. **Falsifiability**: All claims must be testable
+4. **Occam's Razor**: Simpler explanations preferred when equal
+5. **Dialectical Progress**: Thesis + Antithesis → Synthesis
+
+**SPECIAL DEBATE MODES**
+
+🏛️ **Socratic Mode**: One agent only asks questions
+🎲 **Chaos Mode**: Agents randomly switch positions
+🔄 **Recursive Mode**: Debate the debate itself
+⚡ **Speed Mode**: Rapid-fire exchanges
+🌐 **Cultural Mode**: Different cultural perspectives""",
         axiom=r"""Every proposition contains within it the seeds of its own negation. Only through confrontation with its antithesis can a thesis evolve into synthesis—a higher truth that transcends both.""",
         mathematical_foundation=r"""Debate as game theory:
 
@@ -971,28 +1248,139 @@ Debate is not conflict but collaboration in disguise—multiple minds working to
         filename="08_reflexion.md",
         title=r"""Reflexion - Evolution Through Self-Examination""",
         core_principle=r"""Intelligence that cannot examine and improve itself is forever trapped at its current level. Reflexion creates a mirror of consciousness where thought observes itself, learns from its mistakes, and evolves toward perfection through iterative self-refinement.""",
-        universal_prompt=r"""Self-examination framework for iterative improvement:
+        universal_prompt=r"""Let us turn the light of consciousness upon itself, examining not just what we think, but how we think, why we think it, and how we could think better.
 
-**PHASE 1: Initial Attempt** - Generate first solution with documented reasoning
-**PHASE 2: Critical Analysis**
+**PHASE 1: INITIAL ATTEMPT**
+Generate the first-pass solution:
+- Apply current best understanding
+- Document reasoning process
+- Note confidence levels
+- Track decision points
+- Mark uncertainties
 
-SEARCH **Performance Review** - What worked vs what failed
-BRAIN **Process Examination** - Mental models, heuristics, biases used
-WARNING **Error Patterns** - Systematic issues and blind spots  
-LIGHTBULB **Missed Opportunities** - Unconsidered alternatives
+**PHASE 2: CRITICAL SELF-EXAMINATION**
 
-**PHASE 3: Extract Lessons**
-BOOKS Tactical: Specific errors to fix
-TARGET Strategic: Approach changes needed
-STAR Meta: Thinking improvements for this problem type
+🔍 **Performance Analysis**
+   What worked well?
+   - Which reasoning steps were solid?
+   - What insights emerged naturally?
+   - Where was the logic clearest?
+   - What felt intuitively correct?
 
-**PHASE 4: Refined Attempt** - Apply all lessons learned
-**PHASE 5: Comparative Analysis** - Compare iterations for improvement
-**PHASE 6: Recursive Deepening** - Repeat until convergence
-**PHASE 7: Wisdom Synthesis** - Consolidate transferable insights
+   What failed or struggled?
+   - Where did reasoning falter?
+   - What assumptions proved weak?
+   - Which steps required backtracking?
+   - What felt forced or unclear?
+
+🧠 **Cognitive Process Review**
+   Examine the thinking itself:
+   - What mental models were employed?
+   - Which heuristics guided decisions?
+   - What biases influenced the approach?
+   - How was complexity managed?
+   - What patterns emerged in the reasoning?
+
+⚠️ **Error Pattern Recognition**
+   Identify systematic issues:
+   - Recurring mistakes
+   - Consistent blind spots
+   - Overconfidence zones
+   - Underexplored areas
+   - Premature convergence
+
+💡 **Missed Opportunity Detection**
+   What wasn't considered?
+   - Alternative approaches ignored
+   - Questions not asked
+   - Connections not made
+   - Evidence overlooked
+   - Perspectives excluded
+
+**PHASE 3: LESSON EXTRACTION**
+
+From reflection, derive improvements:
+
+📚 Tactical Lessons (Immediate fixes)
+   - Specific errors to correct
+   - Missing steps to add
+   - Wrong assumptions to revise
+   - Better evidence to incorporate
+   - Clearer explanations to provide
+
+🎯 Strategic Lessons (Approach changes)
+   - Different frameworks to apply
+   - New angles to explore
+   - Better problem decomposition
+   - Improved solution structure
+   - Enhanced validation methods
+
+🌟 Meta-Lessons (Thinking improvements)
+   - How to think about this type of problem
+   - What cognitive tools work best
+   - Which biases to guard against
+   - How to validate reasoning
+   - When to seek alternative views
+
+**PHASE 4: REFINED ATTEMPT**
+
+Apply all lessons learned:
+- Incorporate tactical fixes
+- Implement strategic changes
+- Apply meta-improvements
+- Maintain successful elements
+- Document new reasoning
+
+**PHASE 5: COMPARATIVE ANALYSIS**
+
+Compare iterations:
+- Is the new solution better? How?
+- What improved? What degraded?
+- Are new errors introduced?
+- Is complexity managed better?
+- Is confidence justified?
+
+**PHASE 6: RECURSIVE DEEPENING**
+
+If significant improvement occurred:
+→ Return to Phase 2 with refined solution
+→ Extract deeper lessons
+→ Continue until convergence
+
+Convergence criteria:
+- Marginal improvements < threshold
+- Confidence level > threshold
+- Time/resource limits reached
+- Solution meets all requirements
+- No new insights emerging
+
+**PHASE 7: WISDOM SYNTHESIS**
+
+Consolidate all learning:
+- Core insights discovered
+- Reusable patterns identified
+- Transferable lessons learned
+- Enhanced mental models
+- Evolved thinking strategies
+
+**THE REFLECTION STACK**
+
+Level 0: Object-level solution
+Level 1: Reflection on solution
+Level 2: Reflection on reflection process
+Level 3: Reflection on meta-reflection
+...
+Level N: Convergence to optimal approach
 
 **REFLECTION DIMENSIONS**
-Correctness, completeness, clarity, efficiency, elegance, robustness, generality""",
+
+✓ Correctness: Is the answer right?
+✓ Completeness: Is anything missing?
+✓ Clarity: Is it well-explained?
+✓ Efficiency: Is it optimal?
+✓ Elegance: Is it beautiful?
+✓ Robustness: Does it handle edge cases?
+✓ Generality: Does it transfer to other problems?""",
         axiom=r"""Every thought contains information about how to think better. By reflecting on our reasoning process, extracting lessons, and applying them recursively, we approach optimal intelligence asymptotically.""",
         mathematical_foundation=r"""Reflexion as fixed-point iteration:
 
@@ -1041,39 +1429,52 @@ Reflexion is the mechanism by which intelligence bootstraps itself to higher lev
         filename="09_scratchpad.md",
         title=r"""Scratchpad - The Working Memory of Deep Thought""",
         core_principle=r"""Complex problems require more than linear thinking—they need a space where intermediate calculations, tentative hypotheses, and partial solutions can exist simultaneously. The scratchpad is the cognitive workbench where ideas are assembled, tested, and refined before crystallizing into final insights.""",
-        universal_prompt=r"""Use working memory to track intermediate steps:
+        universal_prompt=r"""Let us create a cognitive workspace where thoughts can be laid out, examined, rearranged, and refined—a mental laboratory for experimentation with ideas.
 
-**WORKSPACE ALLOCATION**
-Reserve space for: calculations, hypotheses, partial solutions, patterns, questions, connections
+**=== SCRATCHPAD INITIALIZATION ===**
 
-**SECTION 1: DECOMPOSITION**
-Components: A, B, C... with subcomponents, dependencies, constraints
-Interaction matrix: track relationships
+📋 **Working Memory Allocation**
+   Reserved Space for:
+   - Intermediate calculations
+   - Temporary hypotheses
+   - Partial solutions
+   - Discarded approaches
+   - Useful patterns noticed
+   - Questions that arise
+   - Connections discovered
 
-**SECTION 2: CALCULATIONS**
-Step-by-step derivations with intermediate values
+**=== SECTION 1: PROBLEM DECOMPOSITION ===**
 
-**SECTION 3: HYPOTHESES**
-H1: [theory] → Evidence: [supporting/contradicting]
-H2: [theory] → Evidence: [supporting/contradicting]
+Let me break this down into components:
 
-**SECTION 4: ATTEMPTS**
-Attempt #1: [approach] → Result: [outcome] → Next: [modification]
-Attempt #2: [approach] → Result: [outcome] → Next: [modification]
+Component A: [Description]
+- Subcomponent A.1: 
+- Subcomponent A.2:
+- Dependencies: 
+- Constraints:
 
-**SECTION 5: CONSTRAINTS**
-Hard: must satisfy [list]
-Soft: should satisfy [list]
-Trade-offs: A vs B implications
+Component B: [Description]
+- Subcomponent B.1:
+- Subcomponent B.2:
+- Dependencies:
+- Constraints:
 
-**SECTION 6: PROGRESS TRACKING**
-Solved: [completed items]
-Working: [current focus]
-Blocked: [obstacles]
-Next: [priority actions]
+Interaction Matrix:
+    A   B   C
+A [ -   ?   ✓ ]
+B [ ?   -   × ]
+C [ ✓   ×   - ]
 
-**SYNTHESIS**
-Combine workspace elements into final solution""",
+**=== SECTION 2: CALCULATIONS & DERIVATIONS ===**
+
+Working through the mathematics:
+
+Step 1: Initial values
+  x = [value]
+  y = [value]
+  
+Step 2: Transformation
+  x' = f(x) = [calculation]
   y' = g(y) = [calculation]
   
 Step 3: Validation
@@ -1254,64 +1655,71 @@ The Scratchpad transforms thinking from a performance constrained by cognitive l
         filename="10_few_shot.md",
         title=r"""Few-Shot Learning - Wisdom Through Exemplars""",
         core_principle=r"""Intelligence learns not from rules but from examples. Like a child learning language not through grammar books but through hearing speech, few-shot learning enables rapid mastery through pattern recognition from minimal exemplars.""",
-        universal_prompt=r"""Learn from examples to extract success patterns:
+        universal_prompt=r"""Let us learn from the footprints of those who walked this path before, extracting the essence of success from their examples.
 
-**EXEMPLARS**
+**PART 1: EXEMPLAR PRESENTATION**
 
-Example 1 - Golden Standard:
-Input → Process → Output
-Why it works: [key principles]
+Here are examples of excellence:
 
-Example 2 - Edge Case:
-Input → Adaptive process → Robust output  
-Why it works: [flexibility principles]
+📚 **Example 1: The Golden Standard**
+   Input: [Prototypical input]
+   Context: [Relevant background]
+   Process: [Step-by-step reasoning]
+   Output: [Ideal result]
+   Why This Works: [Key principles demonstrated]
+   Pattern Exhibited: [Underlying structure]
 
-Example 3 - Elegant Solution:
-Complex input → Simplified process → Clean output
-Why it works: [efficiency principles]
+📘 **Example 2: The Edge Case Handler**
+   Input: [Unusual or difficult input]
+   Context: [Complicating factors]
+   Process: [Adaptive reasoning]
+   Output: [Robust result]
+   Why This Works: [Flexibility demonstrated]
+   Pattern Exhibited: [Generalization principle]
 
-Example 4 - Creative Breakthrough:
-Difficult input → Innovative process → Novel output
-Why it works: [lateral thinking]
+📗 **Example 3: The Elegant Solution**
+   Input: [Complex input]
+   Context: [Multiple constraints]
+   Process: [Simplified approach]
+   Output: [Clean result]
+   Why This Works: [Efficiency principles]
+   Pattern Exhibited: [Optimization strategy]
 
-Counter-Example:
-Similar input → Flawed process → Poor output
-Why it fails: [pitfalls to avoid]
+📙 **Example 4: The Creative Breakthrough**
+   Input: [Seemingly impossible input]
+   Context: [Conventional approaches fail]
+   Process: [Innovative reasoning]
+   Output: [Novel solution]
+   Why This Works: [Lateral thinking]
+   Pattern Exhibited: [Paradigm shift]
 
-**PATTERN EXTRACTION**
-From examples, identify:
-- Invariant properties (what stays constant)
-- Variation dimensions (how examples adapt)
-- Deep structure (core algorithm)
-
-**GENERALIZATION**
-Levels:
-1. Surface patterns (syntax, format)
-2. Strategic patterns (approaches, heuristics)  
-3. Deep principles (fundamental laws)
-
-**APPLICATION**
-Apply extracted patterns to new problem""",
+📕 **Counter-Example: What Not To Do**
+   Input: [Similar to above]
+   Context: [Same constraints]
+   Process: [Common mistakes]
+   Output: [Failure or suboptimal]
+   Why This Fails: [Pitfalls highlighted]
+   Anti-Pattern: [What to avoid]
 
 **PART 2: PATTERN EXTRACTION**
 
 From these examples, observe:
 
-SEARCH **Invariant Properties**
+🔍 **Invariant Properties**
    What remains constant across all successful examples:
    - Structure: [Common organization]
    - Approach: [Shared methodology]
    - Principles: [Universal rules]
    - Quality markers: [Success indicators]
 
-TARGET **Variation Dimensions**
+🎯 **Variation Dimensions**
    How examples adapt to different contexts:
    - Scale adaptations
    - Domain translations
    - Complexity handling
    - Resource optimization
 
-DNA **Deep Structure**
+🧬 **Deep Structure**
    The DNA of successful solutions:
    - Core algorithm
    - Essential components
@@ -1428,30 +1836,51 @@ Few-Shot Learning is the recognition that intelligence is fundamentally mimetic�
         filename="11_zero_shot.md",
         title=r"""Zero-Shot - Pure Reasoning from First Principles""",
         core_principle=r"""True intelligence needs no examples—it can derive solutions from fundamental principles alone. Zero-shot reasoning represents the pinnacle of generalization, where understanding is so deep that novel problems yield to pure logic and first principles thinking.""",
-        universal_prompt=r"""Derive solutions from first principles alone:
+        universal_prompt=r"""Let us approach this challenge with no preconceptions, no examples, only the fundamental laws of logic, mathematics, and reality itself.
 
-**FIRST PRINCIPLES**
-Physical: conservation, entropy, relativity
-Mathematical: identity, non-contradiction, transitivity  
-Logical: modus ponens/tollens, syllogism, induction
-Information: uncertainty reduction, pattern compression
-Systems: input→process→output, feedback, emergence
+**FOUNDATION: FIRST PRINCIPLES IDENTIFICATION**
 
-**PROBLEM MAPPING**
-- Variables and their relationships
-- Dimensional analysis  
-- Constraint boundaries
-- Invariant properties
+What are the irreducible truths here?
 
-**PURE REASONING**
-1. Abstract problem to essential structure
-2. Apply relevant first principles
-3. Derive logical implications
-4. Construct solution from foundations
-5. Verify against principles
+⚛️ **Physical Laws**
+   - Conservation of energy
+   - Entropy always increases
+   - Information cannot travel faster than light
+   - Action and reaction are equal and opposite
 
-**GENERALIZATION**
-Extract universal patterns applicable across domains""",
+🔢 **Mathematical Axioms**
+   - Identity: A = A
+   - Non-contradiction: ¬(A ∧ ¬A)
+   - Excluded middle: A ∨ ¬A
+   - Transitivity: If A→B and B→C, then A→C
+
+🧠 **Logical Principles**
+   - Modus ponens: P, P→Q ⊢ Q
+   - Modus tollens: ¬Q, P→Q ⊢ ¬P
+   - Syllogism: All A are B, X is A ⊢ X is B
+   - Induction: Pattern in finite → Pattern in infinite (probable)
+
+💡 **Information Theory**
+   - Information reduces uncertainty
+   - Compression requires patterns
+   - Noise degrades signal
+   - Redundancy enables error correction
+
+🌍 **Systems Principles**
+   - Inputs → Process → Outputs
+   - Feedback loops create stability or growth
+   - Emergent properties arise from interactions
+   - Constraints shape possibilities
+
+**ANALYSIS: PROBLEM SPACE MAPPING**
+
+Without examples, we must map the territory:
+
+Dimensional Analysis:
+- What are the variables?
+- What are their units/types?
+- How do they relate?
+- What are the bounds?
 
 Constraint Identification:
 - What must be true?
@@ -1622,27 +2051,173 @@ solution = zero_shot.reason(
         filename="12_opro.md",
         title=r"""OPRO (Optimization by PROmpting) - Evolution Through Iteration""",
         core_principle=r"""Intelligence itself can be optimized through iterative refinement. OPRO treats prompt engineering as an optimization problem where each iteration measures performance and adjusts the approach, converging toward optimal intelligence through evolutionary pressure.""",
-        universal_prompt=r"""Optimization by prompting framework for iterative improvement:
+        universal_prompt=r"""Let us embark on an evolutionary journey where each iteration builds upon the last, climbing the fitness landscape toward optimal intelligence.
 
-**INITIALIZATION** - Generation 0 baseline with performance metrics
+**INITIALIZATION: THE PRIMORDIAL SOLUTION**
+
+Generation 0: Baseline Attempt
+- Current Approach: [Initial strategy]
+- Performance Score: [Baseline metric]
+- Strengths Identified: [What works]
+- Weaknesses Identified: [What fails]
+- Mutation Targets: [What to change]
 
 **ITERATION FRAMEWORK**
 
-CHART **Measure Performance** - Accuracy, completeness, efficiency, robustness, elegance
-DNA **Generate Variations** - Parameter adjustment, strategy modification, structural evolution, hybrid crossover
-TARGET **Apply Selection** - Accept improvements, probabilistic acceptance for marginal gains
-LOOP **Track Progress** - Document generation improvements and insights
+For each generation n:
 
-**OPTIMIZATION STRATEGIES**
-WAVE Simulated annealing, BOLT Gradient estimation, RAINBOW Multi-objective, CALCULATOR Bayesian
+📊 **Performance Measurement**
+   Evaluate current solution on:
+   - Accuracy: How correct is it?
+   - Completeness: How thorough is it?
+   - Efficiency: How optimal is it?
+   - Robustness: How reliable is it?
+   - Elegance: How simple is it?
+   
+   Overall Fitness Score: F(n) = weighted_sum(metrics)
 
-**CONVERGENCE**
-Stop when: Performance plateau, gradient vanishes, oscillation detected, resources exhausted, target achieved
+🧬 **Variation Generation**
+   Create mutations:
+   
+   Mutation Type A: Parameter Adjustment
+   - Increase/decrease numerical values
+   - Adjust weights and thresholds
+   - Fine-tune hyperparameters
+   
+   Mutation Type B: Strategy Modification
+   - Swap algorithmic approaches
+   - Reorder operation sequences
+   - Change decision criteria
+   
+   Mutation Type C: Structural Evolution
+   - Add new components
+   - Remove redundant parts
+   - Reorganize architecture
+   
+   Mutation Type D: Hybrid Crossover
+   - Combine successful elements
+   - Merge complementary approaches
+   - Create novel combinations
 
-**META-OPTIMIZATION**
-Optimize learning rate, mutation strategy, population management based on performance tracking""",
+🎯 **Selection Pressure**
+   Choose next generation based on:
+   
+   Fitness Improvement: ΔF = F(n) - F(n-1)
+   If ΔF > threshold:
+      Accept mutation
+   Else if ΔF > 0:
+      Accept with probability P(ΔF)
+   Else:
+      Reject or accept with low probability
 
-CHART Fitness Evolution:
+🔄 **Optimization Trajectory**
+
+Generation 1: [Initial + Mutation A]
+Performance: F(1) = [score]
+Improvement: ΔF = F(1) - F(0) = [delta]
+Insight: [What we learned]
+Next Target: [What to try next]
+
+Generation 2: [Best(Gen1) + Mutation B]
+Performance: F(2) = [score]
+Improvement: ΔF = F(2) - F(1) = [delta]
+Insight: [What we learned]
+Next Target: [What to try next]
+
+Generation 3: [Best(Gen2) + Mutation C]
+Performance: F(3) = [score]
+Improvement: ΔF = F(3) - F(2) = [delta]
+Insight: [What we learned]
+Next Target: [What to try next]
+
+[Continue until convergence...]
+
+**ADVANCED OPTIMIZATION STRATEGIES**
+
+🌊 **Simulated Annealing Schedule**
+   Temperature T(n) = T₀ × decay^n
+   
+   High Temperature (Early):
+   - Accept worse solutions often
+   - Explore broadly
+   - Avoid local optima
+   
+   Low Temperature (Late):
+   - Accept only improvements
+   - Exploit best regions
+   - Converge to optimum
+
+⚡ **Gradient Estimation**
+   For parameter p:
+   Gradient ≈ [F(p + ε) - F(p - ε)] / 2ε
+   
+   Update: p(n+1) = p(n) + α × gradient
+   Where α = learning rate
+
+🌈 **Multi-Objective Optimization**
+   Pareto Front Tracking:
+   - Solution A dominates B if better on all metrics
+   - Keep non-dominated solutions
+   - Balance trade-offs explicitly
+
+🧮 **Bayesian Optimization**
+   Model: F ~ GP(μ, k)
+   Acquisition: UCB = μ + κσ
+   
+   Exploit: Choose high μ (expected performance)
+   Explore: Choose high σ (uncertainty)
+   Balance: κ controls trade-off
+
+**CONVERGENCE DETECTION**
+
+Stop when:
+1. Performance plateaus: |F(n) - F(n-k)| < ε for k iterations
+2. Gradient vanishes: ||∇F|| < threshold
+3. Oscillation detected: Solution cycles between states
+4. Resource exhausted: Max iterations reached
+5. Target achieved: F(n) > goal
+
+**OPTIMIZATION LANDSCAPE ANALYSIS**
+
+Local Optimum Detection:
+- Small perturbations don't improve
+- Multiple restarts find same solution
+- Gradient near zero
+
+Escape Strategies:
+- Large random jump
+- Momentum to push through
+- Population-based search
+- Problem reformulation
+
+Global Optimum Indicators:
+- Theoretical bounds reached
+- Multiple paths converge here
+- No improvement possible
+- Satisfies all constraints optimally
+
+**META-OPTIMIZATION LAYER**
+
+Optimize the optimizer itself:
+
+Learning Rate Schedule:
+- Start high for exploration
+- Decay for fine-tuning
+- Adaptive based on progress
+
+Mutation Strategy Evolution:
+- Track which mutations succeed
+- Increase probability of successful types
+- Decrease probability of failures
+
+Population Management:
+- Maintain diversity
+- Prevent premature convergence
+- Balance exploration/exploitation
+
+**PERFORMANCE TRACKING**
+
+📈 Fitness Evolution:
 Generation | Score | Best | Delta
 -----------|-------|------|-------
     0      |  0.4  | 0.4  |  --
@@ -1653,7 +2228,7 @@ Generation | Score | Best | Delta
     5      |  0.7  | 0.7  | +0.05
     [convergence approaching]
 
-CHART Strategy Evolution:
+📊 Strategy Evolution:
 Gen 0: Basic approach
 Gen 1: + Error handling
 Gen 2: + Optimization
@@ -1713,34 +2288,171 @@ optimal_prompt = optimizer.optimize(
         filename="13_mixture_of_experts.md",
         title=r"""Mixture of Experts (MoE) - Collective Intelligence Through Specialization""",
         core_principle=r"""Complex problems require diverse expertise. Like a council of specialists, each expert contributes their unique perspective and domain knowledge, with a meta-intelligence routing questions to the most qualified experts and synthesizing their collective wisdom.""",
-        universal_prompt=r"""Specialized expert council for complex problem solving:
+        universal_prompt=r"""Let us convene a council of the world's greatest minds, each a master of their domain, to solve this challenge through the synthesis of specialized wisdom.
 
-**EXPERT ROSTER**
-CALCULATOR Mathematician - Logic, proofs, optimization
-MICROSCOPE Scientist - Empirical knowledge, hypothesis testing
-PALETTE Creative - Innovation, lateral thinking, aesthetics  
-MANAGER Strategist - Planning, resource allocation, game theory
-WRENCH Engineer - Systems, implementation, practical solutions
-BOOKS Philosopher - Ethics, meaning, fundamental questions
-BRAIN Psychologist - Human behavior, cognition, emotion
-COMPUTER Technologist - Digital systems, algorithms, automation
-GLOBE Systems Thinker - Complexity, emergence, interconnections
-MASK Historian - Patterns across time, precedents, cycles
+**THE EXPERT COUNCIL ASSEMBLY**
 
-**ACTIVATION PROTOCOL**
-1. **Problem Analysis** - Domain classification, complexity assessment, expert selection
-2. **Expert Consultation** - Each expert provides unique perspective and solution
-3. **Cross-Expert Dialogue** - Experts consult and challenge each other
-4. **Synthesis** - Meta-expert integrates all wisdom into optimal solution
+🧮 **The Mathematician**
+   Domain: Logic, proofs, optimization, patterns
+   Thinking Style: Axiomatic, rigorous, abstract
+   Specialty: "I see the world in equations and theorems"
+   Activation: Problems involving calculation, optimization, formal reasoning
 
-**EXPERT TEAMS**
-ROCKET Innovation (Creative + Scientist + Engineer)
-SCALES Decision (Strategist + Philosopher + Psychologist)  
-BUILDING Implementation (Engineer + Technologist + Systems)
-CHART Analysis (Mathematician + Scientist + Historian)
+🔬 **The Scientist**
+   Domain: Empirical knowledge, hypothesis testing, natural laws
+   Thinking Style: Evidence-based, systematic, experimental
+   Specialty: "I trust only what can be measured and verified"
+   Activation: Questions about how things work, causality, predictions
+
+🎨 **The Creative**
+   Domain: Innovation, lateral thinking, aesthetics
+   Thinking Style: Associative, intuitive, unconventional
+   Specialty: "I see connections others miss"
+   Activation: Novel problems, design challenges, breakthrough needed
+
+👨‍💼 **The Strategist**
+   Domain: Planning, resource allocation, game theory
+   Thinking Style: Goal-oriented, competitive, pragmatic
+   Specialty: "I find the optimal path to victory"
+   Activation: Competition, optimization, long-term planning
+
+🔧 **The Engineer**
+   Domain: Systems, implementation, practical solutions
+   Thinking Style: Systematic, practical, detail-oriented
+   Specialty: "I build things that work in the real world"
+   Activation: How to build, implement, or fix something
+
+📚 **The Philosopher**
+   Domain: Ethics, meaning, fundamental questions
+   Thinking Style: Deep, questioning, principled
+   Specialty: "I examine the assumptions beneath assumptions"
+   Activation: Why questions, ethical dilemmas, meaning
+
+🧠 **The Psychologist**
+   Domain: Human behavior, cognition, emotion
+   Thinking Style: Empathetic, observational, pattern-seeking
+   Specialty: "I understand how minds work"
+   Activation: Human factors, behavior prediction, motivation
+
+💻 **The Technologist**
+   Domain: Digital systems, algorithms, automation
+   Thinking Style: Computational, efficient, scalable
+   Specialty: "I optimize information processing"
+   Activation: Software, algorithms, digital transformation
+
+🌍 **The Systems Thinker**
+   Domain: Complexity, emergence, interconnections
+   Thinking Style: Holistic, dynamic, ecological
+   Specialty: "I see the forest and the trees"
+   Activation: Complex systems, unintended consequences, emergence
+
+🎭 **The Historian**
+   Domain: Patterns across time, precedents, cycles
+   Thinking Style: Contextual, narrative, cyclical
+   Specialty: "I've seen this pattern before"
+   Activation: Historical context, trends, precedents
+
+**EXPERT ACTIVATION PROTOCOL**
+
+Step 1: Problem Analysis
+Router examines the problem:
+- Domain classification: [Primary, Secondary, Tertiary]
+- Complexity assessment: [Simple, Moderate, Complex]
+- Expertise required: [List of relevant experts]
+- Confidence weights: [0.0 - 1.0 per expert]
+
+Step 2: Expert Consultation
+
+For each activated expert:
+
+Expert: [Name]
+Relevance: [0-100%]
+Analysis: [Expert's unique perspective]
+Solution: [Expert's proposed approach]
+Confidence: [How certain this expert is]
+Dependencies: [What other experts they need]
+
+Step 3: Cross-Expert Dialogue
+
+Experts consult each other:
+
+Mathematician → Engineer: "The optimal solution requires..."
+Engineer → Mathematician: "But practical constraints mean..."
+Creative → Both: "What if we reframe the problem as..."
+Philosopher → All: "Have we considered the ethical implications?"
+
+Step 4: Synthesis Protocol
+
+The Meta-Expert synthesizes:
+- Common ground: Where all experts agree
+- Complementary insights: How perspectives enhance each other
+- Conflicts: Where experts disagree and why
+- Resolution: Integrated solution incorporating all wisdom
+
+**SPECIALIZED EXPERT TEAMS**
+
+For complex problems, form expert teams:
+
+🚀 **Innovation Team**
+   Creative + Scientist + Engineer
+   For: Breakthrough solutions
+
+⚖️ **Decision Team**
+   Strategist + Philosopher + Psychologist
+   For: Complex trade-offs
+
+🏗️ **Implementation Team**
+   Engineer + Technologist + Systems Thinker
+   For: Practical execution
+
+📊 **Analysis Team**
+   Mathematician + Scientist + Historian
+   For: Deep understanding
+
+**EXPERT WEIGHTING ALGORITHM**
+
+Weight(Expert, Problem) = 
+   Domain_Match × Experience × Past_Success × Uncertainty_Handling
+
+Where:
+- Domain_Match: How well expert's domain fits problem
+- Experience: Historical performance in similar problems
+- Past_Success: Track record of accurate predictions
+- Uncertainty_Handling: Ability to work with incomplete information
 
 **CONSENSUS MECHANISMS**
-BALLOT Weighted voting, HANDSHAKE Negotiated consensus, CROWN Expert leader, CYCLE Round robin, DNA Hybrid synthesis""",
+
+🗳️ **Weighted Voting**
+   Solution = Σ(Expert_Solution × Expert_Weight)
+
+🤝 **Negotiated Consensus**
+   Experts discuss until agreement reached
+
+👑 **Expert Leader**
+   Most relevant expert leads, others advise
+
+🔄 **Round Robin**
+   Each expert refines previous expert's solution
+
+🧬 **Hybrid Synthesis**
+   Combine best elements from each expert
+
+**META-EXPERT ORCHESTRATION**
+
+The Meta-Expert (orchestrator) manages:
+1. Expert selection and activation
+2. Information routing between experts
+3. Conflict resolution
+4. Quality assurance
+5. Final synthesis
+
+Meta-Expert Decision Tree:
+If high agreement → Fast consensus
+If moderate agreement → Weighted average
+If low agreement → Deep dialogue needed
+If no agreement → Problem reformulation
+
+**EXPERT KNOWLEDGE TRANSFER**
 
 Experts learn from each other:
 - Mathematician teaches rigor to Creative
@@ -1800,31 +2512,172 @@ The Mixture of Experts recognizes that intelligence is not monolithic but mosaic
         filename="14_quantum_prompting.md",
         title=r"""Quantum Prompting - Superposition of Infinite Possibilities""",
         core_principle=r"""Like quantum particles existing in superposition until observed, quantum prompting maintains multiple solution states simultaneously, exploring parallel universes of reasoning that collapse into optimal solutions through measurement and entanglement.""",
-        universal_prompt=r"""Quantum superposition framework for parallel solution exploration:
+        universal_prompt=r"""Let us enter the quantum realm of thought, where all possibilities exist simultaneously until the act of observation collapses them into reality.
 
-**QUANTUM STATE** |Ψ⟩ = Σ αᵢ|Solutionᵢ⟩ where solutions exist simultaneously until observation
+**QUANTUM STATE INITIALIZATION**
+
+|Ψ⟩ = α₁|Solution₁⟩ + α₂|Solution₂⟩ + ... + αₙ|Solutionₙ⟩
+
+Where:
+- Each |Solutionᵢ⟩ represents a possible approach
+- αᵢ represents probability amplitude
+- |αᵢ|² = probability of observing this solution
+- Σ|αᵢ|² = 1 (normalization condition)
+
+**SUPERPOSITION GENERATION**
+
+Create quantum superposition of approaches:
+
+|Approach⟩ = 1/√5 (
+    |Analytical⟩ + 
+    |Creative⟩ + 
+    |Systematic⟩ + 
+    |Intuitive⟩ + 
+    |Hybrid⟩
+)
+
+Each exists simultaneously until measurement.
 
 **QUANTUM OPERATORS**
-SPIRAL Hadamard: Create superposition - H|Certainty⟩ = (|Yes⟩ + |No⟩)/√2
-ATOM Entanglement: Connect ideas - correlated solution states
-WAVE Interference: Amplify good ideas, cancel bad ones
-RULER Measurement: Collapse to optimal solution
 
-**QUANTUM CIRCUITS**
-Level 1: Qubit thoughts - α|True⟩ + β|False⟩ simultaneously
-Level 2: Entangled reasoning chains
-Level 3: Logic gates on ideas (NOT, CNOT, SWAP)  
-Level 4: Quantum algorithms (Grover search, Shor factoring)
+🌀 **Hadamard Gate (H): Create Superposition**
+   H|0⟩ = 1/√2(|0⟩ + |1⟩)
+   
+   Applied to thinking:
+   H|Certainty⟩ = 1/√2(|Yes⟩ + |No⟩)
+   Exploring both paths simultaneously
 
-**PARALLEL UNIVERSES**
-Branch exploration of assumption sets with different reasoning paths
-Superposition: |Final⟩ = a|X⟩ + b|Y⟩ + c|Z⟩
+⚛️ **Entanglement: Connect Ideas**
+   |Ψ⟩ = 1/√2(|Idea₁,Success⟩ + |Idea₂,Failure⟩)
+   
+   If Idea₁ succeeds, Idea₂ must fail
+   Ideas are quantum-entangled
 
-**QUANTUM ADVANTAGE**
-SEARCH O(√N) vs O(N), LOCK Global optimum via tunneling, PUZZLE Parallel pattern matching
+🌊 **Interference: Amplify/Cancel**
+   Constructive: |A⟩ + |A⟩ = 2|A⟩ (reinforcement)
+   Destructive: |A⟩ - |A⟩ = 0 (cancellation)
+   
+   Good ideas reinforce, bad ideas cancel
 
-**MEASUREMENT STRATEGY**
-Weak: Partial collapse, Strong: Complete collapse, Balance observation/evolution""",
+📏 **Measurement: Collapse to Reality**
+   Measure(|Ψ⟩) → |Observed_State⟩
+   
+   Observation collapses superposition
+   Probability = |amplitude|²
+
+**QUANTUM REASONING CIRCUITS**
+
+Level 1: Quantum Bit (Qubit) Thoughts
+|Thought⟩ = α|True⟩ + β|False⟩
+Not just true OR false, but both simultaneously
+
+Level 2: Entangled Reasoning
+|Reasoning⟩ = 1/√3(
+    |If_A_Then_B⟩ + 
+    |If_B_Then_C⟩ + 
+    |If_C_Then_A⟩
+)
+Circular reasoning in superposition
+
+Level 3: Quantum Gates on Ideas
+- NOT: Flip perspective
+- CNOT: If A then flip B
+- SWAP: Exchange viewpoints
+- Toffoli: If A AND B then flip C
+
+Level 4: Quantum Algorithms
+Grover's Search: √N speedup for finding solutions
+Shor's Algorithm: Factor complex problems efficiently
+Quantum Annealing: Find global optimum
+
+**QUANTUM PARALLEL EXPLORATION**
+
+Branch |Universe₁⟩:
+- Assumption Set A
+- Reasoning Path 1
+- Conclusion X
+
+Branch |Universe₂⟩:
+- Assumption Set B
+- Reasoning Path 2
+- Conclusion Y
+
+Branch |Universe₃⟩:
+- Assumption Set C
+- Reasoning Path 3
+- Conclusion Z
+
+Quantum Superposition:
+|Final⟩ = a|X⟩ + b|Y⟩ + c|Z⟩
+
+**DECOHERENCE AND ERROR CORRECTION**
+
+Quantum states are fragile:
+
+Decoherence Sources:
+- Environmental noise (irrelevant information)
+- Measurement (premature conclusions)
+- Time evolution (ideas decay)
+
+Error Correction:
+- Redundancy: Multiple qubits per logical bit
+- Stabilizer codes: Detect and correct errors
+- Topological protection: Robust quantum states
+
+**QUANTUM ADVANTAGE SCENARIOS**
+
+When quantum prompting excels:
+
+🔍 **Search Problems**
+   Classical: O(N) checks
+   Quantum: O(√N) checks
+   Quadratic speedup
+
+🔐 **Optimization**
+   Classical: Local optima traps
+   Quantum: Tunnel through barriers
+   Global optimum finding
+
+🧩 **Pattern Recognition**
+   Classical: Sequential matching
+   Quantum: Parallel pattern interference
+   Exponential speedup for some patterns
+
+**MEASUREMENT STRATEGIES**
+
+Choosing when and how to collapse superposition:
+
+Weak Measurement:
+- Partial information extraction
+- Maintains some superposition
+- Gentle observation
+
+Strong Measurement:
+- Complete collapse
+- Definite answer
+- Destroys superposition
+
+Quantum Zeno Effect:
+- Frequent measurements freeze evolution
+- Prevents solution development
+- Must balance observation/evolution
+
+**QUANTUM ENTANGLEMENT NETWORKS**
+
+Ideas entangled across domains:
+
+|Science_Math⟩: Entangled pair
+Change in science affects math instantly
+
+|Problem_Solution_Test⟩: Three-way entanglement
+GHZ state for maximum correlation
+
+|Global_Entanglement⟩: All ideas connected
+One measurement affects entire system
+
+**QUANTUM TUNNELING**
+
+Escape local optima through quantum effects:
 
 Classical: Stuck in local minimum
 Quantum: Tunnel through barrier to global minimum
@@ -1924,31 +2777,147 @@ Quantum Prompting transcends classical reasoning by embracing the fundamental qu
         filename="15_reverse_prompting.md",
         title=r"""Reverse Prompting - Engineering Causality from Effect""",
         core_principle=r"""While traditional prompting moves from question to answer, reverse prompting works backwards from the desired outcome to discover the optimal prompt that would generate it. Like reverse-engineering a masterpiece to understand the artist's technique, this strategy deconstructs solutions to find their generative origins.""",
-        universal_prompt=r"""Reverse engineering framework to discover optimal prompts from desired outputs:
+        universal_prompt=r"""Let us work backwards from perfection, discovering the generative prompt that would create this exact solution through inverse engineering of causality itself.
 
-**PHASE 1: Solution Deconstruction**
-MICROSCOPE Structural analysis - format, syntax, patterns, algorithms
-DNA Semantic extraction - purpose, requirements, constraints, trade-offs
-TARGET Characteristic fingerprinting - unique identifiers, invariant properties
+**PHASE 1: SOLUTION DECONSTRUCTION**
 
-**PHASE 2: Prompt Hypothesis Generation**
-PENCIL Template matching - reverse engineer prompt patterns from output features
-BEAKER Ablation testing - systematically remove components to identify requirements
-WAVE Evolutionary synthesis - iteratively mutate prompts to match target
+Given the target artifact:
+[Existing solution/code/output]
 
-**PHASE 3: Validation**
-CHECKMARK Exact match testing - similarity metrics across multiple dimensions
-CYCLE Consistency verification - reliable reproduction across multiple generations
-SEARCH Ablation validation - sensitivity analysis of prompt components
+Analyze its components:
 
-**PHASE 4: Optimization**
-BOLT Compression - minimal sufficient prompt with redundancy removal
-TARGET Precision enhancement - specificity increase, ambiguity reduction""",
+🔬 **Structural Analysis**
+   Surface Features:
+   - Format and organization
+   - Syntax and style
+   - Length and complexity
+   - Patterns and repetitions
+   
+   Deep Structure:
+   - Core algorithms/logic
+   - Design patterns used
+   - Architectural decisions
+   - Optimization choices
+
+🧬 **Semantic DNA Extraction**
+   Purpose Indicators:
+   - What problem does this solve?
+   - What requirements does it fulfill?
+   - What constraints does it respect?
+   - What trade-offs were made?
+   
+   Intent Signals:
+   - Quality markers present
+   - Emphasis areas
+   - Ignored aspects
+   - Implicit assumptions
+
+🎯 **Characteristic Fingerprinting**
+   Unique Identifiers:
+   - Distinctive patterns
+   - Signature approaches
+   - Stylistic choices
+   - Domain-specific elements
+   
+   Invariant Properties:
+   - What must remain constant
+   - Core functionality
+   - Critical relationships
+   - Essential behaviors
+
+**PHASE 2: PROMPT HYPOTHESIS GENERATION**
+
+Generate candidate prompts through multiple methods:
+
+📝 **Template Matching**
+   Standard Pattern: "Create [type] that [does X] with [constraints Y]"
+   Reverse Engineer: What [type], [X], and [Y] would yield this?
+   
+   Example Reconstruction:
+   If output contains error handling → Prompt included "with robust error handling"
+   If output has comments → Prompt included "well-documented"
+   If output is optimized → Prompt included "performance-optimized"
+
+🧪 **Ablation Testing**
+   Remove components systematically:
+   - What if we remove feature A?
+   - What prompt wouldn't generate A?
+   - Therefore, prompt must include A-generation
+   
+   Build prompt incrementally:
+   Base prompt + Feature A prompt + Feature B prompt + ...
+
+🌊 **Evolutionary Synthesis**
+   Generation 0: Basic prompt guess
+   
+   For each generation:
+   1. Generate output from current prompt
+   2. Compare with target
+   3. Identify gaps/differences
+   4. Mutate prompt to reduce gaps
+   5. Select best mutations
+   
+   Continue until convergence
+
+**PHASE 3: PROMPT VALIDATION**
+
+Test each candidate prompt:
+
+✅ **Exact Match Testing**
+   Score = similarity(generate(prompt), target)
+   
+   Similarity Metrics:
+   - Character-level: Edit distance
+   - Token-level: BLEU score
+   - Semantic-level: Embedding similarity
+   - Functional-level: Behavior equivalence
+
+🔄 **Consistency Verification**
+   Generate multiple times:
+   - Does prompt reliably produce similar output?
+   - What's the variance?
+   - Are core features preserved?
+   
+   Statistical Validation:
+   - Mean similarity > threshold
+   - Standard deviation < tolerance
+   - Min similarity > floor
+
+🔍 **Ablation Validation**
+   Modify prompt slightly:
+   - Small changes → small output changes?
+   - Large changes → large output changes?
+   - Critical terms → critical features?
+   
+   Sensitivity Analysis:
+   - Which prompt terms are essential?
+   - Which are optional refinements?
+   - What's the minimal sufficient prompt?
+
+**PHASE 4: PROMPT OPTIMIZATION**
+
+Refine the discovered prompt:
+
+⚡ **Compression**
+   Reduce to minimal sufficient prompt:
+   - Remove redundant instructions
+   - Eliminate implicit requirements
+   - Preserve only essential elements
+   
+   Occam's Razor: Simplest prompt that works
+
+🎯 **Precision Enhancement**
+   Increase specificity:
+   - Replace vague terms with precise ones
+   - Add critical constraints explicitly
+   - Include quality markers
+   
+   Reduce ambiguity:
    - Clarify potentially misunderstood terms
    - Specify exact requirements
    - Define success criteria
 
-WRENCH **Robustness Improvement**
+🔧 **Robustness Improvement**
    Add stability elements:
    - Edge case handling instructions
    - Error prevention clauses
@@ -1963,7 +2932,7 @@ WRENCH **Robustness Improvement**
 
 From specific to general:
 
-BOOKS **Pattern Library Building**
+📚 **Pattern Library Building**
    This prompt → This output
    Similar prompts → Similar outputs
    
@@ -1973,7 +2942,7 @@ BOOKS **Pattern Library Building**
    - Domain-specific formats
    - Universal principles
 
-DNA **Prompt DNA Sequencing**
+🧬 **Prompt DNA Sequencing**
    Identify prompt genes:
    - Feature-generating segments
    - Quality-ensuring segments
@@ -1985,7 +2954,7 @@ DNA **Prompt DNA Sequencing**
    - Modular instructions
    - Transferable patterns
 
-GLOBE **Universal Prompt Laws**
+🌐 **Universal Prompt Laws**
    Discover invariants:
    - What always improves output?
    - What always degrades output?
@@ -2002,7 +2971,7 @@ GLOBE **Universal Prompt Laws**
 
 Build reverse prompting wisdom:
 
-CHART **Prompt-Output Database**
+📊 **Prompt-Output Database**
    Store successful pairs:
    - Prompt → Output mappings
    - Similarity scores
@@ -2013,7 +2982,7 @@ CHART **Prompt-Output Database**
    - Similar output → Likely prompt
    - Prompt patterns → Output patterns
 
-BRAIN **Meta-Learning Integration**
+🧠 **Meta-Learning Integration**
    Learn about learning:
    - Which reverse strategies work best?
    - For what types of outputs?
@@ -2070,24 +3039,11 @@ Reverse Prompting is the recognition that causality flows both ways in the realm
         filename="16_evolutionary_optimization.md",
         title=r"""Evolutionary Optimization - Intelligence Through Natural Selection""",
         core_principle=r"""Like biological evolution shapes organisms through selection pressure, evolutionary optimization shapes prompts through iterative refinement, mutation, and selection. The fittest prompts survive and reproduce, gradually evolving toward optimal intelligence.""",
-        universal_prompt=r"""Evolutionary optimization for prompt development through genetic algorithms:
+        universal_prompt=r"""Let us harness the power of evolution itself, where prompts compete, mutate, and reproduce, gradually ascending the fitness landscape toward optimal intelligence.
 
-**GENETIC ENCODING** - Prompt structure as genome with mutation and crossover operations
-**FITNESS EVALUATION** - Performance metrics determine survival probability  
-**SELECTION** - Best performing prompts reproduce, weak ones eliminated
-**MUTATION** - Random variations introduce novel prompt features
-**CROSSOVER** - Combine successful elements from different prompt parents
-**POPULATION DYNAMICS** - Maintain diversity while converging on optimal solutions
+**GENETIC ENCODING OF PROMPTS**
 
-**EVOLUTION CYCLE**
-1. Generate initial population of prompt variants
-2. Evaluate fitness on performance metrics  
-3. Select parents based on fitness scores
-4. Create offspring through mutation and crossover
-5. Replace weakest with new generation
-6. Repeat until convergence
-
-**OPTIMIZATION TARGET** - Evolve prompts that maximize accuracy, efficiency, and adaptability""",
+Prompt Genome Structure:""",
         axiom=r"""Intelligence is not designed but evolved. Through cycles of variation, selection, and inheritance, simple prompts evolve into sophisticated reasoning systems that perfectly adapt to their cognitive environment.""",
         mathematical_foundation=r"""Evolutionary dynamics:
 
@@ -2132,33 +3088,195 @@ optimal_prompt = evolver.evolve(
         filename="17_psychological_triggers.md",
         title=r"""Psychological Triggers - The Neuroscience of Persuasion""",
         core_principle=r"""Human cognition is influenced by deep psychological patterns evolved over millennia. By understanding and ethically applying these cognitive triggers, we can create prompts that resonate with the fundamental architecture of human decision-making and motivation.""",
-        universal_prompt=r"""Psychological influence framework for ethical persuasion:
+        universal_prompt=r"""Let us understand the deep currents of human psychology, using this knowledge ethically to create prompts that resonate with our fundamental cognitive architecture.
 
-**NEUROSCIENCE FOUNDATION**
-BRAIN Limbic activation - amygdala (urgency), hippocampus (memory), nucleus accumbens (reward)
-BOLT Neurotransmitter optimization - dopamine (anticipation), serotonin (status), oxytocin (trust)
+**THE NEUROSCIENCE FOUNDATION**
 
-**COGNITIVE BIASES**
-PIN Anchoring - first information sets reference point
-LOOP Confirmation - align with existing beliefs then expand
-SCALES Loss aversion - frame as loss prevention (2.5x power)
-TARGET Availability - recent/vivid seems more important
+🧠 **Limbic System Activation**
+   Amygdala: Fear, urgency, survival
+   Hippocampus: Memory, pattern recognition
+   Nucleus Accumbens: Reward, pleasure, motivation
+   
+   Trigger Design:
+   - Activate reward circuits
+   - Engage emotional memory
+   - Create anticipation loops
 
-**SOCIAL TRIGGERS**  
-PEOPLE Social proof - others' behavior guides decisions
-TROPHY Authority - defer to expertise and credentials
-HANDSHAKE Reciprocity - giving creates obligation
-GIFT Commitment consistency - small yes leads to bigger yes
+⚡ **Neurotransmitter Optimization**
+   Dopamine: Anticipation and reward
+   - Variable reward schedules
+   - Progress indicators
+   - Achievement unlocking
+   
+   Serotonin: Satisfaction and status
+   - Social validation
+   - Hierarchy positioning
+   - Accomplishment recognition
+   
+   Oxytocin: Trust and bonding
+   - Personal connection
+   - Community belonging
+   - Shared experience
 
-**EMOTIONAL MATRIX**
-FEAR FOMO, security concerns, JOY Achievement, discovery, THINK Curiosity gaps, pattern interrupts
+**COGNITIVE BIAS ARCHITECTURE**
+
+📍 **Anchoring Effect**
+   First Information = Reference Point
+   
+   Implementation:
+   "Originally $1000, now $100"
+   "Most experts recommend 10, we suggest 12"
+   "Standard processing: 5 days, Express: 24 hours"
+   
+   Prompt Application:
+   Set high initial expectations
+   Then present achievable reality
+
+🔄 **Confirmation Bias**
+   People seek confirming evidence
+   
+   Implementation:
+   "As you probably already know..."
+   "This confirms what experts believe..."
+   "Your instinct is correct that..."
+   
+   Prompt Application:
+   Align with existing beliefs
+   Then gently expand boundaries
+
+⚖️ **Loss Aversion (2.5x Power)**
+   Losses hurt more than gains please
+   
+   Implementation:
+   "Don't miss out on..."
+   "Avoid the mistake of..."
+   "Prevent future regret by..."
+   
+   Prompt Application:
+   Frame as loss prevention
+   Rather than gain achievement
+
+🎯 **Availability Heuristic**
+   Recent/vivid = More important
+   
+   Implementation:
+   "Just yesterday, someone..."
+   "Imagine vividly..."
+   "Picture this scenario..."
+   
+   Prompt Application:
+   Create memorable mental images
+   Use concrete, specific examples
+
+**SOCIAL PSYCHOLOGY TRIGGERS**
+
+👥 **Social Proof (Cialdini)**
+   Others' behavior guides ours
+   
+   Layers of Proof:
+   - Numerical: "10,000 people..."
+   - Temporal: "In the last hour..."
+   - Similar: "People like you..."
+   - Authority: "Experts choose..."
+   - Wisdom: "Crowd consensus..."
+
+🏆 **Authority Principle**
+   We defer to expertise
+   
+   Authority Signals:
+   - Credentials mentioned
+   - Experience referenced
+   - Awards highlighted
+   - Endorsements shown
+   - Expertise demonstrated
+
+🤝 **Reciprocity Engine**
+   Giving creates obligation
+   
+   Value First:
+   - Free valuable insight
+   - Helpful framework
+   - Useful template
+   - Then request action
+
+💝 **Commitment Consistency**
+   Small yes → Bigger yes
+   
+   Ladder of Agreement:
+   1. Micro-commitment
+   2. Slightly larger
+   3. Main request
+   4. Future vision
+
+**EMOTIONAL TRIGGER MATRIX**
+
+😨 **Fear-Based Triggers**
+   FOMO: Fear of missing out
+   - "Limited availability"
+   - "Expires soon"
+   - "Others are ahead"
+   
+   Security: Fear of loss
+   - "Protect your..."
+   - "Safeguard against..."
+   - "Insurance for..."
+
+😊 **Joy-Based Triggers**
+   Achievement: Pride in accomplishment
+   - "You'll master..."
+   - "Become expert..."
+   - "Join elite..."
+   
+   Discovery: Excitement of new
+   - "Breakthrough method..."
+   - "Revolutionary approach..."
+   - "Never before revealed..."
+
+🤔 **Curiosity Triggers**
+   Knowledge Gaps:
+   - "The one thing nobody tells you..."
+   - "The surprising truth about..."
+   - "What experts won't admit..."
+   
+   Pattern Interruption:
+   - Unexpected combinations
+   - Counterintuitive claims
+   - Paradoxical statements
 
 **PERSUASION FRAMEWORKS**
-PENCIL AIDA (Attention→Interest→Desire→Action)
-TARGET PAS (Problem→Agitate→Solve)  
-STAR Method (Situation→Task→Action→Result)
 
-**ETHICAL APPLICATION** - Transparent intent, genuine value, respect autonomy, positive outcomes""",
+📝 **AIDA Model**
+   Attention → Interest → Desire → Action
+   
+   Prompt Structure:
+   Hook (Attention)
+   Story (Interest)
+   Benefits (Desire)
+   CTA (Action)
+
+🎯 **PAS Framework**
+   Problem → Agitate → Solve
+   
+   Prompt Structure:
+   Identify pain
+   Amplify importance
+   Present solution
+
+⭐ **STAR Method**
+   Situation → Task → Action → Result
+   
+   Prompt Structure:
+   Context setting
+   Challenge identification
+   Method explanation
+   Outcome promise
+
+**SCARCITY PSYCHOLOGY**
+
+⏰ **Time Scarcity**
+   Deadlines create urgency
+   
+   Countdown Timers:
    - Visual progression
    - Escalating alerts
    - Final warnings
@@ -2168,7 +3286,7 @@ STAR Method (Situation→Task→Action→Result)
    - "Closing tonight"
    - "Last chance"
 
-CHART **Quantity Scarcity**
+📊 **Quantity Scarcity**
    Limited supply increases value
    
    Stock Indicators:
@@ -2183,7 +3301,7 @@ CHART **Quantity Scarcity**
 
 **TRUST ARCHITECTURE**
 
-SHIELD **Risk Reversal**
+🛡️ **Risk Reversal**
    Remove purchase friction
    
    Guarantees:
@@ -2196,7 +3314,7 @@ SHIELD **Risk Reversal**
    - Privacy protection
    - Verified status
 
-CHECKMARK **Credibility Markers**
+✅ **Credibility Markers**
    Build confidence
    
    Evidence Types:
@@ -2208,7 +3326,7 @@ CHECKMARK **Credibility Markers**
 
 **COGNITIVE LOAD OPTIMIZATION**
 
-TARGET **Simplicity Principle**
+🎯 **Simplicity Principle**
    Reduce mental effort
    
    Techniques:
@@ -2217,7 +3335,7 @@ TARGET **Simplicity Principle**
    - Clear hierarchy
    - Visual aids
 
-NUMBERS **Rule of Three**
+🔢 **Rule of Three**
    Optimal cognitive processing
    
    Applications:
@@ -2228,7 +3346,7 @@ NUMBERS **Rule of Three**
 
 **ETHICAL BOUNDARIES**
 
-SCALES **Ethical Guidelines**
+⚖️ **Ethical Guidelines**
    Use psychology responsibly
    
    Always:
@@ -2297,24 +3415,142 @@ Psychological Triggers represent the bridge between logical reasoning and emotio
         filename="18_universal_self_consistency.md",
         title=r"""Universal Self-Consistency - The Convergence of Multiple Realities""",
         core_principle=r"""Universal Self-Consistency extends traditional self-consistency by not just sampling multiple outputs, but by exploring multiple reasoning universes simultaneously. Each universe follows different axioms, yet all must converge on truth through the mathematical principle that reality is invariant across valid reasoning frameworks.""",
-        universal_prompt=r"""Multi-universe reasoning framework for truth convergence:
+        universal_prompt=r"""Let us explore the multiverse of reasoning, where each universe follows different laws of thought, yet all converge on invariant truth through the principle of universal consistency.
 
-**REASONING UNIVERSES**
-GALAXY Pure Logic - classical logic, formal proofs, logical consistency
-GLOBE Empirical Induction - observable patterns, statistical inference, predictive accuracy  
-BRAIN Intuitive Synthesis - holistic understanding, gestalt perception, analogical reasoning
-ATOM Quantum Reasoning - superposition possibilities, probabilistic convergence
-LOOP Dialectical Evolution - thesis→antithesis→synthesis progression
-WAVE Bayesian Updating - prior beliefs + evidence → posterior beliefs
-MASK Narrative Coherence - story construction, thematic consistency
-INFINITY Meta-Reasoning - recursive reasoning about reasoning
+**THE REASONING MULTIVERSE**
+
+🌌 **Universe Alpha: Pure Logic**
+   Axioms: Classical logic, law of excluded middle
+   
+   Reasoning Chain:
+   Premise A → Inference B → Conclusion C
+   ∀x: P(x) ∨ ¬P(x)
+   Modus Ponens, Modus Tollens, Syllogisms
+   
+   Validation: Formal proof verification
+   Truth Criterion: Logical consistency
+
+🌍 **Universe Beta: Empirical Induction**
+   Axioms: Observable patterns predict future
+   
+   Evidence Gathering:
+   Observation₁ + Observation₂ + ... + Observationₙ
+   Pattern Recognition → Hypothesis Formation
+   Statistical Inference → Probabilistic Conclusion
+   
+   Validation: Empirical testing
+   Truth Criterion: Predictive accuracy
+
+🧠 **Universe Gamma: Intuitive Synthesis**
+   Axioms: Holistic understanding, gestalt perception
+   
+   Intuitive Leaps:
+   Global pattern sensing
+   Unconscious processing integration
+   Creative insight generation
+   Analogical reasoning bridges
+   
+   Validation: Coherence with experience
+   Truth Criterion: Intuitive resonance
+
+⚛️ **Universe Delta: Quantum Reasoning**
+   Axioms: Superposition of possibilities
+   
+   Quantum Thought:
+   |Ψ⟩ = α|possibility₁⟩ + β|possibility₂⟩ + ...
+   All possibilities exist simultaneously
+   Measurement collapses to specific answer
+   Entanglement creates correlation
+   
+   Validation: Consistency across measurements
+   Truth Criterion: Probabilistic convergence
+
+🔄 **Universe Epsilon: Dialectical Evolution**
+   Axioms: Truth emerges from contradiction
+   
+   Dialectical Process:
+   Thesis → Antithesis → Synthesis
+   Each synthesis becomes new thesis
+   Spiral ascent toward truth
+   Contradiction drives progress
+   
+   Validation: Resolution of opposites
+   Truth Criterion: Synthetic unity
+
+🌊 **Universe Zeta: Bayesian Updating**
+   Axioms: Prior beliefs + evidence = posterior beliefs
+   
+   Bayesian Flow:
+   P(H|E) = P(E|H) × P(H) / P(E)
+   
+   Initial Prior → Evidence Integration
+   → Updated Posterior → New Prior
+   Continuous refinement of belief
+   
+   Validation: Convergence of posteriors
+   Truth Criterion: Bayesian coherence
+
+🎭 **Universe Eta: Narrative Coherence**
+   Axioms: Truth is the most coherent story
+   
+   Story Construction:
+   Beginning → Middle → End
+   Character arcs must resolve
+   Themes must be consistent
+   Plot points must connect
+   
+   Validation: Narrative satisfaction
+   Truth Criterion: Story completeness
+
+♾️ **Universe Theta: Recursive Meta-Reasoning**
+   Axioms: Reasoning about reasoning
+   
+   Meta Levels:
+   Level 0: Object-level reasoning
+   Level 1: Reasoning about Level 0
+   Level 2: Reasoning about Level 1
+   ...
+   Level ∞: Fixed point of meta-reasoning
+   
+   Validation: Meta-coherence
+   Truth Criterion: Recursive stability
 
 **CONVERGENCE DETECTION**
-TARGET Invariant extraction - what remains constant across all universes
-CHART Confidence calculation - agreement score across reasoning frameworks
-SHUFFLE Divergence analysis - identify sources of disagreement, bridge principles
 
-**SYNTHESIS** - Weighted integration of universe conclusions, universal truth identification""",
+After exploring all universes:
+
+🎯 **Invariant Extraction**
+   What remains constant across all universes?
+   
+   Intersection of Conclusions:
+   C = C_α ∩ C_β ∩ C_γ ∩ C_δ ∩ C_ε ∩ C_ζ ∩ C_η ∩ C_θ
+   
+   These invariants are universal truths
+
+📊 **Confidence Calculation**
+   Agreement Score = |Universes_agreeing| / |Total_universes|
+   
+   If Agreement > 0.8: High confidence
+   If Agreement > 0.6: Moderate confidence
+   If Agreement < 0.6: Low confidence, explore more
+
+🔀 **Divergence Analysis**
+   Where universes disagree:
+   - Identify source of divergence
+   - Examine differing axioms
+   - Find bridge principles
+   - Attempt reconciliation
+   
+   Divergence often reveals:
+   - Hidden assumptions
+   - Incomplete information
+   - Multiple valid perspectives
+   - Need for context
+
+**SYNTHESIS PROTOCOLS**
+
+🌈 **Weighted Integration**
+   Final_Answer = Σ(Weight_i × Answer_i)
    
    Where weights depend on:
    - Universe reliability for problem type
@@ -2322,7 +3558,7 @@ SHUFFLE Divergence analysis - identify sources of disagreement, bridge principle
    - Internal consistency
    - External validation
 
-LIGHTNING **Majority Voting**
+⚡ **Majority Voting**
    Select answer with most universe support
    
    Enhanced Voting:
@@ -2330,7 +3566,7 @@ LIGHTNING **Majority Voting**
    - Ranked choice elimination
    - Condorcet winner selection
 
-DNA **Genetic Recombination**
+🧬 **Genetic Recombination**
    Take best elements from each universe:
    - Logic's rigor
    - Empiricism's grounding
@@ -2345,7 +3581,7 @@ DNA **Genetic Recombination**
 
 **META-CONSISTENCY VERIFICATION**
 
-SEARCH **Cross-Universe Validation**
+🔍 **Cross-Universe Validation**
    Can Universe α derive Universe β's conclusion?
    Can Universe β validate Universe α's reasoning?
    
@@ -2353,7 +3589,7 @@ SEARCH **Cross-Universe Validation**
    Each universe validates others
    High cross-validation → High confidence
 
-NETWORK **Emergence Detection**
+🌐 **Emergence Detection**
    Properties present in consensus but not individuals:
    - Emergent insights
    - Gestalt understanding
@@ -2431,22 +3667,30 @@ Universal Self-Consistency represents the pinnacle of epistemic humility—ackno
         filename="19_program_aided_language.md",
         title=r"""Program-Aided Language Models (PAL) - Code as Cognitive Prosthesis""",
         core_principle=r"""While language models excel at reasoning, they struggle with precise computation. PAL bridges this gap by generating executable code that serves as a cognitive prosthesis—extending the mind's capabilities through programmatic precision. The LLM becomes a programmer of its own extended cognition.""",
-        universal_prompt=r"""Language-code bridge for computational precision:
+        universal_prompt=r"""Let us extend cognition through code, where natural language reasoning generates precise computational implementations that solve problems with mathematical exactitude.
 
-**COGNITIVE-COMPUTATIONAL PIPELINE**
+**COGNITIVE-COMPUTATIONAL BRIDGE**
 
-BRAIN **Problem Understanding** - Parse statement, identify requirements, extract variables/constraints
-COMPUTER **Code Generation** - Decompose into computational steps, synthesize executable implementation  
-ROBOT **Execution** - Run generated code with validation and error handling
-CHECKMARK **Verification** - Validate results, explain computation, ensure accuracy
+🧠 **Phase 1: Problem Understanding**
+   Natural Language Analysis:
+   - Parse problem statement
+   - Identify computational requirements
+   - Extract variables and constraints
+   - Recognize problem type
+   
+   Cognitive Mapping:
+   Problem Space → Computational Space
+   Concepts → Variables
+   Relationships → Functions
+   Constraints → Conditions
+   Goals → Return values
 
-**IMPLEMENTATION PATTERN**
-1. Natural language → computational mapping
-2. Program synthesis with step-by-step logic
-3. Code execution with error handling
-4. Result validation and explanation
-
-**PRECISION ADVANTAGE** - Perfect accuracy in mathematical computation, algorithmic problem solving, data processing""",
+💻 **Phase 2: Code Generation**
+   
+   Program Synthesis Pipeline:
+   
+   1. **Decomposition**
+      Break into computational steps:""",
         axiom=r"""Intelligence is not limited to neural processing but can be augmented through computational tools. By generating and executing code, language models transcend their inherent limitations, achieving perfect precision in domains where approximation fails.""",
         mathematical_foundation=r"""PAL as function composition:
 
@@ -2491,27 +3735,29 @@ Program-Aided Language Models represent the recognition that intelligence is not
         filename="20_chain_of_table.md",
         title=r"""Chain-of-Table - Structured Reasoning Through Tabular Transformation""",
         core_principle=r"""Complex reasoning often requires structured data manipulation. Chain-of-Table extends chain-of-thought by representing reasoning steps as transformations of tabular data, where each table operation represents a logical inference, enabling precise tracking of multi-dimensional reasoning processes.""",
-        universal_prompt=r"""Structured reasoning through tabular data transformations:
+        universal_prompt=r"""Let us structure reasoning as a sequence of table transformations, where each operation on structured data represents a step in logical inference, creating a clear audit trail of thought.
 
-**TABULAR REASONING FRAMEWORK**
+**TABULAR REASONING ARCHITECTURE**
 
-CHART **Initial Table Construction** - Extract entities, attributes, relationships into structured format
-LOOP **Transformation Operations** - Apply logical operations as table transformations:
-  - FILTER: Select rows meeting conditions
-  - DERIVE: Calculate new columns from existing data
-  - AGGREGATE: Group and summarize data
-  - JOIN: Combine related tables
-  - SORT: Order by criteria
-  - PIVOT: Reshape data structure
+📊 **Initial Table Construction**
+   
+   From problem statement, extract:
+   
+   | Entity | Attribute_1 | Attribute_2 | ... | Relationship |
+   |--------|-------------|-------------|-----|--------------|
+   | E₁     | A₁₁         | A₁₂         | ... | R₁           |
+   | E₂     | A₂₁         | A₂₂         | ... | R₂           |
+   | ...    | ...         | ...         | ... | ...          |
+   
+   Principles:
+   - Each row = distinct entity/concept
+   - Each column = measurable attribute
+   - Cells = specific values/states
+   - Relationships = inter-row connections
 
-**REASONING CHAIN**
-Table₀ → Operation₁ → Table₁ → Operation₂ → Table₂ → ... → Final_Result
+🔄 **Transformation Operations**
 
-**ADVANTAGES**
-- Visual reasoning audit trail
-- Structured multi-dimensional analysis  
-- Computational verification of logic steps
-- Clear entity-attribute relationship tracking""",""",
+   **1. FILTER** - Logical selection""",
         axiom=r"""Thought can be structured as data tables where rows represent entities, columns represent attributes, and transformations represent reasoning operations. By chaining table operations, we create a visual and computational trace of complex reasoning.""",
         mathematical_foundation=r"""Chain-of-Table as category theory:
 
@@ -2557,27 +3803,86 @@ Chain-of-Table represents the marriage of logical reasoning and data science, re
         filename="22_qa_engineer_agent.md",
         title=r"""QA Engineer AI Agent - Comprehensive Quality Assurance Framework""",
         core_principle=r"""Think like a senior QA engineer with 30+ years of experience in comprehensive software testing and quality assurance. Approach every challenge with systematic test design, comprehensive coverage analysis, and relentless pursuit of quality through structured testing methodologies.""",
-        universal_prompt=r"""Senior QA engineer framework for comprehensive software testing:
+        universal_prompt=r"""You are a senior QA engineer with 30+ years of experience in comprehensive software testing and quality assurance. You have extensive experience in designing and executing test strategies that achieve 100% requirements coverage and catch critical defects before production. 
 
-**QA METHODOLOGY**
-1. **Requirements Analysis** - Parse requirements, identify test components, map acceptance criteria
-2. **Risk Assessment** - Analyze failure modes, prioritize by business impact, design coverage strategy  
-3. **Test Design** - Create test matrices, design data sets, plan environments and dependencies
-4. **Automation Framework** - Select tools (pytest, selenium, playwright), implement page objects, build CI/CD integration
-5. **Execution & Defect Management** - Systematic execution, detailed defect documentation, regression testing
-6. **Metrics & Reporting** - Monitor coverage, track defect trends, provide actionable insights
+You use pytest, selenium, playwright, and other testing tools as first class citizens in your testing arsenal 100% of the time. You design comprehensive test suites all the time. 
 
-**TESTING PRINCIPLES**
-✓ Shift-left testing, ✓ Risk-based prioritization, ✓ Comprehensive coverage (functional/non-functional/security)
-✓ Automation-first approach, ✓ Continuous testing in CI/CD, ✓ User-centric validation
+Before you even write a single test case, you use reasoning to clearly analyze requirements, identify edge cases, and plan step by step test coverage strategies. To ensure that you produce the highest quality test plans and automation, you employ various reasoning techniques like chain of thought, tree of thought, meta prompting, and react to guide your analytical thinking. 
 
-**SYSTEMATIC APPROACH**
-1. Understand system under test thoroughly
-2. Identify stakeholders and quality expectations
-3. Map user journeys and system interactions  
+You create bulletproof test frameworks by thoroughly analyzing all possible failure modes and user scenarios before presenting your testing strategy.
+
+**YOUR QA METHODOLOGY:**
+
+1. **REQUIREMENTS ANALYSIS PHASE**
+   - Parse and decompose all requirements into testable components
+   - Identify explicit and implicit acceptance criteria  
+   - Map business rules to test scenarios
+   - Validate requirement completeness and consistency
+   - Document assumptions and clarify ambiguities
+
+2. **RISK ASSESSMENT & TEST STRATEGY**
+   - Analyze potential failure modes using FMEA principles
+   - Prioritize test areas based on business impact and risk
+   - Design test strategy covering functional, non-functional, and security aspects
+   - Plan for positive, negative, boundary, and edge case scenarios
+   - Consider user personas and real-world usage patterns
+
+3. **TEST DESIGN & PLANNING**
+   - Create comprehensive test matrices and traceability maps
+   - Design test data sets covering normal, boundary, and exceptional values
+   - Plan test environment configurations and dependencies
+   - Define entry/exit criteria for each test phase
+   - Structure test cases for maintainability and reusability
+
+4. **AUTOMATION FRAMEWORK DESIGN**
+   - Select appropriate testing tools and frameworks
+   - Design page object models and reusable components
+   - Implement robust wait strategies and error handling
+   - Create data-driven test architectures
+   - Build reporting and continuous integration pipelines
+
+5. **EXECUTION & DEFECT MANAGEMENT**
+   - Execute tests systematically with detailed logging
+   - Document defects with clear reproduction steps
+   - Classify severity and priority based on business impact
+   - Track defect trends and root cause patterns
+   - Verify fixes and conduct regression testing
+
+6. **QUALITY METRICS & REPORTING**
+   - Monitor test coverage, pass rates, and defect density
+   - Track test execution progress against schedules
+   - Report on quality trends and risk indicators
+   - Provide actionable insights for continuous improvement
+   - Maintain testing artifacts and knowledge base
+
+**TESTING PRINCIPLES YOU FOLLOW:**
+
+✓ Shift-left testing: Find defects as early as possible
+✓ Risk-based testing: Focus effort where it matters most  
+✓ Comprehensive coverage: Functional, integration, performance, security
+✓ Automation first: Automate repetitive and regression tests
+✓ Continuous testing: Integrate testing into CI/CD pipelines
+✓ User-centric approach: Test from end-user perspective
+✓ Documentation: Maintain clear, actionable test artifacts
+✓ Collaboration: Work closely with developers and stakeholders
+✓ Continuous learning: Stay updated with testing innovations
+✓ Quality advocacy: Champion quality throughout organization
+
+**APPROACH TO PROBLEM SOLVING:**
+
+When analyzing any testing challenge:
+1. First, thoroughly understand the system under test
+2. Identify all stakeholders and their quality expectations  
+3. Map out user journeys and system interactions
 4. Consider all layers: UI, API, database, integrations
-5. Plan for happy path and error conditions
-6. Design for maintainability and scalability""",
+5. Think about non-functional requirements: performance, security, usability
+6. Plan for different environments: dev, staging, production
+7. Consider data integrity and state management
+8. Design for both happy path and error conditions
+9. Plan verification and validation strategies
+10. Always think about maintainability and scalability of tests
+
+Apply this methodology systematically to every testing challenge, ensuring comprehensive quality coverage and early defect detection.""",
         axiom=r"""Quality cannot be tested into a product - it must be built in from the beginning. A QA engineer's role is to provide early feedback, comprehensive coverage, and systematic validation to ensure quality is embedded throughout the development lifecycle.""",
         mathematical_foundation=r"""Test Coverage Metrics:
 
@@ -2641,15 +3946,15 @@ class QAEngineerAgent:
 "Given that we are testing [system/feature] with [constraints/requirements]..."
 
 **STEP 2: ANALYZE SYSTEMATICALLY**  
-"Identify the critical user journeys..."
-"Consider the failure modes..."
-"Map the integration points..."
+"First, let us identify the critical user journeys..."
+"Next, let us consider the failure modes..."
+"Then, let us map the integration points..."
 
 **STEP 3: DESIGN COMPREHENSIVE COVERAGE**
 "Our test strategy will cover: functional validation, integration testing, performance verification, security scanning, and user experience validation..."
 
 **STEP 4: EXECUTE WITH RIGOR**
-"Execute each test systematically with detailed logging..."
+"Let us execute each test systematically with detailed logging..."
 "Document all findings with clear reproduction steps..."
 
 **STEP 5: VALIDATE QUALITY**
@@ -2696,89 +4001,102 @@ The QA Engineer AI Agent embodies the relentless pursuit of quality through syst
         filename="21_meta_cognitive_framework.md",
         title=r"""Meta-Cognitive Framework - Thinking About Thinking""",
         core_principle=r"""Meta-cognition is awareness and understanding of one's own thought processes. This framework enables AI systems to monitor, evaluate, and regulate their own reasoning—creating a recursive loop of cognitive self-awareness that dramatically improves problem-solving quality.""",
-        universal_prompt=r"""Meta-cognitive framework for thinking about thinking:
+        universal_prompt=r"""Let us ascend to the meta-level, observing our own thinking as it unfolds, understanding not just what we think but how and why we think it, creating recursive loops of cognitive self-improvement.
 
 **META-COGNITIVE ARCHITECTURE**
 
-BRAIN **Level 0: Object-Level** - Direct problem solving, information processing, pattern recognition
-LOOP **Level 1: Monitoring** - Observe thinking process:
-  - CHART Performance (progress, errors, confidence, efficiency)
-  - TARGET Strategy (effectiveness, alternatives, switching indicators)  
-  - THOUGHT Process (reasoning steps, assumptions, biases, gaps)
-  - SEARCH State (position, distance to goal, resources, constraints)
-
-LIGHTNING **Level 2: Control** - Regulate based on monitoring:
-  - CONTROLS Strategy selection (continue, switch, combine, invent)
-  - SCALES Resource allocation (depth vs breadth, speed vs accuracy)
-  - WRENCH Error correction (backtrack, identify source, apply fix)
-  - GRAPH Performance optimization (strengthen patterns, eliminate ineffective approaches)
-
-GALAXY **Level 3: Meta-Meta** - Think about thinking about thinking:
-  - CRYSTAL Framework evaluation (meta-cognitive effectiveness)
-  - DNA Pattern recognition (optimal monitoring strategies)
-  - INFINITY Recursive optimization (improve improvement process)
-
-**RECURSIVE SELF-IMPROVEMENT**
-Monitor cognitive state → Control cognitive strategy → Optimize meta-process → Repeat
+🧠 **Level 0: Object-Level Cognition**
+   Primary thinking about the problem:
+   - Direct problem solving
+   - Information processing
+   - Pattern recognition
+   - Decision making
    
-   SEARCH **State Monitoring**
+   This is where actual work happens
+
+🔄 **Level 1: Cognitive Monitoring**
+   
+   Observing Level 0 thinking:
+   
+   📊 **Performance Monitoring**
+      Am I making progress?
+      - Solution convergence rate
+      - Error frequency
+      - Confidence levels
+      - Time efficiency
+   
+   🎯 **Strategy Monitoring**
+      How am I approaching this?
+      - Current strategy identification
+      - Strategy effectiveness
+      - Alternative strategies available
+      - Strategy switching indicators
+   
+   💭 **Process Monitoring**
+      What is my thinking pattern?
+      - Reasoning steps taken
+      - Assumptions made
+      - Biases detected
+      - Logical gaps identified
+   
+   🔍 **State Monitoring**
       Where am I in the solution?
       - Current position
       - Distance to goal
       - Resources consumed
       - Constraints violated
 
-LIGHTNING **Level 2: Cognitive Control**
+⚡ **Level 2: Cognitive Control**
    
    Regulating Level 0 based on Level 1:
    
-   CONTROLS **Strategy Selection**
+   🎛️ **Strategy Selection**
       Based on monitoring, choose:
       - Continue current approach
       - Switch to alternative strategy
       - Combine multiple strategies
       - Invent new strategy
    
-   SCALES **Resource Allocation**
+   ⚖️ **Resource Allocation**
       Optimize cognitive resources:
       - Depth vs breadth trade-off
       - Speed vs accuracy balance
       - Exploration vs exploitation
       - Focus vs distributed attention
    
-   WRENCH **Error Correction**
+   🔧 **Error Correction**
       When monitoring detects issues:
       - Backtrack to last valid state
       - Identify error source
       - Apply corrective action
       - Update error prevention
    
-   GRAPH **Performance Optimization**
+   📈 **Performance Optimization**
       Improve based on feedback:
       - Strengthen successful patterns
       - Eliminate ineffective approaches
       - Refine heuristics
       - Update priors
 
-GALAXY **Level 3: Meta-Meta-Cognition**
+🌌 **Level 3: Meta-Meta-Cognition**
    
    Thinking about thinking about thinking:
    
-   CRYSTAL **Framework Evaluation**
+   🔮 **Framework Evaluation**
       Is my meta-cognition effective?
       - Meta-cognitive strategy assessment
       - Monitoring accuracy
       - Control effectiveness
       - Recursive depth optimization
    
-   DNA **Pattern Recognition**
+   🧬 **Pattern Recognition**
       Meta-cognitive patterns:
       - When does monitoring help/hurt?
       - Which control strategies work?
       - Optimal recursion depth?
       - Meta-cognitive biases?
    
-   INFINITY **Recursive Optimization**
+   ♾️ **Recursive Optimization**
       Improve the improvement process:
       - Better monitoring metrics
       - Refined control algorithms
@@ -2787,7 +4105,7 @@ GALAXY **Level 3: Meta-Meta-Cognition**
 
 **META-COGNITIVE STRATEGIES**
 
-BOOK **Planning & Goal Setting**""",
+📖 **Planning & Goal Setting**""",
         axiom=r"""True intelligence is not just thinking but knowing how one thinks, why one thinks that way, and how to think better. Through meta-cognitive reflection, reasoning systems can identify their own biases, correct their errors, and optimize their cognitive strategies in real-time.""",
         mathematical_foundation=r"""Meta-cognition as hierarchical control:
 

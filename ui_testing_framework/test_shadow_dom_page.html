@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow DOM Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .host {
+            border: 2px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shadow DOM Test Page</h1>
+    
+    <div>
+        <h2>Regular DOM Elements</h2>
+        <button id="regular-button-1">Regular Button 1</button>
+        <input type="text" id="regular-input" placeholder="Regular Input">
+        <a href="#" id="regular-link">Regular Link</a>
+    </div>
+    
+    <div id="shadow-host-1" class="host">
+        <p>Shadow Host 1 - Light DOM content (will be hidden)</p>
+    </div>
+    
+    <div id="shadow-host-2" class="host">
+        <p>Shadow Host 2 - Light DOM content (will be hidden)</p>
+    </div>
+    
+    <custom-element id="custom-host"></custom-element>
+    
+    <div id="status"></div>
+    
+    <script>
+        // Helper to update status
+        function updateStatus(message) {
+            const status = document.getElementById('status');
+            status.innerHTML += `<p>${message}</p>`;
+            console.log(message);
+        }
+        
+        // Create shadow DOM on first host
+        const host1 = document.getElementById('shadow-host-1');
+        if (host1) {
+            const shadow1 = host1.attachShadow({mode: 'open'});
+            shadow1.innerHTML = `
+                <style>
+                    :host { display: block; }
+                    button { background: blue; color: white; padding: 5px 10px; margin: 5px; }
+                    input { margin: 5px; }
+                </style>
+                <h3>Shadow DOM 1 Content</h3>
+                <button id="shadow-button-1">Shadow Button 1</button>
+                <button id="shadow-button-2">Shadow Button 2</button>
+                <input type="text" id="shadow-input-1" placeholder="Shadow Input 1">
+                <input type="email" id="shadow-email" placeholder="Shadow Email">
+                <a href="#shadow" id="shadow-link-1">Shadow Link 1</a>
+                <select id="shadow-select">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                </select>
+            `;
+            updateStatus('✓ Shadow DOM 1 created with ' + shadow1.querySelectorAll('button, input, a, select').length + ' interactive elements');
+        }
+        
+        // Create shadow DOM on second host with nested shadow
+        const host2 = document.getElementById('shadow-host-2');
+        if (host2) {
+            const shadow2 = host2.attachShadow({mode: 'open'});
+            shadow2.innerHTML = `
+                <style>
+                    :host { display: block; }
+                    button { background: green; color: white; padding: 5px 10px; margin: 5px; }
+                    .nested-host { border: 1px solid red; padding: 10px; margin: 10px 0; }
+                </style>
+                <h3>Shadow DOM 2 Content</h3>
+                <button id="shadow-button-3">Shadow Button 3</button>
+                <textarea id="shadow-textarea" placeholder="Shadow Textarea"></textarea>
+                <div id="nested-host" class="nested-host">Nested Shadow Host</div>
+            `;
+            
+            // Create nested shadow DOM
+            const nestedHost = shadow2.getElementById('nested-host');
+            if (nestedHost) {
+                const nestedShadow = nestedHost.attachShadow({mode: 'open'});
+                nestedShadow.innerHTML = `
+                    <style>
+                        button { background: purple; color: white; padding: 5px 10px; margin: 5px; }
+                    </style>
+                    <h4>Nested Shadow Content (Level 2)</h4>
+                    <button id="nested-button-1">Nested Button 1</button>
+                    <button id="nested-button-2">Nested Button 2</button>
+                    <input type="text" id="nested-input" placeholder="Nested Input">
+                    <div id="deep-nested-host">Deep Nested Host</div>
+                `;
+                
+                // Create even deeper nested shadow DOM
+                const deepHost = nestedShadow.getElementById('deep-nested-host');
+                if (deepHost) {
+                    const deepShadow = deepHost.attachShadow({mode: 'open'});
+                    deepShadow.innerHTML = `
+                        <style>
+                            button { background: orange; color: black; padding: 5px 10px; }
+                        </style>
+                        <h5>Deep Shadow Content (Level 3)</h5>
+                        <button id="deep-button">Deep Shadow Button</button>
+                    `;
+                    updateStatus('✓ Deep nested shadow DOM created (3 levels deep)');
+                }
+            }
+            updateStatus('✓ Shadow DOM 2 created with nested shadows');
+        }
+        
+        // Define a custom element with shadow DOM
+        class CustomElementWithShadow extends HTMLElement {
+            constructor() {
+                super();
+                const shadow = this.attachShadow({mode: 'open'});
+                shadow.innerHTML = `
+                    <style>
+                        :host { display: block; border: 2px solid purple; padding: 10px; margin: 10px 0; }
+                        button { background: purple; color: white; }
+                    </style>
+                    <h3>Custom Element Shadow DOM</h3>
+                    <button id="custom-button">Custom Element Button</button>
+                    <input type="text" id="custom-input" placeholder="Custom Element Input">
+                `;
+            }
+        }
+        
+        // Register the custom element
+        customElements.define('custom-element', CustomElementWithShadow);
+        updateStatus('✓ Custom element with shadow DOM registered');
+        
+        // Verify shadow roots exist
+        setTimeout(() => {
+            const verifyResults = {
+                host1HasShadow: !!document.getElementById('shadow-host-1').shadowRoot,
+                host2HasShadow: !!document.getElementById('shadow-host-2').shadowRoot,
+                customHasShadow: !!document.querySelector('custom-element').shadowRoot,
+                totalShadowHosts: document.querySelectorAll('*').length
+            };
+            
+            let shadowHostCount = 0;
+            document.querySelectorAll('*').forEach(el => {
+                if (el.shadowRoot) shadowHostCount++;
+            });
+            verifyResults.shadowHostCount = shadowHostCount;
+            
+            updateStatus('✓ Verification: ' + JSON.stringify(verifyResults));
+            
+            // Count total interactive elements in shadow DOMs
+            let shadowElementCount = 0;
+            
+            function countShadowElements(root) {
+                if (root.shadowRoot) {
+                    const interactive = root.shadowRoot.querySelectorAll('button, input, textarea, select, a');
+                    shadowElementCount += interactive.length;
+                    
+                    // Check for nested shadow roots
+                    root.shadowRoot.querySelectorAll('*').forEach(el => {
+                        countShadowElements(el);
+                    });
+                }
+            }
+            
+            document.querySelectorAll('*').forEach(el => countShadowElements(el));
+            updateStatus(`✓ Total interactive elements in shadow DOMs: ${shadowElementCount}`);
+            
+        }, 100);
+    </script>
+</body>
+</html>
