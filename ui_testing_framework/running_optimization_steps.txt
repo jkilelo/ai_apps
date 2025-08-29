@@ -1,0 +1,41 @@
+***Current Structure***:
+ui_testing_framework/
+│
+├── [CORE LAYER - Independent]
+│   ├── browser.py
+│   ├── prompts.py
+├── [INTEGRATION LAYER]
+│   ├── elements_extractor_no_llm.py
+│   │   └── ← browser.py
+│   ├── llm.py
+│   │   ├── ← prompts.py
+│   │   └── ← test_optimization_module.py
+│   │
+│   ├── elements_extractor_with_llm.py
+│   │   ├── ← elements_extractor_no_llm.py
+│   │   └── ← llm.py
+│   │
+│   ├── elements_extractor_optimized.py
+│   │   ├── ← elements_extractor_no_llm.py
+│   │   ├── ← llm.py
+│   │   └── ← test_optimization_module.py
+│   │
+│   ├── test_generation_with_llm.py
+│   │   ├── ← elements_extractor_with_llm.py
+│   │   └── ← llm.py
+
+
+***New Structure***:
+1. browser.py
+2. prompts.py
+3. elements_extractor_no_llm.py
+	depends on:
+		1. depends on prompts.py
+4. elements_extractor_with_llm.py
+	depends on:
+		1. elements_extractor_no_llm.py
+		2. prompts.py
+5. test_generation_with_llm.py
+	depends on:
+		1. elements_extractor_with_llm.py
+		2. llm.py

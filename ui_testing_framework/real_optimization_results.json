@@ -1,0 +1,1875 @@
+{
+  "report": {
+    "timestamp": "2025-08-29T09:19:42.675755",
+    "actions_taken": [
+      {
+        "action": "backup_created",
+        "location": "backup_20250829_091942",
+        "files": 28
+      }
+    ],
+    "files_analyzed": [
+      "advanced_prompting_agent.py",
+      "ai_agent_system.py",
+      "audit_pipeline.py",
+      "browser.py",
+      "elements_extractor_no_llm.py",
+      "elements_extractor_optimized.py",
+      "elements_extractor_with_llm.py",
+      "element_extractor_no_llm_cli.py",
+      "element_extractor_with_llm_cli.py",
+      "llm.py",
+      "optimize_codebase_with_agents.py",
+      "optimize_prompts.py",
+      "prompts.py",
+      "prompts_ascii.py",
+      "qa_agent_demo.py",
+      "real_optimization_agent.py",
+      "run_full_pipeline.py",
+      "run_optimized_pipeline.py",
+      "simple_server.py",
+      "test_generation_optimized.py",
+      "test_generation_with_llm.py",
+      "test_generation_with_llm_cli.py",
+      "test_local_extraction.py",
+      "test_optimization_module.py",
+      "test_step4_v3.py",
+      "test_step5_v3.py",
+      "test_with_llm_extraction.py",
+      "utils.py"
+    ],
+    "dependencies_found": {
+      "advanced_prompting_agent.py": [],
+      "ai_agent_system.py": [],
+      "audit_pipeline.py": [],
+      "browser.py": [],
+      "elements_extractor_no_llm.py": [
+        "browser.py"
+      ],
+      "elements_extractor_optimized.py": [
+        "elements_extractor_no_llm.py",
+        "test_optimization_module.py",
+        "llm.py"
+      ],
+      "elements_extractor_with_llm.py": [
+        "elements_extractor_no_llm.py",
+        "llm.py"
+      ],
+      "element_extractor_no_llm_cli.py": [
+        "elements_extractor_no_llm.py",
+        "utils.py"
+      ],
+      "element_extractor_with_llm_cli.py": [
+        "utils.py",
+        "elements_extractor_with_llm.py"
+      ],
+      "llm.py": [
+        "test_optimization_module.py",
+        "prompts.py"
+      ],
+      "optimize_codebase_with_agents.py": [
+        "ai_agent_system.py"
+      ],
+      "optimize_prompts.py": [],
+      "prompts.py": [],
+      "qa_agent_demo.py": [
+        "prompts.py"
+      ],
+      "real_optimization_agent.py": [],
+      "run_full_pipeline.py": [],
+      "run_optimized_pipeline.py": [
+        "test_optimization_module.py",
+        "test_generation_optimized.py",
+        "elements_extractor_optimized.py"
+      ],
+      "simple_server.py": [],
+      "test_generation_optimized.py": [
+        "test_optimization_module.py",
+        "llm.py",
+        "elements_extractor_optimized.py"
+      ],
+      "test_generation_with_llm.py": [
+        "llm.py",
+        "elements_extractor_with_llm.py"
+      ],
+      "test_generation_with_llm_cli.py": [
+        "test_generation_with_llm.py",
+        "utils.py"
+      ],
+      "test_local_extraction.py": [
+        "elements_extractor_no_llm.py"
+      ],
+      "test_optimization_module.py": [],
+      "test_step4_v3.py": [
+        "elements_extractor_with_llm.py"
+      ],
+      "test_step5_v3.py": [
+        "test_generation_with_llm.py"
+      ],
+      "test_with_llm_extraction.py": [
+        "elements_extractor_no_llm.py",
+        "elements_extractor_with_llm.py"
+      ],
+      "utils.py": []
+    },
+    "issues_fixed": [],
+    "verification_results": []
+  },
+  "analysis": {
+    "total_files": 28,
+    "analyzed": 28,
+    "dependency_graph": {
+      "advanced_prompting_agent.py": [],
+      "ai_agent_system.py": [],
+      "audit_pipeline.py": [],
+      "browser.py": [],
+      "elements_extractor_no_llm.py": [
+        "browser.py"
+      ],
+      "elements_extractor_optimized.py": [
+        "elements_extractor_no_llm.py",
+        "test_optimization_module.py",
+        "llm.py"
+      ],
+      "elements_extractor_with_llm.py": [
+        "elements_extractor_no_llm.py",
+        "llm.py"
+      ],
+      "element_extractor_no_llm_cli.py": [
+        "elements_extractor_no_llm.py",
+        "utils.py"
+      ],
+      "element_extractor_with_llm_cli.py": [
+        "utils.py",
+        "elements_extractor_with_llm.py"
+      ],
+      "llm.py": [
+        "test_optimization_module.py",
+        "prompts.py"
+      ],
+      "optimize_codebase_with_agents.py": [
+        "ai_agent_system.py"
+      ],
+      "optimize_prompts.py": [],
+      "prompts.py": [],
+      "qa_agent_demo.py": [
+        "prompts.py"
+      ],
+      "real_optimization_agent.py": [],
+      "run_full_pipeline.py": [],
+      "run_optimized_pipeline.py": [
+        "test_optimization_module.py",
+        "test_generation_optimized.py",
+        "elements_extractor_optimized.py"
+      ],
+      "simple_server.py": [],
+      "test_generation_optimized.py": [
+        "test_optimization_module.py",
+        "llm.py",
+        "elements_extractor_optimized.py"
+      ],
+      "test_generation_with_llm.py": [
+        "llm.py",
+        "elements_extractor_with_llm.py"
+      ],
+      "test_generation_with_llm_cli.py": [
+        "test_generation_with_llm.py",
+        "utils.py"
+      ],
+      "test_local_extraction.py": [
+        "elements_extractor_no_llm.py"
+      ],
+      "test_optimization_module.py": [],
+      "test_step4_v3.py": [
+        "elements_extractor_with_llm.py"
+      ],
+      "test_step5_v3.py": [
+        "test_generation_with_llm.py"
+      ],
+      "test_with_llm_extraction.py": [
+        "elements_extractor_no_llm.py",
+        "elements_extractor_with_llm.py"
+      ],
+      "utils.py": []
+    },
+    "detailed_analysis": {
+      "advanced_prompting_agent.py": {
+        "filepath": "advanced_prompting_agent.py",
+        "imports": [
+          "json",
+          "time"
+        ],
+        "from_imports": [
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Any",
+              "Optional",
+              "Tuple"
+            ]
+          },
+          {
+            "module": "dataclasses",
+            "names": [
+              "dataclass",
+              "field"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum",
+              "auto"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          }
+        ],
+        "classes": [
+          "PromptStrategyConfig",
+          "TaskComplexity",
+          "AdvancedPromptingAgent"
+        ],
+        "functions": [],
+        "dependencies": [
+          "time",
+          "json"
+        ],
+        "issues": []
+      },
+      "ai_agent_system.py": {
+        "filepath": "ai_agent_system.py",
+        "imports": [
+          "json",
+          "time",
+          "hashlib",
+          "traceback"
+        ],
+        "from_imports": [
+          {
+            "module": "__future__",
+            "names": [
+              "annotations"
+            ]
+          },
+          {
+            "module": "dataclasses",
+            "names": [
+              "dataclass",
+              "field"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any",
+              "Callable",
+              "Union"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum",
+              "auto"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "abc",
+            "names": [
+              "ABC",
+              "abstractmethod"
+            ]
+          }
+        ],
+        "classes": [
+          "AgentState",
+          "AgentMemory",
+          "BaseAgent",
+          "CodebaseOptimizationAgent",
+          "DirectoryRestructureAgent",
+          "SmartPromptingAgent",
+          "AgentOrchestrator"
+        ],
+        "functions": [],
+        "dependencies": [
+          "hashlib",
+          "traceback",
+          "time",
+          "json"
+        ],
+        "issues": []
+      },
+      "audit_pipeline.py": {
+        "filepath": "audit_pipeline.py",
+        "imports": [
+          "os",
+          "sys",
+          "json",
+          "subprocess",
+          "importlib",
+          "asyncio",
+          "browser",
+          "llm",
+          "prompts",
+          "requests",
+          "utils"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Tuple",
+              "Any"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          }
+        ],
+        "classes": [
+          "PipelineAuditor"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "utils",
+          "requests",
+          "browser",
+          "prompts",
+          "json",
+          "os",
+          "importlib",
+          "llm",
+          "asyncio",
+          "subprocess"
+        ],
+        "issues": []
+      },
+      "browser.py": {
+        "filepath": "browser.py",
+        "imports": [
+          "asyncio",
+          "hashlib",
+          "json",
+          "logging",
+          "os",
+          "platform",
+          "random",
+          "sys",
+          "time",
+          "numpy",
+          "tempfile"
+        ],
+        "from_imports": [
+          {
+            "module": "abc",
+            "names": [
+              "ABC",
+              "abstractmethod"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "functools",
+            "names": [
+              "wraps"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Optional",
+              "Dict",
+              "List",
+              "Any",
+              "Union",
+              "Callable",
+              "TypeVar",
+              "Tuple"
+            ]
+          },
+          {
+            "module": "playwright.async_api",
+            "names": [
+              "BrowserContext",
+              "Page",
+              "async_playwright"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict"
+            ]
+          }
+        ],
+        "classes": [
+          "ElementType",
+          "ProfileType",
+          "StealthLevel",
+          "ExtractionStrategy",
+          "TimingProfile",
+          "StealthProfile",
+          "StealthConfig",
+          "ElementData",
+          "ExtractionResult",
+          "BrowserStealthConfig",
+          "BrowserError",
+          "NavigationError",
+          "ExtractionError",
+          "TimeoutError",
+          "ErrorHandler",
+          "StealthInjector",
+          "HumanSimulator",
+          "DetectionSystem",
+          "ContextMonitor",
+          "ExtractionStrategyBase",
+          "DOMExtractionStrategy",
+          "CircuitBreaker",
+          "RateLimiter",
+          "UltimateStealthBrowser"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "tempfile",
+          "logging",
+          "numpy",
+          "random",
+          "time",
+          "hashlib",
+          "json",
+          "os",
+          "platform",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "elements_extractor_no_llm.py": {
+        "filepath": "elements_extractor_no_llm.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "logging",
+          "hashlib",
+          "re",
+          "time",
+          "base64",
+          "sys",
+          "os",
+          "functools",
+          "threading",
+          "gc"
+        ],
+        "from_imports": [
+          {
+            "module": "collections",
+            "names": [
+              "defaultdict",
+              "Counter"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any",
+              "Set",
+              "Tuple",
+              "Callable",
+              "TypeVar",
+              "cast"
+            ]
+          },
+          {
+            "module": "urllib.parse",
+            "names": [
+              "urljoin",
+              "urlparse"
+            ]
+          },
+          {
+            "module": "tempfile",
+            "names": [
+              "mkdtemp"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict",
+              "field_validator",
+              "model_validator"
+            ]
+          },
+          {
+            "module": "browser",
+            "names": [
+              "UltimateStealthBrowser",
+              "StealthConfig",
+              "StealthLevel",
+              "ElementData",
+              "ExtractionResult"
+            ]
+          }
+        ],
+        "classes": [
+          "ThreadSafeCache",
+          "ElementType",
+          "InteractionType",
+          "LocatorStrategy",
+          "ExtractionMethod",
+          "ConfidenceLevel",
+          "ElementSelector",
+          "BoundingBox",
+          "ComputedStyle",
+          "ScreenshotData",
+          "ExtractionConfig",
+          "ExtractionResult",
+          "CrawlResult",
+          "ExtractedElement",
+          "ElementsExtractorNoLLM",
+          "StealthConfig",
+          "StealthLevel",
+          "UltimateStealthBrowser",
+          "BrowserElementData",
+          "BrowserExtractionResult"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "gc",
+          "logging",
+          "asyncio",
+          "time",
+          "base64",
+          "functools",
+          "threading",
+          "hashlib",
+          "browser.py",
+          "json",
+          "os",
+          "re"
+        ],
+        "issues": []
+      },
+      "elements_extractor_optimized.py": {
+        "filepath": "elements_extractor_optimized.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "sys",
+          "re"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "List",
+              "Dict",
+              "Any",
+              "Optional",
+              "Tuple"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field"
+            ]
+          },
+          {
+            "module": "elements_extractor_no_llm",
+            "names": [
+              "ElementsExtractorNoLLM",
+              "ExtractionConfig",
+              "ExtractedElement",
+              "ExtractionResult"
+            ]
+          },
+          {
+            "module": "llm",
+            "names": [
+              "call_default_llm",
+              "Message"
+            ]
+          },
+          {
+            "module": "test_optimization_module",
+            "names": [
+              "TestOptimizationManager",
+              "ElementOptimizer",
+              "PromptOptimizer",
+              "TokenTracker"
+            ]
+          }
+        ],
+        "classes": [
+          "OptimizedEnrichedElement",
+          "OptimizedPageAnalysis",
+          "ElementsExtractorOptimized"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "re",
+          "elements_extractor_no_llm.py",
+          "test_optimization_module.py",
+          "json",
+          "llm.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "elements_extractor_with_llm.py": {
+        "filepath": "elements_extractor_with_llm.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "sys",
+          "re",
+          "re",
+          "re",
+          "re",
+          "traceback"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "List",
+              "Dict",
+              "Any",
+              "Optional",
+              "Union",
+              "Tuple"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict"
+            ]
+          },
+          {
+            "module": "elements_extractor_no_llm",
+            "names": [
+              "ElementsExtractorNoLLM",
+              "ExtractionConfig",
+              "ExtractedElement",
+              "ExtractionResult",
+              "ElementType"
+            ]
+          },
+          {
+            "module": "llm",
+            "names": [
+              "call_default_llm",
+              "Message"
+            ]
+          }
+        ],
+        "classes": [
+          "QACategory",
+          "ElementContext",
+          "EnrichedElement",
+          "PageAnalysis",
+          "ElementLLMAnalyzerV3",
+          "ElementsExtractorWithLLMV3"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "traceback",
+          "re",
+          "elements_extractor_no_llm.py",
+          "json",
+          "llm.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "element_extractor_no_llm_cli.py": {
+        "filepath": "element_extractor_no_llm_cli.py",
+        "imports": [
+          "argparse",
+          "asyncio",
+          "json",
+          "logging",
+          "sys"
+        ],
+        "from_imports": [
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any"
+            ]
+          },
+          {
+            "module": "utils",
+            "names": [
+              "format_url_for_filename",
+              "save_json",
+              "validate_pydantic_output"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict"
+            ]
+          },
+          {
+            "module": "elements_extractor_no_llm",
+            "names": [
+              "ElementsExtractorNoLLM",
+              "ExtractionConfig",
+              "ExtractionResult",
+              "ExtractedElement",
+              "ElementType"
+            ]
+          }
+        ],
+        "classes": [
+          "ElementExtractionOutput"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "logging",
+          "elements_extractor_no_llm.py",
+          "argparse",
+          "utils.py",
+          "json",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "element_extractor_with_llm_cli.py": {
+        "filepath": "element_extractor_with_llm_cli.py",
+        "imports": [
+          "argparse",
+          "asyncio",
+          "json",
+          "logging",
+          "sys"
+        ],
+        "from_imports": [
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any"
+            ]
+          },
+          {
+            "module": "utils",
+            "names": [
+              "format_url_for_filename",
+              "save_json",
+              "load_json",
+              "validate_pydantic_output"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict"
+            ]
+          },
+          {
+            "module": "elements_extractor_with_llm",
+            "names": [
+              "ElementsExtractorWithLLMV3",
+              "ExtractionConfig",
+              "PageAnalysis"
+            ]
+          }
+        ],
+        "classes": [
+          "ElementWithLLMOutput"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "logging",
+          "argparse",
+          "utils.py",
+          "json",
+          "elements_extractor_with_llm.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "llm.py": {
+        "filepath": "llm.py",
+        "imports": [
+          "os",
+          "json",
+          "logging",
+          "google.generativeai",
+          "google.generativeai"
+        ],
+        "from_imports": [
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any",
+              "Union",
+              "TypeVar",
+              "Type"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict",
+              "field_validator"
+            ]
+          },
+          {
+            "module": "prompts",
+            "names": [
+              "PromptLibrary"
+            ]
+          },
+          {
+            "module": "test_optimization_module",
+            "names": [
+              "TokenTracker",
+              "PromptOptimizer"
+            ]
+          },
+          {
+            "module": "dotenv",
+            "names": [
+              "load_dotenv"
+            ]
+          },
+          {
+            "module": "openai",
+            "names": [
+              "OpenAI"
+            ]
+          },
+          {
+            "module": "anthropic",
+            "names": [
+              "Anthropic"
+            ]
+          }
+        ],
+        "classes": [
+          "Provider",
+          "Role",
+          "Message",
+          "LLMConfig",
+          "LLMResponse",
+          "ProviderResponse",
+          "StrategyEngine",
+          "OpenAIProvider",
+          "GeminiProvider",
+          "AnthropicProvider",
+          "UnifiedLLMGateway",
+          "TestAnalysis"
+        ],
+        "functions": [],
+        "dependencies": [
+          "google",
+          "logging",
+          "test_optimization_module.py",
+          "json",
+          "os",
+          "prompts.py"
+        ],
+        "issues": []
+      },
+      "optimize_codebase_with_agents.py": {
+        "filepath": "optimize_codebase_with_agents.py",
+        "imports": [
+          "json"
+        ],
+        "from_imports": [
+          {
+            "module": "ai_agent_system",
+            "names": [
+              "AgentOrchestrator",
+              "CodebaseOptimizationAgent",
+              "DirectoryRestructureAgent",
+              "SmartPromptingAgent",
+              "AgentMemory"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Any"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          }
+        ],
+        "classes": [
+          "UIFrameworkOptimizationAgent"
+        ],
+        "functions": [],
+        "dependencies": [
+          "json",
+          "ai_agent_system.py"
+        ],
+        "issues": []
+      },
+      "optimize_prompts.py": {
+        "filepath": "optimize_prompts.py",
+        "imports": [
+          "re"
+        ],
+        "from_imports": [],
+        "classes": [],
+        "functions": [
+          "optimize_prompt_content",
+          "batch_optimize_strategies"
+        ],
+        "dependencies": [
+          "re"
+        ],
+        "issues": []
+      },
+      "prompts.py": {
+        "filepath": "prompts.py",
+        "imports": [
+          "hashlib"
+        ],
+        "from_imports": [
+          {
+            "module": "__future__",
+            "names": [
+              "annotations"
+            ]
+          },
+          {
+            "module": "dataclasses",
+            "names": [
+              "dataclass"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any",
+              "Union",
+              "ClassVar",
+              "Final"
+            ]
+          }
+        ],
+        "classes": [
+          "PromptStrategy",
+          "StrategyName",
+          "PromptLibrary"
+        ],
+        "functions": [],
+        "dependencies": [
+          "hashlib"
+        ],
+        "issues": []
+      },
+      "prompts_ascii.py": {
+        "filepath": "prompts_ascii.py",
+        "error": "invalid character '\u2192' (U+2192) (<unknown>, line 520)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\kleiy\\OneDrive\\Desktop\\python-ai-apps\\ai_apps\\ui_testing_framework\\real_optimization_agent.py\", line 47, in analyze_python_file\n    tree = ast.parse(content)\n  File \"C:\\Users\\kleiy\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\ast.py\", line 54, in parse\n    return compile(source, filename, mode, flags,\n                   _feature_version=feature_version, optimize=optimize)\n  File \"<unknown>\", line 520\n    - Harm keywords detected \u2192 Deep review\n                             ^\nSyntaxError: invalid character '\u2192' (U+2192)\n"
+      },
+      "qa_agent_demo.py": {
+        "filepath": "qa_agent_demo.py",
+        "imports": [],
+        "from_imports": [
+          {
+            "module": "prompts",
+            "names": [
+              "get_strategy",
+              "render_prompt"
+            ]
+          }
+        ],
+        "classes": [],
+        "functions": [
+          "main"
+        ],
+        "dependencies": [
+          "prompts.py"
+        ],
+        "issues": []
+      },
+      "real_optimization_agent.py": {
+        "filepath": "real_optimization_agent.py",
+        "imports": [
+          "ast",
+          "os",
+          "json",
+          "shutil",
+          "re",
+          "traceback"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Set",
+              "Tuple",
+              "Optional",
+              "Any"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          }
+        ],
+        "classes": [
+          "RealCodebaseOptimizer"
+        ],
+        "functions": [],
+        "dependencies": [
+          "ast",
+          "json",
+          "os",
+          "traceback",
+          "shutil",
+          "re"
+        ],
+        "issues": []
+      },
+      "run_full_pipeline.py": {
+        "filepath": "run_full_pipeline.py",
+        "imports": [
+          "os",
+          "sys",
+          "time",
+          "subprocess",
+          "asyncio",
+          "requests",
+          "json",
+          "json",
+          "json"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          }
+        ],
+        "classes": [
+          "PipelineRunner"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "requests",
+          "time",
+          "json",
+          "os",
+          "asyncio",
+          "subprocess"
+        ],
+        "issues": []
+      },
+      "run_optimized_pipeline.py": {
+        "filepath": "run_optimized_pipeline.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "sys"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Optional"
+            ]
+          },
+          {
+            "module": "elements_extractor_optimized",
+            "names": [
+              "ElementsExtractorOptimized"
+            ]
+          },
+          {
+            "module": "test_generation_optimized",
+            "names": [
+              "TestGeneratorOptimized"
+            ]
+          },
+          {
+            "module": "test_optimization_module",
+            "names": [
+              "TestOptimizationManager"
+            ]
+          }
+        ],
+        "classes": [
+          "OptimizedPipeline"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "test_optimization_module.py",
+          "test_generation_optimized.py",
+          "json",
+          "elements_extractor_optimized.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "simple_server.py": {
+        "filepath": "simple_server.py",
+        "imports": [
+          "http.server",
+          "socketserver",
+          "os",
+          "sys"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          }
+        ],
+        "classes": [
+          "MyHTTPRequestHandler"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "os",
+          "http",
+          "socketserver"
+        ],
+        "issues": []
+      },
+      "test_generation_optimized.py": {
+        "filepath": "test_generation_optimized.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "sys",
+          "re"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "List",
+              "Dict",
+              "Any",
+              "Optional",
+              "Tuple"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field"
+            ]
+          },
+          {
+            "module": "llm",
+            "names": [
+              "call_default_llm",
+              "Message"
+            ]
+          },
+          {
+            "module": "elements_extractor_optimized",
+            "names": [
+              "ElementsExtractorOptimized",
+              "OptimizedPageAnalysis"
+            ]
+          },
+          {
+            "module": "test_optimization_module",
+            "names": [
+              "TestOptimizationManager",
+              "TestScenarioOptimizer"
+            ]
+          }
+        ],
+        "classes": [
+          "TestCategory",
+          "OptimizedTestStep",
+          "OptimizedTestScenario",
+          "OptimizedTestSuite",
+          "TestGeneratorOptimized"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "re",
+          "test_optimization_module.py",
+          "json",
+          "llm.py",
+          "elements_extractor_optimized.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "test_generation_with_llm.py": {
+        "filepath": "test_generation_with_llm.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "logging",
+          "os",
+          "sys",
+          "re",
+          "re",
+          "re",
+          "re",
+          "traceback"
+        ],
+        "from_imports": [
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any",
+              "Union",
+              "Tuple"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict"
+            ]
+          },
+          {
+            "module": "dotenv",
+            "names": [
+              "load_dotenv"
+            ]
+          },
+          {
+            "module": "llm",
+            "names": [
+              "call_default_llm",
+              "Message"
+            ]
+          },
+          {
+            "module": "elements_extractor_with_llm",
+            "names": [
+              "extract_and_analyze",
+              "PageAnalysis",
+              "EnrichedElement",
+              "QACategory"
+            ]
+          }
+        ],
+        "classes": [
+          "TestFramework",
+          "TestCategory",
+          "TestPriority",
+          "GherkinStep",
+          "TestScenario",
+          "TestSuite",
+          "TestGenerationContract",
+          "TestGenerationResult",
+          "TestGenerationEngineV3"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "traceback",
+          "logging",
+          "re",
+          "json",
+          "os",
+          "llm.py",
+          "elements_extractor_with_llm.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "test_generation_with_llm_cli.py": {
+        "filepath": "test_generation_with_llm_cli.py",
+        "imports": [
+          "argparse",
+          "asyncio",
+          "json",
+          "logging",
+          "sys"
+        ],
+        "from_imports": [
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "typing",
+            "names": [
+              "Dict",
+              "List",
+              "Optional",
+              "Any"
+            ]
+          },
+          {
+            "module": "utils",
+            "names": [
+              "format_url_for_filename",
+              "save_json",
+              "load_json",
+              "validate_pydantic_output"
+            ]
+          },
+          {
+            "module": "pydantic",
+            "names": [
+              "BaseModel",
+              "Field",
+              "ConfigDict"
+            ]
+          },
+          {
+            "module": "test_generation_with_llm",
+            "names": [
+              "TestGenerationEngineV3",
+              "TestGenerationContract",
+              "TestGenerationResult",
+              "generate_tests_for_url"
+            ]
+          }
+        ],
+        "classes": [
+          "TestGenerationOutput"
+        ],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "logging",
+          "test_generation_with_llm.py",
+          "argparse",
+          "utils.py",
+          "json",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "test_local_extraction.py": {
+        "filepath": "test_local_extraction.py",
+        "imports": [
+          "asyncio",
+          "logging",
+          "json",
+          "sys"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "elements_extractor_no_llm",
+            "names": [
+              "ElementsExtractorNoLLM",
+              "ExtractionConfig",
+              "ElementType",
+              "InteractionType"
+            ]
+          }
+        ],
+        "classes": [],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "logging",
+          "elements_extractor_no_llm.py",
+          "json",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "test_optimization_module.py": {
+        "filepath": "test_optimization_module.py",
+        "imports": [
+          "json",
+          "hashlib",
+          "re",
+          "tiktoken"
+        ],
+        "from_imports": [
+          {
+            "module": "typing",
+            "names": [
+              "List",
+              "Dict",
+              "Any",
+              "Optional",
+              "Set",
+              "Tuple"
+            ]
+          },
+          {
+            "module": "datetime",
+            "names": [
+              "datetime"
+            ]
+          },
+          {
+            "module": "enum",
+            "names": [
+              "Enum"
+            ]
+          },
+          {
+            "module": "collections",
+            "names": [
+              "defaultdict"
+            ]
+          }
+        ],
+        "classes": [
+          "TokenTracker",
+          "ElementOptimizer",
+          "PromptOptimizer",
+          "TestScenarioOptimizer",
+          "TestOptimizationManager"
+        ],
+        "functions": [],
+        "dependencies": [
+          "hashlib",
+          "tiktoken",
+          "re",
+          "json"
+        ],
+        "issues": []
+      },
+      "test_step4_v3.py": {
+        "filepath": "test_step4_v3.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "logging",
+          "sys",
+          "traceback"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "elements_extractor_with_llm",
+            "names": [
+              "ElementsExtractorWithLLMV3",
+              "ExtractionConfig"
+            ]
+          }
+        ],
+        "classes": [],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "logging",
+          "json",
+          "traceback",
+          "elements_extractor_with_llm.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "test_step5_v3.py": {
+        "filepath": "test_step5_v3.py",
+        "imports": [
+          "asyncio",
+          "json",
+          "logging",
+          "sys",
+          "traceback"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "test_generation_with_llm",
+            "names": [
+              "TestGenerationEngineV3",
+              "TestGenerationResult",
+              "TestGenerationContract",
+              "generate_tests_for_url"
+            ]
+          }
+        ],
+        "classes": [],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "logging",
+          "test_generation_with_llm.py",
+          "json",
+          "traceback",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "test_with_llm_extraction.py": {
+        "filepath": "test_with_llm_extraction.py",
+        "imports": [
+          "asyncio",
+          "logging",
+          "json",
+          "sys"
+        ],
+        "from_imports": [
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          },
+          {
+            "module": "elements_extractor_with_llm",
+            "names": [
+              "ElementsExtractorWithLLMV3",
+              "ExtractionConfig"
+            ]
+          },
+          {
+            "module": "elements_extractor_no_llm",
+            "names": [
+              "ElementType"
+            ]
+          }
+        ],
+        "classes": [],
+        "functions": [],
+        "dependencies": [
+          "sys",
+          "logging",
+          "elements_extractor_no_llm.py",
+          "json",
+          "elements_extractor_with_llm.py",
+          "asyncio"
+        ],
+        "issues": []
+      },
+      "utils.py": {
+        "filepath": "utils.py",
+        "imports": [
+          "re",
+          "json"
+        ],
+        "from_imports": [
+          {
+            "module": "typing",
+            "names": [
+              "Any",
+              "Dict"
+            ]
+          },
+          {
+            "module": "pathlib",
+            "names": [
+              "Path"
+            ]
+          }
+        ],
+        "classes": [],
+        "functions": [
+          "format_url_for_filename",
+          "save_json",
+          "load_json",
+          "validate_pydantic_output"
+        ],
+        "dependencies": [
+          "re",
+          "json"
+        ],
+        "issues": []
+      }
+    }
+  },
+  "structure_check": {
+    "issues": [
+      "llm.py has extra dependencies: ['test_optimization_module.py']"
+    ],
+    "recommendations": [
+      "Remove imports from llm.py: ['test_optimization_module.py']"
+    ],
+    "compliant": false
+  },
+  "no_circular_deps": true
+}
