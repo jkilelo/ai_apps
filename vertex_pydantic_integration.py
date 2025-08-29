@@ -5,18 +5,15 @@ This module provides a custom model implementation that directly uses your exist
 
 import json
 from typing import Any, Dict, List, Optional, Union, AsyncIterator
-from pydantic_ai.models import Model, StreamedResponse
+from pydantic_ai.models import Model
 from pydantic_ai.messages import (
     ModelMessage,
-    ModelRequest,
     ModelResponse,
     SystemPromptPart,
     UserPromptPart,
     TextPart,
-    ArgsDict,
 )
-from pydantic_ai.result import Usage
-from pydantic_ai.exceptions import ModelHTTPError
+from pydantic_ai import exceptions
 from pydantic_ai.settings import ModelSettings
 
 # Import your existing Vertex AI setup
@@ -73,6 +70,10 @@ class VertexAIWrapper(Model):
         """Return the model name - required abstract property"""
         return self._model_name
 
+    def name(self) -> str:
+        """Return the model name - alternative method name"""
+        return self._model_name
+
     @property
     def system(self) -> Optional[str]:
         """Return the system prompt - required abstract property"""
@@ -105,7 +106,7 @@ class VertexAIWrapper(Model):
             return self._convert_to_model_response(response)
 
         except Exception as e:
-            raise ModelHTTPError(f"Vertex AI request failed: {str(e)}")
+            raise Exception(f"Vertex AI request failed: {str(e)}")
 
     async def request_stream(
         self,
@@ -173,15 +174,15 @@ class VertexAIWrapper(Model):
         # Create the response parts
         parts = [TextPart(content=text_content)]
 
-        # Create usage information (simplified)
-        usage = Usage(
-            model_name=self.model_name,
-            request_tokens=0,  # You could calculate this if needed
-            response_tokens=len(text_content.split()),  # Rough estimate
-            total_tokens=len(text_content.split()),
-        )
+        # Create usage information (simplified) - commented out for compatibility
+        # usage = Usage(
+        #     model_name=self.model_name,
+        #     request_tokens=0,  # You could calculate this if needed
+        #     response_tokens=len(text_content.split()),  # Rough estimate
+        #     total_tokens=len(text_content.split()),
+        # )
 
-        return ModelResponse(parts=parts, model_name=self.model_name, usage=usage)
+        return ModelResponse(parts=parts, model_name=self.model_name)
 
 
 # Updated agent creation functions using the custom wrapper
