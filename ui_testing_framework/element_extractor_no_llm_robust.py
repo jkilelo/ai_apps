@@ -1089,6 +1089,10 @@ class DOMExtractionStrategy(BaseExtractionStrategy):
             # Convert to ElementData objects
             for item in dom_data:
                 try:
+                    # Skip if item is not a dict
+                    if not isinstance(item, dict):
+                        continue
+                        
                     # Map element_type string to ElementType enum
                     element_type = ElementType.UNKNOWN
                     type_str = item.get("element_type", "unknown").lower()
@@ -1410,6 +1414,10 @@ class VisualExtractionStrategy(BaseExtractionStrategy):
 
             for item in visual_data:
                 try:
+                    # Skip if item is not a dict
+                    if not isinstance(item, dict):
+                        continue
+                        
                     element = ElementData(
                         element_id=item["element_id"],
                         tag_name=item["tag_name"],
@@ -2116,11 +2124,17 @@ class UltimateElementExtractor:
 
             # Detect WebAssembly
             wasm_info = await self.page.evaluate(JS_TEMPLATES["wasm_detector"])
-            result.has_webassembly = wasm_info.get("supported", False) and len(wasm_info.get("modules", [])) > 0
+            if isinstance(wasm_info, dict):
+                result.has_webassembly = wasm_info.get("supported", False) and len(wasm_info.get("modules", [])) > 0
+            else:
+                result.has_webassembly = False
 
             # Detect WebGPU
             gpu_info = await self.page.evaluate(JS_TEMPLATES["webgpu_detector"])
-            result.has_webgpu = gpu_info.get("supported", False)
+            if isinstance(gpu_info, dict):
+                result.has_webgpu = gpu_info.get("supported", False)
+            else:
+                result.has_webgpu = False
 
             logger.info(
                 f"Extraction completed: {len(result.elements)} elements found in {result.extraction_duration_ms:.2f}ms"

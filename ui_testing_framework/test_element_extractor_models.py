@@ -8,7 +8,7 @@ Tests for data models, validation, and serialization.
 import json
 import pytest
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional
 
 # Import the models to test
 from element_extractor_no_llm_robust import (
