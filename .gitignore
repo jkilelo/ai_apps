@@ -311,6 +311,7 @@ registration_form.html
 
 # Claude AI assistant files
 # .claude/  # Commented out to include Claude configuration in repository
+CLAUDE.md
 
 # Vite build cache
 .vite/
