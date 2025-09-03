@@ -1,0 +1,149 @@
+{
+  "report_name": "nex_055_test_report",
+  "generated_at": "2025-08-31T23:55:20.807271",
+  "summary": {
+    "total_tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "success_rate": 100.0
+  },
+  "test_results": [
+    {
+      "success": true,
+      "condition_met": true,
+      "wait_time": 15.542,
+      "timestamp": "2025-08-31T23:54:57.835809"
+    },
+    {
+      "success": true,
+      "enabled": true,
+      "patterns": [
+        "*.css",
+        "*.js"
+      ],
+      "modify_responses": false,
+      "timestamp": "2025-08-31T23:54:57.835902",
+      "interception_enabled": true
+    },
+    {
+      "success": true,
+      "total_actions": 4,
+      "completed_actions": 4,
+      "failed_actions": 0,
+      "results": [
+        {
+          "action_index": 0,
+          "type": "type",
+          "target": "input[name=\"custname\"]",
+          "success": true,
+          "text": "Test User"
+        },
+        {
+          "action_index": 1,
+          "type": "type",
+          "target": "input[name=\"custtel\"]",
+          "success": true,
+          "text": "555-1234"
+        },
+        {
+          "action_index": 2,
+          "type": "scroll",
+          "target": "body",
+          "success": true,
+          "scroll_y": 200
+        },
+        {
+          "action_index": 3,
+          "type": "wait",
+          "target": null,
+          "success": true,
+          "wait_time": 1000
+        }
+      ],
+      "timestamp": "2025-08-31T23:55:00.745075"
+    },
+    {
+      "success": true,
+      "form_selector": "form",
+      "total_test_cases": 2,
+      "passed": 0,
+      "failed": 2,
+      "results": [
+        {
+          "test_case_index": 0,
+          "name": "Valid form submission",
+          "success": false,
+          "error": "Page.wait_for_selector: Timeout 3000ms exceeded.\nCall log:\n  - waiting for locator(\"form button[type=\\\"submit\\\"]\") to be visible\n"
+        },
+        {
+          "test_case_index": 1,
+          "name": "Empty required fields",
+          "success": false,
+          "error": "Page.wait_for_selector: Timeout 3000ms exceeded.\nCall log:\n  - waiting for locator(\"form button[type=\\\"submit\\\"]\") to be visible\n"
+        }
+      ],
+      "timestamp": "2025-08-31T23:55:06.878083"
+    },
+    {
+      "success": true,
+      "timestamp": "2025-08-31T23:55:13.117741",
+      "states": {
+        "initial": {
+          "url": "https://httpbin.org/forms/post",
+          "title": "",
+          "elementCount": 46,
+          "formCount": 1,
+          "linkCount": 0,
+          "imageCount": 0,
+          "inputCount": 12,
+          "visibleText": "Customer name: \n\nTelephone: \n\nE-mail address: \n\nPizza Size\n\n Small\n\n Medium\n\n Large\n\nPizza Toppings\n\n Bacon\n\n Extra Cheese\n\n Onion\n\n Mushroom\n\nPreferred delivery time: \n\nDelivery instructions: \n\nSubmit order",
+          "scrollPosition": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "state1": {
+          "url": "https://httpbin.org/forms/post",
+          "title": "",
+          "elementCount": 46,
+          "formCount": 1,
+          "linkCount": 0,
+          "imageCount": 0,
+          "inputCount": 12,
+          "visibleText": "Customer name: \n\nTelephone: \n\nE-mail address: \n\nPizza Size\n\n Small\n\n Medium\n\n Large\n\nPizza Toppings\n\n Bacon\n\n Extra Cheese\n\n Onion\n\n Mushroom\n\nPreferred delivery time: \n\nDelivery instructions: \n\nSubmit order",
+          "scrollPosition": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "state2": {
+          "url": "https://httpbin.org/forms/post",
+          "title": "",
+          "elementCount": 46,
+          "formCount": 1,
+          "linkCount": 0,
+          "imageCount": 0,
+          "inputCount": 12,
+          "visibleText": "Customer name: \n\nTelephone: \n\nE-mail address: \n\nPizza Size\n\n Small\n\n Medium\n\n Large\n\nPizza Toppings\n\n Bacon\n\n Extra Cheese\n\n Onion\n\n Mushroom\n\nPreferred delivery time: \n\nDelivery instructions: \n\nSubmit order",
+          "scrollPosition": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      "comparison": {
+        "url_changed": false,
+        "title_changed": false,
+        "element_count_diff": 0,
+        "form_count_diff": 0,
+        "scroll_changed": false,
+        "content_similarity": 1.0
+      }
+    }
+  ],
+  "metadata": {
+    "url": "https://httpbin.org/forms/post",
+    "user_agent": "NexusBrowser Testing Framework",
+    "environment": "Production Testing"
+  }
+}

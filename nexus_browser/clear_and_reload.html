@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear and Reload Dashboard</title>
+    <style>
+        body {
+            background: #0a0e1a;
+            color: #00d4ff;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .status {
+            background: #1a1f2e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #00d4ff, #ff00ff);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard Cache Clear & Reload</h1>
+    <div id="status" class="status"></div>
+    
+    <button onclick="clearEverything()">Clear All Storage & Load Dashboard</button>
+    <button onclick="checkCurrentData()">Check Current Data</button>
+    <button onclick="directLoadNewDashboard()">Open Dashboard with Fresh Data</button>
+    
+    <script>
+        function log(message) {
+            const status = document.getElementById('status');
+            status.innerHTML += message + '<br>';
+            console.log(message);
+        }
+        
+        async function checkCurrentData() {
+            log('=== Checking Current Data ===');
+            
+            // Check localStorage
+            const localData = localStorage.getItem('nexusTaskData');
+            if (localData) {
+                const parsed = JSON.parse(localData);
+                log(`localStorage has: ${parsed.tasks ? parsed.tasks.length : 'unknown'} tasks`);
+            } else {
+                log('No data in localStorage');
+            }
+            
+            // Check actual JSON file
+            try {
+                const response = await fetch('nexus_tasks.json?nocache=' + Date.now());
+                const data = await response.json();
+                log(`JSON file has: ${data.tasks.length} tasks`);
+                log(`Metadata total: ${data.metadata.total_tasks}`);
+                log(`Version: ${data.metadata.version || 'unknown'}`);
+                
+                // Check for specific new phases
+                const phases = data.phases.map(p => p.id);
+                log(`Phases: ${phases.join(', ')}`);
+                
+                if (phases.includes('CON-000')) {
+                    log('✅ NEW consciousness.py phase found!');
+                }
+                if (phases.includes('HOL-000')) {
+                    log('✅ NEW hologram.py phase found!');
+                }
+                if (phases.includes('EVO-000')) {
+                    log('✅ NEW evolution.py phase found!');
+                }
+                
+            } catch (error) {
+                log('Error loading JSON: ' + error);
+            }
+        }
+        
+        function clearEverything() {
+            log('=== Clearing All Storage ===');
+            
+            // Clear localStorage
+            localStorage.clear();
+            log('✅ localStorage cleared');
+            
+            // Clear sessionStorage
+            sessionStorage.clear();
+            log('✅ sessionStorage cleared');
+            
+            // Clear IndexedDB
+            if (window.indexedDB) {
+                indexedDB.databases().then(databases => {
+                    databases.forEach(db => {
+                        indexedDB.deleteDatabase(db.name);
+                    });
+                    log('✅ IndexedDB cleared');
+                });
+            }
+            
+            log('All storage cleared! Redirecting to dashboard...');
+            
+            setTimeout(() => {
+                // Use a completely fresh URL
+                window.location.href = 'nexus_dashboard.html?fresh=' + Date.now() + '&nocache=true';
+            }, 2000);
+        }
+        
+        async function directLoadNewDashboard() {
+            log('=== Loading Fresh Data Directly ===');
+            
+            try {
+                // Load the JSON file
+                const response = await fetch('nexus_tasks.json?t=' + Date.now());
+                const data = await response.json();
+                
+                log(`Loaded ${data.tasks.length} tasks from JSON`);
+                
+                // Force store in localStorage
+                localStorage.setItem('nexusTaskData', JSON.stringify(data));
+                localStorage.setItem('forceRefresh', 'true');
+                localStorage.setItem('dataVersion', '5700');
+                
+                log('✅ Stored new data in localStorage');
+                log('Opening dashboard...');
+                
+                // Create a data URL with the dashboard that forces new data
+                const dashboardUrl = 'nexus_dashboard.html?forceNew=true&version=5700&t=' + Date.now();
+                window.location.href = dashboardUrl;
+                
+            } catch (error) {
+                log('Error: ' + error);
+            }
+        }
+        
+        // Auto-check on load
+        window.onload = checkCurrentData;
+    </script>
+</body>
+</html>

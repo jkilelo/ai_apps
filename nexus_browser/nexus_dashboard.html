@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS Browser - Task Dashboard</title>
+    <link rel="stylesheet" href="nexus_dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>NEXUS Browser Task Dashboard</h1>
+                </div>
+                <div class="architecture-badge">Neural Monolith Pattern</div>
+            </div>
+            <div class="header-right">
+                <div class="last-updated">
+                    <i class="far fa-clock"></i>
+                    <span id="lastUpdated">Loading...</span>
+                </div>
+                <button class="btn-refresh" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+        </header>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalTasks">0</div>
+                    <div class="stat-label">Total Tasks</div>
+                </div>
+            </div>
+            <div class="stat-card completed">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="completedTasks">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+            <div class="stat-card in-progress">
+                <div class="stat-icon"><i class="fas fa-spinner"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="inProgressTasks">0</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-icon"><i class="far fa-clock"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="pendingTasks">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+            <div class="stat-card blocked">
+                <div class="stat-icon"><i class="fas fa-ban"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="blockedTasks">0</div>
+                    <div class="stat-label">Blocked</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overall Progress -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <h2>Overall Progress</h2>
+                <span class="progress-percentage" id="overallPercentage">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="checkpoint-indicator" id="checkpointIndicator">
+                <i class="fas fa-flag"></i> Current Checkpoint: <span id="currentCheckpoint">ENV-001</span>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="controls-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search tasks by ID, name, or phase..." onkeyup="filterTasks()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterByStatus('all')">All</button>
+                <button class="filter-btn" onclick="filterByStatus('pending')">Pending</button>
+                <button class="filter-btn" onclick="filterByStatus('in_progress')">In Progress</button>
+                <button class="filter-btn" onclick="filterByStatus('completed')">Completed</button>
+                <button class="filter-btn" onclick="filterByStatus('blocked')">Blocked</button>
+            </div>
+            <div class="priority-filter">
+                <select id="priorityFilter" onchange="filterTasks()">
+                    <option value="all">All Priorities</option>
+                    <option value="CRITICAL">Critical</option>
+                    <option value="HIGH">High</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="LOW">Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Phase Cards -->
+        <div class="phases-section">
+            <h2>Implementation Phases</h2>
+            <div class="phases-grid" id="phasesGrid">
+                <!-- Phase cards will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Tasks Table -->
+        <div class="tasks-section">
+            <div class="tasks-header">
+                <h2>Task Details</h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="setView('table')">
+                        <i class="fas fa-table"></i> Table
+                    </button>
+                    <button class="view-btn" onclick="setView('cards')">
+                        <i class="fas fa-th-large"></i> Cards
+                    </button>
+                    <button class="view-btn" onclick="setView('kanban')">
+                        <i class="fas fa-columns"></i> Kanban
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Table View -->
+            <div id="tableView" class="view-container active">
+                <table class="tasks-table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTasks('id')">ID <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTasks('name')">Task Name <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTasks('phase')">Phase <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTasks('status')">Status <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTasks('priority')">Priority <i class="fas fa-sort"></i></th>
+                            <th>Dependencies</th>
+                            <th>Time Est.</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasksTableBody">
+                        <!-- Tasks will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cards View -->
+            <div id="cardsView" class="view-container">
+                <div class="tasks-cards-grid" id="tasksCardsGrid">
+                    <!-- Task cards will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Kanban View -->
+            <div id="kanbanView" class="view-container">
+                <div class="kanban-board">
+                    <div class="kanban-column" data-status="pending">
+                        <div class="kanban-header">
+                            <h3>Pending</h3>
+                            <span class="kanban-count" id="pendingCount">0</span>
+                        </div>
+                        <div class="kanban-tasks" id="pendingTasks">
+                            <!-- Pending tasks will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="kanban-column" data-status="in_progress">
+                        <div class="kanban-header">
+                            <h3>In Progress</h3>
+                            <span class="kanban-count" id="inProgressCount">0</span>
+                        </div>
+                        <div class="kanban-tasks" id="inProgressTasksList">
+                            <!-- In progress tasks will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="kanban-column" data-status="completed">
+                        <div class="kanban-header">
+                            <h3>Completed</h3>
+                            <span class="kanban-count" id="completedCount">0</span>
+                        </div>
+                        <div class="kanban-tasks" id="completedTasksList">
+                            <!-- Completed tasks will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="kanban-column" data-status="blocked">
+                        <div class="kanban-header">
+                            <h3>Blocked</h3>
+                            <span class="kanban-count" id="blockedCount">0</span>
+                        </div>
+                        <div class="kanban-tasks" id="blockedTasksList">
+                            <!-- Blocked tasks will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dependency Graph -->
+        <div class="dependency-section">
+            <h2>Dependency Graph</h2>
+            <div class="dependency-graph" id="dependencyGraph">
+                <!-- Dependency visualization will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Recovery Checkpoints -->
+        <div class="checkpoints-section">
+            <h2>Recovery Checkpoints</h2>
+            <div class="checkpoints-timeline" id="checkpointsTimeline">
+                <!-- Checkpoints will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Details Modal -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTaskId">Task Details</h2>
+            <div class="modal-body" id="modalBody">
+                <!-- Task details will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-update-status" onclick="updateTaskStatus()">Update Status</button>
+                <button class="btn-close" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Task updated successfully!</span>
+        </div>
+    </div>
+
+    <script src="nexus_dashboard.js"></script>
+
+    <script>
+    const taskData = {
+        total: 5700,
+        completed: 17,
+        inProgress: 0,
+        pending: 5683,
+        failed: 0,
+        progressPercent: 0.3,
+        lastUpdated: "2025-08-31 19:06:14"
+    }
+    
+    // Update display
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('totalTasks').textContent = taskData.total;
+        document.getElementById('completedTasks').textContent = taskData.completed;
+        document.getElementById('inProgressTasks').textContent = taskData.inProgress;
+        document.getElementById('pendingTasks').textContent = taskData.pending;
+        document.getElementById('lastUpdated').textContent = taskData.lastUpdated;
+        
+        // Update progress bar
+        const progressBar = document.querySelector('.progress-fill');
+        if (progressBar) {
+            progressBar.style.width = taskData.progressPercent + '%';
+        }
+    });
+    </script>
+</body>
+</html>

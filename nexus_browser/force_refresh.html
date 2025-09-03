@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Force Refresh NEXUS Dashboard</title>
+    <style>
+        body {
+            background: #0a0e1a;
+            color: #00d4ff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: #1a1f2e;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            background: linear-gradient(135deg, #00d4ff 0%, #ff00ff 100%);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+        .status.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 NEXUS Dashboard Cache Cleaner</h1>
+        <p>The dashboard is showing old data (2,847 tasks) instead of new data (5,700 tasks)</p>
+        
+        <button onclick="clearAndReload()">Clear Cache & Open Dashboard</button>
+        <button onclick="directLoad()">Force Load New Data</button>
+        
+        <div id="status" class="status">
+            <p id="statusText"></p>
+        </div>
+    </div>
+
+    <script>
+        async function clearAndReload() {
+            const status = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            
+            status.classList.add('show');
+            statusText.textContent = 'Clearing browser cache...';
+            
+            // Clear localStorage
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Clear service workers if any
+            if ('serviceWorker' in navigator) {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            }
+            
+            // Clear caches
+            if ('caches' in window) {
+                const cacheNames = await caches.keys();
+                await Promise.all(
+                    cacheNames.map(cacheName => caches.delete(cacheName))
+                );
+            }
+            
+            statusText.textContent = 'Cache cleared! Loading fresh dashboard...';
+            
+            // Add timestamp to force refresh
+            setTimeout(() => {
+                window.location.href = 'nexus_dashboard.html?t=' + Date.now();
+            }, 1000);
+        }
+        
+        async function directLoad() {
+            const status = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            
+            status.classList.add('show');
+            statusText.textContent = 'Loading latest JSON data...';
+            
+            try {
+                // Force fetch with cache bypass
+                const response = await fetch('nexus_tasks.json?t=' + Date.now(), {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                statusText.innerHTML = `
+                    ✅ JSON Loaded Successfully!<br>
+                    Total Tasks: ${data.tasks.length}<br>
+                    Phases: ${data.phases.length}<br>
+                    <br>
+                    Storing in localStorage and redirecting...
+                `;
+                
+                // Store in localStorage
+                localStorage.setItem('nexusTaskData', JSON.stringify(data));
+                localStorage.setItem('nexusDataTimestamp', Date.now());
+                
+                setTimeout(() => {
+                    window.location.href = 'nexus_dashboard.html?fresh=' + Date.now();
+                }, 2000);
+                
+            } catch (error) {
+                statusText.textContent = 'Error loading data: ' + error.message;
+            }
+        }
+        
+        // Auto-check on load
+        window.onload = async function() {
+            try {
+                const response = await fetch('nexus_tasks.json?t=' + Date.now());
+                const data = await response.json();
+                document.getElementById('status').classList.add('show');
+                document.getElementById('statusText').innerHTML = `
+                    Current JSON file has: <strong>${data.tasks.length} tasks</strong><br>
+                    Click a button above to load this data into the dashboard.
+                `;
+            } catch (error) {
+                console.error('Error checking JSON:', error);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+{
+  "report_type": "automation_execution",
+  "report_name": "nex_056_enterprise_report",
+  "generated_at": "2025-09-01T00:09:39.437859",
+  "browser_info": {
+    "active_page": "https://httpbin.org/",
+    "browser_type": "Chromium/Playwright",
+    "version": "Latest"
+  },
+  "execution_summary": {},
+  "test_results": {
+    "total_tests": 4,
+    "successful_tests": 4,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "detailed_results": [
+      {
+        "success": true,
+        "base_url": "",
+        "total_endpoints": 3,
+        "passed": 0,
+        "failed": 3,
+        "results": [
+          {
+            "endpoint_index": 0,
+            "method": "GET",
+            "path": "",
+            "success": false,
+            "start_time": "2025-09-01T00:09:38.132708",
+            "error": "",
+            "end_time": "2025-09-01T00:09:38.132854"
+          },
+          {
+            "endpoint_index": 1,
+            "method": "GET",
+            "path": "",
+            "success": false,
+            "start_time": "2025-09-01T00:09:38.132868",
+            "error": "",
+            "end_time": "2025-09-01T00:09:38.132919"
+          },
+          {
+            "endpoint_index": 2,
+            "method": "GET",
+            "path": "",
+            "success": false,
+            "start_time": "2025-09-01T00:09:38.132927",
+            "error": "",
+            "end_time": "2025-09-01T00:09:38.132961"
+          }
+        ],
+        "timestamp": "2025-09-01T00:09:38.132579"
+      },
+      {
+        "success": true,
+        "filename": "json",
+        "formats": "test_export_json",
+        "exported_files": [],
+        "timestamp": "2025-09-01T00:09:38.140460"
+      },
+      {
+        "success": true,
+        "action": "save",
+        "timestamp": "2025-09-01T00:09:38.140779",
+        "session_id": "test_session_nex056",
+        "session_file": "browser_sessions\\test_session_nex056.json"
+      },
+      {
+        "success": true,
+        "action": "create",
+        "timestamp": "2025-09-01T00:09:39.437766",
+        "task_id": "6b805751",
+        "scheduled_task": {
+          "task_id": "6b805751",
+          "name": "Check page title",
+          "action": "navigate_and_check",
+          "config": {
+            "name": "Check page title",
+            "action": "navigate_and_check",
+            "interval": 30,
+            "url": "https://httpbin.org/",
+            "check_element": "title"
+          },
+          "interval": 30,
+          "created_at": "2025-09-01T00:09:39.437791",
+          "next_run": "2025-09-01T00:10:09.437792",
+          "run_count": 0,
+          "status": "scheduled"
+        }
+      }
+    ]
+  },
+  "overall_score": 100.0,
+  "current_page_state": {
+    "url": "https://httpbin.org/",
+    "title": "httpbin.org",
+    "elementCount": 74,
+    "formCount": 0,
+    "linkCount": 5,
+    "imageCount": 0,
+    "inputCount": 0,
+    "visibleText": "httpbin.org \n0.9.2\n[ Base URL: httpbin.org/ ]\n\nA simple HTTP Request & Response Service.\n\nRun locally: $ docker run -p 80:80 kennethreitz/httpbin\n\nthe developer - Website\nSend email to the developer\n[Powered by Flasgger]\n\nOther Utilities\nHTML form that posts to /post /forms/post\n\n\n",
+    "scrollPosition": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "performance_metrics": {
+    "success": true,
+    "timestamp": "2025-09-01T00:09:39.441878",
+    "url": "https://httpbin.org/",
+    "metrics": {
+      "dns_lookup_time": 0,
+      "connection_time": 0,
+      "request_time": 260,
+      "response_time": 1,
+      "dom_loading_time": 46,
+      "page_load_time": 311
+    },
+    "memory": {
+      "usedJSHeapSize": 15689839,
+      "totalJSHeapSize": 23795067,
+      "jsHeapSizeLimit": 4294705152
+    },
+    "resource_count": 11
+  },
+  "screenshot": {
+    "success": true,
+    "path": "automation_report_1756703379.png",
+    "timestamp": "20250901_000939",
+    "url": "https://httpbin.org/",
+    "full_page": true
+  },
+  "quality_analysis": {
+    "accessibility": {
+      "success": true,
+      "url": "https://httpbin.org/",
+      "timestamp": "2025-09-01T00:09:39.610316",
+      "accessibility_audit": {
+        "totalImages": 0,
+        "imagesWithoutAlt": 0,
+        "totalInputs": 0,
+        "inputsWithoutLabels": 0,
+        "totalHeadings": 2,
+        "headingLevels": [
+          2,
+          2
+        ],
+        "hasH1": false,
+        "lowContrastElements": 0
+      },
+      "accessibility_score": 100
+    },
+    "debug_info": {
+      "success": true,
+      "url": "https://httpbin.org/",
+      "timestamp": "2025-09-01T00:09:39.614970",
+      "page_info": {
+        "title": "httpbin.org",
+        "doctype": "html",
+        "lang": "en",
+        "charset": "UTF-8",
+        "readyState": "complete",
+        "url": "https://httpbin.org/",
+        "protocol": "https:",
+        "host": "httpbin.org"
+      },
+      "broken_resources": {
+        "brokenImages": [],
+        "totalImages": 0,
+        "totalLinks": 5
+      },
+      "performance": {
+        "loadTime": 311,
+        "domReady": 311,
+        "resourceCount": 11,
+        "navigationTiming": {
+          "dns": 0,
+          "tcp": 0,
+          "ttfb": 260
+        }
+      },
+      "console_monitoring": "Console error capture requires setup during page initialization"
+    }
+  },
+  "scheduled_tasks": {
+    "total_tasks": 0,
+    "tasks": []
+  }
+}

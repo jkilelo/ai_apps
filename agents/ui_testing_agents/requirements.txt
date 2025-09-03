@@ -1,0 +1,35 @@
+# V2 LLM-Native System Requirements
+# Python 3.7+ required
+
+# Core LLM APIs (at least one required)
+openai>=1.0.0
+anthropic>=0.7.0
+google-generativeai>=0.3.0
+
+# Essential dependencies
+python-dotenv>=1.0.0
+aiohttp>=3.8.0
+asyncio-throttle>=1.0.0
+
+# Browser automation
+playwright>=1.40.0
+playwright-stealth>=1.0.8
+
+# Data handling and validation
+pydantic>=2.0.0
+numpy>=1.24.0
+
+# Testing frameworks
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-playwright>=0.4.0
+
+# Utilities
+dataclasses-json>=0.6.0
+typing-extensions>=4.0.0
+tenacity>=8.2.0
+colorama>=0.4.6
+
+# Optional but recommended
+rich>=13.0.0  # For better console output
+httpx>=0.24.0  # Alternative HTTP client
