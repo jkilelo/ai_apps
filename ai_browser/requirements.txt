@@ -1,0 +1,43 @@
+# Core dependencies
+playwright==1.41.0
+pydantic==2.5.3
+pydantic-ai==0.0.8
+python-dotenv==1.0.0
+loguru==0.7.2
+
+# Browser automation and stealth
+playwright-stealth==1.0.6
+beautifulsoup4==4.12.2
+lxml==5.1.0
+
+# LLM providers
+openai==1.10.0
+anthropic==0.8.1
+google-generativeai==0.3.2
+
+# Memory and storage
+qdrant-client==1.7.1
+meilisearch==0.31.0
+redis==5.0.1  # For FalkorDB
+falkordb==1.0.0
+
+# Web framework for MCP server
+fastapi==0.109.0
+uvicorn==0.27.0
+httpx==0.26.0
+
+# Utilities
+pyyaml==6.0.1
+Pillow==10.2.0
+numpy==1.26.3
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+
+# Development
+ruff==0.1.9  # Replaces black and flake8
+mypy==1.8.0
+ipython==8.20.0
+pre-commit==3.5.0

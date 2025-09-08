@@ -1,0 +1,16 @@
+{
+  "product_query": "wireless bluetooth earbuds under $50",
+  "status": "failed",
+  "summary": "No summary available",
+  "extracted_data": {},
+  "final_url": "https://www.amazon.com/",
+  "response_time_ms": 32201.72899996396,
+  "success": false,
+  "product_analysis": {
+    "error": "No summary to analyze"
+  },
+  "platforms_searched": [
+    "Amazon"
+  ],
+  "search_timestamp": "2025-09-05T17:17:49.534006"
+}

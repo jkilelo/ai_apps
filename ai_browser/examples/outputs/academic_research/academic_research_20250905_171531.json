@@ -1,0 +1,19 @@
+{
+  "search_results": {
+    "research_topic": "machine learning browser automation 2024",
+    "status": "failed",
+    "summary": "No summary available",
+    "extracted_data": {},
+    "final_url": "https://scholar.google.com/",
+    "response_time_ms": 31626.01580005139,
+    "success": false
+  },
+  "academic_insights": {
+    "error": "Search failed"
+  },
+  "session_metadata": {
+    "timestamp": "20250905_171531",
+    "session_id": "academic_20250905_171459",
+    "demo_version": "windows_compatible"
+  }
+}

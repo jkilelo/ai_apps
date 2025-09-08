@@ -1,0 +1,430 @@
+{
+  "name": "AI Browser Production Configuration",
+  "version": "2.0.0",
+  "environment": "production",
+  
+  "browser": {
+    "headless": true,
+    "viewport_width": 1920,
+    "viewport_height": 1080,
+    "browser_type": "chromium",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "default_timeout": 30000,
+    "navigation_timeout": 60000,
+    "slow_mo": 0,
+    "devtools": false,
+    "proxy": null,
+    "bypass_csp": false,
+    "ignore_https_errors": false,
+    "java_script_enabled": true,
+    "accept_downloads": false,
+    "locale": "en-US",
+    "timezone_id": "America/New_York",
+    "geolocation": null,
+    "permissions": [],
+    "extra_http_headers": {},
+    "offline": false,
+    "http_credentials": null,
+    "color_scheme": "light",
+    "reduced_motion": "no-preference",
+    "forced_colors": "none",
+    "accept_insecure_certs": false,
+    "has_touch": false,
+    "is_mobile": false,
+    "screen": {
+      "width": 1920,
+      "height": 1080
+    },
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "device_scale_factor": 1,
+    "service_workers": "allow",
+    "record_har": false,
+    "record_video": false,
+    "screenshot_on_failure": true
+  },
+  
+  "stealth": {
+    "enabled": true,
+    "auto_load_defaults": true,
+    "plugins": [
+      "webdriver_evasion",
+      "chrome_runtime",
+      "canvas_noise",
+      "user_agent_override",
+      "plugin_array",
+      "webgl_vendor",
+      "permissions_api",
+      "languages",
+      "media_codecs",
+      "battery_api",
+      "webrtc_leak_prevent"
+    ],
+    "plugin_config": {
+      "canvas_noise": {
+        "noise_level": 0.1
+      },
+      "webrtc_leak_prevent": {
+        "disable_webrtc": false,
+        "local_ip_mask": true
+      }
+    },
+    "fingerprint_seed": null,
+    "rotate_fingerprint": false
+  },
+  
+  "cognition": {
+    "default_provider": "openai",
+    "providers": {
+      "openai": {
+        "enabled": true,
+        "api_key_env": "OPENAI_API_KEY",
+        "model": "gpt-4-turbo-preview",
+        "temperature": 0.7,
+        "max_tokens": 4000,
+        "top_p": 0.9,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "timeout": 30000,
+        "max_retries": 3,
+        "rate_limit": {
+          "requests_per_minute": 60,
+          "tokens_per_minute": 90000
+        }
+      },
+      "anthropic": {
+        "enabled": true,
+        "api_key_env": "ANTHROPIC_API_KEY",
+        "model": "claude-3-opus-20240229",
+        "temperature": 0.7,
+        "max_tokens": 4000,
+        "timeout": 30000,
+        "max_retries": 3,
+        "rate_limit": {
+          "requests_per_minute": 50,
+          "tokens_per_minute": 100000
+        }
+      },
+      "gemini": {
+        "enabled": true,
+        "api_key_env": "GEMINI_API_KEY",
+        "model": "gemini-pro",
+        "temperature": 0.7,
+        "max_output_tokens": 4000,
+        "top_p": 0.9,
+        "top_k": 40,
+        "timeout": 30000,
+        "max_retries": 3,
+        "rate_limit": {
+          "requests_per_minute": 60
+        }
+      }
+    },
+    "reasoning": {
+      "strategy": "react",
+      "max_reasoning_steps": 10,
+      "confidence_threshold": 0.85,
+      "enable_self_correction": true,
+      "enable_reflection": true,
+      "use_chain_of_thought": true,
+      "use_tree_of_thoughts": false,
+      "parallel_thoughts": 3
+    },
+    "prompts": {
+      "system_prompt_template": "default",
+      "include_examples": true,
+      "include_constraints": true,
+      "output_format": "structured"
+    }
+  },
+  
+  "memory": {
+    "enabled": true,
+    "session": {
+      "enabled": true,
+      "database_path": "data/session.db",
+      "retention_hours": 24,
+      "max_size_mb": 100,
+      "vacuum_on_startup": true,
+      "wal_mode": true
+    },
+    "semantic": {
+      "enabled": true,
+      "provider": "qdrant",
+      "qdrant": {
+        "host": "localhost",
+        "port": 6333,
+        "grpc_port": 6334,
+        "api_key": null,
+        "https": false,
+        "prefix": null,
+        "timeout": 30,
+        "collection_name": "ai_browser_memories"
+      },
+      "embedding": {
+        "provider": "openai",
+        "model": "text-embedding-3-small",
+        "dimensions": 1536,
+        "batch_size": 100
+      },
+      "similarity_threshold": 0.85,
+      "max_results": 10,
+      "cache_ttl_seconds": 900
+    },
+    "graph": {
+      "enabled": true,
+      "provider": "falkordb",
+      "falkordb": {
+        "host": "localhost",
+        "port": 6379,
+        "password": null,
+        "db": 0,
+        "graph_name": "ai_browser_graph"
+      },
+      "max_nodes": 10000,
+      "max_relationships": 50000,
+      "cache_ttl_seconds": 600
+    },
+    "cache": {
+      "enabled": true,
+      "provider": "redis",
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "password": null,
+        "db": 1,
+        "key_prefix": "ai_browser_cache:"
+      },
+      "default_ttl_seconds": 3600,
+      "max_entries": 1000
+    }
+  },
+  
+  "perception": {
+    "dom_processing": {
+      "simplify": true,
+      "max_depth": 20,
+      "max_elements": 1000,
+      "include_hidden": false,
+      "include_aria": true,
+      "include_data_attributes": false,
+      "text_truncate_length": 200
+    },
+    "visual_annotation": {
+      "enabled": true,
+      "strategy": "set_of_marks",
+      "colors": {
+        "button": "#FF6B6B",
+        "link": "#4ECDC4",
+        "input": "#95E77E",
+        "select": "#FFE66D",
+        "checkbox": "#B4A7D6",
+        "radio": "#FFB347",
+        "textarea": "#87CEEB"
+      },
+      "marker_size": 24,
+      "marker_font": "Arial",
+      "marker_weight": "bold",
+      "include_bounding_boxes": true,
+      "include_element_info": true
+    },
+    "accessibility": {
+      "enabled": true,
+      "include_roles": true,
+      "include_states": true,
+      "include_properties": true,
+      "include_name": true,
+      "include_description": true
+    },
+    "screenshot": {
+      "enabled": true,
+      "format": "png",
+      "quality": 90,
+      "full_page": false,
+      "clip": null,
+      "omit_background": false,
+      "animations": "allow",
+      "caret": "hide",
+      "scale": "device",
+      "timeout": 30000
+    }
+  },
+  
+  "execution": {
+    "action_timeout": 30000,
+    "retry_attempts": 3,
+    "retry_delay_ms": 1000,
+    "exponential_backoff": true,
+    "parallel_actions": false,
+    "action_delay_ms": 1000,
+    "human_like_delays": true,
+    "delay_variance": 0.3,
+    "wait_strategies": {
+      "default": "networkidle",
+      "navigation": "networkidle",
+      "action": "visible",
+      "screenshot": "load"
+    },
+    "error_recovery": {
+      "enabled": true,
+      "strategies": ["retry", "alternative_selector", "wait_and_retry", "refresh_page"],
+      "max_recovery_attempts": 3
+    }
+  },
+  
+  "extensibility": {
+    "plugins": {
+      "enabled": true,
+      "directories": [
+        "plugins/stealth",
+        "plugins/analysis",
+        "plugins/optimization",
+        "plugins/custom"
+      ],
+      "auto_load": true,
+      "hot_reload": false,
+      "sandbox": {
+        "enabled": true,
+        "security_level": "strict",
+        "max_memory_mb": 100,
+        "max_execution_time_seconds": 30,
+        "allowed_imports": ["re", "json", "datetime", "typing", "enum", "dataclasses"],
+        "file_access": "none",
+        "network_access": false
+      }
+    },
+    "hooks": {
+      "enabled": true,
+      "config_path": ".claude/hooks.json",
+      "async_execution": true,
+      "timeout_ms": 5000,
+      "continue_on_error": true
+    },
+    "mcp": {
+      "server": {
+        "enabled": false,
+        "port": 8080,
+        "host": "0.0.0.0",
+        "auth_required": true,
+        "auth_token_env": "MCP_AUTH_TOKEN",
+        "ssl": false,
+        "cors_enabled": true,
+        "allowed_origins": ["*"]
+      },
+      "client": {
+        "enabled": false,
+        "servers": [],
+        "timeout_ms": 30000,
+        "retry_attempts": 3
+      }
+    }
+  },
+  
+  "monitoring": {
+    "metrics": {
+      "enabled": true,
+      "provider": "prometheus",
+      "port": 9090,
+      "path": "/metrics",
+      "include_system_metrics": true,
+      "include_process_metrics": true,
+      "include_custom_metrics": true,
+      "flush_interval_seconds": 10
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json",
+      "file": "logs/ai_browser.log",
+      "max_size_mb": 100,
+      "max_backups": 10,
+      "max_age_days": 30,
+      "compress": true,
+      "include_caller": true,
+      "include_stack_trace": false
+    },
+    "tracing": {
+      "enabled": false,
+      "provider": "jaeger",
+      "endpoint": "http://localhost:14268/api/traces",
+      "service_name": "ai-browser",
+      "sample_rate": 0.1
+    },
+    "health_check": {
+      "enabled": true,
+      "port": 8081,
+      "path": "/health",
+      "include_details": false,
+      "checks": ["browser", "memory", "plugins", "llm_providers"]
+    },
+    "alerts": {
+      "enabled": false,
+      "providers": [],
+      "rules": []
+    }
+  },
+  
+  "security": {
+    "api_keys": {
+      "encrypted_storage": true,
+      "rotation_reminder_days": 90,
+      "require_env_vars": true,
+      "mask_in_logs": true
+    },
+    "rate_limiting": {
+      "enabled": true,
+      "global_limit": 1000,
+      "per_task_limit": 100,
+      "window_seconds": 60
+    },
+    "content_filtering": {
+      "enabled": true,
+      "block_sensitive_data": true,
+      "sensitive_patterns": ["ssn", "credit_card", "api_key", "password"],
+      "sanitize_screenshots": false
+    },
+    "audit": {
+      "enabled": true,
+      "log_all_actions": true,
+      "log_all_llm_calls": true,
+      "retention_days": 90,
+      "encrypt_logs": false
+    }
+  },
+  
+  "performance": {
+    "optimization": {
+      "cache_dom_snapshots": true,
+      "cache_screenshots": false,
+      "lazy_load_plugins": true,
+      "connection_pooling": true,
+      "resource_hints": true
+    },
+    "limits": {
+      "max_concurrent_browsers": 5,
+      "max_concurrent_pages": 10,
+      "max_memory_usage_mb": 2048,
+      "max_cpu_usage_percent": 80
+    },
+    "timeouts": {
+      "browser_launch": 10000,
+      "page_load": 60000,
+      "script_evaluation": 30000,
+      "element_wait": 30000,
+      "network_idle": 2000
+    }
+  },
+  
+  "development": {
+    "debug": false,
+    "verbose": false,
+    "dev_tools": false,
+    "slow_mo": 0,
+    "headed": false,
+    "record_video": false,
+    "trace": false,
+    "screenshot_on_failure": true,
+    "pause_on_failure": false
+  }
+}

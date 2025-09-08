@@ -1,0 +1,37 @@
+{
+  "query": "wireless bluetooth headphones under $100",
+  "search_timestamp": "2025-09-05T18:02:35.881744",
+  "session_id": "enhanced_ecommerce_20250905_180220",
+  "optimization_enabled": false,
+  "products_found": [
+    {
+      "name": "Unknown Product",
+      "price": null,
+      "original_price": null,
+      "discount": null,
+      "rating": null,
+      "reviews_count": null,
+      "availability": "Unknown",
+      "brand": null,
+      "model": null,
+      "specifications": {},
+      "url": null,
+      "source": "Amazon",
+      "extracted_at": "2025-09-05T18:02:35.815814",
+      "extraction_strategy": "enhanced_baseline",
+      "extraction_quality_score": 0.0,
+      "api_cost": 0.0,
+      "response_time_ms": 15541.931199957617
+    }
+  ],
+  "comparison_analysis": {
+    "error": "No valid products found for comparison"
+  },
+  "platforms_searched": [
+    "Amazon (Enhanced)"
+  ],
+  "success_rate": 1.0,
+  "optimization_metrics": {
+    "optimization_enabled": false
+  }
+}

@@ -1,0 +1,10 @@
+###############################################################################
+# requirements.txt is deprecated.
+#
+# Install the project instead:
+#   pip install -e .[dev]
+# or (preferred once uv adopted):
+#   uv pip install -e .[dev]
+#
+# Dependency declarations now live in pyproject.toml.
+###############################################################################

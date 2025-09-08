@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "results": [
+    {
+      "title": "Result 1",
+      "url": "https://example1.com",
+      "snippet": "Snippet for result 1",
+      "position": 1
+    },
+    {
+      "title": "Result 2",
+      "url": "https://example2.com",
+      "snippet": "Snippet for result 2",
+      "position": 2
+    },
+    {
+      "title": "Result 3",
+      "url": "https://example3.com",
+      "snippet": "Snippet for result 3",
+      "position": 3
+    },
+    {
+      "title": "Result 4",
+      "url": "https://example4.com",
+      "snippet": "Snippet for result 4",
+      "position": 4
+    },
+    {
+      "title": "Result 5",
+      "url": "https://example5.com",
+      "snippet": "Snippet for result 5",
+      "position": 5
+    }
+  ],
+  "screenshot_path": "results\\search_Python_web_scraping_tutorial.png",
+  "error": null,
+  "execution_time": 0.00729550002142787
+}

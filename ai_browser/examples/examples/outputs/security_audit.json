@@ -1,0 +1,120 @@
+{
+  "audit_timestamp": "2025-09-05T19:31:45.083838",
+  "project_root": ".",
+  "summary": {
+    "total_findings": 3,
+    "security_score": 70,
+    "severity_breakdown": {
+      "critical": 1,
+      "high": 0,
+      "medium": 2,
+      "low": 0
+    },
+    "category_breakdown": {
+      "secrets": 1,
+      "permissions": 2
+    }
+  },
+  "findings": [
+    {
+      "id": "secret_e3c8f66f",
+      "severity": "critical",
+      "category": "secrets",
+      "title": "Potential Google API Key exposed",
+      "description": "Detected potential Google API Key in source code",
+      "file_path": "security_demo.py",
+      "line_number": 44,
+      "recommendation": "Move secrets to encrypted storage or environment variables",
+      "remediation_effort": "medium"
+    },
+    {
+      "id": "perm_.claude_security_keys.enc",
+      "severity": "medium",
+      "category": "permissions",
+      "title": "Overly permissive file permissions: .claude/security/keys.enc",
+      "description": "File has permissions 0o666, should be more restrictive",
+      "file_path": ".claude/security/keys.enc",
+      "line_number": null,
+      "recommendation": "Set restrictive permissions (600 or 640)",
+      "remediation_effort": "low"
+    },
+    {
+      "id": "perm_.claude_security_master.key",
+      "severity": "medium",
+      "category": "permissions",
+      "title": "Overly permissive file permissions: .claude/security/master.key",
+      "description": "File has permissions 0o666, should be more restrictive",
+      "file_path": ".claude/security/master.key",
+      "line_number": null,
+      "recommendation": "Set restrictive permissions (600 or 640)",
+      "remediation_effort": "low"
+    }
+  ],
+  "compliance": {
+    "summary": {
+      "OWASP": {
+        "pass": 3,
+        "fail": 0,
+        "warning": 0,
+        "not_applicable": 0
+      },
+      "General": {
+        "pass": 1,
+        "fail": 1,
+        "warning": 0,
+        "not_applicable": 0
+      }
+    },
+    "checks": [
+      {
+        "standard": "OWASP",
+        "requirement": "A1: Injection Prevention",
+        "status": "pass",
+        "description": "Input validation and sanitization implementation",
+        "evidence": "Found 16 validation patterns"
+      },
+      {
+        "standard": "OWASP",
+        "requirement": "A2: Authentication Security",
+        "status": "pass",
+        "description": "Authentication security implementation",
+        "evidence": "Found authentication patterns: True"
+      },
+      {
+        "standard": "OWASP",
+        "requirement": "A3: Sensitive Data Protection",
+        "status": "pass",
+        "description": "Encryption and data protection implementation",
+        "evidence": "Found encryption patterns: True"
+      },
+      {
+        "standard": "General",
+        "requirement": "Security Logging and Monitoring",
+        "status": "pass",
+        "description": "Security event logging implementation",
+        "evidence": "Logging patterns found: True"
+      },
+      {
+        "standard": "General",
+        "requirement": "Secrets Management",
+        "status": "fail",
+        "description": "Secure secrets and API key management",
+        "evidence": "Found 1 secrets issues"
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "immediate",
+      "action": "Address critical security issues",
+      "description": "Fix 1 critical security findings immediately",
+      "effort": "varies"
+    },
+    {
+      "priority": "high",
+      "action": "Implement secure secrets management",
+      "description": "Move all secrets to encrypted storage and remove from source code",
+      "effort": "medium"
+    }
+  ]
+}

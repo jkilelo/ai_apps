@@ -1,0 +1,21 @@
+JOB SEARCH REPORT
+==================================================
+
+Search Query: Software Engineer
+Location: San Francisco, CA
+Search Date: 2025-09-06T03:53:01.308183
+Total Jobs Found: 0
+
+PLATFORM RESULTS:
+--------------------
+LinkedIn: 0 jobs
+Indeed: 0 jobs
+Glassdoor: 0 jobs
+
+MARKET ANALYSIS:
+--------------------
+Remote Jobs: 0.0%
+Avg Skill Match: 0.0%
+
+TOP JOB MATCHES:
+--------------------

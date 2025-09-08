@@ -1,0 +1,40 @@
+{
+  "query": "Software Engineer",
+  "location": "San Francisco, CA",
+  "search_timestamp": "2025-09-06T03:53:01.308183",
+  "session_id": "job_search_20250906_035206",
+  "total_jobs_found": 0,
+  "platform_results": {
+    "LinkedIn": 0,
+    "Indeed": 0,
+    "Glassdoor": 0
+  },
+  "jobs": [],
+  "market_analysis": {
+    "error": "No jobs to analyze"
+  },
+  "top_matches": [],
+  "user_profile": {
+    "name": "John Doe",
+    "email": "john.doe@email.com",
+    "phone": "+1-555-123-4567",
+    "location": "San Francisco, CA",
+    "skills": [
+      "Python",
+      "JavaScript",
+      "React",
+      "SQL",
+      "AWS",
+      "Docker",
+      "Git"
+    ],
+    "experience_years": 5,
+    "current_role": "Software Engineer",
+    "linkedin_url": "https://linkedin.com/in/johndoe",
+    "portfolio_url": "",
+    "preferred_salary_min": null,
+    "preferred_salary_max": null,
+    "work_authorization": "Authorized to work in the US",
+    "remote_preference": "Open to remote/hybrid/onsite"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "query": "portable SSD external hard drive 1TB",
+  "search_timestamp": "2025-09-05T18:04:38.506050",
+  "session_id": "enhanced_ecommerce_20250905_180348",
+  "optimization_enabled": false,
+  "products_found": [
+    {
+      "name": "Unknown Product",
+      "price": null,
+      "original_price": null,
+      "discount": null,
+      "rating": null,
+      "reviews_count": null,
+      "availability": "Unknown",
+      "brand": null,
+      "model": null,
+      "specifications": {},
+      "url": null,
+      "source": "Amazon",
+      "extracted_at": "2025-09-05T18:04:37.717725",
+      "extraction_strategy": "enhanced_baseline",
+      "extraction_quality_score": 0.0,
+      "api_cost": 0.0,
+      "response_time_ms": 38181.3757000491
+    }
+  ],
+  "comparison_analysis": {
+    "error": "No valid products found for comparison"
+  },
+  "platforms_searched": [
+    "Amazon (Enhanced)"
+  ],
+  "success_rate": 1.0,
+  "optimization_metrics": {
+    "optimization_enabled": false
+  }
+}

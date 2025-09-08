@@ -1,0 +1,193 @@
+{
+  "timestamp": "2025-09-06T04:15:00Z",
+  "collection_method": "manual_analysis_from_logs",
+  "examples_tested": [
+    {
+      "file": "basic_usage.py",
+      "status": "RUNNING",
+      "errors_found": 2,
+      "error_types": {
+        "keyerror_timestamp": true,
+        "logging_error": true,
+        "warning_no_api_keys": true
+      },
+      "error_messages": [
+        "KeyError: '\"timestamp\"'",
+        "Logging error in Loguru Handler #3",
+        "WARNING: No LLM API keys found. Some examples may not work."
+      ]
+    },
+    {
+      "file": "test_ai_browser_integration.py",
+      "status": "COMPLETED",
+      "errors_found": 3,
+      "error_types": {
+        "keyerror_request_id": true,
+        "keyerror_timestamp": true,
+        "browser_agent_constructor": true
+      },
+      "error_messages": [
+        "KeyError: 'request_id'",
+        "KeyError: '\"timestamp\"'",
+        "BrowserAgent.__init__() got an unexpected keyword argument 'llm_manager'"
+      ]
+    },
+    {
+      "file": "real_world_academic_research.py",
+      "status": "COMPLETED",
+      "errors_found": 5,
+      "error_types": {
+        "google_scholar_blocked": true,
+        "element_not_found": true,
+        "no_papers_found": true,
+        "element_validation_failed": true,
+        "maximum_iterations_reached": true
+      },
+      "error_messages": [
+        "Loading... The system can't perform the operation now",
+        "Failed to click element #gs_hdr_tsb: Locator.wait_for timeout",
+        "Element validation failed for #gs_hdr_tsb: Element is not interactable for text input",
+        "No papers found",
+        "Task failed: Maximum reasoning iterations reached"
+      ]
+    },
+    {
+      "file": "enhanced_ecommerce_research.py",
+      "status": "TESTED",
+      "errors_found": 1,
+      "error_types": {
+        "unicode_error": true
+      },
+      "error_messages": [
+        "UnicodeEncodeError: 'charmap' codec can't encode character"
+      ]
+    },
+    {
+      "file": "react_orchestrator_demo.py",
+      "status": "RUNNING",
+      "errors_found": 2,
+      "error_types": {
+        "keyerror_timestamp": true,
+        "logging_error": true
+      },
+      "error_messages": [
+        "KeyError: '\"timestamp\"'",
+        "Logging error in Loguru Handler"
+      ]
+    },
+    {
+      "file": "test_enhanced_stealth.py",
+      "status": "RUNNING",
+      "errors_found": 2,
+      "error_types": {
+        "unicode_error": true,
+        "dict_not_callable": true
+      },
+      "error_messages": [
+        "UnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f50d'",
+        "'dict' object is not callable"
+      ]
+    },
+    {
+      "file": "fixed_academic_research.py",
+      "status": "TESTED",
+      "errors_found": 1,
+      "error_types": {
+        "eof_error": true
+      },
+      "error_messages": [
+        "EOFError: EOF when reading a line"
+      ]
+    },
+    {
+      "file": "google_search_example.py",
+      "status": "NOT_TESTED",
+      "errors_found": 0,
+      "error_types": {},
+      "error_messages": []
+    },
+    {
+      "file": "security_demo.py",
+      "status": "NOT_TESTED",
+      "errors_found": 0,
+      "error_types": {},
+      "error_messages": []
+    },
+    {
+      "file": "test_browser_simple.py",
+      "status": "NOT_TESTED",
+      "errors_found": 0,
+      "error_types": {},
+      "error_messages": []
+    },
+    {
+      "file": "test_llm_providers.py",
+      "status": "NOT_TESTED",
+      "errors_found": 0,
+      "error_types": {},
+      "error_messages": []
+    },
+    {
+      "file": "working_system_demo.py",
+      "status": "NOT_TESTED",
+      "errors_found": 0,
+      "error_types": {},
+      "error_messages": []
+    }
+  ],
+  "summary": {
+    "total_files": 21,
+    "files_tested": 7,
+    "files_with_errors": 7,
+    "files_not_tested": 14,
+    "common_errors": {
+      "keyerror_timestamp": 4,
+      "keyerror_request_id": 1,
+      "logging_error": 4,
+      "unicode_error": 2,
+      "google_scholar_blocked": 1,
+      "element_not_found": 1,
+      "no_papers_found": 1,
+      "browser_agent_constructor": 1,
+      "eof_error": 1,
+      "dict_not_callable": 1
+    },
+    "critical_issues": [
+      {
+        "issue": "Logging System KeyError",
+        "description": "Multiple KeyError exceptions in Loguru handlers for 'timestamp' and 'request_id'",
+        "affected_files": ["basic_usage.py", "test_ai_browser_integration.py", "react_orchestrator_demo.py"],
+        "severity": "HIGH",
+        "impact": "Prevents proper logging output, may hide important debugging information"
+      },
+      {
+        "issue": "Google Scholar Bot Detection",
+        "description": "Google Scholar detecting and blocking automated access",
+        "affected_files": ["real_world_academic_research.py"],
+        "severity": "HIGH",
+        "impact": "Complete failure of academic research functionality"
+      },
+      {
+        "issue": "Unicode Encoding Errors",
+        "description": "Unicode/emoji characters causing encoding failures",
+        "affected_files": ["enhanced_ecommerce_research.py", "test_enhanced_stealth.py"],
+        "severity": "MEDIUM",
+        "impact": "Script crashes when trying to output Unicode characters"
+      },
+      {
+        "issue": "BrowserAgent Constructor Mismatch",
+        "description": "Incorrect parameter name in BrowserAgent initialization",
+        "affected_files": ["test_ai_browser_integration.py"],
+        "severity": "MEDIUM",
+        "impact": "Prevents proper initialization of browser automation agent"
+      }
+    ],
+    "recommendations": [
+      "Fix Loguru logging configuration to handle dynamic formatters properly",
+      "Implement enhanced stealth measures for Google Scholar access",
+      "Replace all Unicode emojis with ASCII equivalents",
+      "Update BrowserAgent constructor calls to use correct parameter names",
+      "Add proper input handling for scripts requiring user interaction"
+    ]
+  }
+}

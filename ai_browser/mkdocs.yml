@@ -1,0 +1,151 @@
+# MkDocs configuration for AI-First Smart Browser
+site_name: AI-First Smart Browser
+site_description: Production-ready autonomous web agent with multi-modal perception and stealth capabilities
+site_url: https://ai-browser.docs/
+repo_url: https://github.com/your-org/ai-first-smart-browser
+repo_name: ai-first-smart-browser
+
+# Navigation structure
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+    - Configuration: getting-started/configuration.md
+  - Architecture:
+    - Overview: architecture/overview.md
+    - Execution Layer: architecture/execution.md
+    - Perception Layer: architecture/perception.md
+    - Cognition Layer: architecture/cognition.md
+    - Memory Layer: architecture/memory.md
+    - Extensibility Layer: architecture/extensibility.md
+  - User Guide:
+    - Basic Usage: user-guide/basic-usage.md
+    - Advanced Features: user-guide/advanced-features.md
+    - Stealth Configuration: user-guide/stealth-config.md
+    - Memory Management: user-guide/memory-management.md
+    - Plugin System: user-guide/plugins.md
+  - API Reference:
+    - Browser Manager: api/browser-manager.md
+    - LLM Integration: api/llm-integration.md
+    - Memory APIs: api/memory-apis.md
+    - Monitoring: api/monitoring.md
+  - Development:
+    - Contributing: development/contributing.md
+    - Plugin Development: development/plugin-development.md
+    - Testing: development/testing.md
+    - Debugging: development/debugging.md
+  - Deployment:
+    - Production Setup: deployment/production.md
+    - Container Deployment: deployment/containers.md
+    - Monitoring Setup: deployment/monitoring.md
+    - Security Hardening: deployment/security.md
+  - Examples:
+    - Web Scraping: examples/web-scraping.md
+    - Form Automation: examples/form-automation.md
+    - E-commerce Tasks: examples/ecommerce.md
+    - Data Collection: examples/data-collection.md
+
+# Theme configuration
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+        
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
+
+  icon:
+    repo: fontawesome/brands/github
+
+# Plugins
+plugins:
+  - search:
+      lang: en
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            docstring_style: google
+            line_length: 120
+  - mermaid2:
+      arguments:
+        theme: base
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - minify:
+      minify_html: true
+
+# Extensions
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.mark
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - tables
+  - footnotes
+
+# Extra configuration
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/your-org/ai-first-smart-browser
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/r/your-org/ai-browser
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:support@ai-browser.dev
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js
+
+# Copyright
+copyright: Copyright &copy; 2025 AI-First Smart Browser Team
