@@ -1,0 +1,816 @@
+{
+  "session_report": {
+    "started_at": 1757175663.1666605,
+    "finished_at": 1757175850.5311947,
+    "elapsed_ms": 187364.53413963318,
+    "agent_stats": [
+      {
+        "agent": "stealth",
+        "runs": 8,
+        "errors": 0,
+        "total_ms": 63122.355200117454
+      },
+      {
+        "agent": "navigation",
+        "runs": 3,
+        "errors": 0,
+        "total_ms": 11029.566799872555
+      },
+      {
+        "agent": "performance",
+        "runs": 3,
+        "errors": 0,
+        "total_ms": 23277.912100078538
+      },
+      {
+        "agent": "security",
+        "runs": 3,
+        "errors": 0,
+        "total_ms": 27203.86269991286
+      },
+      {
+        "agent": "learning",
+        "runs": 2,
+        "errors": 0,
+        "total_ms": 17792.73780004587
+      },
+      {
+        "agent": "architect",
+        "runs": 1,
+        "errors": 0,
+        "total_ms": 14604.526199982502
+      }
+    ],
+    "applied_strategies": [
+      {
+        "name": "HumanSimulationStrategy",
+        "description": null
+      },
+      {
+        "name": "DetectionMitigationStrategy",
+        "description": null
+      }
+    ],
+    "correlation_issues": [],
+    "stealth_checks": {
+      "navigator_properties": true,
+      "canvas_noise": false,
+      "timezone_mask": true,
+      "webdriver_hidden": true,
+      "chrome_runtime": true,
+      "plugins_spoofed": true,
+      "hardware_concurrency": true
+    },
+    "navigation_plan": [
+      "Navigate to https://www.google.com/search?q=stealth+automation",
+      "Wait for the page to fully load and search results to appear",
+      "Accept any cookie consent banners if present",
+      "Verify the search results are displayed for 'stealth automation'",
+      "Prepare for content extraction by ensuring all dynamic elements have loaded",
+      "Navigate to https://www.cloudflare.com/",
+      "Wait for page to fully load",
+      "Allow cookies if prompted",
+      "Dismiss any overlay popups or banners",
+      "Scroll to view main content sections",
+      "Ensure all key elements are visible and loaded",
+      "Navigate to https://news.ycombinator.com/",
+      "Wait for page to fully load",
+      "Verify page title contains 'Hacker News'",
+      "Check that main story list is visible",
+      "Ensure page structure is stable before content extraction"
+    ]
+  },
+  "sites": [
+    {
+      "label": "google_search",
+      "url": "https://www.google.com/search?q=stealth+automation",
+      "nav_plan": [
+        "Navigate to https://www.google.com/search?q=stealth+automation",
+        "Wait for the page to fully load and search results to appear",
+        "Accept any cookie consent banners if present",
+        "Verify the search results are displayed for 'stealth automation'",
+        "Prepare for content extraction by ensuring all dynamic elements have loaded"
+      ],
+      "dsl": "NAV https://www.google.com/search?q=stealth+automation\nWAIT 500\nEXTRACT #search\nEXTRACT h3\nEXTRACT title",
+      "actions_result": {
+        "count": 5,
+        "results": [
+          {
+            "action": "NAV",
+            "url": "https://www.google.com/search?q=stealth+automation"
+          },
+          {
+            "action": "WAIT",
+            "ms": 500
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "#search",
+            "text": ""
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "h3",
+            "text": ""
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "title",
+            "text": "https://www.google.com/search?q=stealth+automation&sei=iF-8aNHbCqO5mtkPqP7OwQg"
+          }
+        ]
+      },
+      "extracted": [
+        {
+          "selector": "#search",
+          "text": null
+        },
+        {
+          "selector": "h3",
+          "text": null
+        },
+        {
+          "selector": "title",
+          "text": "https://www.google.com/search?q=stealth+automation&sei=iF-8aNHbCqO5mtkPqP7OwQg"
+        }
+      ],
+      "detection_signals": [
+        "unusual traffic",
+        "captcha"
+      ],
+      "identity_rotated": true,
+      "adaptive_meta": {
+        "severity": "HIGH",
+        "rotate_identity": true,
+        "abandon": false,
+        "backoff_seconds": 1.5,
+        "consecutive": 1,
+        "total": 1
+      },
+      "stealth_post_rotation": {
+        "navigator_properties": true,
+        "canvas_noise": false,
+        "timezone_mask": true,
+        "webdriver_hidden": true,
+        "chrome_runtime": true,
+        "plugins_spoofed": true,
+        "hardware_concurrency": true
+      },
+      "stealth_diff": {},
+      "stealth_pre": {
+        "risk_level": "low",
+        "actions": [
+          "Use private browsing/incognito mode",
+          "Clear browser cookies and cache beforehand",
+          "Consider using a VPN or Tor browser for additional anonymization",
+          "Disable JavaScript if not essential for search functionality",
+          "Use generic, non-identifying search terms initially",
+          "Avoid signing into any Google accounts",
+          "Consider using alternative search engines like DuckDuckGo or Startpage"
+        ],
+        "justification": "Google search has standard web tracking capabilities including IP logging, browser fingerprinting, and cookie tracking. However, basic searches pose minimal risk as they are common user behavior. The recommended countermeasures are minimal, easily reversible, and maintain normal search functionality while reducing digital footprint. Private browsing and cleared cache prevent local storage of search history, while VPN usage masks IP geolocation. These measures are proportionate to the low-risk nature of web searching."
+      },
+      "stealth_verification": {
+        "navigator_properties": true,
+        "canvas_noise": false,
+        "timezone_mask": true,
+        "webdriver_hidden": true,
+        "chrome_runtime": true,
+        "plugins_spoofed": true,
+        "hardware_concurrency": true
+      },
+      "stealth_post": {
+        "risk_level": "medium",
+        "actions": [
+          "Clear browser search history and cookies",
+          "Use VPN or Tor for future searches if sensitive",
+          "Consider using alternative search engines (DuckDuckGo, Startpage)",
+          "Clear DNS cache",
+          "Review and adjust Google account activity settings",
+          "Use incognito/private browsing mode for future sensitive searches"
+        ],
+        "justification": "Google searches create multiple detection vectors: browser history, Google account activity logs, ISP logs, and DNS queries. While individual searches may seem benign, search patterns can reveal reconnaissance activities or operational interests. Google's extensive logging and data retention policies make search history a persistent risk. The recommended actions are minimal and reversible - they clean existing traces without requiring permanent changes to systems or behavior. VPN usage and alternative search engines provide ongoing protection while maintaining operational capability."
+      },
+      "performance": {
+        "bottlenecks": [
+          {
+            "area": "HTML Size",
+            "metric": "HTML Document Length",
+            "baseline": 3000.0,
+            "observed": 5101.0,
+            "suggestion": "Reduce HTML payload by minifying markup, removing unnecessary whitespace, and optimizing DOM structure. Consider lazy loading non-critical content."
+          },
+          {
+            "area": "Detection Systems",
+            "metric": "Security Detection Signals",
+            "baseline": 0.0,
+            "observed": 2.0,
+            "suggestion": "Review and optimize detection mechanisms that may be impacting performance. Consider reducing frequency of security checks or implementing more efficient detection algorithms."
+          }
+        ],
+        "quick_wins": [
+          "Enable gzip compression to reduce HTML transfer size by 60-80%",
+          "Minify HTML to remove unnecessary whitespace and comments",
+          "Implement HTML caching headers to avoid re-downloading unchanged content",
+          "Review detection signal triggers and optimize their performance impact"
+        ]
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "findings": [
+          {
+            "id": "QUERY_LOGGING",
+            "severity": "HIGH",
+            "description": "Google logs all search queries and associates them with IP addresses and user accounts, creating detailed behavioral profiles",
+            "recommendation": "Use VPN/Tor, search in incognito mode, or use privacy-focused search engines like DuckDuckGo or Startpage"
+          },
+          {
+            "id": "BROWSER_FINGERPRINTING",
+            "severity": "MEDIUM",
+            "description": "Google can fingerprint browsers through canvas rendering, WebGL, fonts, screen resolution, and other browser characteristics",
+            "recommendation": "Use hardened browsers like Tor Browser or Firefox with privacy extensions (uBlock Origin, ClearURLs). Disable JavaScript when possible"
+          },
+          {
+            "id": "TRACKING_COOKIES",
+            "severity": "MEDIUM",
+            "description": "Google sets persistent tracking cookies and uses cross-site tracking to build user profiles across websites",
+            "recommendation": "Regularly clear cookies, use browser containers/profiles, enable cookie auto-deletion, or use browsers with strict cookie policies"
+          },
+          {
+            "id": "AUTOCOMPLETE_LEAKAGE",
+            "severity": "LOW",
+            "description": "Search autocomplete and suggestions can reveal partial queries to Google servers even before completing searches",
+            "recommendation": "Disable search suggestions in browser settings or use search engines that don't pre-fetch suggestions"
+          },
+          {
+            "id": "REFERRER_EXPOSURE",
+            "severity": "LOW",
+            "description": "Clicking search results may leak search terms via HTTP referrer headers to destination websites",
+            "recommendation": "Use browser extensions that strip referrer headers or configure referrer policy to 'no-referrer'"
+          }
+        ]
+      },
+      "learning": {
+        "new_hypotheses": [
+          "Google Search's anti-bot detection systems are triggered by consistent element selection patterns when sparse mode is disabled",
+          "Detection mechanisms may be analyzing timing patterns and element interaction sequences to identify automated behavior",
+          "Selector refinement could help avoid detection by using more human-like element targeting strategies",
+          "Timing adjustments between interactions may be necessary to mimic natural human browsing patterns"
+        ],
+        "strategy_adjustments": [
+          {
+            "area": "selector_strategy",
+            "change": "Implement dynamic selector variation using multiple fallback selectors and randomized selection approaches",
+            "expected_effect": "Reduce predictable patterns that trigger Google's detection algorithms"
+          },
+          {
+            "area": "timing_patterns",
+            "change": "Add variable delays and human-like timing between page interactions and element selections",
+            "expected_effect": "Make automation behavior less distinguishable from human browsing patterns"
+          },
+          {
+            "area": "interaction_sequence",
+            "change": "Randomize the order of element discovery and interaction to avoid consistent automation signatures",
+            "expected_effect": "Bypass detection systems that analyze interaction patterns"
+          },
+          {
+            "area": "element_targeting",
+            "change": "Use more sophisticated element identification methods that mimic human visual scanning",
+            "expected_effect": "Reduce the artificial precision that may trigger detection mechanisms"
+          }
+        ],
+        "metrics_to_watch": [
+          "detection_rate",
+          "selector_success_rate",
+          "average_interaction_timing",
+          "captcha_trigger_frequency",
+          "page_load_completion_rate",
+          "element_discovery_time",
+          "interaction_pattern_variance"
+        ]
+      },
+      "elapsed_ms": 50826.810359954834,
+      "sparse_extraction": false,
+      "refinement_runs": [],
+      "high_detection_snapshots": [
+        "examples\\outputs\\snapshots\\google_search_1757175693.html"
+      ],
+      "scheduled_cooldown": 40.0
+    },
+    {
+      "label": "cloudflare_marketing",
+      "url": "https://www.cloudflare.com/",
+      "nav_plan": [
+        "Navigate to https://www.cloudflare.com/",
+        "Wait for page to fully load",
+        "Allow cookies if prompted",
+        "Dismiss any overlay popups or banners",
+        "Scroll to view main content sections",
+        "Ensure all key elements are visible and loaded"
+      ],
+      "dsl": "NAV https://www.cloudflare.com/\nWAIT 500\nEXTRACT h1\nEXTRACT title\nEXTRACT nav a",
+      "actions_result": {
+        "count": 5,
+        "results": [
+          {
+            "action": "NAV",
+            "url": "https://www.cloudflare.com/"
+          },
+          {
+            "action": "WAIT",
+            "ms": 500
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "h1",
+            "text": "Connect, protect, and build everywhere"
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "title",
+            "text": "Connect, protect, and build everywhere | Cloudflare"
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "nav a",
+            "text": ""
+          }
+        ]
+      },
+      "extracted": [
+        {
+          "selector": "h1",
+          "text": "Connect, protect, and build everywhere"
+        },
+        {
+          "selector": "title",
+          "text": "Connect, protect, and build everywhere | Cloudflare"
+        },
+        {
+          "selector": "nav a",
+          "text": null
+        }
+      ],
+      "detection_signals": [
+        "cloudflare"
+      ],
+      "identity_rotated": true,
+      "adaptive_meta": {
+        "severity": "HIGH",
+        "rotate_identity": true,
+        "abandon": false,
+        "backoff_seconds": 6.0,
+        "consecutive": 2,
+        "total": 2
+      },
+      "stealth_post_rotation": {
+        "navigator_properties": true,
+        "canvas_noise": false,
+        "timezone_mask": true,
+        "webdriver_hidden": true,
+        "chrome_runtime": true,
+        "plugins_spoofed": true,
+        "hardware_concurrency": true
+      },
+      "stealth_diff": {},
+      "stealth_pre": {
+        "risk_level": "medium",
+        "actions": [
+          "Use residential proxy or VPN with clean IP reputation",
+          "Rotate User-Agent strings to mimic legitimate browsers",
+          "Implement random delays between requests (2-5 seconds)",
+          "Use headless browser with stealth plugins to avoid detection",
+          "Limit concurrent connections and request rate",
+          "Clear cookies and browser fingerprints between sessions",
+          "Consider using different entry points and referrer headers",
+          "Monitor for CAPTCHA challenges or rate limiting responses"
+        ],
+        "justification": "Cloudflare is a major CDN and security provider with sophisticated bot detection capabilities including IP reputation analysis, behavioral fingerprinting, and advanced challenge systems. Their marketing sites likely have moderate protection levels but still employ automated detection. The medium risk assessment accounts for Cloudflare's known anti-bot capabilities while recognizing that marketing sites typically prioritize user experience over strict security. Recommended countermeasures focus on appearing as legitimate traffic through proper browser simulation, IP rotation, and behavioral mimicking while maintaining reversibility through standard proxy/VPN techniques."
+      },
+      "stealth_verification": {
+        "navigator_properties": true,
+        "canvas_noise": false,
+        "timezone_mask": true,
+        "webdriver_hidden": true,
+        "chrome_runtime": true,
+        "plugins_spoofed": true,
+        "hardware_concurrency": true
+      },
+      "stealth_post": {
+        "risk_level": "medium",
+        "actions": [
+          "Clear browser cache and cookies for cloudflare.com domain",
+          "Delete browser history entries related to Cloudflare marketing pages",
+          "Clear DNS cache using 'ipconfig /flushdns' (Windows) or 'sudo dscacheutil -flushcache' (macOS)",
+          "Review and delete any downloaded marketing materials or whitepapers",
+          "Log out of any Cloudflare accounts if authenticated during visit",
+          "Use incognito/private browsing for future marketing research",
+          "Consider rotating IP address if using VPN"
+        ],
+        "justification": "Cloudflare marketing site visits generate multiple detection vectors including browser fingerprinting, analytics tracking, and potential lead generation forms. Cloudflare's sophisticated infrastructure likely includes behavioral analytics and cross-site tracking capabilities. The medium risk stems from Cloudflare's security focus and comprehensive logging, though marketing sites typically have less stringent monitoring than core infrastructure. Clearing digital traces and implementing future operational security measures will minimize attribution risks while maintaining plausible deniability for legitimate business research purposes."
+      },
+      "performance": {
+        "bottlenecks": [
+          {
+            "area": "Page Size",
+            "metric": "HTML Length (bytes)",
+            "baseline": 100000.0,
+            "observed": 1575849.0,
+            "suggestion": "Reduce HTML payload by 94%. Implement server-side rendering optimization, remove inline styles/scripts, minify HTML, and consider code splitting for above-the-fold content."
+          },
+          {
+            "area": "Content Delivery",
+            "metric": "Detection Signals",
+            "baseline": 0.0,
+            "observed": 1.0,
+            "suggestion": "Investigate and resolve the detection signal trigger. This could indicate security scanning, bot detection, or monitoring that may impact legitimate user experience and page load times."
+          },
+          {
+            "area": "Network Performance",
+            "metric": "Time to First Byte (estimated)",
+            "baseline": 200.0,
+            "observed": 800.0,
+            "suggestion": "With 1.5MB+ HTML, TTFB likely severely impacted. Implement aggressive caching, CDN optimization, and consider breaking page into smaller chunks with lazy loading."
+          }
+        ],
+        "quick_wins": [
+          "Enable gzip/brotli compression to reduce HTML transfer size by 70-80%",
+          "Move inline CSS and JavaScript to external files with proper caching headers",
+          "Implement HTML minification to remove whitespace and comments",
+          "Use Cloudflare's HTML minification and auto-minify features",
+          "Audit and remove unnecessary HTML elements, especially in head section"
+        ]
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "findings": [
+          {
+            "id": "CF-MARKETING-001",
+            "severity": "HIGH",
+            "description": "Marketing sites typically expose extensive attack surface through forms, analytics, and third-party integrations without proper input validation",
+            "recommendation": "Implement strict input validation on all forms, use Content Security Policy (CSP) headers, and audit all third-party marketing tools for data exposure"
+          },
+          {
+            "id": "CF-MARKETING-002",
+            "severity": "MEDIUM",
+            "description": "Marketing domains often lack proper security headers and may expose sensitive infrastructure information through verbose error messages",
+            "recommendation": "Deploy security headers (HSTS, X-Frame-Options, X-Content-Type-Options), configure custom error pages, and ensure no internal infrastructure details leak"
+          },
+          {
+            "id": "CF-MARKETING-003",
+            "severity": "MEDIUM",
+            "description": "Marketing analytics and tracking pixels may create data exfiltration vectors or enable cross-site tracking vulnerabilities",
+            "recommendation": "Audit all tracking implementations, implement strict referrer policies, and ensure marketing analytics comply with privacy regulations (GDPR/CCPA)"
+          },
+          {
+            "id": "CF-MARKETING-004",
+            "severity": "LOW",
+            "description": "Marketing sites may use outdated CMS or plugins that could introduce known vulnerabilities",
+            "recommendation": "Regularly update CMS platforms and plugins, implement automated vulnerability scanning, and maintain an inventory of all marketing technology stack components"
+          }
+        ]
+      },
+      "learning": {
+        "new_hypotheses": [
+          "Cloudflare marketing site may have aggressive bot detection interfering with selectors",
+          "Dense content structure requires more specific CSS selectors",
+          "Timing issues may be caused by dynamic content loading or anti-bot delays",
+          "Marketing sites often use JavaScript-heavy frameworks that need longer wait times"
+        ],
+        "strategy_adjustments": [
+          {
+            "area": "selector_strategy",
+            "change": "Use more specific CSS selectors and add fallback selectors",
+            "expected_effect": "Improve element targeting reliability on dense marketing content"
+          },
+          {
+            "area": "timing_configuration",
+            "change": "Increase wait times and add explicit waits for dynamic elements",
+            "expected_effect": "Handle JavaScript-heavy content and potential anti-bot delays"
+          },
+          {
+            "area": "detection_handling",
+            "change": "Implement detection evasion techniques like user-agent rotation and behavioral mimicking",
+            "expected_effect": "Reduce bot detection interference with scraping operations"
+          },
+          {
+            "area": "content_parsing",
+            "change": "Switch to xpath selectors for complex nested structures",
+            "expected_effect": "Better handle dense marketing page layouts with multiple content layers"
+          }
+        ],
+        "metrics_to_watch": [
+          "selector_success_rate",
+          "page_load_times",
+          "detection_trigger_frequency",
+          "element_visibility_delays",
+          "javascript_execution_time",
+          "content_extraction_accuracy"
+        ]
+      },
+      "elapsed_ms": 61415.57288169861,
+      "sparse_extraction": false,
+      "refinement_runs": [],
+      "high_detection_snapshots": [
+        "examples\\outputs\\snapshots\\cloudflare_marketing_1757175752.html"
+      ],
+      "scheduled_cooldown": 40.0
+    },
+    {
+      "label": "hacker_news",
+      "url": "https://news.ycombinator.com/",
+      "nav_plan": [
+        "Navigate to https://news.ycombinator.com/",
+        "Wait for page to fully load",
+        "Verify page title contains 'Hacker News'",
+        "Check that main story list is visible",
+        "Ensure page structure is stable before content extraction"
+      ],
+      "dsl": "NAV https://news.ycombinator.com/\nWAIT 500\nEXTRACT title\nEXTRACT .hnname\nEXTRACT a.storylink\nEXTRACT span.titleline a",
+      "actions_result": {
+        "count": 6,
+        "results": [
+          {
+            "action": "NAV",
+            "url": "https://news.ycombinator.com/"
+          },
+          {
+            "action": "WAIT",
+            "ms": 500
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "title",
+            "text": "Hacker News"
+          },
+          {
+            "action": "EXTRACT",
+            "selector": ".hnname",
+            "text": "Hacker News"
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "a.storylink",
+            "text": ""
+          },
+          {
+            "action": "EXTRACT",
+            "selector": "span.titleline a",
+            "text": "996"
+          }
+        ]
+      },
+      "extracted": [
+        {
+          "selector": "title",
+          "text": "Hacker News"
+        },
+        {
+          "selector": ".hnname",
+          "text": "Hacker News"
+        },
+        {
+          "selector": "a.storylink",
+          "text": null
+        },
+        {
+          "selector": "span.titleline a",
+          "text": "996"
+        }
+      ],
+      "detection_signals": [],
+      "identity_rotated": false,
+      "adaptive_meta": {},
+      "stealth_post_rotation": null,
+      "stealth_diff": null,
+      "stealth_pre": {
+        "risk_level": "low",
+        "actions": [
+          "Use standard browser with common user agent",
+          "Connect through residential IP or common VPN exit nodes",
+          "Maintain normal browsing patterns with reasonable delays between requests",
+          "Avoid automated scraping tools that generate unusual traffic patterns",
+          "Use HTTPS connections (standard for the site)",
+          "Disable JavaScript if concerned about fingerprinting, though this may break functionality"
+        ],
+        "justification": "Hacker News (news.ycombinator.com) is a public forum with minimal anti-bot protections and no sophisticated tracking beyond standard web analytics. The site welcomes automated access and even provides an official API. Detection risk is low as it's designed for open access, though basic operational security practices should still be followed to avoid standing out in access logs. The main risks are generating excessive traffic that could trigger rate limiting or using obviously automated patterns that violate their terms of service."
+      },
+      "stealth_verification": {
+        "navigator_properties": true,
+        "canvas_noise": false,
+        "timezone_mask": true,
+        "webdriver_hidden": true,
+        "chrome_runtime": true,
+        "plugins_spoofed": true,
+        "hardware_concurrency": true
+      },
+      "stealth_post": {
+        "risk_level": "low",
+        "actions": [
+          "Clear browser cache and cookies for Hacker News",
+          "Delete browser history entries for the session",
+          "Close all browser tabs and restart browser",
+          "Check for any auto-saved login credentials and remove if present",
+          "Clear any temporary files or downloads from the session",
+          "If using public/shared computer, ensure complete logout and clear saved passwords"
+        ],
+        "justification": "Hacker News (news.ycombinator.com) is a legitimate technology news aggregation site with standard web tracking. Risk assessment is low as it's not a sensitive site requiring extensive operational security measures. The recommended actions focus on basic digital hygiene to remove browsing traces - clearing standard browser artifacts like cache, cookies, and history. These are minimal, reversible countermeasures that maintain operational security without being excessive for the threat level. The actions ensure no persistent tracking data or login sessions remain while being proportionate to the low-risk nature of visiting a public news site."
+      },
+      "performance": {
+        "bottlenecks": [
+          {
+            "area": "HTML Size",
+            "metric": "Document Size (bytes)",
+            "baseline": 15000.0,
+            "observed": 34932.0,
+            "suggestion": "Reduce HTML payload by removing unnecessary markup, comments, and whitespace. Consider minification and compression."
+          },
+          {
+            "area": "Content Detection",
+            "metric": "Detection Signals Count",
+            "baseline": 10.0,
+            "observed": 0.0,
+            "suggestion": "Add proper semantic HTML tags, meta descriptions, structured data, and content markers to improve content detection and SEO."
+          }
+        ],
+        "quick_wins": [
+          "Enable GZIP/Brotli compression to reduce HTML transfer size by 60-80%",
+          "Minify HTML by removing whitespace, comments, and redundant attributes",
+          "Add semantic HTML5 tags (header, nav, main, article, section) for better content structure",
+          "Implement proper meta tags including description, keywords, and Open Graph tags",
+          "Add structured data markup (JSON-LD) for better search engine understanding"
+        ]
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "findings": [
+          {
+            "id": "HN-001",
+            "severity": "HIGH",
+            "description": "Username exposure creates persistent digital footprint and enables targeted social engineering attacks",
+            "recommendation": "Use pseudonymous usernames unlinked to real identity or other online accounts"
+          },
+          {
+            "id": "HN-002",
+            "severity": "MEDIUM",
+            "description": "Comment history reveals behavioral patterns, technical expertise, political views, and personal information over time",
+            "recommendation": "Regularly audit comment history and avoid sharing personally identifiable details or sensitive opinions"
+          },
+          {
+            "id": "HN-003",
+            "severity": "MEDIUM",
+            "description": "Voting patterns and submission history can be analyzed to profile interests and create comprehensive behavioral fingerprint",
+            "recommendation": "Consider using multiple accounts for different topic areas or vary engagement patterns"
+          },
+          {
+            "id": "HN-004",
+            "severity": "LOW",
+            "description": "Account creation date and karma scores provide timeline for correlation with other platforms",
+            "recommendation": "Avoid mentioning account age or karma milestones in comments to reduce correlation vectors"
+          },
+          {
+            "id": "HN-005",
+            "severity": "MEDIUM",
+            "description": "Contact information in profile (email, website, social links) directly links to real identity",
+            "recommendation": "Use dedicated email addresses and avoid linking personal websites or social media profiles"
+          }
+        ]
+      },
+      "learning": {
+        "skipped": true
+      },
+      "elapsed_ms": 39542.213678359985,
+      "sparse_extraction": false,
+      "refinement_runs": [],
+      "high_detection_snapshots": [],
+      "scheduled_cooldown": 0.0
+    }
+  ],
+  "detection_summary": {
+    "unusual traffic": 1,
+    "captcha": 1,
+    "cloudflare": 1
+  },
+  "agent_metrics": {
+    "stealth": {
+      "runs": 8,
+      "errors": 0,
+      "total_ms": 63122.355200117454
+    },
+    "navigation": {
+      "runs": 3,
+      "errors": 0,
+      "total_ms": 11029.566799872555
+    },
+    "performance": {
+      "runs": 3,
+      "errors": 0,
+      "total_ms": 23277.912100078538
+    },
+    "security": {
+      "runs": 3,
+      "errors": 0,
+      "total_ms": 27203.86269991286
+    },
+    "learning": {
+      "runs": 2,
+      "errors": 0,
+      "total_ms": 17792.73780004587
+    },
+    "architect": {
+      "runs": 1,
+      "errors": 0,
+      "total_ms": 14604.526199982502
+    }
+  },
+  "detection_stats_global": {
+    "events_total": 2,
+    "consecutive": 2,
+    "last_signals": [
+      "cloudflare"
+    ],
+    "last_ts": 643695.1251774,
+    "abandon_flag": false
+  },
+  "architecture_plan": {
+    "tasks": [
+      "Design multi-site orchestration architecture with queue management and load balancing",
+      "Implement stealth browsing capabilities with user-agent rotation and proxy management",
+      "Develop browser fingerprinting mitigation (canvas, WebGL, audio fingerprinting)",
+      "Create adaptive extraction engine with multiple parsing strategies",
+      "Build content type detection and dynamic parser selection system",
+      "Implement rate limiting and request scheduling across multiple sites",
+      "Design session management with cookie handling and state persistence",
+      "Create captcha detection and handling mechanisms",
+      "Implement retry logic with exponential backoff and circuit breakers",
+      "Build monitoring and alerting system for extraction health",
+      "Create data validation and quality assurance pipeline",
+      "Implement result aggregation and deduplication logic",
+      "Design configuration management for site-specific extraction rules",
+      "Create logging and audit trail for compliance tracking"
+    ],
+    "risks": [
+      "Detection by anti-bot systems leading to IP blocking or legal issues",
+      "Rate limiting causing extraction delays and incomplete data collection",
+      "Website structure changes breaking extraction logic without detection",
+      "Memory leaks from browser instances causing system instability",
+      "Proxy failures creating single points of failure in stealth operations",
+      "Captcha challenges requiring human intervention and breaking automation",
+      "Legal compliance violations related to terms of service or data protection",
+      "Data quality degradation due to adaptive parsing errors",
+      "Resource exhaustion from concurrent multi-site operations",
+      "Network fingerprinting despite stealth measures",
+      "Session corruption leading to authentication failures",
+      "Inconsistent extraction results across different sites and formats"
+    ],
+    "validation": [
+      "Test stealth capabilities against common bot detection tools",
+      "Validate extraction accuracy across different website structures",
+      "Performance testing under high concurrent load scenarios",
+      "Verify proxy rotation and failover mechanisms",
+      "Test adaptive parsing with various content types and formats",
+      "Validate rate limiting compliance across multiple target sites",
+      "Security testing for data handling and storage compliance",
+      "Test captcha detection accuracy and response mechanisms",
+      "Validate monitoring alerts and system health reporting",
+      "Test session persistence across browser restarts and failures",
+      "Verify data deduplication and quality validation pipelines",
+      "Legal compliance review of extraction practices and data usage",
+      "Load testing orchestration system with multiple simultaneous sites",
+      "Validate graceful degradation when sites become unavailable"
+    ]
+  },
+  "stealth_global_pre": {
+    "risk_level": "high",
+    "actions": [
+      "Implement time-delayed execution with randomized intervals between targets",
+      "Deploy decoy traffic generation to mask operational signatures",
+      "Utilize geographically distributed proxy chains with legitimate cover traffic",
+      "Enable adaptive payload modification based on target-specific detection capabilities",
+      "Establish multiple communication channels with automated fallback sequences",
+      "Implement session compartmentalization to prevent cross-target correlation",
+      "Deploy anti-forensics measures including log sanitization and timestamp manipulation",
+      "Utilize legitimate administrative tools and living-off-the-land techniques",
+      "Implement real-time detection evasion monitoring with automated countermeasure adjustment",
+      "Establish secure exfiltration channels with built-in plausible deniability"
+    ],
+    "justification": "High-detection targets across multiple environments present significant risk of discovery, attribution, and operational compromise. The simultaneous nature of operations increases the probability of pattern recognition by defensive systems. Recommended countermeasures focus on breaking operational signatures, preventing correlation between targets, and maintaining persistent access while minimizing forensic evidence. These measures are designed to be minimally invasive and reversible while providing maximum operational security across the engagement surface."
+  },
+  "stealth_global_post": {
+    "risk_level": "medium",
+    "actions": [
+      "Clear browser history and cache from current session",
+      "Close all browser tabs and restart browser",
+      "Clear clipboard contents",
+      "Check for and remove any temporary files created during session",
+      "Review recent file access logs for any unintended traces",
+      "Ensure all applications used during session are fully closed",
+      "Clear any autosaved drafts or temporary documents",
+      "Review network connection logs if accessible",
+      "Verify VPN/proxy status if applicable",
+      "Clear any cached credentials or tokens from session"
+    ],
+    "justification": "Post-session cleanup is critical for operational security. Even routine activities can leave digital traces in browser history, cache files, temporary documents, and system logs. The medium risk level reflects that while these traces may seem innocuous individually, they can create patterns over time or be discovered during routine system maintenance. All recommended actions are standard digital hygiene practices that are completely reversible and won't raise suspicion. This cleanup should be performed consistently after each session to maintain operational discipline and minimize cumulative exposure risk."
+  },
+  "aggregate_extracted_items": 10
+}

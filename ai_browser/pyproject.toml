@@ -1,0 +1,200 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-first-smart-browser"
+version = "2.0.0"
+description = "Production-ready autonomous web agent with military-grade stealth"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "AI Browser Team", email = "dev@ai-browser.local"}
+]
+keywords = ["browser", "automation", "ai", "playwright", "stealth"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: Browsers"
+]
+
+dependencies = [
+    "playwright>=1.40.0",
+    "pydantic>=2.5.0",
+    "openai>=1.0.0",
+    "anthropic>=0.8.0",
+    "google-generativeai>=0.3.0",
+    "falkordb>=0.1.0",
+    "meilisearch>=0.31.0",
+    "qdrant-client>=1.7.0",
+    "redis>=5.0.0",
+    "loguru>=0.7.0",
+    "httpx>=0.25.0",
+    "rich>=13.0.0",
+    "typer>=0.9.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "mypy>=1.8.0",
+    "ruff>=0.1.0",
+    "pre-commit>=3.5.0",
+    "ipython>=8.18.0",
+    "hyperfine>=1.18.0"
+]
+monitoring = [
+    "prometheus-client>=0.19.0",
+    "opentelemetry-api>=1.22.0",
+    "opentelemetry-sdk>=1.22.0",
+    "jaeger-client>=4.8.0"
+]
+ml = [
+    "scikit-learn>=1.3.0",
+    "numpy>=1.24.0",
+    "pandas>=2.1.0",
+    "torch>=2.1.0",
+    "transformers>=4.36.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/ai-browser/ai-first-smart-browser"
+Documentation = "https://ai-browser.readthedocs.io"
+Repository = "https://github.com/ai-browser/ai-first-smart-browser.git"
+Issues = "https://github.com/ai-browser/ai-first-smart-browser/issues"
+
+[project.scripts]
+ai-browser = "src.main:cli"
+browser-session = "src.commands.browser_session:main"
+test-stealth = "src.commands.test_stealth:main"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+exclude = [
+    ".git",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist"
+]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "W",    # pycodestyle warnings
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "TCH",  # flake8-type-checking
+    "RUF",  # Ruff-specific rules
+    "PTH",  # flake8-use-pathlib
+    "ERA",  # flake8-eradicate
+]
+ignore = [
+    "E501",  # Line too long (handled by formatter)
+    "B008",  # Do not perform function calls in argument defaults
+    "B905",  # `zip()` without an explicit `strict=` parameter
+]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]  # Allow assert in tests
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+no_implicit_reexport = true
+namespace_packages = true
+ignore_missing_imports = true
+follow_imports = "silent"
+show_error_codes = true
+show_column_numbers = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--cov=src",
+    "--cov-branch",
+    "--cov-report=term-missing:skip-covered",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "--cov-fail-under=80",
+    "--tb=short",
+    "--maxfail=1"
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "stealth: marks tests that validate stealth capabilities",
+    "browser: marks tests that require browser"
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+    "*/migrations/*",
+    "*/config.py"
+]
+
+[tool.coverage.report]
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):"
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+# Note: We use ruff format instead of black, this is for compatibility only

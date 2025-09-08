@@ -1,0 +1,105 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+.claude/logs/
+
+# Testing
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+test-results/
+coverage.xml
+*.cover
+
+# Browser Automation
+screenshots/
+har_files/
+downloads/
+user_data/
+.playwright/
+
+# Memory/Database
+*.db
+*.sqlite
+*.sqlite3
+.claude/memory/
+data/qdrant/
+data/meilisearch/
+data/falkordb/
+
+# Temporary Files
+tmp/
+temp/
+.claude/archive/
+.claude/crashes/
+.claude/profiles/
+.claude/exports/
+
+# Secrets (Never commit these!)
+**/secrets/
+**/*_secret*
+**/*_private*
+*.pem
+*.key
+*.cert
+
+# Container
+docker-compose.override.yml
+.dockerignore
+
+# OS Files
+Thumbs.db
+desktop.ini
+
+# Project Specific
+.claude/CLEANUP_PLAN.md
+.claude/*_REPORT.md
+.claude/*_ANALYSIS.md
+.claude/*_ASSESSMENT.md
+.claude/*_IMPROVEMENTS.md
+.claude/*_CHECKLIST.md

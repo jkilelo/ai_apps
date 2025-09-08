@@ -1,0 +1,56 @@
+# Machine-readable task registry for autonomous development tracking
+# Fields:
+# - id: unique slug
+# - category: high-level area
+# - status: planned|in_progress|implemented|deferred
+# - description: concise summary
+# - test_patterns: list of substrings or glob fragments that should appear in at least one test file path
+
+- id: task_registry_meta
+  category: meta
+  status: implemented
+  description: Task registry & meta validation tests
+  test_patterns:
+    - test_tasks_registry
+
+- id: action_grammar
+  category: navigation
+  status: implemented
+  description: DSL parser for high-level browser actions
+  test_patterns:
+    - test_action_parser
+
+- id: action_executor
+  category: navigation
+  status: implemented
+  description: Executor that maps parsed actions to BrowserSession operations with basic retry hooks
+  test_patterns:
+    - test_action_executor
+
+- id: mcp_server_stub
+  category: integration
+  status: implemented
+  description: Initial MCP server exposing navigate, eval, extract tools
+  test_patterns:
+    - test_mcp_server
+
+- id: structured_extraction
+  category: extraction
+  status: implemented
+  description: Pydantic output schemas & generic extraction engine
+  test_patterns:
+    - test_extraction
+
+- id: dynamic_fingerprint_rotation
+  category: stealth
+  status: planned
+  description: Per-session randomized rotation & periodic mutation of fingerprint strategies
+  test_patterns:
+    - test_fingerprint_rotation
+
+- id: human_simulation_upgrade
+  category: humanization
+  status: planned
+  description: Typing cadence, dwell time, interaction noise
+  test_patterns:
+    - test_human_sim_upgrade

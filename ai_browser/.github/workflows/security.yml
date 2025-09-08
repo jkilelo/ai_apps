@@ -1,0 +1,182 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run security scan weekly on Sundays
+    - cron: '0 6 * * 0'
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install security tools
+      run: |
+        pip install bandit safety semgrep
+        npm install -g @cyclonedx/cyclone-cli
+    
+    - name: Run Bandit security scan
+      run: |
+        bandit -r src/ -f json -o bandit-report.json
+        bandit -r src/ -f txt
+    
+    - name: Run Safety vulnerability check
+      run: |
+        safety check --json --output safety-report.json
+        safety check
+    
+    - name: Run Semgrep static analysis
+      run: |
+        semgrep --config=auto src/ --json --output=semgrep-report.json
+        semgrep --config=auto src/
+    
+    - name: Generate SBOM (Software Bill of Materials)
+      run: |
+        cyclone-cli -t python -o sbom.json .
+    
+    - name: Check for exposed secrets
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: main
+        head: HEAD
+    
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-report.json
+          semgrep-report.json
+          sbom.json
+      if: always()
+    
+    - name: Comment PR with security summary
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          
+          let summary = '## 🔒 Security Scan Results\n\n';
+          
+          try {
+            // Read Bandit report
+            const banditReport = JSON.parse(fs.readFileSync('bandit-report.json', 'utf8'));
+            const banditIssues = banditReport.results?.length || 0;
+            summary += `- **Bandit**: ${banditIssues} security issues found\n`;
+          } catch (e) {
+            summary += '- **Bandit**: Scan completed\n';
+          }
+          
+          try {
+            // Read Safety report
+            const safetyReport = JSON.parse(fs.readFileSync('safety-report.json', 'utf8'));
+            const vulnerabilities = safetyReport.vulnerabilities?.length || 0;
+            summary += `- **Safety**: ${vulnerabilities} vulnerabilities found\n`;
+          } catch (e) {
+            summary += '- **Safety**: Scan completed\n';
+          }
+          
+          summary += '\n📋 Full reports are available in the workflow artifacts.';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: summary
+          });
+
+  container-security:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Build test image
+      run: |
+        docker build -t ai-browser-test -f - . << 'EOF'
+        FROM python:3.11-slim
+        WORKDIR /app
+        COPY requirements.txt .
+        RUN pip install -r requirements.txt
+        COPY src/ ./src/
+        CMD ["python", "src/main.py"]
+        EOF
+    
+    - name: Scan container with Trivy
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ai-browser-test
+        format: sarif
+        output: trivy-results.sarif
+    
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: trivy-results.sarif
+
+  dependency-review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v3
+      with:
+        fail-on-severity: moderate
+        deny-licenses: GPL-2.0, GPL-3.0
+        
+  license-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install license checker
+      run: |
+        pip install pip-licenses
+    
+    - name: Check licenses
+      run: |
+        pip-licenses --format=json --output-file=licenses.json
+        pip-licenses --format=plain-vertical
+        
+        # Fail if GPL licenses are found (optional)
+        if pip-licenses | grep -E "(GPL|AGPL)"; then
+          echo "❌ GPL/AGPL licenses detected"
+          # exit 1  # Uncomment to fail the build
+        else
+          echo "✅ No problematic licenses found"
+        fi
+    
+    - name: Upload license report
+      uses: actions/upload-artifact@v3
+      with:
+        name: license-report
+        path: licenses.json
