@@ -593,7 +593,8 @@ async def generate_tests_for_url(contract: TestGenerationContract) -> TestGenera
     
     # Step 1: Analyze the page using element extractor
     print(f"[INFO] Analyzing page: {contract.url}")
-    page_analysis = await extract_and_analyze(contract.url)
+    max_elements = getattr(contract, 'max_elements', 10)  # Use contract's max_elements or default to 10
+    page_analysis = await extract_and_analyze(contract.url, max_elements=max_elements)
     
     # Save Step 1 results
     step1_file = Path("step1_page_analysis.json")
@@ -738,7 +739,8 @@ async def generate_tests(
     url: str,
     frameworks: Optional[List[str]] = None,
     categories: Optional[List[str]] = None,
-    max_scenarios: int = 5
+    max_scenarios: int = 5,
+    max_elements: int = 10
 ) -> TestGenerationResult:
     """
     Convenience function to generate tests for a URL
@@ -748,6 +750,7 @@ async def generate_tests(
         frameworks: Test frameworks to target
         categories: Test categories to include
         max_scenarios: Max scenarios per category
+        max_elements: Max interactive elements to enrich with LLM (default: 10)
         
     Returns:
         Test generation result
@@ -773,7 +776,8 @@ async def generate_tests(
         url=url,
         test_frameworks=test_frameworks or [TestFramework.PLAYWRIGHT],
         test_categories=test_categories,
-        max_scenarios_per_category=max_scenarios
+        max_scenarios_per_category=max_scenarios,
+        max_elements=max_elements
     )
     
     return await generate_tests_for_url(contract)

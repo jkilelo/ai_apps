@@ -369,7 +369,7 @@ def prepare_llm_messages(
     
     Args:
         user_content: User message content
-        system_content: Optional system message
+        system_content: Optional system message (defaults to helpful assistant if not provided)
         strategy: Optional strategy name to apply
         
     Returns:
@@ -377,8 +377,11 @@ def prepare_llm_messages(
     """
     messages = []
     
+    # Always include a system message - use default if not provided
     if system_content:
         messages.append({"role": "system", "content": system_content})
+    else:
+        messages.append({"role": "system", "content": "You are a helpful assistant that genuinely helps users."})
     
     messages.append({"role": "user", "content": user_content})
     

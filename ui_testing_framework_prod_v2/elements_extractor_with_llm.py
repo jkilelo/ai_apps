@@ -283,7 +283,7 @@ class ElementsExtractorWithLLM:
                                  ElementType.RADIO}
     
     async def extract_and_analyze(
-        self, url: str, analyze_with_llm: bool = True
+        self, url: str, analyze_with_llm: bool = True, max_elements: int = 10
     ) -> PageAnalysis:
         """
         Extract elements from URL and analyze with LLM
@@ -291,6 +291,7 @@ class ElementsExtractorWithLLM:
         Args:
             url: URL to extract elements from
             analyze_with_llm: Whether to enrich with LLM analysis
+            max_elements: Maximum number of interactive elements to enrich with LLM (default: 10)
             
         Returns:
             Complete page analysis with enriched elements
@@ -318,16 +319,23 @@ class ElementsExtractorWithLLM:
         # Filter for interactive elements only and remove nulls
         interactive_elements = self._filter_interactive_elements(extraction_result.elements)
         
+        # Limit to max_elements if there are too many
+        original_count = len(interactive_elements)
+        if len(interactive_elements) > max_elements:
+            print(f"[INFO] Limiting interactive elements from {len(interactive_elements)} to {max_elements} for LLM processing")
+            # Take the first max_elements most important elements (prioritize forms, buttons, links)
+            interactive_elements = self._prioritize_elements(interactive_elements, max_elements)
+        
         # Start page analysis
         page_analysis = PageAnalysis(
             url=url,
-            total_elements=len(interactive_elements),
+            total_elements=original_count,  # Keep track of original count
             extraction_time=extraction_time,
         )
         
-        # Count element types (interactive only)
-        for elem in interactive_elements:
-            page_analysis.interactive_elements += 1
+        # Count element types (from all interactive elements, not just limited)
+        page_analysis.interactive_elements = original_count
+        for elem in interactive_elements[:max_elements]:  # Only count the ones we'll process
             if elem.element_type == ElementType.INPUT:
                 page_analysis.form_elements += 1
             if elem.tag_name.lower() == "nav":
@@ -342,7 +350,7 @@ class ElementsExtractorWithLLM:
                 # Convert to enriched format without LLM
                 enriched = [self._create_basic_enriched_element(elem) for elem in interactive_elements]
             else:
-                # Enrich elements with LLM
+                # Enrich elements with LLM (already limited to max_elements)
                 print(f"[INFO] Enriching {len(interactive_elements)} interactive elements with LLM...")
                 enriched = await self.element_analyzer.analyze_elements(
                     interactive_elements
@@ -408,6 +416,63 @@ class ElementsExtractorWithLLM:
         
         return interactive_elements
     
+    def _prioritize_elements(self, elements: List[Any], max_count: int) -> List[Any]:
+        """
+        Prioritize elements for LLM processing when there are too many
+        Priority: forms/inputs > buttons > links > others
+        
+        Args:
+            elements: List of interactive elements
+            max_count: Maximum number to return
+            
+        Returns:
+            Prioritized list of elements limited to max_count
+        """
+        if len(elements) <= max_count:
+            return elements
+        
+        # Categorize elements by priority
+        forms_inputs = []
+        buttons = []
+        links = []
+        others = []
+        
+        for elem in elements:
+            tag = elem.tag_name.lower() if hasattr(elem, 'tag_name') else ''
+            elem_type = getattr(elem, 'element_type', None)
+            
+            if tag in ['input', 'textarea', 'select'] or elem_type == ElementType.INPUT:
+                forms_inputs.append(elem)
+            elif tag == 'button' or elem_type == ElementType.BUTTON:
+                buttons.append(elem)
+            elif tag == 'a' or elem_type == ElementType.LINK:
+                links.append(elem)
+            else:
+                others.append(elem)
+        
+        # Build prioritized list
+        prioritized = []
+        
+        # Add forms/inputs first (most important for testing)
+        prioritized.extend(forms_inputs[:max_count])
+        
+        # Add buttons if we have room
+        remaining = max_count - len(prioritized)
+        if remaining > 0:
+            prioritized.extend(buttons[:remaining])
+        
+        # Add links if we still have room
+        remaining = max_count - len(prioritized)
+        if remaining > 0:
+            prioritized.extend(links[:remaining])
+        
+        # Add others if we still have room
+        remaining = max_count - len(prioritized)
+        if remaining > 0:
+            prioritized.extend(others[:remaining])
+        
+        return prioritized[:max_count]  # Ensure we don't exceed max_count
+    
     def _create_basic_enriched_element(self, elem: Any) -> EnrichedElement:
         """
         Create a basic enriched element without LLM analysis
@@ -468,7 +533,7 @@ class ElementsExtractorWithLLM:
 # ==============================================================================
 
 async def extract_and_analyze(
-    url: str, config: Optional[ExtractionConfig] = None
+    url: str, config: Optional[ExtractionConfig] = None, max_elements: int = 10
 ) -> PageAnalysis:
     """
     Extract and analyze web elements from a URL
@@ -476,12 +541,13 @@ async def extract_and_analyze(
     Args:
         url: URL to analyze
         config: Optional extraction configuration
+        max_elements: Maximum number of interactive elements to enrich with LLM (default: 10)
         
     Returns:
         Complete page analysis with LLM enrichment
     """
     extractor = ElementsExtractorWithLLM(config)
-    return await extractor.extract_and_analyze(url, analyze_with_llm=True)
+    return await extractor.extract_and_analyze(url, analyze_with_llm=True, max_elements=max_elements)
 
 
 async def extract_without_llm(

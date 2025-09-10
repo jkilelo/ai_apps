@@ -950,6 +950,7 @@ if PYDANTIC_AVAILABLE:
             description="Specific test categories to focus on"
         )
         max_scenarios_per_category: int = Field(5, description="Max scenarios per category")
+        max_elements: int = Field(10, description="Max interactive elements to enrich with LLM")
         include_edge_cases: bool = Field(True, description="Include edge case scenarios")
         include_negative_tests: bool = Field(True, description="Include negative test cases")
         generate_test_data: bool = Field(True, description="Generate test data")
