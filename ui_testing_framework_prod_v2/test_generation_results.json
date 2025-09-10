@@ -1,0 +1,11 @@
+{
+  "url": "https://example.com",
+  "total_scenarios": 0,
+  "categories_covered": [
+    "functional"
+  ],
+  "generation_time": 35.547437,
+  "llm_processing_time": 16.066916000000003,
+  "feature_name": "Placeholder Page Validation",
+  "scenarios": []
+}

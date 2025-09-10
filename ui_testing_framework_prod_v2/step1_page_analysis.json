@@ -1,0 +1,13 @@
+{
+  "url": "https://httpbin.org/forms/post",
+  "page_type": "unknown",
+  "total_elements": 0,
+  "interactive_elements": 0,
+  "form_elements": 0,
+  "navigation_elements": 0,
+  "framework_detected": null,
+  "llm_insights": {},
+  "enriched_elements_count": 0,
+  "extraction_time": 4.739873,
+  "llm_processing_time": 0.0
+}

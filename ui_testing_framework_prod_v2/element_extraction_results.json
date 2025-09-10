@@ -1,0 +1,30 @@
+{
+  "url": "https://example.com",
+  "page_type": "informational",
+  "framework": null,
+  "total_elements": 1,
+  "interactive_elements": 1,
+  "form_elements": 0,
+  "navigation_elements": 0,
+  "insights": {
+    "page_type": "informational",
+    "framework": null,
+    "functionality": [
+      "Navigation"
+    ],
+    "ui_patterns": [
+      "Hyperlink"
+    ],
+    "accessibility_level": "low",
+    "mobile_friendly": "false",
+    "recommendations": [
+      "Improve link text to be more descriptive for better accessibility.",
+      "Add more content to provide context and value to the user.",
+      "Implement a responsive design with a viewport meta tag to ensure mobile-friendliness."
+    ]
+  },
+  "timing": {
+    "extraction": 4.323716,
+    "llm": 32.587922
+  }
+}
