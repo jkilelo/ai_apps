@@ -845,7 +845,7 @@ class ElementSelectorUtils:
                 'button': ElementType.BUTTON,
                 'link': ElementType.LINK,
                 'input': ElementType.INPUT,
-                'text': ElementType.TEXT,
+                'text': ElementType.TEXT_INPUT,  # Fixed: TEXT doesn't exist, use TEXT_INPUT
                 'image': ElementType.IMAGE,
                 'video': ElementType.VIDEO,
                 'form': ElementType.FORM,

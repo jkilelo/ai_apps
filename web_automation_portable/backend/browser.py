@@ -62,6 +62,7 @@ try:
         TimingProfile,
         StealthProfile,
         StealthConfig,
+        ExtractionConfig,  # Added for compatibility
         Element,
         BoundingBox,
         # Results
@@ -86,6 +87,7 @@ except ImportError:
         TimingProfile,
         StealthProfile,
         StealthConfig,
+        ExtractionConfig,  # Added for compatibility
         Element,
         BoundingBox,
         # Results
@@ -1873,9 +1875,21 @@ class UltimateStealthBrowser:
     - Performance optimization
     """
 
-    def __init__(self, config: Optional[StealthConfig] = None) -> None:
+    def __init__(self, config: Optional[Union[StealthConfig, ExtractionConfig]] = None) -> None:
         """Initialize with production-ready concurrency controls"""
-        self.config = config or StealthConfig()
+        # Handle both StealthConfig and ExtractionConfig
+        if config is None:
+            self.config = StealthConfig()
+        elif isinstance(config, ExtractionConfig):
+            # Convert ExtractionConfig to StealthConfig
+            self.config = StealthConfig(
+                level=StealthLevel.HIGH if config.enable_stealth else StealthLevel.OFF
+            )
+            # Store extraction config separately
+            self.extraction_config = config
+        else:
+            self.config = config
+            self.extraction_config = None
 
         # Production concurrency controls
         self._operation_semaphore = asyncio.Semaphore(10)  # Max 10 concurrent operations
@@ -1896,14 +1910,15 @@ class UltimateStealthBrowser:
         self.extraction_strategies: List[ExtractionStrategyBase] = [DOMExtractionStrategy()]
 
         # Conditionally add Shadow DOM extraction strategy based on configuration
-        if self.config.enable_shadow_dom_extraction:
+        if getattr(self.config, 'enable_shadow_dom', True):  # Fixed: use enable_shadow_dom
             shadow_strategy = ShadowDOMExtractionStrategy(
-                max_depth=self.config.shadow_dom_max_depth, element_limit=self.config.shadow_dom_element_limit
+                max_depth=getattr(self.config, 'shadow_dom_max_depth', 5),
+                element_limit=getattr(self.config, 'shadow_dom_element_limit', 1000)
             )
             self.extraction_strategies.append(shadow_strategy)
             logger.info(
-                f"Shadow DOM extraction enabled (max_depth={self.config.shadow_dom_max_depth}, "
-                f"element_limit={self.config.shadow_dom_element_limit})"
+                f"Shadow DOM extraction enabled (max_depth={getattr(self.config, 'shadow_dom_max_depth', 5)}, "
+                f"element_limit={getattr(self.config, 'shadow_dom_element_limit', 1000)})"
             )
 
         # Monitoring
