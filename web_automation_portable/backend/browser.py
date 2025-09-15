@@ -20,7 +20,7 @@ Status: Production Ready
 # ============================================================================
 import asyncio
 import hashlib
-import json
+# import json  # Currently unused
 import logging
 import os
 import platform
@@ -1149,7 +1149,7 @@ class DetectionSystem:
                                 captcha_info["selectors"].append(selector)
                                 captcha_info["confidence"] = max(captcha_info["confidence"], pattern["confidence"])
                                 break
-                        except:
+                        except Exception:
                             continue
 
             if captcha_info["detected"]:
@@ -2199,7 +2199,7 @@ class UltimateStealthBrowser:
             await self.page.goto(trust_domain, wait_until="domcontentloaded", timeout=15000)
             await self.human_simulator.simulate_human_delay(delay_type="reading")
             await self.human_simulator.simulate_scrolling(self.page)
-        except:
+        except Exception:
             pass  # Trust building is optional
 
     async def extract_elements(self, url: str) -> ExtractionResult:
@@ -2376,7 +2376,7 @@ async def main():
         # Test extraction
         result = await browser.extract_elements("https://example.com")
 
-        print(f"[OK] Extraction completed")
+        print("[OK] Extraction completed")
         print(f"  - URL: {result.url}")
         print(f"  - Success: {result.success}")
         print(f"  - Elements found: {len(result.elements)}")
@@ -2386,7 +2386,7 @@ async def main():
 
         # Get metrics
         metrics = await browser.get_metrics()
-        print(f"[OK] Metrics:")
+        print("[OK] Metrics:")
         print(f"  - Total requests: {metrics['requests_total']}")
         print(f"  - Success rate: {metrics['requests_success']}/{metrics['requests_total']}")
         print(f"  - Avg response time: {metrics['avg_response_time']:.2f}s")
