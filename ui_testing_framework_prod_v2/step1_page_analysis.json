@@ -1,13 +1,15 @@
 {
-  "url": "https://httpbin.org/forms/post",
+  "url": "https://www.wikipedia.org",
   "page_type": "unknown",
   "total_elements": 0,
   "interactive_elements": 0,
   "form_elements": 0,
   "navigation_elements": 0,
   "framework_detected": null,
-  "llm_insights": {},
+  "llm_insights": {
+    "error": "Base extraction failed"
+  },
   "enriched_elements_count": 0,
-  "extraction_time": 4.739873,
+  "extraction_time": 5.347626,
   "llm_processing_time": 0.0
 }

@@ -1,0 +1,33 @@
+# UI Testing Framework V2 - Configuration File
+
+browser:
+  headless: false
+  max_instances: 3
+  timeout: 30000
+  shadow_dom_enabled: true
+  shadow_dom_max_depth: 5
+  anti_bot_level: maximum
+
+extraction:
+  default_profile: general
+  auto_profile: true
+  max_elements: 1000
+  cache_enabled: true
+  cache_ttl: 3600
+
+llm:
+  provider: gemini
+  model: gemini-2.5-pro
+  default_strategy: qa_engineer_agent
+  max_tokens: 4000
+  temperature: 0.7
+
+storage:
+  db_path: extraction_history.db
+  cleanup_days: 30
+  deduplication: true
+
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: ui_testing_framework.log

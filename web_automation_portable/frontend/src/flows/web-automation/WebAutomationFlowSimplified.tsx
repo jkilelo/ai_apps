@@ -18,7 +18,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 // API Configuration - Using unified API with real extraction
-const API_BASE = 'http://localhost:8001/api/web-automation';
+const API_BASE = 'http://localhost:8003/api/web-automation';
+
+// Configure axios with longer timeout for element extraction
+const axiosConfig = {
+    timeout: 120000, // 2 minutes timeout for element extraction
+    headers: {
+        'Content-Type': 'application/json',
+    }
+};
 
 // Step definitions
 const steps = [
@@ -60,7 +68,7 @@ export function WebAutomationFlowSimplified() {
         setError(null);
 
         try {
-            const response = await axios.post(`${API_BASE}/extract`, { url });
+            const response = await axios.post(`${API_BASE}/extract`, { url }, axiosConfig);
             setElements(response.data.elements || []);
             setCurrentStep(2);
         } catch (err: any) {
@@ -80,7 +88,7 @@ export function WebAutomationFlowSimplified() {
                 elements: selectedElements.length > 0
                     ? elements.filter((_, i) => selectedElements.includes(String(i)))
                     : elements
-            });
+            }, axiosConfig);
             setTests(response.data.tests || []);
             setCurrentStep(3);
         } catch (err: any) {
@@ -99,7 +107,7 @@ export function WebAutomationFlowSimplified() {
                 tests,
                 language,
                 url
-            });
+            }, axiosConfig);
             setCode(response.data.code || '');
             setCurrentStep(4);
         } catch (err: any) {
@@ -117,7 +125,7 @@ export function WebAutomationFlowSimplified() {
             const response = await axios.post(`${API_BASE}/execute`, {
                 code,
                 language
-            });
+            }, axiosConfig);
             setResults(response.data.results);
         } catch (err: any) {
             setError(err.response?.data?.detail || 'Failed to execute code');

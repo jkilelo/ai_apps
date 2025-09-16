@@ -1,0 +1,35 @@
+name: qa
+description: QA Engineer Profile - Focus on testable elements
+version: 1.0.0
+
+filters:
+  - type: interactive
+    min_score: 0.7
+  - type: visible
+    check_viewport: true
+  - type: size
+    min_width: 10
+    min_height: 10
+
+scoring:
+  weights:
+    has_id: 0.3
+    has_name: 0.4
+    is_form_element: 0.8
+    has_validation: 0.9
+    is_clickable: 0.7
+    is_editable: 0.8
+    has_aria_label: 0.5
+
+categories:
+  - forms
+  - inputs
+  - buttons
+  - navigation
+  - validation
+
+settings:
+  include_disabled: true  # For negative testing
+  include_hidden_toggles: true  # For modal/dropdown testing
+  max_elements: 500
+  timeout: 30

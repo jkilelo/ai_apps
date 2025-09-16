@@ -1,0 +1,118 @@
+{
+  // Development Container for UI Testing Framework V3
+  "name": "UI Testing Framework V3 - Hexagonal Architecture",
+  
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "PYTHON_VERSION": "3.11"
+    }
+  },
+  
+  // Features to add to the dev container
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11",
+      "installJupyterlab": false
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers-contrib/features/playwright:1": {
+      "version": "latest"
+    }
+  },
+  
+  // Container environment variables
+  "containerEnv": {
+    "PYTHONPATH": "/workspace",
+    "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright",
+    "HEADLESS": "false"
+  },
+  
+  // Forward ports for development
+  "forwardPorts": [
+    8000,  // API server
+    9222,  // Chrome DevTools
+    5000   // Flask/FastAPI debug
+  ],
+  
+  // Use 'postCreateCommand' to run commands after the container is created
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  
+  // Use 'postStartCommand' to run commands after the container starts
+  "postStartCommand": "echo '🚀 UI Testing Framework V3 Ready!'",
+  
+  // Configure tool-specific properties
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.ruffEnabled": true,
+        "python.formatting.provider": "black",
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": [
+          "--cov=.",
+          "--cov-report=term-missing",
+          "--cov-fail-under=95"
+        ],
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.watcherExclude": {
+          "**/__pycache__/**": true,
+          "**/data/**": true,
+          "**/logs/**": true
+        }
+      },
+      
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "github.copilot",
+        "github.copilot-chat",
+        "charliermarsh.ruff",
+        "ms-python.black-formatter",
+        "ms-playwright.playwright",
+        "tamasfe.even-better-toml",
+        "davidanson.vscode-markdownlint"
+      ]
+    }
+  },
+  
+  // Mounts for persistent data
+  "mounts": [
+    {
+      "source": "ui-testing-v3-data",
+      "target": "/workspace/data",
+      "type": "volume"
+    },
+    {
+      "source": "ui-testing-v3-logs",
+      "target": "/workspace/logs",
+      "type": "volume"
+    }
+  ],
+  
+  // Run as non-root user
+  "remoteUser": "vscode",
+  
+  // Features for the container
+  "runArgs": [
+    "--cap-add=SYS_ADMIN",  // Required for Chrome sandbox
+    "--security-opt",
+    "seccomp=unconfined"    // Required for Chrome
+  ],
+  
+  // Podman-specific configuration
+  
+  
+  // Workspace settings
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  
+  // Shutdown action
+  "shutdownAction": "stopContainer"
+}

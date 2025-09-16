@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Test</title>
+</head>
+<body>
+    <h1>Testing CORS for Web Automation API</h1>
+    <button onclick="testExtract()">Test Extract API</button>
+    <pre id="result"></pre>
+
+    <script>
+    async function testExtract() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = 'Testing...';
+
+        try {
+            const response = await fetch('http://localhost:8003/api/web-automation/extract', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    url: 'https://example.com',
+                    max_elements: 10
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            resultDiv.textContent = JSON.stringify(data, null, 2);
+            console.log('Success:', data);
+        } catch (error) {
+            resultDiv.textContent = 'Error: ' + error.message;
+            console.error('Error:', error);
+        }
+    }
+    </script>
+</body>
+</html>

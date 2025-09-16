@@ -1,0 +1,100 @@
+{
+  "page_context": {
+    "url": "https://www.google.com",
+    "page_type": "search",
+    "total_interactive_elements": 4,
+    "high_priority_elements": 4
+  },
+  "testable_elements": {
+    "forms": {
+      "count": 0,
+      "elements": [],
+      "test_hints": []
+    },
+    "inputs": {
+      "count": 3,
+      "elements": [
+        {
+          "description": "Search textarea",
+          "selector": "#APjFqb",
+          "attributes": {
+            "id": "APjFqb",
+            "href": null,
+            "name": "q",
+            "type": "textarea",
+            "role": "combobox",
+            "aria-label": "Search"
+          },
+          "interaction_score": 0.9,
+          "position": "x:664, y:377"
+        },
+        {
+          "description": "Google Search input",
+          "selector": ".gNO89b",
+          "attributes": {
+            "id": null,
+            "href": null,
+            "name": "btnK",
+            "type": "submit",
+            "role": "button",
+            "aria-label": "Google Search"
+          },
+          "interaction_score": 0.9,
+          "position": "x:819.09375, y:457"
+        },
+        {
+          "description": "I'm Feeling Lucky input",
+          "selector": "#gbqfbb",
+          "attributes": {
+            "id": "gbqfbb",
+            "href": null,
+            "name": "btnI",
+            "type": "submit",
+            "role": "button",
+            "aria-label": "I'm Feeling Lucky"
+          },
+          "interaction_score": 0.9,
+          "position": "x:958.390625, y:457"
+        }
+      ],
+      "test_hints": [
+        "Test input validation rules",
+        "Test character limits",
+        "Test special characters handling"
+      ]
+    },
+    "buttons": {
+      "count": 1,
+      "elements": [
+        {
+          "description": "BUTTON",
+          "selector": ".plR5qb",
+          "attributes": {
+            "id": null,
+            "href": null,
+            "name": null,
+            "type": "button",
+            "role": "link",
+            "aria-label": null
+          },
+          "interaction_score": 1.0,
+          "position": "x:1196.859375, y:384"
+        }
+      ],
+      "test_hints": [
+        "Test button click actions",
+        "Test disabled state behavior",
+        "Test loading states"
+      ]
+    },
+    "links": {
+      "count": 0,
+      "elements": [],
+      "test_hints": []
+    }
+  },
+  "suggested_test_scenarios": [
+    "User input and submission flow"
+  ],
+  "llm_prompt_context": "Page with 4 interactive elements. Elements: 1 buttons, 1 textareas, 2 inputs. 3 elements have accessibility labels. "
+}

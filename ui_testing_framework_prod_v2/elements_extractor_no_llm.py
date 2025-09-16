@@ -25,615 +25,127 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-# Import browser module for DRY compliance
+# Import ALL data types from data_types.py for DRY compliance
 try:
-    from browser import (
-        UltimateStealthBrowser,
-        StealthConfig,
+    # Try relative import first (when used as a module)
+    from .data_types import (
+        # Core enums
+        ElementType,
+        InteractionType,
+        LocatorStrategy,
+        ExtractionMethod,
+        ConfidenceLevel,
         StealthLevel,
-        ElementData as BrowserElementData,
-        ExtractionResult as BrowserExtractionResult,
+        # Data models
+        ElementSelector,
+        BoundingBox,
+        ComputedStyle,
+        Element,
+        ScreenshotData,
+        CrawlResult,
+        StealthConfig,
+        # Configs and results
+        ExtractionConfig,
+        ExtractionResult,
+        # Utilities
+        ElementSelectorUtils,
+        retry_with_backoff,
+        ThreadSafeCache,
+        memory_cleanup,
+        # Constants
+        CONFIDENCE_BASE,
+        CONFIDENCE_INCREMENT,
+        SELECTOR_SCORE_ID,
+        SELECTOR_SCORE_DATA_TESTID,
+        SELECTOR_SCORE_ARIA_LABEL,
+        SELECTOR_SCORE_CLASS,
+        SELECTOR_SCORE_TEXT,
+        SELECTOR_SCORE_TAG,
+        SELECTOR_SCORE_XPATH,
+        SELECTOR_SCORE_POSITION,
+        ELEMENT_INTERACTIONS
+    )
+except ImportError:
+    # Fall back to absolute import (when run directly)
+    from data_types import (
+        # Core enums
+        ElementType,
+        InteractionType,
+        LocatorStrategy,
+        ExtractionMethod,
+        ConfidenceLevel,
+        StealthLevel,
+        # Data models
+        ElementSelector,
+        BoundingBox,
+        ComputedStyle,
+        Element,
+        ScreenshotData,
+        CrawlResult,
+        StealthConfig,
+        # Configs and results
+        ExtractionConfig,
+        ExtractionResult,
+        # Utilities
+        ElementSelectorUtils,
+        retry_with_backoff,
+        ThreadSafeCache,
+        memory_cleanup,
+        # Constants
+        CONFIDENCE_BASE,
+        CONFIDENCE_INCREMENT,
+        SELECTOR_SCORE_ID,
+        SELECTOR_SCORE_DATA_TESTID,
+        SELECTOR_SCORE_ARIA_LABEL,
+        SELECTOR_SCORE_CLASS,
+        SELECTOR_SCORE_TEXT,
+        SELECTOR_SCORE_TAG,
+        SELECTOR_SCORE_XPATH,
+        SELECTOR_SCORE_POSITION,
+        ELEMENT_INTERACTIONS
     )
 
+# Import browser module for DRY compliance
+try:
+    # Try relative import first (when used as a module)
+    from .browser import (
+        UltimateStealthBrowser,
+    )
     BROWSER_MODULE_AVAILABLE = True
 except ImportError:
-    BROWSER_MODULE_AVAILABLE = False
+    # Fall back to absolute import (when run directly)
+    try:
+        from browser import (
+            UltimateStealthBrowser,
+        )
+        BROWSER_MODULE_AVAILABLE = True
+    except ImportError:
+        BROWSER_MODULE_AVAILABLE = False
+        logger.warning("Browser module not found. This module requires browser.py")
 
-    logger.warning("Browser module not found. This module requires browser.py")
-
-    # Define minimal fallback types for type checking
-    class StealthConfig:  # type: ignore
-        pass
-
-    class StealthLevel:  # type: ignore
-        pass
-
-    class UltimateStealthBrowser:  # type: ignore
-        pass
-
-    class BrowserElementData:  # type: ignore
-        pass
-
-    class BrowserExtractionResult:  # type: ignore
-        pass
+        # Define minimal fallback types for type checking
+        class UltimateStealthBrowser:  # type: ignore
+            pass
 
 
 # ==================== PRODUCTION UTILITIES ====================
+# All utilities are now imported from data_types.py for DRY compliance
 
 T = TypeVar("T")
 
 
-def retry_with_backoff(
-    max_attempts: int = 3, initial_delay: float = 1.0, backoff_factor: float = 2.0
-) -> Callable[[Any], Any]:
-    """Production-grade retry decorator with exponential backoff"""
-
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
-        @functools.wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            delay = initial_delay
-            last_exception: Optional[Exception] = None
-
-            for attempt in range(max_attempts):
-                try:
-                    return await func(*args, **kwargs)
-                except Exception as e:
-                    last_exception = e
-                    if attempt < max_attempts - 1:
-                        await asyncio.sleep(delay)
-                        delay *= backoff_factor
-                    logger.warning(f"Attempt {attempt + 1}/{max_attempts} failed: {e}")
-
-            if last_exception:
-                raise last_exception
-            raise RuntimeError("Retry failed without exception")
-
-        return wrapper
-
-    return decorator
-
-
-class ThreadSafeCache:
-    """Thread-safe cache implementation"""
-
-    def __init__(self, ttl: int = 3600) -> None:
-        self._cache: Dict[str, Tuple[Any, float]] = {}
-        self._lock = threading.Lock()
-        self.ttl = ttl
-
-    def get(self, key: str) -> Optional[Any]:
-        """Get value from cache if not expired"""
-        with self._lock:
-            if key in self._cache:
-                value, timestamp = self._cache[key]
-                if time.time() - timestamp < self.ttl:
-                    return value
-                del self._cache[key]
-        return None
-
-    def set(self, key: str, value: Any) -> None:
-        """Set value in cache"""
-        with self._lock:
-            self._cache[key] = (value, time.time())
-
-    def clear(self) -> None:
-        """Clear cache"""
-        with self._lock:
-            self._cache.clear()
-
-
-def memory_cleanup() -> None:
-    """Force garbage collection to free memory"""
-    gc.collect()
-    gc.collect()
-    gc.collect()
-
-
 # ==================== ENUMS ====================
-
-
-class ElementType(Enum):
-    """Types of web elements - comprehensive list for extraction"""
-
-    # Basic form elements
-    BUTTON = "button"
-    INPUT = "input"
-    TEXTAREA = "textarea"
-    SELECT = "select"
-    CHECKBOX = "checkbox"
-    RADIO = "radio"
-
-    # Navigation
-    LINK = "link"
-    NAV = "nav"
-    MENU = "menu"
-
-    # Content
-    TEXT = "text"
-    HEADING = "heading"
-    PARAGRAPH = "paragraph"
-    LABEL = "label"
-
-    # Media
-    IMAGE = "image"
-    VIDEO = "video"
-    AUDIO = "audio"
-    CANVAS = "canvas"
-
-    # Structure
-    FORM = "form"
-    TABLE = "table"
-    LIST = "list"
-    IFRAME = "iframe"
-
-    # Layout
-    DIV = "div"
-    SPAN = "span"
-    HEADER = "header"
-    FOOTER = "footer"
-    ARTICLE = "article"
-    SECTION = "section"
-    DIALOG = "dialog"
-
-    # Interactive
-    TAB = "tab"
-    TOOLBAR = "toolbar"
-
-    # Unknown
-    UNKNOWN = "unknown"
-
-
-class InteractionType(Enum):
-    """Types of interactions possible with elements"""
-
-    CLICK = "click"
-    TYPE = "type"
-    SELECT = "select"
-    HOVER = "hover"
-    DRAG = "drag"
-    DROP = "drop"
-    SCROLL = "scroll"
-    WAIT = "wait"
-    ASSERT = "assert"
-    NAVIGATE = "navigate"
-    UPLOAD = "upload"
-    DOWNLOAD = "download"
-    CLEAR = "clear"
-    FOCUS = "focus"
-    BLUR = "blur"
-    SUBMIT = "submit"
-    RESET = "reset"
-    DOUBLE_CLICK = "double_click"
-    RIGHT_CLICK = "right_click"
-    NONE = "none"
-
-
-class LocatorStrategy(Enum):
-    """Strategies for locating elements"""
-
-    DATA_TESTID = "data-testid"
-    ID = "id"
-    NAME = "name"
-    ARIA_LABEL = "aria-label"
-    CSS_CLASS = "css-class"
-    CSS_SELECTOR = "css-selector"
-    XPATH = "xpath"
-    TEXT_CONTENT = "text-content"
-    ROLE = "role"
-    PLACEHOLDER = "placeholder"
-    VALUE = "value"
-    TITLE = "title"
-    ALT = "alt"
-    HREF = "href"
-
-
-class ExtractionMethod(Enum):
-    """Methods used for element extraction"""
-
-    DOM_QUERY = "dom_query"
-    SHADOW_DOM = "shadow_dom"
-    IFRAME = "iframe"
-    MUTATION_OBSERVER = "mutation_observer"
-    POLLING = "polling"
-    EVENT_LISTENER = "event_listener"
-    ACCESSIBILITY_TREE = "accessibility_tree"
-
-
-class ConfidenceLevel(Enum):
-    """Confidence levels for element detection"""
-
-    VERY_LOW = 0.2
-    LOW = 0.4
-    MEDIUM = 0.6
-    HIGH = 0.8
-    VERY_HIGH = 0.95
+# All enums are now imported from data_types.py for DRY compliance
 
 
 # ==================== CONSTANTS ====================
-
-# Confidence scoring weights
-CONFIDENCE_BASE = 0.5
-CONFIDENCE_INCREMENT = 0.1
-
-# Selector scoring values
-SELECTOR_SCORE_ID = 1.0
-SELECTOR_SCORE_TESTID = 0.95
-SELECTOR_SCORE_NAME = 0.85
-SELECTOR_SCORE_ARIA = 0.8
-SELECTOR_SCORE_CLASS = 0.6
-SELECTOR_SCORE_TEXT = 0.5
-SELECTOR_SCORE_DEFAULT = 0.4
-
-# Element type mappings
-TAG_TO_ELEMENT_TYPE = {
-    "button": ElementType.BUTTON,
-    "a": ElementType.LINK,
-    "input": ElementType.INPUT,
-    "textarea": ElementType.TEXTAREA,
-    "select": ElementType.SELECT,
-    "img": ElementType.IMAGE,
-    "video": ElementType.VIDEO,
-    "audio": ElementType.AUDIO,
-    "canvas": ElementType.CANVAS,
-    "iframe": ElementType.IFRAME,
-    "form": ElementType.FORM,
-    "table": ElementType.TABLE,
-    "ul": ElementType.LIST,
-    "ol": ElementType.LIST,
-    "h1": ElementType.HEADING,
-    "h2": ElementType.HEADING,
-    "h3": ElementType.HEADING,
-    "h4": ElementType.HEADING,
-    "h5": ElementType.HEADING,
-    "h6": ElementType.HEADING,
-    "p": ElementType.PARAGRAPH,
-    "label": ElementType.LABEL,
-    "nav": ElementType.NAV,
-    "footer": ElementType.FOOTER,
-    "header": ElementType.HEADER,
-    "article": ElementType.ARTICLE,
-    "section": ElementType.SECTION,
-    "dialog": ElementType.DIALOG,
-}
-
-ROLE_TO_ELEMENT_TYPE = {
-    "button": ElementType.BUTTON,
-    "link": ElementType.LINK,
-    "navigation": ElementType.NAV,
-    "menu": ElementType.MENU,
-    "toolbar": ElementType.TOOLBAR,
-    "tab": ElementType.TAB,
-    "dialog": ElementType.DIALOG,
-    "article": ElementType.ARTICLE,
-}
-
-# Interaction type mappings
-ELEMENT_INTERACTIONS = {
-    ElementType.BUTTON: [InteractionType.CLICK, InteractionType.HOVER],
-    ElementType.LINK: [InteractionType.CLICK, InteractionType.HOVER, InteractionType.NAVIGATE],
-    ElementType.INPUT: [InteractionType.TYPE, InteractionType.CLEAR, InteractionType.FOCUS],
-    ElementType.TEXTAREA: [InteractionType.TYPE, InteractionType.CLEAR, InteractionType.FOCUS],
-    ElementType.SELECT: [InteractionType.SELECT, InteractionType.CLICK],
-    ElementType.CHECKBOX: [InteractionType.CLICK],
-    ElementType.RADIO: [InteractionType.CLICK],
-    ElementType.FORM: [InteractionType.SUBMIT, InteractionType.RESET],
-}
+# All constants are now imported from data_types.py for DRY compliance
+# Using ELEMENT_INTERACTIONS from data_types.py
+# ElementSelectorUtils provides type determination logic
 
 
 # ==================== DATA MODELS ====================
-
-
-class ElementSelector(BaseModel):
-    """Represents a selector for an element"""
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    strategy: LocatorStrategy
-    value: str = Field(..., min_length=1)
-    score: float = Field(..., ge=0.0, le=1.0)
-    is_unique: bool = Field(default=False)
-    parent_context: Optional[str] = Field(default=None)
-
-
-class BoundingBox(BaseModel):
-    """Element bounding box information"""
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    x: float
-    y: float
-    width: float = Field(..., ge=0)
-    height: float = Field(..., ge=0)
-    top: float
-    right: float
-    bottom: float
-    left: float
-
-    @property
-    def center(self) -> Tuple[float, float]:
-        """Get center point of bounding box"""
-        return (self.x + self.width / 2, self.y + self.height / 2)
-
-    @property
-    def area(self) -> float:
-        """Calculate area of bounding box"""
-        return self.width * self.height
-
-    def is_visible(self) -> bool:
-        """Check if element is visible based on bounding box"""
-        return self.width > 0 and self.height > 0
-
-    def contains_point(self, x: float, y: float) -> bool:
-        """Check if point is within bounding box"""
-        return self.left <= x <= self.right and self.top <= y <= self.bottom
-
-
-class ComputedStyle(BaseModel):
-    """Computed CSS styles for an element"""
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    display: str = Field(default="block")
-    visibility: str = Field(default="visible")
-    opacity: str = Field(default="1")
-    position: str = Field(default="static")
-    z_index: str = Field(default="auto")
-    background_color: str = Field(default="transparent")
-    color: str = Field(default="black")
-    font_size: str = Field(default="16px")
-    font_weight: str = Field(default="normal")
-    cursor: str = Field(default="auto")
-    overflow: str = Field(default="visible")
-
-    def is_visible(self) -> bool:
-        """Check if element is visible based on styles"""
-        return self.display != "none" and self.visibility != "hidden" and float(self.opacity or 1) > 0
-
-
-class ScreenshotData(BaseModel):
-    """Screenshot data with metadata"""
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    format: str = Field(default="png")
-    width: int = Field(..., gt=0)
-    height: int = Field(..., gt=0)
-    data: str = Field(...)  # Base64 encoded
-    timestamp: float = Field(default_factory=time.time)
-    url: str = Field(...)
-    highlighted_elements: List[str] = Field(default_factory=list)
-
-    def save(self, path: Path) -> None:
-        """Save screenshot to file"""
-        path.write_bytes(base64.b64decode(self.data))
-
-
-class ExtractionConfig(BaseModel):
-    """Configuration for element extraction"""
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    # Extraction settings
-    enable_shadow_dom: bool = Field(default=True)
-    enable_iframe_traversal: bool = Field(default=True)
-    enable_dynamic_wait: bool = Field(default=True)
-    enable_mutation_observer: bool = Field(default=False)
-    max_depth: int = Field(default=10, ge=1, le=100)
-    max_elements: int = Field(default=1000, ge=1, le=10000)
-    extraction_timeout: int = Field(default=30000, ge=1000, le=120000)
-
-    # Filtering
-    filter_invisible: bool = Field(default=True)
-    filter_duplicates: bool = Field(default=True)
-    min_element_size: int = Field(default=5, ge=0)  # Minimum pixel size
-
-    # Anti-detection (delegated to browser.py)
-    enable_stealth: bool = Field(default=True)
-    randomize_delays: bool = Field(default=True)
-    min_delay: float = Field(default=0.1, ge=0.0, le=10.0)
-    max_delay: float = Field(default=0.5, ge=0.0, le=10.0)
-
-    # Performance
-    batch_size: int = Field(default=100, ge=1, le=1000)
-    enable_caching: bool = Field(default=True)
-    cache_ttl: int = Field(default=3600, ge=60, le=86400)  # seconds
-
-    # Output
-    include_computed_styles: bool = Field(default=True)
-    include_accessibility_info: bool = Field(default=True)
-    include_event_listeners: bool = Field(default=False)
-
-    # Screenshot settings
-    capture_screenshots: bool = Field(default=False)
-    screenshot_full_page: bool = Field(default=True)
-    screenshot_format: str = Field(default="png", pattern="^(png|jpeg|jpg)$")
-    screenshot_quality: int = Field(default=90, ge=1, le=100)
-    highlight_elements: bool = Field(default=True)
-    highlight_color: str = Field(default="red")
-    highlight_width: int = Field(default=2, ge=1, le=10)
-    
-    # QA-focused extraction settings
-    qa_mode: bool = Field(default=False, description="Extract only QA-relevant interactive elements")
-    qa_priority_tags: List[str] = Field(
-        default_factory=lambda: [
-            'button', 'input', 'textarea', 'select', 'a', 
-            'form', 'label', 'option', 'datalist', 'output'
-        ],
-        description="Priority tags for QA testing"
-    )
-    qa_interaction_indicators: List[str] = Field(
-        default_factory=lambda: [
-            'onclick', 'onchange', 'oninput', 'onsubmit', 
-            'ng-click', 'v-on:', '@click', 'data-action',
-            'data-toggle', 'data-target', 'href', 'formaction'
-        ],
-        description="Attributes indicating interactivity"
-    )
-    qa_min_interaction_score: float = Field(default=0.7, ge=0.0, le=1.0, description="Minimum interaction score for QA relevance")
-    qa_include_disabled: bool = Field(default=True, description="Include disabled elements for negative testing")
-    qa_include_hidden_toggles: bool = Field(default=True, description="Include elements that become visible on interaction")
-
-
-class ExtractionResult(BaseModel):
-    """Result of element extraction"""
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    url: str = Field(..., min_length=1)
-    elements: List["ExtractedElement"] = Field(default_factory=list)
-    extraction_time: float = Field(..., ge=0.0)
-    success: bool = Field(default=True)
-    errors: List[str] = Field(default_factory=list)
-    warnings: List[str] = Field(default_factory=list)
-    statistics: Dict[str, Any] = Field(default_factory=dict)
-    screenshots: List[ScreenshotData] = Field(default_factory=list)
-    metadata: Dict[str, Any] = Field(default_factory=dict)
-
-    def save_screenshots(self, directory: Path) -> List[Path]:
-        """Save all screenshots to directory"""
-        saved_paths: List[Path] = []
-        directory.mkdir(parents=True, exist_ok=True)
-
-        for i, screenshot in enumerate(self.screenshots):
-            filename = f"{urlparse(self.url).netloc}_{i+1}_{int(screenshot.timestamp)}.{screenshot.format}"
-            path = directory / filename
-            screenshot.save(path)
-            saved_paths.append(path)
-
-        return saved_paths
-
-
-class CrawlResult(BaseModel):
-    """Result of web crawling"""
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    start_url: str = Field(..., min_length=1)
-    pages_visited: List[str] = Field(default_factory=list)
-    extraction_results: List[ExtractionResult] = Field(default_factory=list)
-    total_elements: int = Field(default=0, ge=0)
-    crawl_time: float = Field(..., ge=0.0)
-    max_depth_reached: int = Field(default=0, ge=0)
-    errors: List[str] = Field(default_factory=list)
-
-
-# ==================== EXTRACTED ELEMENT MODEL ====================
-
-
-class ExtractedElement(BaseModel):
-    """
-    Core model for extracted web elements.
-    This is the single source of truth for all element data in the system.
-    """
-
-    model_config = ConfigDict(str_strip_whitespace=True)
-
-    # Core identification
-    selector: str = Field(..., min_length=1, description="Primary selector (CSS or XPath)")
-    element_type: ElementType = Field(..., description="Type of element")
-    tag_name: str = Field(..., min_length=1, description="HTML tag name")
-
-    # Content
-    text: Optional[str] = Field(None, description="Visible text content")
-    value: Optional[str] = Field(None, description="Input value")
-    placeholder: Optional[str] = Field(None, description="Placeholder text")
-
-    # Attributes
-    id: Optional[str] = Field(None, description="Element ID")
-    name: Optional[str] = Field(None, description="Element name attribute")
-    classes: List[str] = Field(default_factory=list, description="CSS classes")
-    attributes: Dict[str, str] = Field(default_factory=dict, description="All attributes")
-
-    # Interaction capabilities
-    is_clickable: bool = Field(False, description="Can be clicked")
-    is_editable: bool = Field(False, description="Can accept input")
-    is_visible: bool = Field(True, description="Currently visible")
-    is_enabled: bool = Field(True, description="Currently enabled")
-
-    # Advanced selectors
-    xpath: Optional[str] = Field(None, description="XPath selector")
-    css_path: Optional[str] = Field(None, description="CSS selector")
-    selectors: List[ElementSelector] = Field(default_factory=list, description="All possible selectors")
-
-    # Position and style
-    bounding_box: Optional[BoundingBox] = Field(None, description="Element position and size")
-    computed_style: Optional[ComputedStyle] = Field(None, description="Computed CSS styles")
-
-    # Hierarchy
-    parent_selector: Optional[str] = Field(None, description="Parent element selector")
-    child_count: int = Field(0, ge=0, description="Number of child elements")
-    depth: int = Field(0, ge=0, description="Depth in DOM tree")
-
-    # Classification
-    interaction_types: List[InteractionType] = Field(default_factory=list, description="Possible interactions")
-    confidence: float = Field(0.5, ge=0.0, le=1.0, description="Extraction confidence")
-    importance_score: float = Field(0.5, ge=0.0, le=1.0, description="Element importance")
-
-    # Metadata
-    extraction_method: Optional[ExtractionMethod] = Field(None, description="How element was extracted")
-    extraction_timestamp: float = Field(default_factory=time.time, description="When extracted")
-    is_shadow_element: bool = Field(False, description="Is inside shadow DOM")
-    is_iframe_element: bool = Field(False, description="Is inside iframe")
-
-    # Validation
-    is_valid: bool = Field(True, description="Element is valid for testing")
-    validation_errors: List[str] = Field(default_factory=list, description="Validation errors")
-
-    # AI Analysis (optional, filled by elements_extractor_with_llm)
-    ai_description: Optional[str] = Field(None, description="AI-generated description")
-    test_suggestions: List[str] = Field(default_factory=list, description="AI test suggestions")
-    ai_confidence: Optional[float] = Field(None, description="AI analysis confidence")
-
-    @field_validator("selector")
-    @classmethod
-    def validate_selector(cls, v: str) -> str:
-        """Ensure selector is not empty"""
-        if not v or not v.strip():
-            raise ValueError("Selector cannot be empty")
-        return v.strip()
-
-    @model_validator(mode="after")
-    def set_primary_selector(self):
-        """Set primary selector from xpath or css_path if not provided"""
-        if not self.selector:
-            if self.xpath:
-                self.selector = self.xpath
-            elif self.css_path:
-                self.selector = self.css_path
-        return self
-
-    def get_best_selector(self) -> Optional[ElementSelector]:
-        """Get the best selector for this element"""
-        if not self.selectors:
-            return None
-        return max(self.selectors, key=lambda s: s.score)
-
-    def to_pipeline_contract(self) -> Dict[str, Any]:
-        """
-        Convert to simplified pipeline contract format.
-        This is used by downstream modules that need less detail.
-        """
-        return {
-            "selector": self.selector,
-            "element_type": self.element_type.value,
-            "tag_name": self.tag_name,
-            "text": self.text,
-            "value": self.value,
-            "placeholder": self.placeholder,
-            "id": self.id,
-            "name": self.name,
-            "classes": self.classes,
-            "attributes": self.attributes,
-            "is_clickable": self.is_clickable,
-            "is_editable": self.is_editable,
-            "is_visible": self.is_visible,
-            "is_enabled": self.is_enabled,
-            "parent_selector": self.parent_selector,
-            "child_count": self.child_count,
-            "ai_description": self.ai_description,
-            "test_suggestions": self.test_suggestions,
-            "importance_score": self.importance_score,
-        }
+# All data models are now imported from data_types.py for DRY compliance
 
 
 # ==================== MAIN EXTRACTOR CLASS ====================
@@ -648,7 +160,7 @@ class ElementsExtractorNoLLM:
     def __init__(self, config: Optional[ExtractionConfig] = None) -> None:
         """Initialize the extractor"""
         self.config = config or ExtractionConfig()
-        self._cache = ThreadSafeCache(ttl=self.config.cache_ttl) if self.config.enable_caching else None
+        self._cache = ThreadSafeCache(max_size=1000) if self.config.enable_caching else None
         self._browser: Optional[UltimateStealthBrowser] = None
         self._lock = asyncio.Lock()
 
@@ -667,7 +179,7 @@ class ElementsExtractorNoLLM:
                 # Configure stealth based on extraction config
                 stealth_config = StealthConfig()
                 stealth_config.headless = False
-                stealth_config.level = StealthLevel.ADVANCED if self.config.enable_stealth else StealthLevel.BASIC
+                stealth_config.level = StealthLevel.HIGH if self.config.enable_stealth else StealthLevel.LOW
 
                 self._browser = UltimateStealthBrowser(stealth_config)
                 await self._browser.initialize()
@@ -706,7 +218,7 @@ class ElementsExtractorNoLLM:
             browser_result = await browser.extract_elements(url)
 
             # Convert browser result to our format
-            elements = self._convert_browser_elements(browser_result.elements)
+            elements = self._process_browser_elements(browser_result.elements)
 
             # Apply additional filtering and processing
             elements = self._filter_elements(elements)
@@ -749,155 +261,32 @@ class ElementsExtractorNoLLM:
                 url=url, elements=[], extraction_time=time.time() - start_time, success=False, errors=[str(e)]
             )
 
-    def _convert_browser_elements(self, browser_elements: List[BrowserElementData]) -> List[ExtractedElement]:
-        """Convert browser elements to our format"""
-        converted: List[ExtractedElement] = []
-
-        for be in browser_elements:
-            # Map browser element type to our type
-            element_type = self._map_element_type(be.tag_name, be.attributes)
-
-            # Create extracted element with full data
-            # Use xpath as selector if available, otherwise use css_selector
-            selector = be.xpath if be.xpath else be.css_selector if be.css_selector else f"//{be.tag_name}"
-
-            # Extract classes from attributes
-            classes = []
-            if "class" in be.attributes:
-                classes = be.attributes["class"].split()
-
-            # Determine if clickable based on tag and attributes
-            is_clickable = (
-                be.tag_name in ["button", "a", "input", "select"]
-                or be.attributes.get("onclick") is not None
-                or be.attributes.get("role") == "button"
-                or element_type in [ElementType.BUTTON, ElementType.LINK]
+    def _process_browser_elements(self, browser_elements: List[Element]) -> List[Element]:
+        """Process browser elements - browser already returns Element objects"""
+        # Browser already returns Element objects with correct types
+        # Just update element types using ElementSelectorUtils if needed
+        for element in browser_elements:
+            # Ensure element type is correctly determined using shared utils
+            element.element_type = ElementSelectorUtils.determine_element_type(
+                tag_name=element.tag_name,
+                elem_type=element.attributes.get("type"),
+                role=element.attributes.get("role"),
+                input_type=element.attributes.get("type") if element.tag_name.lower() == "input" else None
             )
+        return browser_elements
 
-            # Determine if editable
-            is_editable = (
-                be.tag_name in ["input", "textarea", "select"]
-                or be.attributes.get("contenteditable") == "true"
-                or element_type in [ElementType.INPUT, ElementType.TEXTAREA, ElementType.SELECT]
-            )
+    def _determine_element_type(self, element: Element) -> ElementType:
+        """Determine element type using shared utilities"""
+        return ElementSelectorUtils.determine_element_type(
+            tag_name=element.tag_name,
+            elem_type=element.attributes.get("type"),
+            role=element.attributes.get("role"),
+            input_type=element.attributes.get("type") if element.tag_name.lower() == "input" else None
+        )
 
-            element = ExtractedElement(
-                # Required fields
-                selector=selector,
-                element_type=element_type,
-                tag_name=be.tag_name,
-                # Content fields
-                text=be.text_content,
-                value=be.value or be.attributes.get("value"),
-                placeholder=be.placeholder or be.attributes.get("placeholder"),
-                # Attributes
-                id=be.id or be.attributes.get("id"),
-                name=be.name or be.attributes.get("name"),
-                classes=be.class_names if be.class_names else classes,
-                attributes=be.attributes,
-                # Interaction capabilities
-                is_clickable=is_clickable,
-                is_editable=is_editable,
-                is_visible=be.is_visible,
-                is_enabled=be.is_enabled,
-                # Selectors
-                xpath=be.xpath,
-                css_path=be.css_selector,
-                # Position (will be None by default)
-                bounding_box=None,
-                computed_style=None,
-                # Hierarchy (using defaults)
-                parent_selector=None,
-                child_count=0,
-                depth=0,
-                # Classification
-                confidence=0.8,
-                importance_score=0.5,
-                # Metadata
-                extraction_method=ExtractionMethod.DOM_QUERY,
-                is_shadow_element=False,
-                is_iframe_element=False,
-                # Validation
-                is_valid=True,
-                # AI fields (will be None by default)
-                ai_description=None,
-                ai_confidence=None,
-            )
-
-            converted.append(element)
-
-        return converted
-
-    def _map_element_type(self, tag_name: str, attributes: Dict[str, str]) -> ElementType:
-        """Map HTML tag and attributes to element type"""
-        tag_lower = tag_name.lower()
-
-        # Direct tag mappings
-        tag_map = {
-            "button": ElementType.BUTTON,
-            "a": ElementType.LINK,
-            "input": ElementType.INPUT,
-            "textarea": ElementType.TEXTAREA,
-            "select": ElementType.SELECT,
-            "img": ElementType.IMAGE,
-            "video": ElementType.VIDEO,
-            "audio": ElementType.AUDIO,
-            "canvas": ElementType.CANVAS,
-            "iframe": ElementType.IFRAME,
-            "form": ElementType.FORM,
-            "table": ElementType.TABLE,
-            "ul": ElementType.LIST,
-            "ol": ElementType.LIST,
-            "h1": ElementType.HEADING,
-            "h2": ElementType.HEADING,
-            "h3": ElementType.HEADING,
-            "h4": ElementType.HEADING,
-            "h5": ElementType.HEADING,
-            "h6": ElementType.HEADING,
-            "p": ElementType.PARAGRAPH,
-            "label": ElementType.LABEL,
-            "nav": ElementType.NAV,
-            "footer": ElementType.FOOTER,
-            "header": ElementType.HEADER,
-            "article": ElementType.ARTICLE,
-            "section": ElementType.SECTION,
-            "dialog": ElementType.DIALOG,
-        }
-
-        if tag_lower in tag_map:
-            element_type = tag_map[tag_lower]
-
-            # Special handling for input types
-            if tag_lower == "input":
-                input_type = attributes.get("type", "text").lower()
-                if input_type == "checkbox":
-                    element_type = ElementType.CHECKBOX
-                elif input_type == "radio":
-                    element_type = ElementType.RADIO
-
-            return element_type
-
-        # Check for role attribute
-        role = attributes.get("role", "").lower()
-        if role:
-            role_map = {
-                "button": ElementType.BUTTON,
-                "link": ElementType.LINK,
-                "navigation": ElementType.NAV,
-                "menu": ElementType.MENU,
-                "toolbar": ElementType.TOOLBAR,
-                "tab": ElementType.TAB,
-                "dialog": ElementType.DIALOG,
-                "article": ElementType.ARTICLE,
-            }
-            if role in role_map:
-                return role_map[role]
-
-        return ElementType.UNKNOWN
-
-    def _filter_elements(self, elements: List[ExtractedElement]) -> List[ExtractedElement]:
+    def _filter_elements(self, elements: List[Element]) -> List[Element]:
         """Filter elements based on configuration"""
-        filtered: List[ExtractedElement] = []
+        filtered: List[Element] = []
         seen_hashes: Set[str] = set()
 
         for element in elements:
@@ -933,7 +322,7 @@ class ElementsExtractorNoLLM:
 
         return filtered
 
-    def _hash_element(self, element: ExtractedElement) -> str:
+    def _hash_element(self, element: Element) -> str:
         """Generate hash for element deduplication"""
         key_parts = [
             element.tag_name,
@@ -944,28 +333,14 @@ class ElementsExtractorNoLLM:
         ]
         return hashlib.md5("".join(key_parts).encode()).hexdigest()
 
-    def _classify_elements(self, elements: List[ExtractedElement]) -> List[ExtractedElement]:
+    def _classify_elements(self, elements: List[Element]) -> List[Element]:
         """Classify elements and determine interaction types"""
         for element in elements:
-            # Determine interaction types
-            interactions: List[InteractionType] = []
-
-            if element.element_type == ElementType.BUTTON:
-                interactions = [InteractionType.CLICK, InteractionType.HOVER]
-            elif element.element_type == ElementType.LINK:
-                interactions = [InteractionType.CLICK, InteractionType.HOVER, InteractionType.NAVIGATE]
-            elif element.element_type in [ElementType.INPUT, ElementType.TEXTAREA]:
-                interactions = [InteractionType.TYPE, InteractionType.CLEAR, InteractionType.FOCUS]
-            elif element.element_type == ElementType.SELECT:
-                interactions = [InteractionType.SELECT, InteractionType.CLICK]
-            elif element.element_type in [ElementType.CHECKBOX, ElementType.RADIO]:
-                interactions = [InteractionType.CLICK]
-            elif element.element_type == ElementType.FORM:
-                interactions = [InteractionType.SUBMIT, InteractionType.RESET]
-            else:
-                interactions = [InteractionType.NONE]
-
-            element.interaction_types = interactions
+            # Use shared ELEMENT_INTERACTIONS mapping from data_types.py
+            element.interaction_types = ELEMENT_INTERACTIONS.get(
+                element.element_type,
+                [InteractionType.HOVER]  # Default to hover if not in mapping
+            )
 
             # Calculate confidence based on element completeness
             confidence = 0.5
@@ -973,7 +348,7 @@ class ElementsExtractorNoLLM:
                 confidence += 0.1
             if element.xpath:
                 confidence += 0.1
-            if element.css_path:
+            if element.css_selector:
                 confidence += 0.1
             if element.attributes:
                 confidence += 0.1
@@ -984,13 +359,13 @@ class ElementsExtractorNoLLM:
 
         return elements
 
-    def _generate_selectors(self, elements: List[ExtractedElement]) -> List[ExtractedElement]:
+    def _generate_selectors(self, elements: List[Element]) -> List[Element]:
         """Generate multiple selector strategies for each element"""
         for element in elements:
             element.selectors = self._create_selectors_for_element(element)
         return elements
 
-    def _create_selectors_for_element(self, element: ExtractedElement) -> List[ElementSelector]:
+    def _create_selectors_for_element(self, element: Element) -> List[ElementSelector]:
         """Create selector strategies for a single element"""
         selectors: List[ElementSelector] = []
         attrs = element.attributes
@@ -999,12 +374,12 @@ class ElementsExtractorNoLLM:
         selector_strategies = [
             # (attribute_key, strategy, value_formatter, score, is_unique)
             ("id", LocatorStrategy.ID, lambda v: f"#{v}", SELECTOR_SCORE_ID, True),
-            ("data-testid", LocatorStrategy.DATA_TESTID,
-             lambda v: f"[data-testid='{v}']", SELECTOR_SCORE_TESTID, True),
+            ("data-testid", LocatorStrategy.TESTID,
+             lambda v: f"[data-testid='{v}']", SELECTOR_SCORE_DATA_TESTID, True),
             ("name", LocatorStrategy.NAME,
-             lambda v: f"[name='{v}']", SELECTOR_SCORE_NAME, False),
-            ("aria-label", LocatorStrategy.ARIA_LABEL,
-             lambda v: f"[aria-label='{v}']", SELECTOR_SCORE_ARIA, False),
+             lambda v: f"[name='{v}']", 0.85, False),
+            ("aria-label", LocatorStrategy.LABEL,
+             lambda v: f"[aria-label='{v}']", SELECTOR_SCORE_ARIA_LABEL, False),
         ]
 
         # Generate attribute-based selectors
@@ -1037,7 +412,7 @@ class ElementsExtractorNoLLM:
             text_snippet = element.text[:50]
             selectors.append(
                 ElementSelector(
-                    strategy=LocatorStrategy.TEXT_CONTENT,
+                    strategy=LocatorStrategy.TEXT,
                     value=f"{element.tag_name}:has-text('{text_snippet}')",
                     score=SELECTOR_SCORE_TEXT,
                     is_unique=False
@@ -1051,14 +426,14 @@ class ElementsExtractorNoLLM:
                 ElementSelector(
                     strategy=LocatorStrategy.XPATH if is_xpath else LocatorStrategy.CSS_SELECTOR,
                     value=element.selector,
-                    score=SELECTOR_SCORE_DEFAULT,
+                    score=0.4,
                     is_unique=False
                 )
             )
 
         return selectors
 
-    def _calculate_statistics(self, elements: List[ExtractedElement], extraction_time: float) -> Dict[str, Any]:
+    def _calculate_statistics(self, elements: List[Element], extraction_time: float) -> Dict[str, Any]:
         """Calculate extraction statistics"""
         stats: Dict[str, Any] = {
             "total_elements": len(elements),
@@ -1099,7 +474,7 @@ class ElementsExtractorNoLLM:
         return stats
 
     async def _capture_screenshots(
-        self, browser: UltimateStealthBrowser, url: str, elements: List[ExtractedElement]
+        self, browser: UltimateStealthBrowser, url: str, elements: List[Element]
     ) -> List[ScreenshotData]:
         """Capture screenshots with element highlighting"""
         screenshots: List[ScreenshotData] = []
@@ -1285,7 +660,7 @@ class ElementsExtractorNoLLM:
 
     # ==================== QA-FOCUSED METHODS ====================
     
-    def _calculate_qa_interaction_score(self, element: ExtractedElement) -> float:
+    def _calculate_qa_interaction_score(self, element: Element) -> float:
         """
         Calculate QA relevance score for an element (0.0 to 1.0)
         Senior QA perspective: Focus on testability and user interaction points
@@ -1353,7 +728,7 @@ class ElementsExtractorNoLLM:
         
         return min(score, 1.0)  # Cap at 1.0
 
-    def _is_qa_relevant_element(self, element: ExtractedElement) -> bool:
+    def _is_qa_relevant_element(self, element: Element) -> bool:
         """
         Determine if element is relevant for QA testing
         Senior QA perspective: Filter noise, focus on testable interactions
@@ -1401,7 +776,7 @@ class ElementsExtractorNoLLM:
         
         return True
     
-    def _might_toggle_visibility(self, element: ExtractedElement) -> bool:
+    def _might_toggle_visibility(self, element: Element) -> bool:
         """Check if hidden element might become visible through interaction"""
         if not element.attributes:
             return False
@@ -1415,8 +790,8 @@ class ElementsExtractorNoLLM:
         return any(ind in element.attributes for ind in toggle_indicators)
     
     def get_qa_test_elements(self, 
-                             elements: List[ExtractedElement],
-                             category: Optional[str] = None) -> List[ExtractedElement]:
+                             elements: List[Element],
+                             category: Optional[str] = None) -> List[Element]:
         """
         Get elements filtered by QA test category
         Categories: 'input', 'navigation', 'action', 'validation', 'form'
@@ -1439,7 +814,7 @@ class ElementsExtractorNoLLM:
         
         return elements
     
-    def get_qa_summary(self, elements: List[ExtractedElement]) -> Dict[str, Any]:
+    def get_qa_summary(self, elements: List[Element]) -> Dict[str, Any]:
         """Generate QA-focused summary of extracted elements"""
         return {
             'total_interactive': sum(1 for e in elements if e.is_clickable or e.is_editable),
@@ -1455,6 +830,67 @@ class ElementsExtractorNoLLM:
             'keyboard_accessible': sum(1 for e in elements if e.attributes and 
                                       'tabindex' in e.attributes and e.attributes['tabindex'] != '-1')
         }
+
+
+# ==================== STANDALONE FUNCTIONS ====================
+
+async def extract_elements(url: str, config: Optional[ExtractionConfig] = None) -> Optional[ExtractionResult]:
+    """
+    Standalone function to extract elements from a URL
+
+    Args:
+        url: The URL to extract elements from
+        config: Optional extraction configuration
+
+    Returns:
+        ExtractionResult or None if extraction fails
+    """
+    extractor = ElementsExtractorNoLLM(config)
+    try:
+        result = await extractor.extract_from_url(url)
+        return result if result.success else None
+    finally:
+        await extractor.cleanup()
+
+
+async def crawl_website(
+    start_url: str,
+    max_pages: int = 10,
+    max_depth: int = 2,
+    config: Optional[ExtractionConfig] = None
+) -> CrawlResult:
+    """
+    Standalone function to crawl a website and extract elements
+
+    Args:
+        start_url: The starting URL for crawling
+        max_pages: Maximum number of pages to crawl
+        max_depth: Maximum depth for crawling
+        config: Optional extraction configuration
+
+    Returns:
+        CrawlResult containing all extraction results
+    """
+    extractor = ElementsExtractorNoLLM(config)
+    try:
+        result = await extractor.crawl(start_url, max_pages, max_depth)
+        return result
+    finally:
+        await extractor.cleanup()
+
+
+def extract_elements_sync(url: str, config: Optional[ExtractionConfig] = None) -> Optional[ExtractionResult]:
+    """
+    Synchronous wrapper for extract_elements
+
+    Args:
+        url: The URL to extract elements from
+        config: Optional extraction configuration
+
+    Returns:
+        ExtractionResult or None if extraction fails
+    """
+    return asyncio.run(extract_elements(url, config))
 
 
 # ==================== EXAMPLE USAGE ====================

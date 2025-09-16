@@ -1,0 +1,32 @@
+name: interactive
+description: Pure focus on interactive elements
+version: 1.0.0
+
+filters:
+  - type: interactive
+    min_score: 0.5
+    strict: true
+  - type: visible
+    required: true
+
+scoring:
+  weights:
+    is_clickable: 1.0
+    is_editable: 0.9
+    has_event_handlers: 0.8
+    has_href: 0.7
+    has_role_button: 0.9
+    has_tabindex: 0.6
+    is_form_control: 0.8
+
+categories:
+  - clickable
+  - editable
+  - navigational
+  - form_controls
+  - keyboard_accessible
+
+settings:
+  strict_interactive: true
+  max_elements: 1000
+  timeout: 30

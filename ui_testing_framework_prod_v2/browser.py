@@ -48,6 +48,58 @@ logger = logging.getLogger(__name__)
 T = TypeVar("T")
 
 # ============================================================================
+# LOCAL IMPORTS
+# ============================================================================
+try:
+    # Try relative import first (when used as a module)
+    from .data_types import (
+        # Core enums
+        ElementType,
+        ProfileType,
+        StealthLevel,
+        ExtractionStrategy,
+        # Data models
+        TimingProfile,
+        StealthProfile,
+        StealthConfig,
+        Element,
+        BoundingBox,
+        # Results
+        ExtractionResult,
+        # Exceptions
+        BrowserError,
+        NavigationError,
+        ExtractionError,
+        TimeoutError,
+        # Utilities
+        ElementSelectorUtils
+    )
+except ImportError:
+    # Fall back to absolute import (when run directly)
+    from data_types import (
+        # Core enums
+        ElementType,
+        ProfileType,
+        StealthLevel,
+        ExtractionStrategy,
+        # Data models
+        TimingProfile,
+        StealthProfile,
+        StealthConfig,
+        Element,
+        BoundingBox,
+        # Results
+        ExtractionResult,
+        # Exceptions
+        BrowserError,
+        NavigationError,
+        ExtractionError,
+        TimeoutError,
+        # Utilities
+        ElementSelectorUtils
+    )
+
+# ============================================================================
 # THIRD-PARTY IMPORTS WITH GRACEFUL FALLBACKS
 # ============================================================================
 try:
@@ -150,667 +202,21 @@ def get_chrome_executable_path() -> Optional[str]:
 # ============================================================================
 
 
-class ElementType(str, Enum):
-    """Comprehensive element type enumeration"""
-
-    # Form elements
-    TEXT_INPUT = "text_input"
-    PASSWORD = "password"
-    EMAIL = "email"
-    NUMBER = "number"
-    CHECKBOX = "checkbox"
-    RADIO = "radio"
-    SELECT = "select"
-    TEXTAREA = "textarea"
-    FILE_INPUT = "file_input"
-    DATE_INPUT = "date_input"
-    TIME_INPUT = "time_input"
-    SEARCH = "search"
-    TEL = "tel"
-    URL = "url"
-    RANGE = "range"
-    COLOR = "color"
-
-    # Interactive elements
-    BUTTON = "button"
-    LINK = "link"
-    SUBMIT = "submit"
-    IMAGE = "image"
-    VIDEO = "video"
-    AUDIO = "audio"
-    CANVAS = "canvas"
-
-    # Layout elements
-    DIV = "div"
-    SPAN = "span"
-    HEADER = "header"
-    FOOTER = "footer"
-    NAV = "nav"
-    SECTION = "section"
-    ARTICLE = "article"
-    ASIDE = "aside"
-    MAIN = "main"
-
-    # List elements
-    LIST = "list"
-    LIST_ITEM = "list_item"
-
-    # Table elements
-    TABLE = "table"
-    TABLE_ROW = "table_row"
-    TABLE_CELL = "table_cell"
-    TABLE_HEADER = "table_header"
-
-    # Other
-    IFRAME = "iframe"
-    FORM = "form"
-    LABEL = "label"
-    HEADING = "heading"
-    PARAGRAPH = "paragraph"
-    CODE = "code"
-    PRE = "pre"
-    UNKNOWN = "unknown"
-
-
-class ProfileType(str, Enum):
-    """Browser profile types"""
-
-    CHROME_STANDARD = "chrome_standard"
-    CHROME_MOBILE = "chrome_mobile"
-    FIREFOX_STANDARD = "firefox_standard"
-    SAFARI_STANDARD = "safari_standard"
-    EDGE_STANDARD = "edge_standard"
-
-
-class StealthLevel(str, Enum):
-    """Stealth levels for browser automation"""
-
-    NONE = "none"
-    BASIC = "basic"
-    MODERATE = "moderate"
-    ADVANCED = "advanced"
-    MAXIMUM = "maximum"
-
-
-class ExtractionStrategy(str, Enum):
-    """Element extraction strategies"""
-
-    DOM_INSPECTION = "dom_inspection"
-    ARIA_SEMANTIC = "aria_semantic"
-    EVENT_LISTENERS = "event_listeners"
-    VISUAL_ANALYSIS = "visual_analysis"
-    DYNAMIC_PROBING = "dynamic_probing"
+# ElementType is now imported from data_types.py
 
 
 # ============================================================================
-# DATA MODELS LAYER (from browser_contracts.py)
+# DATA MODELS LAYER 
+# All data models are imported from data_types.py to follow DRY principles
 # ============================================================================
-
-
-class TimingProfile(BaseModel):
-    """Timing configuration for human-like behavior"""
-
-    model_config = ConfigDict(str_strip_whitespace=True) if HAS_PYDANTIC else {}
-
-    element_analysis_delay: Tuple[int, int] = Field(default=(10, 50), description="min, max in ms")
-    cookie_consent_wait: Tuple[int, int] = Field(default=(1500, 2500))
-    cookie_button_hover: Tuple[int, int] = Field(default=(300, 700))
-    cookie_post_click: Tuple[int, int] = Field(default=(500, 1000))
-    trust_initial_wait: Tuple[int, int] = Field(default=(2000, 4000))
-    trust_link_hover: Tuple[int, int] = Field(default=(500, 1000))
-    trust_scroll_pause: Tuple[int, int] = Field(default=(500, 2000))
-    stability_initial: Tuple[int, int] = Field(default=(500, 1500))
-    network_idle_timeout: int = Field(default=15000)
-    challenge_wait: Tuple[int, int] = Field(default=(3000, 5000))
-    challenge_complete: Tuple[int, int] = Field(default=(2000, 3000))
-    selector_batch_delay: Tuple[int, int] = Field(default=(50, 150))
-    event_extraction_delay: Tuple[int, int] = Field(default=(100, 300))
-    dynamic_content_wait: Tuple[int, int] = Field(default=(1000, 2000))
-    dynamic_content_trigger: Tuple[int, int] = Field(default=(500, 1000))
-    mouse_move_steps: Tuple[int, int] = Field(default=(15, 25))
-    mouse_step_delay: Tuple[int, int] = Field(default=(10, 30))
-    typing_base_delay: Tuple[int, int] = Field(default=(80, 150))
-
-
-class StealthProfile(BaseModel):
-    """Stealth configuration for anti-detection"""
-
-    model_config = ConfigDict(str_strip_whitespace=True) if HAS_PYDANTIC else {}
-
-    hide_webdriver: bool = Field(default=True)
-    hide_automation_indicators: bool = Field(default=True)
-    hide_cdp_properties: bool = Field(default=True)
-    spoof_plugins: bool = Field(default=True)
-    spoof_languages: bool = Field(default=True)
-    spoof_chrome_runtime: bool = Field(default=True)
-    spoof_permissions: bool = Field(default=True)
-    prevent_webrtc_leak: bool = Field(default=True)
-    spoof_canvas_fingerprint: bool = Field(default=True)
-    spoof_battery_api: bool = Field(default=True)
-    randomize_hardware_concurrency: bool = Field(default=True)
-    randomize_device_memory: bool = Field(default=True)
-    normalize_screen_properties: bool = Field(default=True)
-    spoof_webgl: bool = Field(default=True)
-    build_trust: bool = Field(default=True)
-    trust_safe_domains: List[str] = Field(
-        default_factory=lambda: ["google.com", "wikipedia.org", "github.com", "youtube.com"]
-    )
-
-
-class StealthConfig(BaseModel):
-    """Complete stealth configuration"""
-
-    model_config = ConfigDict(str_strip_whitespace=True) if HAS_PYDANTIC else {}
-
-    # Core settings
-    level: StealthLevel = Field(default=StealthLevel.MAXIMUM)
-    headless: bool = Field(default=False)
-
-    # Stealth features
-    hide_webdriver: bool = Field(default=True)
-    hide_automation_indicators: bool = Field(default=True)
-    spoof_plugins: bool = Field(default=True)
-    spoof_languages: bool = Field(default=True)
-    spoof_chrome_runtime: bool = Field(default=True)
-    prevent_webrtc_leak: bool = Field(default=True)
-    spoof_canvas_fingerprint: bool = Field(default=True)
-    randomize_fingerprint: bool = Field(default=True)
-    spoof_webgl: bool = Field(default=True)
-    spoof_battery: bool = Field(default=True)
-    spoof_hardware: bool = Field(default=True)
-    bypass_csp: bool = Field(default=True)
-    block_webrtc: bool = Field(default=True)
-
-    # Viewport and window
-    viewport_width: int = Field(default=1920)
-    viewport_height: int = Field(default=1080)
-    device_scale_factor: float = Field(default=1.0)
-    is_mobile: bool = Field(default=False)
-    has_touch: bool = Field(default=False)
-    is_landscape: bool = Field(default=True)
-
-    # User agent
-    user_agent: Optional[str] = Field(default=None)
-
-    # Proxy
-    proxy_server: Optional[str] = Field(default=None)
-    proxy_username: Optional[str] = Field(default=None)
-    proxy_password: Optional[str] = Field(default=None)
-
-    # Performance
-    slow_mo: int = Field(default=0)
-    default_timeout: int = Field(default=30000)
-    timeout: int = Field(default=30)
-
-    # Advanced
-    ignore_https_errors: bool = Field(default=False)
-    extra_headers: Optional[Dict[str, str]] = Field(default=None)
-    custom_args: List[str] = Field(default_factory=list)
-
-    # Bypass options
-    bypass_cloudflare: bool = Field(default=False)
-    bypass_f5_networks: bool = Field(default=False)
-    bypass_shape_security: bool = Field(default=False)
-    bypass_datadome: bool = Field(default=False)
-    bypass_kasada: bool = Field(default=False)
-
-    # Locale and timezone
-    locale: str = Field(default="en-US")
-    timezone: str = Field(default="America/New_York")
-
-    # Human simulation
-    enable_human_delays: bool = Field(default=True)
-    enable_human_mouse: bool = Field(default=True)
-    enable_human_typing: bool = Field(default=True)
-    enable_human_scrolling: bool = Field(default=True)
-    enable_micro_behaviors: bool = Field(default=True)
-    human_delay_range: Tuple[int, int] = Field(default=(500, 2000))
-    use_lognormal_delays: bool = Field(default=True)
-    use_bspline_mouse: bool = Field(default=True)
-    typing_delay_range: Tuple[int, int] = Field(default=(50, 150))
-    max_retry_attempts: int = Field(default=3)
-
-    # Shadow DOM extraction settings
-    enable_shadow_dom_extraction: bool = Field(default=True, description="Enable shadow DOM element extraction")
-    shadow_dom_max_depth: int = Field(default=5, description="Maximum shadow DOM traversal depth")
-    shadow_dom_element_limit: int = Field(default=100, description="Maximum elements per shadow root")
-
-
-class ElementData(BaseModel):
-    """Comprehensive element data structure"""
-
-    model_config = ConfigDict(str_strip_whitespace=True) if HAS_PYDANTIC else {}
-
-    # Core identification
-    element_id: str = Field(..., description="Unique element ID")
-    element_type: ElementType = Field(..., description="Type of element")
-    tag_name: str = Field(..., description="HTML tag name")
-    xpath: str = Field(..., description="XPath selector")
-    css_selector: str = Field(..., description="CSS selector")
-
-    # Content
-    text_content: str = Field(default="", description="Text content")
-    inner_html: str = Field(default="", description="Inner HTML")
-    outer_html: str = Field(default="", description="Outer HTML")
-
-    # Attributes
-    attributes: Dict[str, str] = Field(default_factory=dict)
-    id: Optional[str] = Field(default=None)
-    class_names: List[str] = Field(default_factory=list)
-    name: Optional[str] = Field(default=None)
-    href: Optional[str] = Field(default=None)
-    src: Optional[str] = Field(default=None)
-    alt: Optional[str] = Field(default=None)
-    title: Optional[str] = Field(default=None)
-    value: Optional[str] = Field(default=None)
-    placeholder: Optional[str] = Field(default=None)
-
-    # State
-    is_visible: bool = Field(default=True)
-    is_enabled: bool = Field(default=True)
-    is_selected: bool = Field(default=False)
-    is_focused: bool = Field(default=False)
-
-    # Layout
-    x: float = Field(default=0)
-    y: float = Field(default=0)
-    width: float = Field(default=0)
-    height: float = Field(default=0)
-
-    # Semantic
-    role: Optional[str] = Field(default=None)
-    aria_label: Optional[str] = Field(default=None)
-    semantic_role: Optional[str] = Field(default=None)
-
-    # Events
-    has_click_handler: bool = Field(default=False)
-    event_listeners: List[str] = Field(default_factory=list)
-
-    # Relationships
-    parent_id: Optional[str] = Field(default=None)
-    child_ids: List[str] = Field(default_factory=list)
-
-    # Metadata
-    extraction_confidence: float = Field(default=1.0)
-    extraction_method: Optional[str] = Field(default=None)
-
-    # Shadow DOM specific fields (optional for backward compatibility)
-    is_in_shadow_dom: bool = Field(default=False, description="Whether element is inside a shadow DOM")
-    shadow_host_id: Optional[str] = Field(default=None, description="ID of the shadow host element")
-    shadow_root_mode: Optional[str] = Field(default=None, description="Shadow root mode (open/closed)")
-    shadow_dom_depth: int = Field(default=0, description="Depth level in shadow DOM hierarchy")
-    shadow_dom_path: List[str] = Field(default_factory=list, description="Path of shadow hosts to reach this element")
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for serialization"""
-        if HAS_PYDANTIC:
-            return self.model_dump()
-        else:
-            return self.__dict__.copy()
-
-
-class ExtractionResult(BaseModel):
-    """Complete extraction result with metadata"""
-
-    model_config = ConfigDict(str_strip_whitespace=True) if HAS_PYDANTIC else {}
-
-    # Core fields
-    url: str = Field(..., description="URL of the page")
-    success: bool = Field(..., description="Whether extraction was successful")
-    elements: List[ElementData] = Field(default_factory=list)
-
-    # Page metadata
-    page_title: str = Field(default="")
-    page_description: Optional[str] = Field(default=None)
-    page_keywords: Optional[str] = Field(default=None)
-
-    # Detection metadata
-    framework_detected: Optional[str] = Field(default=None)
-    captcha_detected: bool = Field(default=False)
-    captcha_type: Optional[str] = Field(default=None)
-
-    # Performance metrics
-    extraction_time: float = Field(default=0)
-    retry_count: int = Field(default=0)
-
-    # Errors and metadata
-    errors: List[str] = Field(default_factory=list)
-    warnings: List[str] = Field(default_factory=list)
-    metadata: Dict[str, Any] = Field(default_factory=dict)
-
-    # Timestamps
-    timestamp: datetime = Field(default_factory=datetime.now)
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for serialization"""
-        if HAS_PYDANTIC:
-            result = self.model_dump()
-        else:
-            result = self.__dict__.copy()
-        result["timestamp"] = result["timestamp"].isoformat()
-        return result
-
-    def get_elements_by_type(self, element_type: ElementType) -> List[ElementData]:
-        """Get all elements of a specific type"""
-        return [e for e in self.elements if e.element_type == element_type]
-
-    def get_clickable_elements(self) -> List[ElementData]:
-        """Get all clickable elements"""
-        return [
-            e
-            for e in self.elements
-            if e.has_click_handler or e.element_type in [ElementType.BUTTON, ElementType.LINK, ElementType.SUBMIT]
-        ]
-
-    def get_form_inputs(self) -> List[ElementData]:
-        """Get all form input elements"""
-        return [
-            e
-            for e in self.elements
-            if e.element_type
-            in [
-                ElementType.TEXT_INPUT,
-                ElementType.PASSWORD,
-                ElementType.EMAIL,
-                ElementType.NUMBER,
-                ElementType.CHECKBOX,
-                ElementType.RADIO,
-                ElementType.SELECT,
-                ElementType.TEXTAREA,
-            ]
-        ]
-
-    @property
-    def element_count(self) -> int:
-        """Total number of elements extracted"""
-        return len(self.elements)
-
-    @property
-    def has_errors(self) -> bool:
-        """Whether extraction had any errors"""
-        return len(self.errors) > 0
-
-
-# Alias for backward compatibility
-BrowserExtractionResult = ExtractionResult
+# TimingProfile, StealthProfile, StealthConfig are now imported from data_types.py
+# Element is now imported from data_types.py
+# ExtractionResult is now imported from data_types.py
 
 # ============================================================================
 # CONFIGURATION LAYER (from browser_config.py)
 # ============================================================================
 
-
-class BrowserStealthConfig:
-    """
-    Advanced browser configuration for 2025 anti-detection
-    Integrated from browser_config.py
-    """
-
-    def __init__(self, stealth_level: str = "maximum"):
-        """Initialize stealth configuration"""
-        valid_levels = ["none", "basic", "moderate", "advanced", "maximum"]
-        if stealth_level not in valid_levels:
-            logger.warning(f"Invalid stealth level '{stealth_level}', using 'maximum'")
-            stealth_level = "maximum"
-
-        self.stealth_level = stealth_level
-        self.platform_info = get_platform_info()
-
-    def get_launch_args(self) -> List[str]:
-        """Get comprehensive browser launch arguments for anti-detection"""
-
-        # Base arguments for all stealth levels
-        base_args = [
-            # Core anti-detection flags
-            "--disable-blink-features=AutomationControlled",
-            "--disable-features=IsolateOrigins,site-per-process",
-            "--disable-site-isolation-trials",
-            # Performance and stability
-            "--disable-dev-shm-usage",
-            "--disable-accelerated-2d-canvas",
-            "--disable-gpu",
-            "--no-first-run",
-            "--no-default-browser-check",
-            # Window and display settings
-            "--window-size=1920,1080",
-            "--start-maximized",
-            "--force-device-scale-factor=1",
-            # Background throttling prevention
-            "--disable-background-timer-throttling",
-            "--disable-backgrounding-occluded-windows",
-            "--disable-renderer-backgrounding",
-            "--disable-features=TranslateUI",
-            "--disable-ipc-flooding-protection",
-            # WebRTC and privacy
-            "--force-webrtc-ip-handling-policy=default_public_interface_only",
-            "--disable-webrtc-hw-encoding",
-            "--disable-webrtc-hw-decoding",
-        ]
-
-        # Moderate level additions
-        if self.stealth_level in ["moderate", "advanced", "maximum"]:
-            base_args.extend(
-                [
-                    # Additional privacy flags
-                    "--disable-web-security",
-                    "--disable-features=VizDisplayCompositor",
-                    "--disable-breakpad",
-                    "--disable-component-extensions-with-background-pages",
-                    "--disable-extensions",
-                    "--disable-features=BlinkGenPropertyTrees",
-                    "--disable-features=ImprovedCookieControls",
-                    "--disable-reading-from-canvas",
-                    "--disable-client-side-phishing-detection",
-                    # Memory and performance
-                    "--memory-pressure-off",
-                    "--max-gum-fps=60",
-                    "--disable-hang-monitor",
-                    "--disable-prompt-on-repost",
-                    "--disable-sync",
-                    "--disable-domain-reliability",
-                    # Font and rendering
-                    "--disable-font-subpixel-positioning",
-                    "--disable-features=FontAccess",
-                    "--force-color-profile=srgb",
-                ]
-            )
-
-        # Advanced level additions
-        if self.stealth_level in ["advanced", "maximum"]:
-            base_args.extend(
-                [
-                    # Advanced fingerprinting protection
-                    "--disable-features=AudioServiceOutOfProcess",
-                    "--disable-features=WebRtcHideLocalIpsWithMdns",
-                    "--disable-features=UserAgentClientHint",
-                    "--disable-features=SecMetadata",
-                    "--disable-features=SendMouseLeaveEvents",
-                    # Network and security
-                    "--no-pings",
-                    "--no-zygote",
-                    "--disable-features=msExperimentalScrolling",
-                    "--disable-features=ParallelDownloading",
-                    "--disable-features=AppBanners",
-                    "--disable-features=AudioFocusEnforcement",
-                    "--disable-features=AutofillServerCommunication",
-                    # Crash reporting and telemetry
-                    "--disable-crash-reporter",
-                    "--disable-features=CrashReporting",
-                    "--disable-features=NetworkTimeServiceQuerying",
-                    # Additional CDP protection
-                    "--disable-features=TranslateRanker",
-                    "--disable-features=PasswordImport",
-                    "--disable-features=PrivacySandboxSettings3",
-                ]
-            )
-
-        # Maximum level additions
-        if self.stealth_level == "maximum":
-            base_args.extend(
-                [
-                    # Maximum fingerprinting protection
-                    "--disable-features=MediaRouter",
-                    "--disable-features=DialMediaRouteProvider",
-                    "--disable-features=RendererCodeIntegrity",
-                    "--disable-features=OptimizationGuideModelDownloading",
-                    "--disable-features=InterestFeedContentSuggestions",
-                    "--disable-features=CertificateTransparencyComponentUpdater",
-                    "--disable-features=AutofillEnableAccountWalletStorage",
-                    "--disable-features=CalculateNativeWinOcclusion",
-                    "--disable-features=SyncUSSBookmarks",
-                    "--disable-features=ReadLater",
-                    # Hardware fingerprinting protection
-                    "--disable-features=HardwareMediaKeyHandling",
-                    "--disable-features=UseSurfaceLayerForVideo",
-                    "--disable-features=WebUSB",
-                    "--disable-features=WebXR",
-                    # Additional network protection
-                    "--disable-features=NetworkQualityEstimator",
-                    "--disable-features=WebBluetooth",
-                    "--disable-features=AllowAggressiveThrottlingWithWebSocket",
-                ]
-            )
-
-        # Platform-specific additions
-        if self.platform_info["is_linux"]:
-            base_args.extend(["--no-sandbox", "--disable-setuid-sandbox"])
-
-        if self.platform_info["is_windows"]:
-            base_args.append("--disable-gpu-sandbox")
-
-        return base_args
-
-    def get_context_options(self) -> Dict[str, Any]:
-        """Get browser context options with anti-detection settings"""
-
-        # User agents for different stealth levels
-        user_agents = {
-            "none": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "basic": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-            "moderate": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-            "advanced": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.85 Safari/537.36",
-            "maximum": self._generate_random_user_agent(),
-        }
-
-        context_options = {
-            "viewport": {"width": 1920, "height": 1080},
-            "screen": {"width": 1920, "height": 1080},
-            "device_scale_factor": 1.0,
-            "is_mobile": False,
-            "has_touch": False,
-            "user_agent": user_agents.get(self.stealth_level, user_agents["maximum"]),
-            # Permissions
-            "permissions": ["geolocation", "notifications", "camera", "microphone"],
-            # Geolocation
-            "geolocation": self._get_random_geolocation(),
-            # Locale and timezone
-            "locale": "en-US",
-            "timezone_id": "America/New_York",
-            # Color scheme
-            "color_scheme": "light",
-            # Extra HTTP headers
-            "extra_http_headers": {
-                "Accept-Language": "en-US,en;q=0.9",
-                "Accept-Encoding": "gzip, deflate, br",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-                "Cache-Control": "no-cache",
-                "Pragma": "no-cache",
-                "Sec-Ch-Ua": '"Chromium";v="131", "Not_A Brand";v="24", "Google Chrome";v="131"',
-                "Sec-Ch-Ua-Mobile": "?0",
-                "Sec-Ch-Ua-Platform": '"Windows"',
-                "Sec-Fetch-Dest": "document",
-                "Sec-Fetch-Mode": "navigate",
-                "Sec-Fetch-Site": "none",
-                "Sec-Fetch-User": "?1",
-                "Upgrade-Insecure-Requests": "1",
-            },
-        }
-
-        if self.stealth_level in ["advanced", "maximum"]:
-            # Add client hints for advanced stealth
-            headers = context_options.get("extra_http_headers", {})
-            if isinstance(headers, dict):
-                headers.update(
-                    {
-                        "Sec-Ch-Ua-Platform-Version": '"15.0.0"',
-                        "Sec-Ch-Ua-Full-Version": '"131.0.6778.85"',
-                        "Sec-Ch-Ua-Full-Version-List": '"Chromium";v="131.0.6778.85", "Not_A Brand";v="24.0.0.0", "Google Chrome";v="131.0.6778.85"',
-                        "Sec-Ch-Ua-Arch": '"x86"',
-                        "Sec-Ch-Ua-Bitness": '"64"',
-                        "Sec-Ch-Ua-Model": '""',
-                    }
-                )
-                context_options["extra_http_headers"] = headers
-
-        return context_options
-
-    def get_cdp_session_config(self) -> Dict[str, Any]:
-        """Get CDP session configuration to avoid detection"""
-        return {
-            "enable_runtime": False,
-            "override_commands": {
-                "Runtime.enable": {"skip": True},
-                "Page.addScriptToEvaluateOnNewDocument": {"modify": True},
-                "Network.setUserAgentOverride": {"modify": True},
-            },
-            "stealth_cdp": True,
-            "minimize_cdp_usage": self.stealth_level == "maximum",
-        }
-
-    def get_complete_config(self) -> Dict[str, Any]:
-        """Get complete browser configuration with all anti-detection settings"""
-
-        launch_options = {"args": self.get_launch_args(), "headless": False}
-
-        # Try to find Chrome or Chromium executable
-        browser_path = get_chrome_executable_path()
-        if browser_path:
-            launch_options["executable_path"] = browser_path
-            logger.info(f"Using browser at: {browser_path}")
-        else:
-            logger.info("Using Playwright's bundled Chromium")
-
-        # Additional launch options
-        launch_options.update(
-            {
-                "chromium_sandbox": False,
-                "handle_sigint": False,
-                "handle_sigterm": False,
-                "handle_sighup": False,
-                "timeout": 60000,
-                "slow_mo": random.randint(10, 30) if self.stealth_level == "maximum" else 0,
-                "downloads_path": get_temp_directory(),
-            }
-        )
-
-        return {
-            "launch_options": launch_options,
-            "context_options": self.get_context_options(),
-            "cdp_config": self.get_cdp_session_config(),
-            "stealth_level": self.stealth_level,
-            "platform": self.platform_info,
-            "browser_type": "chrome" if browser_path and "chrome" in browser_path.lower() else "chromium",
-        }
-
-    def _generate_random_user_agent(self) -> str:
-        """Generate random realistic user agent"""
-        chrome_versions = ["131.0.6778.85", "131.0.6778.70", "130.0.6723.119"]
-        windows_versions = ["10.0", "11.0"]
-
-        chrome_ver = random.choice(chrome_versions)
-        win_ver = random.choice(windows_versions)
-
-        return f"Mozilla/5.0 (Windows NT {win_ver}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_ver} Safari/537.36"
-
-    def _get_random_geolocation(self) -> Dict[str, float]:
-        """Get random geolocation from major cities"""
-        cities = [
-            {"latitude": 40.7128, "longitude": -74.0060},  # New York
-            {"latitude": 34.0522, "longitude": -118.2437},  # Los Angeles
-            {"latitude": 41.8781, "longitude": -87.6298},  # Chicago
-            {"latitude": 29.7604, "longitude": -95.3698},  # Houston
-            {"latitude": 33.4484, "longitude": -112.0740},  # Phoenix
-        ]
-        return random.choice(cities)
 
 
 # ============================================================================
@@ -818,28 +224,8 @@ class BrowserStealthConfig:
 # ============================================================================
 
 
-class BrowserError(Exception):
-    """Base exception for browser errors"""
-
-    pass
 
 
-class NavigationError(BrowserError):
-    """Navigation-specific errors"""
-
-    pass
-
-
-class ExtractionError(BrowserError):
-    """Element extraction errors"""
-
-    pass
-
-
-class TimeoutError(BrowserError):
-    """Timeout-related errors"""
-
-    pass
 
 
 def retry_on_error(max_retries: int = 3, delay: float = 1.0, backoff: float = 2.0) -> Any:
@@ -932,7 +318,7 @@ class StealthInjector:
         await StealthInjector._inject_basic_stealth(page, config)
 
         # Apply enhanced stealth for higher levels
-        if config.level in [StealthLevel.ADVANCED, StealthLevel.MAXIMUM]:
+        if config.level in [StealthLevel.HIGH, StealthLevel.MAXIMUM]:
             await StealthInjector._inject_enhanced_stealth(page, config)
 
         # Apply maximum stealth features
@@ -1068,7 +454,7 @@ class StealthInjector:
         """Maximum stealth with all anti-detection features"""
 
         # WebRTC leak prevention
-        if config.prevent_webrtc_leak:
+        if getattr(config, 'prevent_webrtc_leak', False) and config.level == StealthLevel.MAXIMUM:
             await page.add_init_script(
                 """
             () => {
@@ -1102,7 +488,7 @@ class StealthInjector:
             )
 
         # Canvas fingerprinting protection
-        if config.spoof_canvas_fingerprint:
+        if getattr(config, 'spoof_canvas_fingerprint', False) and config.level == StealthLevel.MAXIMUM:
             await page.add_init_script(
                 """
             () => {
@@ -1138,7 +524,7 @@ class StealthInjector:
             )
 
         # WebGL spoofing
-        if config.spoof_webgl:
+        if getattr(config, 'spoof_webgl', False) and config.level == StealthLevel.MAXIMUM:
             await page.add_init_script(
                 """
             () => {
@@ -1172,7 +558,7 @@ class StealthInjector:
             )
 
         # Battery API spoofing
-        if config.spoof_battery:
+        if getattr(config, 'spoof_battery', False) and config.level == StealthLevel.MAXIMUM:
             await page.add_init_script(
                 """
             () => {
@@ -1192,7 +578,7 @@ class StealthInjector:
             )
 
         # Hardware spoofing
-        if config.spoof_hardware:
+        if getattr(config, 'spoof_hardware', False) and config.level == StealthLevel.MAXIMUM:
             await page.add_init_script(
                 """
             () => {
@@ -1841,7 +1227,7 @@ class ExtractionStrategyBase(ABC):
     """Base class for extraction strategies"""
 
     @abstractmethod
-    async def extract(self, page: "Page") -> List[ElementData]:
+    async def extract(self, page: "Page") -> List[Element]:
         """Extract elements using specific strategy"""
         pass
 
@@ -1854,7 +1240,7 @@ class ExtractionStrategyBase(ABC):
 class DOMExtractionStrategy(ExtractionStrategyBase):
     """DOM-based element extraction strategy"""
 
-    async def extract(self, page: "Page") -> List[ElementData]:
+    async def extract(self, page: "Page") -> List[Element]:
         """Extract elements using DOM inspection"""
         elements = []
 
@@ -1910,7 +1296,7 @@ class DOMExtractionStrategy(ExtractionStrategyBase):
             """
             )
 
-            # Convert to ElementData objects
+            # Convert to Element objects
             for raw in raw_elements:
                 # Extract specific fields properly
                 element_id = self._generate_element_id(raw)
@@ -1950,18 +1336,27 @@ class DOMExtractionStrategy(ExtractionStrategyBase):
                             attributes[k] = str(v)
 
                 try:
-                    element_data = ElementData(
-                        element_id=element_id,
+                    # Create BoundingBox if position data exists
+                    bounding_box = None
+                    if any(raw.get(k) is not None for k in ["x", "y", "width", "height"]):
+                        bounding_box = BoundingBox(
+                            x=raw.get("x", 0),
+                            y=raw.get("y", 0),
+                            width=raw.get("width", 0),
+                            height=raw.get("height", 0)
+                        )
+                    
+                    element_data = Element(
+                        id=element_id,
                         element_type=element_type,
                         tag_name=tag_name,
                         xpath=self._generate_xpath(raw),
                         css_selector=self._generate_css_selector(raw),
-                        text_content=raw.get("text_content", ""),
+                        text=raw.get("text_content", ""),
                         inner_html=raw.get("inner_html", ""),
                         outer_html=raw.get("outer_html", ""),
                         attributes=attributes,
-                        id=raw.get("id"),
-                        class_names=raw.get("class_names", []),
+                        classes=raw.get("class_names", []),
                         name=raw.get("name"),
                         href=raw.get("href"),
                         src=raw.get("src"),
@@ -1971,17 +1366,13 @@ class DOMExtractionStrategy(ExtractionStrategyBase):
                         placeholder=raw.get("placeholder"),
                         is_visible=raw.get("is_visible", True),
                         is_enabled=raw.get("is_enabled", True),
-                        x=raw.get("x", 0),
-                        y=raw.get("y", 0),
-                        width=raw.get("width", 0),
-                        height=raw.get("height", 0),
+                        bounding_box=bounding_box,
                         role=raw.get("role"),
                         aria_label=raw.get("aria_label"),
-                        extraction_method="dom_inspection",
                     )
                     elements.append(element_data)
                 except Exception as e:
-                    logger.debug(f"Failed to create ElementData: {e}, raw data: {raw}")
+                    logger.debug(f"Failed to create Element: {e}, raw data: {raw}")
 
             logger.debug(f"DOM extraction found {len(elements)} elements")
 
@@ -1991,104 +1382,30 @@ class DOMExtractionStrategy(ExtractionStrategyBase):
         return elements
 
     def _determine_element_type(self, element_data: Dict) -> ElementType:
-        """Determine element type from raw data"""
-        tag = (element_data.get("tag_name") or "").lower()
-        type_attr = (element_data.get("type") or "").lower()
-        role = (element_data.get("role") or "").lower()
-
-        # Map HTML tags to ElementType
-        if tag == "button" or role == "button":
-            return ElementType.BUTTON
-        elif tag == "a":
-            return ElementType.LINK
-        elif tag == "input":
-            if type_attr == "text" or type_attr == "":
-                return ElementType.TEXT_INPUT
-            elif type_attr == "password":
-                return ElementType.PASSWORD
-            elif type_attr == "email":
-                return ElementType.EMAIL
-            elif type_attr == "number":
-                return ElementType.NUMBER
-            elif type_attr == "checkbox":
-                return ElementType.CHECKBOX
-            elif type_attr == "radio":
-                return ElementType.RADIO
-            elif type_attr == "submit":
-                return ElementType.SUBMIT
-            elif type_attr == "file":
-                return ElementType.FILE_INPUT
-            elif type_attr == "date":
-                return ElementType.DATE_INPUT
-            elif type_attr == "search":
-                return ElementType.SEARCH
-            else:
-                return ElementType.TEXT_INPUT
-        elif tag == "select":
-            return ElementType.SELECT
-        elif tag == "textarea":
-            return ElementType.TEXTAREA
-        elif tag == "form":
-            return ElementType.FORM
-        elif tag == "label":
-            return ElementType.LABEL
-        elif tag in ["h1", "h2", "h3", "h4", "h5", "h6"]:
-            return ElementType.HEADING
-        elif tag == "p":
-            return ElementType.PARAGRAPH
-        elif tag == "div":
-            return ElementType.DIV
-        elif tag == "span":
-            return ElementType.SPAN
-        elif tag == "img":
-            return ElementType.IMAGE
-        elif tag == "video":
-            return ElementType.VIDEO
-        elif tag == "audio":
-            return ElementType.AUDIO
-        elif tag == "iframe":
-            return ElementType.IFRAME
-        elif tag == "table":
-            return ElementType.TABLE
-        elif tag in ["ul", "ol"]:
-            return ElementType.LIST
-        elif tag == "li":
-            return ElementType.LIST_ITEM
-        else:
-            return ElementType.UNKNOWN
+        """Determine element type from raw data - delegates to shared utility"""
+        return ElementSelectorUtils.determine_element_type(
+            tag_name=element_data.get("tag_name", ""),
+            elem_type=element_data.get("type"),
+            role=element_data.get("role"),
+            input_type=element_data.get("type")
+        )
 
     def _generate_xpath(self, element_data: Dict) -> str:
-        """Generate XPath selector for element"""
-        tag = element_data.get("tag_name", "div")
-        id_attr = element_data.get("id")
-
-        if id_attr:
-            return f"//{tag}[@id='{id_attr}']"
-
-        classes = element_data.get("class_names", [])
-        if classes:
-            class_condition = " and ".join([f"contains(@class, '{cls}')" for cls in classes[:2]])
-            return f"//{tag}[{class_condition}]"
-
-        text = element_data.get("text_content", "")[:30]
-        if text:
-            return f"//{tag}[contains(text(), '{text}')]"
-
-        return f"//{tag}"
+        """Generate XPath selector - delegates to shared utility"""
+        return ElementSelectorUtils.generate_xpath(
+            elem_id=element_data.get("id"),
+            elem_classes=element_data.get("class_names", []),
+            tag_name=element_data.get("tag_name", "div"),
+            text_content=element_data.get("text_content")
+        )
 
     def _generate_css_selector(self, element_data: Dict) -> str:
-        """Generate CSS selector for element"""
-        tag = element_data.get("tag_name", "div")
-        id_attr = element_data.get("id")
-
-        if id_attr:
-            return f"#{id_attr}"
-
-        classes = element_data.get("class_names", [])
-        if classes:
-            return f"{tag}.{'.'.join(classes[:2])}"
-
-        return tag
+        """Generate CSS selector - delegates to shared utility"""
+        return ElementSelectorUtils.generate_css_selector(
+            elem_id=element_data.get("id"),
+            elem_classes=element_data.get("class_names", []),
+            tag_name=element_data.get("tag_name", "div")
+        )
 
 
 class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
@@ -2117,7 +1434,7 @@ class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
         self.element_limit = element_limit
         self._extracted_count = 0
 
-    async def extract(self, page: "Page") -> List[ElementData]:
+    async def extract(self, page: "Page") -> List[Element]:
         """
         Extract elements from shadow DOM trees.
 
@@ -2128,7 +1445,7 @@ class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
         4. Enriches element data with shadow DOM metadata
 
         Returns:
-            List of ElementData objects from shadow DOM elements
+            List of Element objects from shadow DOM elements
         """
         elements = []
         self._extracted_count = 0
@@ -2277,7 +1594,7 @@ class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
             """
             )
 
-            # Convert raw elements to ElementData objects
+            # Convert raw elements to Element objects
             for raw in raw_elements:
                 try:
                     # Generate unique element ID including shadow DOM context
@@ -2322,19 +1639,28 @@ class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
                             if v is not None:
                                 attributes[k] = str(v)
 
-                    # Create ElementData with shadow DOM metadata
-                    element_data = ElementData(
-                        element_id=element_id,
+                    # Create BoundingBox if position data exists
+                    bounding_box = None
+                    if any(raw.get(k) is not None for k in ["x", "y", "width", "height"]):
+                        bounding_box = BoundingBox(
+                            x=raw.get("x", 0),
+                            y=raw.get("y", 0),
+                            width=raw.get("width", 0),
+                            height=raw.get("height", 0)
+                        )
+                    
+                    # Create Element with shadow DOM metadata
+                    element_data = Element(
+                        id=element_id,
                         element_type=element_type,
                         tag_name=raw.get("tag_name", "unknown"),
                         xpath=self._generate_shadow_xpath(raw),
                         css_selector=self._generate_shadow_css_selector(raw),
-                        text_content=raw.get("text_content", ""),
+                        text=raw.get("text_content", ""),
                         inner_html=raw.get("inner_html", ""),
                         outer_html=raw.get("outer_html", ""),
                         attributes=attributes,
-                        id=raw.get("id"),
-                        class_names=raw.get("class_names", []),
+                        classes=raw.get("class_names", []),
                         name=raw.get("name"),
                         href=raw.get("href"),
                         src=raw.get("src"),
@@ -2344,18 +1670,10 @@ class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
                         placeholder=raw.get("placeholder"),
                         is_visible=raw.get("is_visible", True),
                         is_enabled=raw.get("is_enabled", True),
-                        x=raw.get("x", 0),
-                        y=raw.get("y", 0),
-                        width=raw.get("width", 0),
-                        height=raw.get("height", 0),
+                        bounding_box=bounding_box,
                         role=raw.get("role"),
                         aria_label=raw.get("aria_label"),
-                        extraction_method="shadow_dom_inspection",
-                        # Shadow DOM specific fields
-                        is_in_shadow_dom=raw.get("is_in_shadow_dom", False),
-                        shadow_host_id=raw.get("shadow_host_id"),
-                        shadow_root_mode=raw.get("shadow_root_mode"),
-                        shadow_dom_depth=raw.get("shadow_dom_depth", 0),
+                        is_shadow_element=raw.get("is_in_shadow_dom", False),
                         shadow_dom_path=raw.get("shadow_dom_path", []),
                     )
 
@@ -2363,7 +1681,7 @@ class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
                     self._extracted_count += 1
 
                 except Exception as e:
-                    logger.debug(f"Failed to create shadow DOM ElementData: {e}, raw: {raw}")
+                    logger.debug(f"Failed to create shadow DOM Element: {e}, raw: {raw}")
 
             logger.info(f"Shadow DOM extraction found {len(elements)} elements")
 
@@ -2436,104 +1754,30 @@ class ShadowDOMExtractionStrategy(ExtractionStrategyBase):
         return "".join(selector_parts)
 
     def _determine_element_type(self, element_data: Dict) -> ElementType:
-        """Determine element type from raw data (reuses base logic)"""
-        tag = (element_data.get("tag_name") or "").lower()
-        type_attr = (element_data.get("type") or "").lower()
-        role = (element_data.get("role") or "").lower()
-
-        # Map HTML tags to ElementType
-        if tag == "button" or role == "button":
-            return ElementType.BUTTON
-        elif tag == "a":
-            return ElementType.LINK
-        elif tag == "input":
-            if type_attr == "text" or type_attr == "":
-                return ElementType.TEXT_INPUT
-            elif type_attr == "password":
-                return ElementType.PASSWORD
-            elif type_attr == "email":
-                return ElementType.EMAIL
-            elif type_attr == "number":
-                return ElementType.NUMBER
-            elif type_attr == "checkbox":
-                return ElementType.CHECKBOX
-            elif type_attr == "radio":
-                return ElementType.RADIO
-            elif type_attr == "submit":
-                return ElementType.SUBMIT
-            elif type_attr == "file":
-                return ElementType.FILE_INPUT
-            elif type_attr == "date":
-                return ElementType.DATE_INPUT
-            elif type_attr == "search":
-                return ElementType.SEARCH
-            else:
-                return ElementType.TEXT_INPUT
-        elif tag == "select":
-            return ElementType.SELECT
-        elif tag == "textarea":
-            return ElementType.TEXTAREA
-        elif tag == "form":
-            return ElementType.FORM
-        elif tag == "label":
-            return ElementType.LABEL
-        elif tag in ["h1", "h2", "h3", "h4", "h5", "h6"]:
-            return ElementType.HEADING
-        elif tag == "p":
-            return ElementType.PARAGRAPH
-        elif tag == "div":
-            return ElementType.DIV
-        elif tag == "span":
-            return ElementType.SPAN
-        elif tag == "img":
-            return ElementType.IMAGE
-        elif tag == "video":
-            return ElementType.VIDEO
-        elif tag == "audio":
-            return ElementType.AUDIO
-        elif tag == "iframe":
-            return ElementType.IFRAME
-        elif tag == "table":
-            return ElementType.TABLE
-        elif tag in ["ul", "ol"]:
-            return ElementType.LIST
-        elif tag == "li":
-            return ElementType.LIST_ITEM
-        else:
-            return ElementType.UNKNOWN
+        """Determine element type from raw data - delegates to shared utility"""
+        return ElementSelectorUtils.determine_element_type(
+            tag_name=element_data.get("tag_name", ""),
+            elem_type=element_data.get("type"),
+            role=element_data.get("role"),
+            input_type=element_data.get("type")
+        )
 
     def _generate_xpath(self, element_data: Dict) -> str:
-        """Generate standard XPath selector (fallback for non-shadow elements)"""
-        tag = element_data.get("tag_name", "div")
-        id_attr = element_data.get("id")
-
-        if id_attr:
-            return f"//{tag}[@id='{id_attr}']"
-
-        classes = element_data.get("class_names", [])
-        if classes:
-            class_condition = " and ".join([f"contains(@class, '{cls}')" for cls in classes[:2]])
-            return f"//{tag}[{class_condition}]"
-
-        text = element_data.get("text_content", "")[:30]
-        if text:
-            return f"//{tag}[contains(text(), '{text}')]"
-
-        return f"//{tag}"
+        """Generate standard XPath selector - delegates to shared utility"""
+        return ElementSelectorUtils.generate_xpath(
+            elem_id=element_data.get("id"),
+            elem_classes=element_data.get("class_names", []),
+            tag_name=element_data.get("tag_name", "div"),
+            text_content=element_data.get("text_content")
+        )
 
     def _generate_css_selector(self, element_data: Dict) -> str:
-        """Generate standard CSS selector (fallback for non-shadow elements)"""
-        tag = element_data.get("tag_name", "div")
-        id_attr = element_data.get("id")
-
-        if id_attr:
-            return f"#{id_attr}"
-
-        classes = element_data.get("class_names", [])
-        if classes:
-            return f"{tag}.{'.'.join(classes[:2])}"
-
-        return tag
+        """Generate standard CSS selector - delegates to shared utility"""
+        return ElementSelectorUtils.generate_css_selector(
+            elem_id=element_data.get("id"),
+            elem_classes=element_data.get("class_names", []),
+            tag_name=element_data.get("tag_name", "div")
+        )
 
 
 # ============================================================================
@@ -2671,6 +1915,60 @@ class UltimateStealthBrowser:
             "errors": [],
         }
 
+    def _get_stealth_args(self) -> List[str]:
+        """Get browser launch arguments based on stealth level"""
+        args = [
+            "--disable-blink-features=AutomationControlled",
+            "--disable-dev-shm-usage",
+            "--disable-web-security",
+            "--disable-features=IsolateOrigins,site-per-process",
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-accelerated-2d-canvas",
+            "--disable-gpu",
+            "--window-size=1920,1080",
+            "--start-maximized"
+        ]
+
+        if self.config.level in [StealthLevel.HIGH, StealthLevel.MAXIMUM]:
+            args.extend([
+                "--disable-automation",
+                "--disable-blink-features",
+                "--disable-infobars",
+                "--disable-extensions",
+                "--disable-default-apps",
+                "--disable-sync",
+                "--metrics-recording-only",
+                "--mute-audio",
+                "--no-first-run",
+                "--disable-background-timer-throttling",
+                "--disable-backgrounding-occluded-windows",
+                "--disable-renderer-backgrounding",
+                "--disable-features=TranslateUI",
+                "--disable-ipc-flooding-protection"
+            ])
+
+        return args
+
+    def _get_user_agent(self) -> str:
+        """Get appropriate user agent string"""
+        if self.config.user_agent:
+            return self.config.user_agent
+
+        # Default Chrome user agent
+        return "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+    def _get_stealth_headers(self) -> Dict[str, str]:
+        """Get stealth HTTP headers"""
+        return {
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "DNT": "1",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1"
+        }
+
     async def __aenter__(self) -> Any:
         """Async context manager entry"""
         await self.initialize()
@@ -2722,19 +2020,19 @@ class UltimateStealthBrowser:
     def _get_launch_options(self) -> Dict[str, Any]:
         """Get browser launch options with stealth configurations"""
 
-        # Use integrated BrowserStealthConfig
-        stealth_level = self.config.level.value if hasattr(self.config.level, "value") else str(self.config.level)
-        browser_config = BrowserStealthConfig(stealth_level.lower())
-        full_config = browser_config.get_complete_config()
-        launch_options = full_config["launch_options"]
+        # Build launch options based on stealth level
+        launch_options = {
+            "headless": self.config.headless,
+            "args": self._get_stealth_args()
+        }
 
-        # Store CDP config and browser type for later use
-        self._cdp_config = full_config.get("cdp_config", {})
-        self._browser_type = full_config.get("browser_type", "chromium")
+        # Get Chrome executable if available
+        chrome_path = get_chrome_executable_path()
+        if chrome_path:
+            launch_options["executable_path"] = chrome_path
+            logger.info(f"Using browser at: {chrome_path}")
 
-        # Override headless setting from our config
-        launch_options["headless"] = self.config.headless
-
+        self._browser_type = "chromium"
         logger.info(
             f"Using browser configuration: {len(launch_options['args'])} anti-detection flags for {self._browser_type}"
         )
@@ -2743,14 +2041,16 @@ class UltimateStealthBrowser:
     async def _create_stealth_context(self) -> "BrowserContext":
         """Create browser context with stealth settings"""
 
-        # Use integrated BrowserStealthConfig
-        stealth_level = self.config.level.value if hasattr(self.config.level, "value") else str(self.config.level)
-        browser_config = BrowserStealthConfig(stealth_level.lower())
-        full_config = browser_config.get_complete_config()
-        context_options = full_config["context_options"]
-
-        # Override with our viewport settings
-        context_options["viewport"] = {"width": self.config.viewport_width, "height": self.config.viewport_height}
+        # Build context options
+        context_options = {
+            "viewport": {"width": self.config.viewport_width, "height": self.config.viewport_height},
+            "user_agent": self._get_user_agent(),
+            "locale": self.config.locale,
+            "timezone_id": self.config.timezone,
+            "bypass_csp": self.config.bypass_csp,
+            "ignore_https_errors": self.config.ignore_https_errors,
+            "extra_http_headers": self._get_stealth_headers()
+        }
 
         # Apply proxy if configured
         if self.config.proxy_server:
@@ -2940,7 +2240,7 @@ class UltimateStealthBrowser:
                 },
             )
 
-    def _deduplicate_elements(self, elements: List[ElementData]) -> List[ElementData]:
+    def _deduplicate_elements(self, elements: List[Element]) -> List[Element]:
         """Remove duplicate elements based on unique identifiers"""
 
         seen = set()
@@ -2948,7 +2248,7 @@ class UltimateStealthBrowser:
 
         for element in elements:
             # Create unique key
-            key = f"{element.tag_name}_{element.xpath}_{element.text_content[:50]}"
+            key = f"{element.tag_name}_{element.xpath}_{element.text[:50] if element.text else ''}"
 
             if key not in seen:
                 seen.add(key)
@@ -3000,10 +2300,15 @@ def get_browser_config(level: str = "maximum") -> Dict[str, Any]:
     Get complete browser configuration for given stealth level
 
     Returns:
-        Dict containing launch_options, context_options, cdp_config, etc.
+        Dict containing launch_options, context_options, etc.
     """
-    config = BrowserStealthConfig(level)
-    return config.get_complete_config()
+    config = StealthConfig(level=StealthLevel[level.upper()])
+    browser = UltimateStealthBrowser(config)
+    return {
+        "launch_options": browser._get_launch_options(),
+        "context_options": {},
+        "browser_type": "chromium"
+    }
 
 
 async def quick_extract(url: str, headless: bool = False) -> ExtractionResult:
@@ -3017,7 +2322,7 @@ async def quick_extract(url: str, headless: bool = False) -> ExtractionResult:
     Returns:
         ExtractionResult with extracted elements
     """
-    config = StealthConfig(headless=headless, level=StealthLevel.MAXIMUM)
+    config = StealthConfig(headless=headless, level=StealthLevel.MEDIUM)
 
     async with UltimateStealthBrowser(config) as browser:
         result = await browser.extract_elements(url)
@@ -3038,7 +2343,7 @@ async def main():
 
     # Test configuration
     config = StealthConfig(
-        level=StealthLevel.MAXIMUM,
+        level=StealthLevel.MEDIUM,
         headless=False,
         enable_human_delays=True,
         enable_human_mouse=True,
@@ -3059,9 +2364,9 @@ async def main():
         print(f"[OK] Extraction completed")
         print(f"  - URL: {result.url}")
         print(f"  - Success: {result.success}")
-        print(f"  - Elements found: {result.element_count}")
-        print(f"  - Framework: {result.framework_detected}")
-        print(f"  - CAPTCHA: {result.captcha_detected}")
+        print(f"  - Elements found: {len(result.elements)}")
+        print(f"  - Framework: {getattr(result, 'framework_detected', 'N/A')}")
+        print(f"  - CAPTCHA: {getattr(result, 'captcha_detected', 'N/A')}")
         print(f"  - Time: {result.extraction_time:.2f}s")
 
         # Get metrics

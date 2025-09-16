@@ -1,0 +1,3917 @@
+{
+  "profile": "interactive",
+  "version": "1.0.0",
+  "timestamp": "2025-09-09T13:41:34.884435",
+  "url": "https://www.google.com",
+  "config": {
+    "name": "interactive",
+    "description": "Interactive Elements Profile - Extract only clickable, editable, and actionable elements",
+    "version": "1.0.0",
+    "element_limit": 1000,
+    "timeout": 30.0,
+    "filter_invisible": true,
+    "filter_duplicates": true,
+    "min_element_size": 5,
+    "save_screenshots": false,
+    "save_html": false,
+    "compress_output": false,
+    "custom_settings": {
+      "min_interaction_score": 0.5,
+      "include_hover_only": false,
+      "include_focusable": true,
+      "strict_interactive": true
+    }
+  },
+  "statistics": {
+    "total_elements": 33,
+    "filtered_elements": 33,
+    "categories": {
+      "clickable": 30,
+      "editable": 7,
+      "navigational": 23,
+      "form_controls": 9,
+      "media_controls": 0,
+      "keyboard_accessible": 32,
+      "touch_interactive": 0
+    }
+  },
+  "insights": {
+    "interaction_summary": {
+      "total_interactive": 33,
+      "clickable": 30,
+      "editable": 7,
+      "navigational": 23,
+      "form_controls": 9,
+      "media_controls": 0,
+      "keyboard_accessible": 32,
+      "touch_interactive": 0
+    },
+    "interaction_complexity": "moderate",
+    "keyboard_accessibility": {
+      "ratio": 96.96969696969697,
+      "assessment": "good"
+    },
+    "top_interaction_types": [
+      "click",
+      "hover",
+      "navigate",
+      "type",
+      "clear"
+    ],
+    "recommendations": [
+      "High number of clickable elements - consider automation testing",
+      "No media controls detected - verify if media elements exist"
+    ]
+  },
+  "elements": [
+    {
+      "tag_name": "button",
+      "element_type": "button",
+      "selector": "//button[@id='spchx']",
+      "xpath": "//button[@id='spchx']",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "click",
+        "hover"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "button",
+      "element_type": "button",
+      "selector": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+      "xpath": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+      "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'MV3Tnb')]",
+      "xpath": "//a[contains(@class, 'MV3Tnb')]",
+      "text": "About",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'MV3Tnb')]",
+      "xpath": "//a[contains(@class, 'MV3Tnb')]",
+      "text": "Store",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'gb_X')]",
+      "xpath": "//a[contains(@class, 'gb_X')]",
+      "text": "Gmail",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'gb_X')]",
+      "xpath": "//a[contains(@class, 'gb_X')]",
+      "text": "Images",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'gb_B')]",
+      "xpath": "//a[contains(@class, 'gb_B')]",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'gb_A')]",
+      "xpath": "//a[contains(@class, 'gb_A')]",
+      "text": "Sign in",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+      "xpath": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+      "text": ".lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto;vertical-align:bottom}",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a",
+      "xpath": "//a",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'pHiOh')]",
+      "xpath": "//a[contains(@class, 'pHiOh')]",
+      "text": "Advertising",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'pHiOh')]",
+      "xpath": "//a[contains(@class, 'pHiOh')]",
+      "text": "Business",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'pHiOh')]",
+      "xpath": "//a[contains(@class, 'pHiOh')]",
+      "text": "How Search works",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'pHiOh')]",
+      "xpath": "//a[contains(@class, 'pHiOh')]",
+      "text": "Applying AI towards science and the environment",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'pHiOh')]",
+      "xpath": "//a[contains(@class, 'pHiOh')]",
+      "text": "Privacy",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'pHiOh')]",
+      "xpath": "//a[contains(@class, 'pHiOh')]",
+      "text": "Terms",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(text(), 'Search settings')]",
+      "xpath": "//a[contains(text(), 'Search settings')]",
+      "text": "Search settings",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(text(), 'Advanced search')]",
+      "xpath": "//a[contains(text(), 'Advanced search')]",
+      "text": "Advanced search",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(text(), 'Your data in Search')]",
+      "xpath": "//a[contains(text(), 'Your data in Search')]",
+      "text": "Your data in Search",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(text(), 'Search history')]",
+      "xpath": "//a[contains(text(), 'Search history')]",
+      "text": "Search history",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(text(), 'Search help')]",
+      "xpath": "//a[contains(text(), 'Search help')]",
+      "text": "Search help",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "text": "Facebook",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "text": "WhatsApp",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "text": "X",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+      "text": "Email",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "click",
+        "hover",
+        "navigate"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "input",
+      "selector": "//input[contains(@class, 'gNO89b')]",
+      "xpath": "//input[contains(@class, 'gNO89b')]",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": true,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "type",
+        "clear",
+        "focus"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "input",
+      "selector": "//input[contains(@class, 'RNmpXc')]",
+      "xpath": "//input[contains(@class, 'RNmpXc')]",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": true,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "type",
+        "clear",
+        "focus"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "input",
+      "selector": "//input[@id='gbqfbb']",
+      "xpath": "//input[@id='gbqfbb']",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": true,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "type",
+        "clear",
+        "focus"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "input",
+      "selector": "//input",
+      "xpath": "//input",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": true,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "type",
+        "clear",
+        "focus"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "input",
+      "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+      "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+      "text": "",
+      "attributes": {},
+      "is_clickable": true,
+      "is_editable": true,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "type",
+        "clear",
+        "focus"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "textarea",
+      "element_type": "textarea",
+      "selector": "//textarea[@id='APjFqb']",
+      "xpath": "//textarea[@id='APjFqb']",
+      "text": "",
+      "attributes": {},
+      "is_clickable": false,
+      "is_editable": true,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "type",
+        "clear",
+        "focus"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "textarea",
+      "element_type": "textarea",
+      "selector": "//textarea[contains(@class, 'csi')]",
+      "xpath": "//textarea[contains(@class, 'csi')]",
+      "text": "",
+      "attributes": {},
+      "is_clickable": false,
+      "is_editable": true,
+      "confidence": 0.7999999999999999,
+      "interaction_types": [
+        "type",
+        "clear",
+        "focus"
+      ],
+      "interaction_score": 1.0
+    },
+    {
+      "tag_name": "form",
+      "element_type": "form",
+      "selector": "//form[contains(text(), '.A8SBwf{margin:0 auto;max-widt')]",
+      "xpath": "//form[contains(text(), '.A8SBwf{margin:0 auto;max-widt')]",
+      "text": ".A8SBwf{margin:0 auto;max-width:688px;padding-top:6px;position:relative}.RNNXgb{display:flex;z-index:3;position:relative;min-height:50px;background:#fff;border:1px solid #dadce0;box-shadow:0px 3px 10px 0px rgba(31, 31, 31, 0.08);border-radius:26px;margin:0 auto;}.emcav .RNNXgb,.BgPPrc .RNNXgb{border-bottom-left-radius:0;border-bottom-right-radius:0;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);border-color:transparent;background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);}.emcav.emcat .RNNXgb{border-bottom-left-radius:26px;border-bottom-right-radius:26px;}.RNNXgb:hover,.sbfc .RNNXgb{background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);}.emcav .RNNXgb:hover,.sbfc.emcav .RNNXgb,.BgPPrc .RNNXgb:hover{background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);border-color:transparent}.SDkEP{flex:1;display:flex;background:inherit;border-radius:inherit;overflow:hidden;padding:0 8px 0 0;}.FPdoLc{padding-top:18px}.emcav.A8SBwf.pD4qTd{z-index:989;}.iblpc{display:flex;align-items:center;padding-right:13px;padding-left:14px;margin-top:0;height:50px;}.M8H8pb{position:absolute;top:0;left:0;right:0;padding:inherit;width:inherit}.hvhmMe{margin:auto}.Ty0Rrc{margin-top:3px;color:#9aa0a6}.gLFyf,.Rd7rGe,.YacQv{line-height:40px;font-size:16px;flex:100%;}textarea.gLFyf,.Rd7rGe,.YacQv{font-family:Google Sans,Roboto,Arial,sans-serif;line-height:22px;border-bottom:8px solid transparent;padding-top:14px;overflow-x:hidden}.emcav textarea.gLFyf,.emcav .Rd7rGe,.emcav .YacQv{font-family:Google Sans,Roboto,Arial,sans-serif}.sbfc textarea.gLFyf{white-space:pre-line;overflow-y:auto}.gLFyf{width:100%;resize:none;background-color:transparent;border:none;margin:0;padding:0;color:rgba(0,0,0,.87);word-wrap:break-word;outline:none;display:flex;-webkit-tap-highlight-color:transparent}.a4bIc{display:flex;flex-wrap:wrap;flex:1}.Rd7rGe,.YacQv{color:transparent;white-space:pre;position:absolute;pointer-events:none}.YacQv span{text-decoration:#b3261e dotted underline}.gLFyf::placeholder{color:var(--IXoxUe)}.cLwObd{color:var(--IXoxUe);font-size:10px;background-color:var(--Lm570b);border-radius:2px;padding:2px 4px;margin-left:6px;vertical-align:middle}.rPHoHc{display:none}.dRYYxd{display:flex;flex:0 0 auto;align-items:stretch;flex-direction:row;height:50px;background:inherit;}.WC2Die{background-color:inherit;display:flex} .BKRPef{background:transparent;align-items:center;flex:1 0 auto;flex-direction:row;display:flex;cursor:pointer}.vOY7J{background:transparent;border:0;align-items:center;flex:1 0 auto;cursor:pointer;display:none;height:100%;line-height:44px;outline:none;padding:0 12px;}.M2vV3{display:flex}.ExCKkf{height:100%;color:var(--bbQxAb);vertical-align:middle;outline:none;} .BKRPef{padding-right:4px}.ACRAdd{border-left:1px solid #dadce0;height:65%}.ACRAdd{display:none}.ACRAdd.M2vV3{display:block}         .XDyW0e{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;outline:none;padding:0 8px;width:24px;line-height:44px;}.goxjub{height:24px;width:24px;vertical-align:middle;}.nDcEnd{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;outline:none;padding:0 8px;width:24px;line-height:44px;}.Gdd5U{height:24px;width:24px;vertical-align:middle;}.plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode.UUbT9{position:absolute;text-align:left;z-index:3;cursor:default;-webkit-user-select:none;width:100%;margin-top:-1px;font-family:Google Sans,Roboto,Arial,sans-serif}.UUbT9 b{font-family:Google Sans,Roboto,Arial,sans-serif;font-weight:700}.aajZCb{display:flex;flex-direction:column;margin:0;padding:0;overflow:hidden;background:#fff;border-radius:0 0 24px 24px;box-shadow:0 4px 6px rgba(32,33,36,.28);border:0;padding-bottom:4px}.mkHrUc{display:flex}.pD4qTd .rLrQHf{padding-bottom:16px}.pD4qTd .rLrQHf{min-width:47%;width:47%;margin:8px 16px 0}.pD4qTd .rLrQHf:empty{display:none}.erkvQe{padding-bottom:8px;flex:auto;overflow-x:hidden}.RjPuVb{height:1px;margin:0 26px 0 0}.S3nFnd{display:flex}.S3nFnd .RjPuVb,.S3nFnd .aajZCb{flex:0 0 auto}.lh87ke:link,.lh87ke:visited{color:var(--JKqx2);cursor:pointer;font:11px arial,sans-serif;padding:0 5px;text-decoration:none;flex:auto;align-self:flex-end;margin:0 16px 5px 0}.lh87ke:hover{text-decoration:underline}.xtSCL{border-top:1px solid #e8eaed;margin:0 20px 0 14px;padding-bottom:4px}.sb27{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 -21px;background-size:20px;min-height:20px;min-width:20px;height:20px;width:20px}.sb43{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 0;background-size:20px;min-height:20px;min-width:20px;height:20px;width:20px}.sb53.sb53{padding:0 4px;margin:0}.sb33{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 -42px;background-size:20px;height:20px;width:20px}.z8gr9e{color:var(--bbQxAb)}.i1eWpb .GTERze{display:none}.ky4hfd{display:none}.i1eWpb .ky4hfd{display:block}.YB4h9{background-color:var(--TMYS9);color:var(--EpFNW);padding:18px 60px 18px 12px;position:relative}.C85rO{font-size:20px}.twTT9c{}.YB4h9 .Gtr0ne .twTT9c{color:var(--EpFNW);text-decoration:underline;padding:10px 0 0;background:none;border:none;font:inherit}.YB4h9 .Job8vb{padding:20px;position:absolute;right:0;top:0}.YB4h9.q7XNbb{margin-bottom:44px}Choose what you\u2019re giving feedback on#shJ2Vb{display:none}.OBMEnb{padding:0;margin:0}.G43f7e{display:flex;flex-direction:column;min-width:0;padding:0;margin:0;list-style:none}.Ye4jfc{flex-direction:row;flex-wrap:wrap}#ynRric{display:none}.ynRric{list-style-type:none;flex-direction:column;color:var(--IXoxUe);font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;margin:0 20px 0 16px;padding:8px 0 8px 0;line-height:16px;width:100%}.sbct{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:0}.eIPGRd{flex:auto;display:flex;align-items:center;margin:0 20px 0 14px}.pcTkSc{display:flex;flex:auto;flex-direction:column;min-width:0;padding:6px 0}.sbic{display:flex;align-items:center;margin:0 13px 0 1px;}.sbic.vYOkbe{background:center/contain no-repeat;border-radius:4px;min-height:32px;min-width:32px;margin:4px 7px 4px -5px}.sbre .wM6W7d{line-height:18px}.ClJ9Yb{display:flex;align-items:center;line-height:12px;font-size:13px;color:#70757a;margin-top:2px;padding-right:8px}.wM6W7d{display:flex;font-size:16px;color:#212121;flex:auto;align-items:center;word-break:break-word;padding-right:8px}.WggQGd{color:#52188c}.wM6W7d span{flex:auto}.AQZ9Vd{display:flex;align-self:stretch}.sbhl{border-radius:4px;background:#f3f5f6}.UUbT9.i1eWpb .PZPZlf.sbhl{background:none}.UUbT9.i1eWpb .PZPZlf.sbhl .gmlSVb{background:rgba(234,67,53,.12)}@media (forced-colors:active){.sbhl{background-color:highlight}}.mus_pc{display:block;margin:6px 0}.mus_il{font-family:Arial,sans-serif;padding-top:7px;position:relative}.mus_il:first-child{padding-top:0}.mus_il_at{margin-left:10px}.mus_il_i{align:left;margin-right:10px}.mus_it3{margin-bottom:3px;max-height:24px;vertical-align:bottom}.mus_tt3{color:#767676;font-size:12px;vertical-align:top}.mus_tt5{color:#d93025;font-size:14px}.mus_tt6{color:#188038;font-size:14px}.mus_tt8{font-size:16px;font-family:Arial,sans-serif}.mus_tt17{color:#212121;font-size:20px}.mus_tt18{color:#212121;font-size:28px}.mus_tt19{color:#767676;font-size:12px}.mus_tt20{color:#767676;font-size:14px}.mus_tt23{color:#767676;font-size:18px}.TfeWfb{display:none}.xAmryf{display:none}.DJbVFb .TfeWfb{display:flex;flex-wrap:wrap;overflow-x:hidden;width:100%;height:52px}.DJbVFb .AQZ9Vd{display:none}.DJbVFb .xAmryf{border-radius:100px;background-color:var(--xhUGwc)}.DJbVFb .TfeWfb{display:inherit}.DJbVFb .xAmryf .eL7oAc{display:none}.DJbVFb{background:#f8f9fa;border-radius:20px}.DJbVFb:hover{background:#e8eaed}.DJbVFb .vYOkbe{height:-1px;width:-1px;flex-shrink:0;margin:20px 0 20px 8px;float:right;border-radius:16px;background-color:#fff}.DJbVFb.sbhl{background:#e8eaed}.DJbVFb .ClJ9Yb{display:none}.DJbVFb .wM6W7d{flex:initial}.DJbVFb .wM6W7d span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden}.DJbVFb .eIPGRd{display:flex;flex-direction:row-reverse;align-items:stretch;margin:0 20px 0 14px}.DJbVFb .a5RLac{line-height:26px;font-size:20px;font-family:Google Sans,Roboto,Arial,sans-serif;padding-top:16px;color:var(--bbQxAb);margin-bottom:auto}.DJbVFb .kzCE2{font-size:16px}.DJbVFb .wM6W7d span{color:var(--YLNNHc);line-height:36px;font-weight:400;font-size:28px;font-family:Google Sans,Roboto,Arial,sans-serif}.DJbVFb .pcTkSc{margin:20px 6px;padding:0}.DJbVFb .vYOkbe{margin:20px 0 20px 18px;background-color:#fff;border-radius:20px}.DJbVFb .EOLKOc{width:calc(50% - 1px)}.iQxPRb{display:flex;gap:2px}.DJbVFb .EOLKOc:first-child{border-bottom-left-radius:20px}.DJbVFb .EOLKOc:last-child{border-bottom-right-radius:20px}.DJbVFb .AZNDm{border-top-right-radius:20px;border-top-left-radius:20px}.DJbVFb .a5RLac.kzCE2 span{-webkit-line-clamp:3}.DJbVFb .lnnVSe{margin-bottom:auto}.DJbVFb .a5RLac span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden;margin-right:10px}#bgeLZd{display:none}.xAmryf{box-sizing:border-box;align-items:center;height:40px;border-radius:8px;display:flex;color:var(--bbQxAb);border:1px solid var(--mXZkqc);background-color:var(--xhUGwc);line-height:22px}.xAmryf .eL7oAc{fill:var(--bbQxAb);padding-top:1px}.xAmryf.LvqzR{background-color:#e8f0fe;cursor:pointer;color:var(--TMYS9)}.xAmryf.LvqzR .eL7oAc{fill:var(--TMYS9)}.jtAOgd{white-space:nowrap;font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;margin:0 14px}.TfeWfb{gap:12px 6px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}.TfeWfb::-webkit-scrollbar{display:none}.uhebGb{font-style:italic}.zjKSsb{background:var(--TMYS9);border-radius:50%;margin-right:6px;width:6px;height:6px}#YMXe{display:none}.MagqMc .ZFiwCf{background-color:#fff;border:1px solid var(--gS5jXb);width:100%}.MagqMc.U48fD{padding:0;margin-top:16px}.MagqMc .Bi9oQd{display:none}.MagqMc{padding:0}.MagqMc:hover .LGwnxb{color:var(--YLNNHc)}.sOmPcf .ZFiwCf{background-color:#fafafa}.U48fD{-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;line-height:18px;text-overflow:ellipsis;white-space:nowrap;padding:16px;padding-top:0;margin-top:16px;position:relative}.TQc1id .U48fD{margin-top:16px}.U48fD.df13ud{margin-top:16px}.U48fD.TOQyFc{margin-top:0}.U48fD.p8FEIf{padding-bottom:0}.jRKCUd.p8FEIf::before{bottom:-4px}.U48fD.ke7M4{padding-left:0;padding-right:0}.jRKCUd::before{bottom:12px;content:'';left:16px;position:absolute;right:16px;top:-4px}a.jRKCUd:hover{text-decoration:none}.ZFiwCf{display:flex;align-items:center;justify-content:center;position:relative;margin:0 auto;width:100%;border-radius:18px;outline:1px solid transparent;background-color:#f1f3f4;font-size:14px;font-family:Google Sans,Roboto,Arial,sans-serif;line-height:20px;font-weight:400;max-width:372px;min-height:40px;border-radius:20px;}@media (forced-colors:active){.ZFiwCf{border:1px solid transparent}}.TQc1id .ZFiwCf{max-width:unset}.Zjtggb .ZFiwCf{max-width:unset}.ZFiwCf:hover{background-color:#fafafa}.nCFUpc .ZFiwCf{width:100%}.Bi9oQd{background-color:var(--gS5jXb);margin-top:18px;position:absolute;border:0;height:1px;left:0;width:100%;margin-top:20px;}.TQc1id .Bi9oQd{display:none}.kC8B4e .Bi9oQd{display:none}.w2fKdd svg{width:auto}.w2fKdd{color:var(--IXoxUe)}.LGwnxb{-webkit-line-clamp:1;word-break:break-all;width:auto;padding-left:0;padding-right:8px;color:#202124;max-width:calc(100% - 64px);}.LGwnxb:empty{padding-right:0}.LGwnxb span,.LGwnxb div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:auto}See more.JCHpcb:hover,.LvqzR .JCHpcb{color:#1558d6;text-decoration:underline}.JCHpcb{color:#70757a;font:13px arial,sans-serif;cursor:pointer;align-self:center}@media (hover:hover){.sbai{visibility:hidden}.sbhl .sbai{visibility:inherit}}Delete#d6ItKb{display:none}.AB2Fdd{display:flex}.ZDHp{position:relative;margin:20px;display:flex}.DJbVFb,.o6OF0{background:#f8f9fa;border-radius:20px}.o6OF0:hover,.o6OF0.LvqzR{background:#e7e8e9}.o6OF0 .eIPGRd{display:block}@media (forced-colors:none){.o6OF0.sbhl{background:#e7e8e9}}@media (forced-colors:active){.o6OF0.sbhl{background-color:highlight}}.o6OF0 .AQZ9Vd{display:none}.o6OF0 .sbic{display:none}.o6OF0 .pcTkSc{display:none}.o6OF0 .wM6W7d{display:none}.o6OF0 .eIPGRd{max-width:100%;margin:0}.ZDHp .SHFPkb{margin-bottom:12px}.o6OF0 .SHFPkb{line-height:48px;font-family:Google Sans,Roboto,Arial,sans-serif;font-size:36px;font-weight:400;color:var(--YLNNHc);display:-webkit-box;overflow:hidden;-webkit-line-clamp:2;-webkit-box-orient:vertical}.lQoozf{font-size:28px}.o6OF0 .HrUlUc,.o6OF0 .PnfqLc{font-family:Roboto,Arial,sans-serif;font-weight:400;max-height:72px;color:var(--bbQxAb)}.ZDHp .HrUlUc,.ZDHp .PnfqLc{font-size:18px;line-height:24px}.o6OF0 .bTSf5c{font-family:Google Sans,Roboto,Arial,sans-serif;font-weight:400;color:var(--bbQxAb)}.ZDHp .bTSf5c{line-height:22px;font-size:14px;margin-bottom:6px}.ZDHp .HrUlUc,.ZDHp .PnfqLc{overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}.Vlt3wb{font-style:normal;font-family:Roboto,Arial,sans-serif;font-weight:400;font-size:14px;line-height:22px;padding-top:8px;margin-top:12px;color:var(--bbQxAb);border-top:1px solid #dadce0;display:flex;width:100%}.Tnv2td{position:absolute;top:0;right:0}.z76Rnb{padding:6px;width:24px;height:24px;background-color:var(--xhUGwc);color:var(--IXoxUe);border-radius:9999px;border:1px solid var(--mXZkqc);cursor:pointer}.z76Rnb.LvqzR{color:var(--YLNNHc);background-color:#fafafa}.kZtr1b{display:flex;flex-direction:column;flex-grow:1;min-width:0}.XAFD5c{width:200px;height:200px;background-color:var(--xhUGwc);border-radius:20px;margin-left:20px;flex-shrink:0;background-position:center;background-repeat:no-repeat;background-size:contain}.XAFD5c.iNF0Vd{background-size:136px}.ZDHp .lnnVSe{font-size:18px;flex-grow:1}.ZDHp .HrUlUc,.ZDHp .PnfqLc{display:flex;flex-direction:column}.rnAixd{color:#b3261e}.izxCJf{color:#146c2e}#mitGyb{display:none}.s2Wjec{display:block}Delete#TN4rFf{display:none}.IDVnvc{display:inline-block;overflow:hidden;max-width:223px;border-radius:16px;height:178px;margin:-2px -10px 2px 10px}.IDVnvc.sbhl{border-radius:16px}.OBMEnb:only-child .IDVnvc{margin-right:calc(25% - 113px)}.cRV9hb{width:90px;padding:6px}.cRV9hb .pcTkSc{font-family:Roboto,Arial,sans-serif;overflow:hidden;margin-top:4px;padding:0}.cRV9hb .pcTkSc .wM6W7d{font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;line-height:18px;padding:0;color:var(--YLNNHc)}.cRV9hb .pcTkSc .ClJ9Yb{line-height:16px;font-size:12px;font-family:Roboto,Arial,sans-serif;display:none;display:flex}.cRV9hb .pcTkSc .wM6W7d span,.cRV9hb .pcTkSc .ClJ9Yb span{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;white-space:normal}.cRV9hb .pcTkSc .wM6W7d span{-webkit-line-clamp:2}.cRV9hb .pcTkSc .ClJ9Yb span{-webkit-line-clamp:2}.aVbWac{background:#fff;border-radius:12px;height:90px}.aVbWac .sbic.vYOkbe{height:90px;width:90px;border-radius:12px;margin:0} .lJ9FBc{height:70px}.lJ9FBc input[type=\"submit\"],.f1pnbf,.gbqfba{background-color:#f8f9fa;border:1px solid #f8f9fa;color:#3c4043;margin:11px 4px;padding:0 16px;line-height:27px;height:36px;min-width:54px;text-align:center;cursor:pointer;user-select:none;border-radius:4px;font-family:Roboto,Arial,sans-serif;font-size:14px}.lJ9FBc input[type=\"submit\"]:hover,.f1pnbf:hover{box-shadow:0 1px 1px rgba(0,0,0,.1);background-color:#f8f9fa;border:1px solid #dadce0;color:#202124}.lJ9FBc input[type=\"submit\"]:focus,.f1pnbf:focus{border:1px solid #4285f4;outline:none}        .WzNHm{font-size:11px;font-style:italic;margin-top:-16px;position:absolute;right:20px;color:var(--IXoxUe)}Report inappropriate predictions      I'm Feeling CuriousI'm Feeling HungryI'm Feeling AdventurousI'm Feeling PlayfulI'm Feeling StellarI'm Feeling DoodleyI'm Feeling TrendyI'm Feeling ArtisticI'm Feeling Funny      (function(){\nvar a=this||self;var c=document.querySelector(\"form\");if(c){var d=function(b){b.key!==\"Enter\"||b.shiftKey||(b.preventDefault(),c.submit&&c.submit())};c.addEventListener(\"keydown\",d);a.sbmlhf=d};}).call(this);(function(){(function(){function e(){d--;d||(google.tick(\"load\",\"dlt\"),google.c.u(\"dlt\"))}for(var b=document.querySelectorAll(\"[data-doodle]\"),c=[],a=0;a<b.length;a++){var f=b[a];google.cv(f)&1&&c.push(f)}var d=c.length;if(d)for(google.c.b(\"dlt\"),b=0;b<c.length;b++)a=c[b],a.complete||!a.src?e():google.rll(a,!0,e)})();}).call(this);",
+      "attributes": {},
+      "is_clickable": false,
+      "is_editable": false,
+      "confidence": 0.8999999999999999,
+      "interaction_types": [
+        "submit",
+        "reset"
+      ],
+      "interaction_score": 0.8
+    }
+  ],
+  "metadata": {
+    "success": true,
+    "source": "https://www.google.com",
+    "source_type": "url",
+    "profile": "interactive",
+    "timestamp": "2025-09-09T13:41:34.884387",
+    "extraction_time": 4.137480020523071,
+    "statistics": {
+      "total_extracted": 51,
+      "after_filtering": 33,
+      "categories": {
+        "clickable": 30,
+        "editable": 7,
+        "navigational": 23,
+        "form_controls": 9,
+        "media_controls": 0,
+        "keyboard_accessible": 32,
+        "touch_interactive": 0
+      }
+    },
+    "insights": {
+      "interaction_summary": {
+        "total_interactive": 33,
+        "clickable": 30,
+        "editable": 7,
+        "navigational": 23,
+        "form_controls": 9,
+        "media_controls": 0,
+        "keyboard_accessible": 32,
+        "touch_interactive": 0
+      },
+      "interaction_complexity": "moderate",
+      "keyboard_accessibility": {
+        "ratio": 96.96969696969697,
+        "assessment": "good"
+      },
+      "top_interaction_types": [
+        "click",
+        "hover",
+        "navigate",
+        "type",
+        "clear"
+      ],
+      "recommendations": [
+        "High number of clickable elements - consider automation testing",
+        "No media controls detected - verify if media elements exist"
+      ]
+    },
+    "elements": {
+      "all": [
+        {
+          "tag_name": "button",
+          "element_type": "button",
+          "selector": "//button[@id='spchx']",
+          "xpath": "//button[@id='spchx']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "click",
+            "hover"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "button",
+          "element_type": "button",
+          "selector": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+          "xpath": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+          "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'MV3Tnb')]",
+          "xpath": "//a[contains(@class, 'MV3Tnb')]",
+          "text": "About",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'MV3Tnb')]",
+          "xpath": "//a[contains(@class, 'MV3Tnb')]",
+          "text": "Store",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_X')]",
+          "xpath": "//a[contains(@class, 'gb_X')]",
+          "text": "Gmail",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_X')]",
+          "xpath": "//a[contains(@class, 'gb_X')]",
+          "text": "Images",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_B')]",
+          "xpath": "//a[contains(@class, 'gb_B')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_A')]",
+          "xpath": "//a[contains(@class, 'gb_A')]",
+          "text": "Sign in",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+          "xpath": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+          "text": ".lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto;vertical-align:bottom}",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a",
+          "xpath": "//a",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Advertising",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Business",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "How Search works",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Applying AI towards science and the environment",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Privacy",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Terms",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Search settings')]",
+          "xpath": "//a[contains(text(), 'Search settings')]",
+          "text": "Search settings",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Advanced search')]",
+          "xpath": "//a[contains(text(), 'Advanced search')]",
+          "text": "Advanced search",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Your data in Search')]",
+          "xpath": "//a[contains(text(), 'Your data in Search')]",
+          "text": "Your data in Search",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Search history')]",
+          "xpath": "//a[contains(text(), 'Search history')]",
+          "text": "Search history",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Search help')]",
+          "xpath": "//a[contains(text(), 'Search help')]",
+          "text": "Search help",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "Facebook",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "WhatsApp",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "X",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "Email",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'gNO89b')]",
+          "xpath": "//input[contains(@class, 'gNO89b')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'RNmpXc')]",
+          "xpath": "//input[contains(@class, 'RNmpXc')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[@id='gbqfbb']",
+          "xpath": "//input[@id='gbqfbb']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input",
+          "xpath": "//input",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+          "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "textarea",
+          "element_type": "textarea",
+          "selector": "//textarea[@id='APjFqb']",
+          "xpath": "//textarea[@id='APjFqb']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "textarea",
+          "element_type": "textarea",
+          "selector": "//textarea[contains(@class, 'csi')]",
+          "xpath": "//textarea[contains(@class, 'csi')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div",
+          "xpath": "//div",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'vOY7J')]",
+          "xpath": "//div[contains(@class, 'vOY7J')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'XDyW0e')]",
+          "xpath": "//div[contains(@class, 'XDyW0e')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'nDcEnd')]",
+          "xpath": "//div[contains(@class, 'nDcEnd')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "span",
+          "element_type": "unknown",
+          "selector": "//span[contains(@class, 'Job8vb') and contains(@class, 'z1asCe')]",
+          "xpath": "//span[contains(@class, 'Job8vb') and contains(@class, 'z1asCe')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'Sz7Lee') and contains(@class, 'MagqMc')]",
+          "xpath": "//div[contains(@class, 'Sz7Lee') and contains(@class, 'MagqMc')]",
+          "text": ".U48fD{-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;line-height:18px;text-overflow:ellipsis;white-space:nowrap;padding:16px;padding-top:0;margin-top:16px;position:relative}.TQc1id .U48fD{margin-top:16px}.U48fD.df13ud{margin-top:16px}.U48fD.TOQyFc{margin-top:0}.U48fD.p8FEIf{padding-bottom:0}.jRKCUd.p8FEIf::before{bottom:-4px}.U48fD.ke7M4{padding-left:0;padding-right:0}.jRKCUd::before{bottom:12px;content:'';left:16px;position:absolute;right:16px;top:-4px}a.jRKCUd:hover{text-decoration:none}.ZFiwCf{display:flex;align-items:center;justify-content:center;position:relative;margin:0 auto;width:100%;border-radius:18px;outline:1px solid transparent;background-color:#f1f3f4;font-size:14px;font-family:Google Sans,Roboto,Arial,sans-serif;line-height:20px;font-weight:400;max-width:372px;min-height:40px;border-radius:20px;}@media (forced-colors:active){.ZFiwCf{border:1px solid transparent}}.TQc1id .ZFiwCf{max-width:unset}.Zjtggb .ZFiwCf{max-width:unset}.ZFiwCf:hover{background-color:#fafafa}.nCFUpc .ZFiwCf{width:100%}.Bi9oQd{background-color:var(--gS5jXb);margin-top:18px;position:absolute;border:0;height:1px;left:0;width:100%;margin-top:20px;}.TQc1id .Bi9oQd{display:none}.kC8B4e .Bi9oQd{display:none}.w2fKdd svg{width:auto}.w2fKdd{color:var(--IXoxUe)}.LGwnxb{-webkit-line-clamp:1;word-break:break-all;width:auto;padding-left:0;padding-right:8px;color:#202124;max-width:calc(100% - 64px);}.LGwnxb:empty{padding-right:0}.LGwnxb span,.LGwnxb div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:auto}See more",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'AQZ9Vd')]",
+          "xpath": "//div[contains(@class, 'AQZ9Vd')]",
+          "text": ".JCHpcb:hover,.LvqzR .JCHpcb{color:#1558d6;text-decoration:underline}.JCHpcb{color:#70757a;font:13px arial,sans-serif;cursor:pointer;align-self:center}@media (hover:hover){.sbai{visibility:hidden}.sbhl .sbai{visibility:inherit}}Delete",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'Tnv2td')]",
+          "xpath": "//div[contains(@class, 'Tnv2td')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'AQZ9Vd')]",
+          "xpath": "//div[contains(@class, 'AQZ9Vd')]",
+          "text": "Delete",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'WzNHm') and contains(@class, 'mWcf0e')]",
+          "xpath": "//div[contains(@class, 'WzNHm') and contains(@class, 'mWcf0e')]",
+          "text": "Report inappropriate predictions",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'gbqfba') and contains(@class, 'gbqfba-hvr')]",
+          "xpath": "//div[contains(@class, 'gbqfba') and contains(@class, 'gbqfba-hvr')]",
+          "text": "I'm Feeling CuriousI'm Feeling HungryI'm Feeling AdventurousI'm Feeling PlayfulI'm Feeling StellarI'm Feeling DoodleyI'm Feeling TrendyI'm Feeling ArtisticI'm Feeling Funny",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'CcNe6e')]",
+          "xpath": "//div[contains(@class, 'CcNe6e')]",
+          "text": "Settings",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'LjfRsf')]",
+          "xpath": "//div[contains(@class, 'LjfRsf')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "span",
+          "element_type": "unknown",
+          "selector": "//span[contains(@class, 'xjR8dd') and contains(@class, 'bvSTKc')]",
+          "xpath": "//span[contains(@class, 'xjR8dd') and contains(@class, 'bvSTKc')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'n5Hqzc') and contains(@class, 'ApHyTb')]",
+          "xpath": "//div[contains(@class, 'n5Hqzc') and contains(@class, 'ApHyTb')]",
+          "text": "Click to copy link",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'cvSVBe') and contains(@class, 'btku5b')]",
+          "xpath": "//div[contains(@class, 'cvSVBe') and contains(@class, 'btku5b')]",
+          "text": "Stay signed out",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "div",
+          "element_type": "unknown",
+          "selector": "//div[contains(@class, 'cvSVBe') and contains(@class, 'btku5b')]",
+          "xpath": "//div[contains(@class, 'cvSVBe') and contains(@class, 'btku5b')]",
+          "text": "Sign in",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "link",
+          "element_type": "unknown",
+          "selector": "//link",
+          "xpath": "//link",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "none"
+          ],
+          "interaction_score": 0.0
+        },
+        {
+          "tag_name": "form",
+          "element_type": "form",
+          "selector": "//form[contains(text(), '.A8SBwf{margin:0 auto;max-widt')]",
+          "xpath": "//form[contains(text(), '.A8SBwf{margin:0 auto;max-widt')]",
+          "text": ".A8SBwf{margin:0 auto;max-width:688px;padding-top:6px;position:relative}.RNNXgb{display:flex;z-index:3;position:relative;min-height:50px;background:#fff;border:1px solid #dadce0;box-shadow:0px 3px 10px 0px rgba(31, 31, 31, 0.08);border-radius:26px;margin:0 auto;}.emcav .RNNXgb,.BgPPrc .RNNXgb{border-bottom-left-radius:0;border-bottom-right-radius:0;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);border-color:transparent;background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);}.emcav.emcat .RNNXgb{border-bottom-left-radius:26px;border-bottom-right-radius:26px;}.RNNXgb:hover,.sbfc .RNNXgb{background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);}.emcav .RNNXgb:hover,.sbfc.emcav .RNNXgb,.BgPPrc .RNNXgb:hover{background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);border-color:transparent}.SDkEP{flex:1;display:flex;background:inherit;border-radius:inherit;overflow:hidden;padding:0 8px 0 0;}.FPdoLc{padding-top:18px}.emcav.A8SBwf.pD4qTd{z-index:989;}.iblpc{display:flex;align-items:center;padding-right:13px;padding-left:14px;margin-top:0;height:50px;}.M8H8pb{position:absolute;top:0;left:0;right:0;padding:inherit;width:inherit}.hvhmMe{margin:auto}.Ty0Rrc{margin-top:3px;color:#9aa0a6}.gLFyf,.Rd7rGe,.YacQv{line-height:40px;font-size:16px;flex:100%;}textarea.gLFyf,.Rd7rGe,.YacQv{font-family:Google Sans,Roboto,Arial,sans-serif;line-height:22px;border-bottom:8px solid transparent;padding-top:14px;overflow-x:hidden}.emcav textarea.gLFyf,.emcav .Rd7rGe,.emcav .YacQv{font-family:Google Sans,Roboto,Arial,sans-serif}.sbfc textarea.gLFyf{white-space:pre-line;overflow-y:auto}.gLFyf{width:100%;resize:none;background-color:transparent;border:none;margin:0;padding:0;color:rgba(0,0,0,.87);word-wrap:break-word;outline:none;display:flex;-webkit-tap-highlight-color:transparent}.a4bIc{display:flex;flex-wrap:wrap;flex:1}.Rd7rGe,.YacQv{color:transparent;white-space:pre;position:absolute;pointer-events:none}.YacQv span{text-decoration:#b3261e dotted underline}.gLFyf::placeholder{color:var(--IXoxUe)}.cLwObd{color:var(--IXoxUe);font-size:10px;background-color:var(--Lm570b);border-radius:2px;padding:2px 4px;margin-left:6px;vertical-align:middle}.rPHoHc{display:none}.dRYYxd{display:flex;flex:0 0 auto;align-items:stretch;flex-direction:row;height:50px;background:inherit;}.WC2Die{background-color:inherit;display:flex} .BKRPef{background:transparent;align-items:center;flex:1 0 auto;flex-direction:row;display:flex;cursor:pointer}.vOY7J{background:transparent;border:0;align-items:center;flex:1 0 auto;cursor:pointer;display:none;height:100%;line-height:44px;outline:none;padding:0 12px;}.M2vV3{display:flex}.ExCKkf{height:100%;color:var(--bbQxAb);vertical-align:middle;outline:none;} .BKRPef{padding-right:4px}.ACRAdd{border-left:1px solid #dadce0;height:65%}.ACRAdd{display:none}.ACRAdd.M2vV3{display:block}         .XDyW0e{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;outline:none;padding:0 8px;width:24px;line-height:44px;}.goxjub{height:24px;width:24px;vertical-align:middle;}.nDcEnd{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;outline:none;padding:0 8px;width:24px;line-height:44px;}.Gdd5U{height:24px;width:24px;vertical-align:middle;}.plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode.UUbT9{position:absolute;text-align:left;z-index:3;cursor:default;-webkit-user-select:none;width:100%;margin-top:-1px;font-family:Google Sans,Roboto,Arial,sans-serif}.UUbT9 b{font-family:Google Sans,Roboto,Arial,sans-serif;font-weight:700}.aajZCb{display:flex;flex-direction:column;margin:0;padding:0;overflow:hidden;background:#fff;border-radius:0 0 24px 24px;box-shadow:0 4px 6px rgba(32,33,36,.28);border:0;padding-bottom:4px}.mkHrUc{display:flex}.pD4qTd .rLrQHf{padding-bottom:16px}.pD4qTd .rLrQHf{min-width:47%;width:47%;margin:8px 16px 0}.pD4qTd .rLrQHf:empty{display:none}.erkvQe{padding-bottom:8px;flex:auto;overflow-x:hidden}.RjPuVb{height:1px;margin:0 26px 0 0}.S3nFnd{display:flex}.S3nFnd .RjPuVb,.S3nFnd .aajZCb{flex:0 0 auto}.lh87ke:link,.lh87ke:visited{color:var(--JKqx2);cursor:pointer;font:11px arial,sans-serif;padding:0 5px;text-decoration:none;flex:auto;align-self:flex-end;margin:0 16px 5px 0}.lh87ke:hover{text-decoration:underline}.xtSCL{border-top:1px solid #e8eaed;margin:0 20px 0 14px;padding-bottom:4px}.sb27{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 -21px;background-size:20px;min-height:20px;min-width:20px;height:20px;width:20px}.sb43{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 0;background-size:20px;min-height:20px;min-width:20px;height:20px;width:20px}.sb53.sb53{padding:0 4px;margin:0}.sb33{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 -42px;background-size:20px;height:20px;width:20px}.z8gr9e{color:var(--bbQxAb)}.i1eWpb .GTERze{display:none}.ky4hfd{display:none}.i1eWpb .ky4hfd{display:block}.YB4h9{background-color:var(--TMYS9);color:var(--EpFNW);padding:18px 60px 18px 12px;position:relative}.C85rO{font-size:20px}.twTT9c{}.YB4h9 .Gtr0ne .twTT9c{color:var(--EpFNW);text-decoration:underline;padding:10px 0 0;background:none;border:none;font:inherit}.YB4h9 .Job8vb{padding:20px;position:absolute;right:0;top:0}.YB4h9.q7XNbb{margin-bottom:44px}Choose what you\u2019re giving feedback on#shJ2Vb{display:none}.OBMEnb{padding:0;margin:0}.G43f7e{display:flex;flex-direction:column;min-width:0;padding:0;margin:0;list-style:none}.Ye4jfc{flex-direction:row;flex-wrap:wrap}#ynRric{display:none}.ynRric{list-style-type:none;flex-direction:column;color:var(--IXoxUe);font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;margin:0 20px 0 16px;padding:8px 0 8px 0;line-height:16px;width:100%}.sbct{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:0}.eIPGRd{flex:auto;display:flex;align-items:center;margin:0 20px 0 14px}.pcTkSc{display:flex;flex:auto;flex-direction:column;min-width:0;padding:6px 0}.sbic{display:flex;align-items:center;margin:0 13px 0 1px;}.sbic.vYOkbe{background:center/contain no-repeat;border-radius:4px;min-height:32px;min-width:32px;margin:4px 7px 4px -5px}.sbre .wM6W7d{line-height:18px}.ClJ9Yb{display:flex;align-items:center;line-height:12px;font-size:13px;color:#70757a;margin-top:2px;padding-right:8px}.wM6W7d{display:flex;font-size:16px;color:#212121;flex:auto;align-items:center;word-break:break-word;padding-right:8px}.WggQGd{color:#52188c}.wM6W7d span{flex:auto}.AQZ9Vd{display:flex;align-self:stretch}.sbhl{border-radius:4px;background:#f3f5f6}.UUbT9.i1eWpb .PZPZlf.sbhl{background:none}.UUbT9.i1eWpb .PZPZlf.sbhl .gmlSVb{background:rgba(234,67,53,.12)}@media (forced-colors:active){.sbhl{background-color:highlight}}.mus_pc{display:block;margin:6px 0}.mus_il{font-family:Arial,sans-serif;padding-top:7px;position:relative}.mus_il:first-child{padding-top:0}.mus_il_at{margin-left:10px}.mus_il_i{align:left;margin-right:10px}.mus_it3{margin-bottom:3px;max-height:24px;vertical-align:bottom}.mus_tt3{color:#767676;font-size:12px;vertical-align:top}.mus_tt5{color:#d93025;font-size:14px}.mus_tt6{color:#188038;font-size:14px}.mus_tt8{font-size:16px;font-family:Arial,sans-serif}.mus_tt17{color:#212121;font-size:20px}.mus_tt18{color:#212121;font-size:28px}.mus_tt19{color:#767676;font-size:12px}.mus_tt20{color:#767676;font-size:14px}.mus_tt23{color:#767676;font-size:18px}.TfeWfb{display:none}.xAmryf{display:none}.DJbVFb .TfeWfb{display:flex;flex-wrap:wrap;overflow-x:hidden;width:100%;height:52px}.DJbVFb .AQZ9Vd{display:none}.DJbVFb .xAmryf{border-radius:100px;background-color:var(--xhUGwc)}.DJbVFb .TfeWfb{display:inherit}.DJbVFb .xAmryf .eL7oAc{display:none}.DJbVFb{background:#f8f9fa;border-radius:20px}.DJbVFb:hover{background:#e8eaed}.DJbVFb .vYOkbe{height:-1px;width:-1px;flex-shrink:0;margin:20px 0 20px 8px;float:right;border-radius:16px;background-color:#fff}.DJbVFb.sbhl{background:#e8eaed}.DJbVFb .ClJ9Yb{display:none}.DJbVFb .wM6W7d{flex:initial}.DJbVFb .wM6W7d span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden}.DJbVFb .eIPGRd{display:flex;flex-direction:row-reverse;align-items:stretch;margin:0 20px 0 14px}.DJbVFb .a5RLac{line-height:26px;font-size:20px;font-family:Google Sans,Roboto,Arial,sans-serif;padding-top:16px;color:var(--bbQxAb);margin-bottom:auto}.DJbVFb .kzCE2{font-size:16px}.DJbVFb .wM6W7d span{color:var(--YLNNHc);line-height:36px;font-weight:400;font-size:28px;font-family:Google Sans,Roboto,Arial,sans-serif}.DJbVFb .pcTkSc{margin:20px 6px;padding:0}.DJbVFb .vYOkbe{margin:20px 0 20px 18px;background-color:#fff;border-radius:20px}.DJbVFb .EOLKOc{width:calc(50% - 1px)}.iQxPRb{display:flex;gap:2px}.DJbVFb .EOLKOc:first-child{border-bottom-left-radius:20px}.DJbVFb .EOLKOc:last-child{border-bottom-right-radius:20px}.DJbVFb .AZNDm{border-top-right-radius:20px;border-top-left-radius:20px}.DJbVFb .a5RLac.kzCE2 span{-webkit-line-clamp:3}.DJbVFb .lnnVSe{margin-bottom:auto}.DJbVFb .a5RLac span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden;margin-right:10px}#bgeLZd{display:none}.xAmryf{box-sizing:border-box;align-items:center;height:40px;border-radius:8px;display:flex;color:var(--bbQxAb);border:1px solid var(--mXZkqc);background-color:var(--xhUGwc);line-height:22px}.xAmryf .eL7oAc{fill:var(--bbQxAb);padding-top:1px}.xAmryf.LvqzR{background-color:#e8f0fe;cursor:pointer;color:var(--TMYS9)}.xAmryf.LvqzR .eL7oAc{fill:var(--TMYS9)}.jtAOgd{white-space:nowrap;font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;margin:0 14px}.TfeWfb{gap:12px 6px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}.TfeWfb::-webkit-scrollbar{display:none}.uhebGb{font-style:italic}.zjKSsb{background:var(--TMYS9);border-radius:50%;margin-right:6px;width:6px;height:6px}#YMXe{display:none}.MagqMc .ZFiwCf{background-color:#fff;border:1px solid var(--gS5jXb);width:100%}.MagqMc.U48fD{padding:0;margin-top:16px}.MagqMc .Bi9oQd{display:none}.MagqMc{padding:0}.MagqMc:hover .LGwnxb{color:var(--YLNNHc)}.sOmPcf .ZFiwCf{background-color:#fafafa}.U48fD{-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;line-height:18px;text-overflow:ellipsis;white-space:nowrap;padding:16px;padding-top:0;margin-top:16px;position:relative}.TQc1id .U48fD{margin-top:16px}.U48fD.df13ud{margin-top:16px}.U48fD.TOQyFc{margin-top:0}.U48fD.p8FEIf{padding-bottom:0}.jRKCUd.p8FEIf::before{bottom:-4px}.U48fD.ke7M4{padding-left:0;padding-right:0}.jRKCUd::before{bottom:12px;content:'';left:16px;position:absolute;right:16px;top:-4px}a.jRKCUd:hover{text-decoration:none}.ZFiwCf{display:flex;align-items:center;justify-content:center;position:relative;margin:0 auto;width:100%;border-radius:18px;outline:1px solid transparent;background-color:#f1f3f4;font-size:14px;font-family:Google Sans,Roboto,Arial,sans-serif;line-height:20px;font-weight:400;max-width:372px;min-height:40px;border-radius:20px;}@media (forced-colors:active){.ZFiwCf{border:1px solid transparent}}.TQc1id .ZFiwCf{max-width:unset}.Zjtggb .ZFiwCf{max-width:unset}.ZFiwCf:hover{background-color:#fafafa}.nCFUpc .ZFiwCf{width:100%}.Bi9oQd{background-color:var(--gS5jXb);margin-top:18px;position:absolute;border:0;height:1px;left:0;width:100%;margin-top:20px;}.TQc1id .Bi9oQd{display:none}.kC8B4e .Bi9oQd{display:none}.w2fKdd svg{width:auto}.w2fKdd{color:var(--IXoxUe)}.LGwnxb{-webkit-line-clamp:1;word-break:break-all;width:auto;padding-left:0;padding-right:8px;color:#202124;max-width:calc(100% - 64px);}.LGwnxb:empty{padding-right:0}.LGwnxb span,.LGwnxb div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:auto}See more.JCHpcb:hover,.LvqzR .JCHpcb{color:#1558d6;text-decoration:underline}.JCHpcb{color:#70757a;font:13px arial,sans-serif;cursor:pointer;align-self:center}@media (hover:hover){.sbai{visibility:hidden}.sbhl .sbai{visibility:inherit}}Delete#d6ItKb{display:none}.AB2Fdd{display:flex}.ZDHp{position:relative;margin:20px;display:flex}.DJbVFb,.o6OF0{background:#f8f9fa;border-radius:20px}.o6OF0:hover,.o6OF0.LvqzR{background:#e7e8e9}.o6OF0 .eIPGRd{display:block}@media (forced-colors:none){.o6OF0.sbhl{background:#e7e8e9}}@media (forced-colors:active){.o6OF0.sbhl{background-color:highlight}}.o6OF0 .AQZ9Vd{display:none}.o6OF0 .sbic{display:none}.o6OF0 .pcTkSc{display:none}.o6OF0 .wM6W7d{display:none}.o6OF0 .eIPGRd{max-width:100%;margin:0}.ZDHp .SHFPkb{margin-bottom:12px}.o6OF0 .SHFPkb{line-height:48px;font-family:Google Sans,Roboto,Arial,sans-serif;font-size:36px;font-weight:400;color:var(--YLNNHc);display:-webkit-box;overflow:hidden;-webkit-line-clamp:2;-webkit-box-orient:vertical}.lQoozf{font-size:28px}.o6OF0 .HrUlUc,.o6OF0 .PnfqLc{font-family:Roboto,Arial,sans-serif;font-weight:400;max-height:72px;color:var(--bbQxAb)}.ZDHp .HrUlUc,.ZDHp .PnfqLc{font-size:18px;line-height:24px}.o6OF0 .bTSf5c{font-family:Google Sans,Roboto,Arial,sans-serif;font-weight:400;color:var(--bbQxAb)}.ZDHp .bTSf5c{line-height:22px;font-size:14px;margin-bottom:6px}.ZDHp .HrUlUc,.ZDHp .PnfqLc{overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}.Vlt3wb{font-style:normal;font-family:Roboto,Arial,sans-serif;font-weight:400;font-size:14px;line-height:22px;padding-top:8px;margin-top:12px;color:var(--bbQxAb);border-top:1px solid #dadce0;display:flex;width:100%}.Tnv2td{position:absolute;top:0;right:0}.z76Rnb{padding:6px;width:24px;height:24px;background-color:var(--xhUGwc);color:var(--IXoxUe);border-radius:9999px;border:1px solid var(--mXZkqc);cursor:pointer}.z76Rnb.LvqzR{color:var(--YLNNHc);background-color:#fafafa}.kZtr1b{display:flex;flex-direction:column;flex-grow:1;min-width:0}.XAFD5c{width:200px;height:200px;background-color:var(--xhUGwc);border-radius:20px;margin-left:20px;flex-shrink:0;background-position:center;background-repeat:no-repeat;background-size:contain}.XAFD5c.iNF0Vd{background-size:136px}.ZDHp .lnnVSe{font-size:18px;flex-grow:1}.ZDHp .HrUlUc,.ZDHp .PnfqLc{display:flex;flex-direction:column}.rnAixd{color:#b3261e}.izxCJf{color:#146c2e}#mitGyb{display:none}.s2Wjec{display:block}Delete#TN4rFf{display:none}.IDVnvc{display:inline-block;overflow:hidden;max-width:223px;border-radius:16px;height:178px;margin:-2px -10px 2px 10px}.IDVnvc.sbhl{border-radius:16px}.OBMEnb:only-child .IDVnvc{margin-right:calc(25% - 113px)}.cRV9hb{width:90px;padding:6px}.cRV9hb .pcTkSc{font-family:Roboto,Arial,sans-serif;overflow:hidden;margin-top:4px;padding:0}.cRV9hb .pcTkSc .wM6W7d{font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;line-height:18px;padding:0;color:var(--YLNNHc)}.cRV9hb .pcTkSc .ClJ9Yb{line-height:16px;font-size:12px;font-family:Roboto,Arial,sans-serif;display:none;display:flex}.cRV9hb .pcTkSc .wM6W7d span,.cRV9hb .pcTkSc .ClJ9Yb span{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;white-space:normal}.cRV9hb .pcTkSc .wM6W7d span{-webkit-line-clamp:2}.cRV9hb .pcTkSc .ClJ9Yb span{-webkit-line-clamp:2}.aVbWac{background:#fff;border-radius:12px;height:90px}.aVbWac .sbic.vYOkbe{height:90px;width:90px;border-radius:12px;margin:0} .lJ9FBc{height:70px}.lJ9FBc input[type=\"submit\"],.f1pnbf,.gbqfba{background-color:#f8f9fa;border:1px solid #f8f9fa;color:#3c4043;margin:11px 4px;padding:0 16px;line-height:27px;height:36px;min-width:54px;text-align:center;cursor:pointer;user-select:none;border-radius:4px;font-family:Roboto,Arial,sans-serif;font-size:14px}.lJ9FBc input[type=\"submit\"]:hover,.f1pnbf:hover{box-shadow:0 1px 1px rgba(0,0,0,.1);background-color:#f8f9fa;border:1px solid #dadce0;color:#202124}.lJ9FBc input[type=\"submit\"]:focus,.f1pnbf:focus{border:1px solid #4285f4;outline:none}        .WzNHm{font-size:11px;font-style:italic;margin-top:-16px;position:absolute;right:20px;color:var(--IXoxUe)}Report inappropriate predictions      I'm Feeling CuriousI'm Feeling HungryI'm Feeling AdventurousI'm Feeling PlayfulI'm Feeling StellarI'm Feeling DoodleyI'm Feeling TrendyI'm Feeling ArtisticI'm Feeling Funny      (function(){\nvar a=this||self;var c=document.querySelector(\"form\");if(c){var d=function(b){b.key!==\"Enter\"||b.shiftKey||(b.preventDefault(),c.submit&&c.submit())};c.addEventListener(\"keydown\",d);a.sbmlhf=d};}).call(this);(function(){(function(){function e(){d--;d||(google.tick(\"load\",\"dlt\"),google.c.u(\"dlt\"))}for(var b=document.querySelectorAll(\"[data-doodle]\"),c=[],a=0;a<b.length;a++){var f=b[a];google.cv(f)&1&&c.push(f)}var d=c.length;if(d)for(google.c.b(\"dlt\"),b=0;b<c.length;b++)a=c[b],a.complete||!a.src?e():google.rll(a,!0,e)})();}).call(this);",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "submit",
+            "reset"
+          ],
+          "interaction_score": 0.8
+        }
+      ],
+      "filtered": [
+        {
+          "tag_name": "button",
+          "element_type": "button",
+          "selector": "//button[@id='spchx']",
+          "xpath": "//button[@id='spchx']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "click",
+            "hover"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "button",
+          "element_type": "button",
+          "selector": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+          "xpath": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+          "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'MV3Tnb')]",
+          "xpath": "//a[contains(@class, 'MV3Tnb')]",
+          "text": "About",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'MV3Tnb')]",
+          "xpath": "//a[contains(@class, 'MV3Tnb')]",
+          "text": "Store",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_X')]",
+          "xpath": "//a[contains(@class, 'gb_X')]",
+          "text": "Gmail",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_X')]",
+          "xpath": "//a[contains(@class, 'gb_X')]",
+          "text": "Images",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_B')]",
+          "xpath": "//a[contains(@class, 'gb_B')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'gb_A')]",
+          "xpath": "//a[contains(@class, 'gb_A')]",
+          "text": "Sign in",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+          "xpath": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+          "text": ".lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto;vertical-align:bottom}",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a",
+          "xpath": "//a",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Advertising",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Business",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "How Search works",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Applying AI towards science and the environment",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Privacy",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'pHiOh')]",
+          "xpath": "//a[contains(@class, 'pHiOh')]",
+          "text": "Terms",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Search settings')]",
+          "xpath": "//a[contains(text(), 'Search settings')]",
+          "text": "Search settings",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Advanced search')]",
+          "xpath": "//a[contains(text(), 'Advanced search')]",
+          "text": "Advanced search",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Your data in Search')]",
+          "xpath": "//a[contains(text(), 'Your data in Search')]",
+          "text": "Your data in Search",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Search history')]",
+          "xpath": "//a[contains(text(), 'Search history')]",
+          "text": "Search history",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(text(), 'Search help')]",
+          "xpath": "//a[contains(text(), 'Search help')]",
+          "text": "Search help",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "Facebook",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "WhatsApp",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "X",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "a",
+          "element_type": "link",
+          "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+          "text": "Email",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover",
+            "navigate"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'gNO89b')]",
+          "xpath": "//input[contains(@class, 'gNO89b')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'RNmpXc')]",
+          "xpath": "//input[contains(@class, 'RNmpXc')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[@id='gbqfbb']",
+          "xpath": "//input[@id='gbqfbb']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input",
+          "xpath": "//input",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+          "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "textarea",
+          "element_type": "textarea",
+          "selector": "//textarea[@id='APjFqb']",
+          "xpath": "//textarea[@id='APjFqb']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "textarea",
+          "element_type": "textarea",
+          "selector": "//textarea[contains(@class, 'csi')]",
+          "xpath": "//textarea[contains(@class, 'csi')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "interaction_score": 1.0
+        },
+        {
+          "tag_name": "form",
+          "element_type": "form",
+          "selector": "//form[contains(text(), '.A8SBwf{margin:0 auto;max-widt')]",
+          "xpath": "//form[contains(text(), '.A8SBwf{margin:0 auto;max-widt')]",
+          "text": ".A8SBwf{margin:0 auto;max-width:688px;padding-top:6px;position:relative}.RNNXgb{display:flex;z-index:3;position:relative;min-height:50px;background:#fff;border:1px solid #dadce0;box-shadow:0px 3px 10px 0px rgba(31, 31, 31, 0.08);border-radius:26px;margin:0 auto;}.emcav .RNNXgb,.BgPPrc .RNNXgb{border-bottom-left-radius:0;border-bottom-right-radius:0;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);border-color:transparent;background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);}.emcav.emcat .RNNXgb{border-bottom-left-radius:26px;border-bottom-right-radius:26px;}.RNNXgb:hover,.sbfc .RNNXgb{background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);}.emcav .RNNXgb:hover,.sbfc.emcav .RNNXgb,.BgPPrc .RNNXgb:hover{background:#fff;box-shadow:0 2px 8px 1px rgba(64,60,67,.24);border-color:transparent}.SDkEP{flex:1;display:flex;background:inherit;border-radius:inherit;overflow:hidden;padding:0 8px 0 0;}.FPdoLc{padding-top:18px}.emcav.A8SBwf.pD4qTd{z-index:989;}.iblpc{display:flex;align-items:center;padding-right:13px;padding-left:14px;margin-top:0;height:50px;}.M8H8pb{position:absolute;top:0;left:0;right:0;padding:inherit;width:inherit}.hvhmMe{margin:auto}.Ty0Rrc{margin-top:3px;color:#9aa0a6}.gLFyf,.Rd7rGe,.YacQv{line-height:40px;font-size:16px;flex:100%;}textarea.gLFyf,.Rd7rGe,.YacQv{font-family:Google Sans,Roboto,Arial,sans-serif;line-height:22px;border-bottom:8px solid transparent;padding-top:14px;overflow-x:hidden}.emcav textarea.gLFyf,.emcav .Rd7rGe,.emcav .YacQv{font-family:Google Sans,Roboto,Arial,sans-serif}.sbfc textarea.gLFyf{white-space:pre-line;overflow-y:auto}.gLFyf{width:100%;resize:none;background-color:transparent;border:none;margin:0;padding:0;color:rgba(0,0,0,.87);word-wrap:break-word;outline:none;display:flex;-webkit-tap-highlight-color:transparent}.a4bIc{display:flex;flex-wrap:wrap;flex:1}.Rd7rGe,.YacQv{color:transparent;white-space:pre;position:absolute;pointer-events:none}.YacQv span{text-decoration:#b3261e dotted underline}.gLFyf::placeholder{color:var(--IXoxUe)}.cLwObd{color:var(--IXoxUe);font-size:10px;background-color:var(--Lm570b);border-radius:2px;padding:2px 4px;margin-left:6px;vertical-align:middle}.rPHoHc{display:none}.dRYYxd{display:flex;flex:0 0 auto;align-items:stretch;flex-direction:row;height:50px;background:inherit;}.WC2Die{background-color:inherit;display:flex} .BKRPef{background:transparent;align-items:center;flex:1 0 auto;flex-direction:row;display:flex;cursor:pointer}.vOY7J{background:transparent;border:0;align-items:center;flex:1 0 auto;cursor:pointer;display:none;height:100%;line-height:44px;outline:none;padding:0 12px;}.M2vV3{display:flex}.ExCKkf{height:100%;color:var(--bbQxAb);vertical-align:middle;outline:none;} .BKRPef{padding-right:4px}.ACRAdd{border-left:1px solid #dadce0;height:65%}.ACRAdd{display:none}.ACRAdd.M2vV3{display:block}         .XDyW0e{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;outline:none;padding:0 8px;width:24px;line-height:44px;}.goxjub{height:24px;width:24px;vertical-align:middle;}.nDcEnd{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;outline:none;padding:0 8px;width:24px;line-height:44px;}.Gdd5U{height:24px;width:24px;vertical-align:middle;}.plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode.UUbT9{position:absolute;text-align:left;z-index:3;cursor:default;-webkit-user-select:none;width:100%;margin-top:-1px;font-family:Google Sans,Roboto,Arial,sans-serif}.UUbT9 b{font-family:Google Sans,Roboto,Arial,sans-serif;font-weight:700}.aajZCb{display:flex;flex-direction:column;margin:0;padding:0;overflow:hidden;background:#fff;border-radius:0 0 24px 24px;box-shadow:0 4px 6px rgba(32,33,36,.28);border:0;padding-bottom:4px}.mkHrUc{display:flex}.pD4qTd .rLrQHf{padding-bottom:16px}.pD4qTd .rLrQHf{min-width:47%;width:47%;margin:8px 16px 0}.pD4qTd .rLrQHf:empty{display:none}.erkvQe{padding-bottom:8px;flex:auto;overflow-x:hidden}.RjPuVb{height:1px;margin:0 26px 0 0}.S3nFnd{display:flex}.S3nFnd .RjPuVb,.S3nFnd .aajZCb{flex:0 0 auto}.lh87ke:link,.lh87ke:visited{color:var(--JKqx2);cursor:pointer;font:11px arial,sans-serif;padding:0 5px;text-decoration:none;flex:auto;align-self:flex-end;margin:0 16px 5px 0}.lh87ke:hover{text-decoration:underline}.xtSCL{border-top:1px solid #e8eaed;margin:0 20px 0 14px;padding-bottom:4px}.sb27{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 -21px;background-size:20px;min-height:20px;min-width:20px;height:20px;width:20px}.sb43{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 0;background-size:20px;min-height:20px;min-width:20px;height:20px;width:20px}.sb53.sb53{padding:0 4px;margin:0}.sb33{background:url(/images/searchbox/desktop_searchbox_sprites318_hr.webp) no-repeat 0 -42px;background-size:20px;height:20px;width:20px}.z8gr9e{color:var(--bbQxAb)}.i1eWpb .GTERze{display:none}.ky4hfd{display:none}.i1eWpb .ky4hfd{display:block}.YB4h9{background-color:var(--TMYS9);color:var(--EpFNW);padding:18px 60px 18px 12px;position:relative}.C85rO{font-size:20px}.twTT9c{}.YB4h9 .Gtr0ne .twTT9c{color:var(--EpFNW);text-decoration:underline;padding:10px 0 0;background:none;border:none;font:inherit}.YB4h9 .Job8vb{padding:20px;position:absolute;right:0;top:0}.YB4h9.q7XNbb{margin-bottom:44px}Choose what you\u2019re giving feedback on#shJ2Vb{display:none}.OBMEnb{padding:0;margin:0}.G43f7e{display:flex;flex-direction:column;min-width:0;padding:0;margin:0;list-style:none}.Ye4jfc{flex-direction:row;flex-wrap:wrap}#ynRric{display:none}.ynRric{list-style-type:none;flex-direction:column;color:var(--IXoxUe);font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;margin:0 20px 0 16px;padding:8px 0 8px 0;line-height:16px;width:100%}.sbct{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:0}.eIPGRd{flex:auto;display:flex;align-items:center;margin:0 20px 0 14px}.pcTkSc{display:flex;flex:auto;flex-direction:column;min-width:0;padding:6px 0}.sbic{display:flex;align-items:center;margin:0 13px 0 1px;}.sbic.vYOkbe{background:center/contain no-repeat;border-radius:4px;min-height:32px;min-width:32px;margin:4px 7px 4px -5px}.sbre .wM6W7d{line-height:18px}.ClJ9Yb{display:flex;align-items:center;line-height:12px;font-size:13px;color:#70757a;margin-top:2px;padding-right:8px}.wM6W7d{display:flex;font-size:16px;color:#212121;flex:auto;align-items:center;word-break:break-word;padding-right:8px}.WggQGd{color:#52188c}.wM6W7d span{flex:auto}.AQZ9Vd{display:flex;align-self:stretch}.sbhl{border-radius:4px;background:#f3f5f6}.UUbT9.i1eWpb .PZPZlf.sbhl{background:none}.UUbT9.i1eWpb .PZPZlf.sbhl .gmlSVb{background:rgba(234,67,53,.12)}@media (forced-colors:active){.sbhl{background-color:highlight}}.mus_pc{display:block;margin:6px 0}.mus_il{font-family:Arial,sans-serif;padding-top:7px;position:relative}.mus_il:first-child{padding-top:0}.mus_il_at{margin-left:10px}.mus_il_i{align:left;margin-right:10px}.mus_it3{margin-bottom:3px;max-height:24px;vertical-align:bottom}.mus_tt3{color:#767676;font-size:12px;vertical-align:top}.mus_tt5{color:#d93025;font-size:14px}.mus_tt6{color:#188038;font-size:14px}.mus_tt8{font-size:16px;font-family:Arial,sans-serif}.mus_tt17{color:#212121;font-size:20px}.mus_tt18{color:#212121;font-size:28px}.mus_tt19{color:#767676;font-size:12px}.mus_tt20{color:#767676;font-size:14px}.mus_tt23{color:#767676;font-size:18px}.TfeWfb{display:none}.xAmryf{display:none}.DJbVFb .TfeWfb{display:flex;flex-wrap:wrap;overflow-x:hidden;width:100%;height:52px}.DJbVFb .AQZ9Vd{display:none}.DJbVFb .xAmryf{border-radius:100px;background-color:var(--xhUGwc)}.DJbVFb .TfeWfb{display:inherit}.DJbVFb .xAmryf .eL7oAc{display:none}.DJbVFb{background:#f8f9fa;border-radius:20px}.DJbVFb:hover{background:#e8eaed}.DJbVFb .vYOkbe{height:-1px;width:-1px;flex-shrink:0;margin:20px 0 20px 8px;float:right;border-radius:16px;background-color:#fff}.DJbVFb.sbhl{background:#e8eaed}.DJbVFb .ClJ9Yb{display:none}.DJbVFb .wM6W7d{flex:initial}.DJbVFb .wM6W7d span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden}.DJbVFb .eIPGRd{display:flex;flex-direction:row-reverse;align-items:stretch;margin:0 20px 0 14px}.DJbVFb .a5RLac{line-height:26px;font-size:20px;font-family:Google Sans,Roboto,Arial,sans-serif;padding-top:16px;color:var(--bbQxAb);margin-bottom:auto}.DJbVFb .kzCE2{font-size:16px}.DJbVFb .wM6W7d span{color:var(--YLNNHc);line-height:36px;font-weight:400;font-size:28px;font-family:Google Sans,Roboto,Arial,sans-serif}.DJbVFb .pcTkSc{margin:20px 6px;padding:0}.DJbVFb .vYOkbe{margin:20px 0 20px 18px;background-color:#fff;border-radius:20px}.DJbVFb .EOLKOc{width:calc(50% - 1px)}.iQxPRb{display:flex;gap:2px}.DJbVFb .EOLKOc:first-child{border-bottom-left-radius:20px}.DJbVFb .EOLKOc:last-child{border-bottom-right-radius:20px}.DJbVFb .AZNDm{border-top-right-radius:20px;border-top-left-radius:20px}.DJbVFb .a5RLac.kzCE2 span{-webkit-line-clamp:3}.DJbVFb .lnnVSe{margin-bottom:auto}.DJbVFb .a5RLac span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden;margin-right:10px}#bgeLZd{display:none}.xAmryf{box-sizing:border-box;align-items:center;height:40px;border-radius:8px;display:flex;color:var(--bbQxAb);border:1px solid var(--mXZkqc);background-color:var(--xhUGwc);line-height:22px}.xAmryf .eL7oAc{fill:var(--bbQxAb);padding-top:1px}.xAmryf.LvqzR{background-color:#e8f0fe;cursor:pointer;color:var(--TMYS9)}.xAmryf.LvqzR .eL7oAc{fill:var(--TMYS9)}.jtAOgd{white-space:nowrap;font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;margin:0 14px}.TfeWfb{gap:12px 6px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}.TfeWfb::-webkit-scrollbar{display:none}.uhebGb{font-style:italic}.zjKSsb{background:var(--TMYS9);border-radius:50%;margin-right:6px;width:6px;height:6px}#YMXe{display:none}.MagqMc .ZFiwCf{background-color:#fff;border:1px solid var(--gS5jXb);width:100%}.MagqMc.U48fD{padding:0;margin-top:16px}.MagqMc .Bi9oQd{display:none}.MagqMc{padding:0}.MagqMc:hover .LGwnxb{color:var(--YLNNHc)}.sOmPcf .ZFiwCf{background-color:#fafafa}.U48fD{-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;line-height:18px;text-overflow:ellipsis;white-space:nowrap;padding:16px;padding-top:0;margin-top:16px;position:relative}.TQc1id .U48fD{margin-top:16px}.U48fD.df13ud{margin-top:16px}.U48fD.TOQyFc{margin-top:0}.U48fD.p8FEIf{padding-bottom:0}.jRKCUd.p8FEIf::before{bottom:-4px}.U48fD.ke7M4{padding-left:0;padding-right:0}.jRKCUd::before{bottom:12px;content:'';left:16px;position:absolute;right:16px;top:-4px}a.jRKCUd:hover{text-decoration:none}.ZFiwCf{display:flex;align-items:center;justify-content:center;position:relative;margin:0 auto;width:100%;border-radius:18px;outline:1px solid transparent;background-color:#f1f3f4;font-size:14px;font-family:Google Sans,Roboto,Arial,sans-serif;line-height:20px;font-weight:400;max-width:372px;min-height:40px;border-radius:20px;}@media (forced-colors:active){.ZFiwCf{border:1px solid transparent}}.TQc1id .ZFiwCf{max-width:unset}.Zjtggb .ZFiwCf{max-width:unset}.ZFiwCf:hover{background-color:#fafafa}.nCFUpc .ZFiwCf{width:100%}.Bi9oQd{background-color:var(--gS5jXb);margin-top:18px;position:absolute;border:0;height:1px;left:0;width:100%;margin-top:20px;}.TQc1id .Bi9oQd{display:none}.kC8B4e .Bi9oQd{display:none}.w2fKdd svg{width:auto}.w2fKdd{color:var(--IXoxUe)}.LGwnxb{-webkit-line-clamp:1;word-break:break-all;width:auto;padding-left:0;padding-right:8px;color:#202124;max-width:calc(100% - 64px);}.LGwnxb:empty{padding-right:0}.LGwnxb span,.LGwnxb div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:auto}See more.JCHpcb:hover,.LvqzR .JCHpcb{color:#1558d6;text-decoration:underline}.JCHpcb{color:#70757a;font:13px arial,sans-serif;cursor:pointer;align-self:center}@media (hover:hover){.sbai{visibility:hidden}.sbhl .sbai{visibility:inherit}}Delete#d6ItKb{display:none}.AB2Fdd{display:flex}.ZDHp{position:relative;margin:20px;display:flex}.DJbVFb,.o6OF0{background:#f8f9fa;border-radius:20px}.o6OF0:hover,.o6OF0.LvqzR{background:#e7e8e9}.o6OF0 .eIPGRd{display:block}@media (forced-colors:none){.o6OF0.sbhl{background:#e7e8e9}}@media (forced-colors:active){.o6OF0.sbhl{background-color:highlight}}.o6OF0 .AQZ9Vd{display:none}.o6OF0 .sbic{display:none}.o6OF0 .pcTkSc{display:none}.o6OF0 .wM6W7d{display:none}.o6OF0 .eIPGRd{max-width:100%;margin:0}.ZDHp .SHFPkb{margin-bottom:12px}.o6OF0 .SHFPkb{line-height:48px;font-family:Google Sans,Roboto,Arial,sans-serif;font-size:36px;font-weight:400;color:var(--YLNNHc);display:-webkit-box;overflow:hidden;-webkit-line-clamp:2;-webkit-box-orient:vertical}.lQoozf{font-size:28px}.o6OF0 .HrUlUc,.o6OF0 .PnfqLc{font-family:Roboto,Arial,sans-serif;font-weight:400;max-height:72px;color:var(--bbQxAb)}.ZDHp .HrUlUc,.ZDHp .PnfqLc{font-size:18px;line-height:24px}.o6OF0 .bTSf5c{font-family:Google Sans,Roboto,Arial,sans-serif;font-weight:400;color:var(--bbQxAb)}.ZDHp .bTSf5c{line-height:22px;font-size:14px;margin-bottom:6px}.ZDHp .HrUlUc,.ZDHp .PnfqLc{overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}.Vlt3wb{font-style:normal;font-family:Roboto,Arial,sans-serif;font-weight:400;font-size:14px;line-height:22px;padding-top:8px;margin-top:12px;color:var(--bbQxAb);border-top:1px solid #dadce0;display:flex;width:100%}.Tnv2td{position:absolute;top:0;right:0}.z76Rnb{padding:6px;width:24px;height:24px;background-color:var(--xhUGwc);color:var(--IXoxUe);border-radius:9999px;border:1px solid var(--mXZkqc);cursor:pointer}.z76Rnb.LvqzR{color:var(--YLNNHc);background-color:#fafafa}.kZtr1b{display:flex;flex-direction:column;flex-grow:1;min-width:0}.XAFD5c{width:200px;height:200px;background-color:var(--xhUGwc);border-radius:20px;margin-left:20px;flex-shrink:0;background-position:center;background-repeat:no-repeat;background-size:contain}.XAFD5c.iNF0Vd{background-size:136px}.ZDHp .lnnVSe{font-size:18px;flex-grow:1}.ZDHp .HrUlUc,.ZDHp .PnfqLc{display:flex;flex-direction:column}.rnAixd{color:#b3261e}.izxCJf{color:#146c2e}#mitGyb{display:none}.s2Wjec{display:block}Delete#TN4rFf{display:none}.IDVnvc{display:inline-block;overflow:hidden;max-width:223px;border-radius:16px;height:178px;margin:-2px -10px 2px 10px}.IDVnvc.sbhl{border-radius:16px}.OBMEnb:only-child .IDVnvc{margin-right:calc(25% - 113px)}.cRV9hb{width:90px;padding:6px}.cRV9hb .pcTkSc{font-family:Roboto,Arial,sans-serif;overflow:hidden;margin-top:4px;padding:0}.cRV9hb .pcTkSc .wM6W7d{font-family:Google Sans,Roboto,Arial,sans-serif;font-size:14px;line-height:18px;padding:0;color:var(--YLNNHc)}.cRV9hb .pcTkSc .ClJ9Yb{line-height:16px;font-size:12px;font-family:Roboto,Arial,sans-serif;display:none;display:flex}.cRV9hb .pcTkSc .wM6W7d span,.cRV9hb .pcTkSc .ClJ9Yb span{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;white-space:normal}.cRV9hb .pcTkSc .wM6W7d span{-webkit-line-clamp:2}.cRV9hb .pcTkSc .ClJ9Yb span{-webkit-line-clamp:2}.aVbWac{background:#fff;border-radius:12px;height:90px}.aVbWac .sbic.vYOkbe{height:90px;width:90px;border-radius:12px;margin:0} .lJ9FBc{height:70px}.lJ9FBc input[type=\"submit\"],.f1pnbf,.gbqfba{background-color:#f8f9fa;border:1px solid #f8f9fa;color:#3c4043;margin:11px 4px;padding:0 16px;line-height:27px;height:36px;min-width:54px;text-align:center;cursor:pointer;user-select:none;border-radius:4px;font-family:Roboto,Arial,sans-serif;font-size:14px}.lJ9FBc input[type=\"submit\"]:hover,.f1pnbf:hover{box-shadow:0 1px 1px rgba(0,0,0,.1);background-color:#f8f9fa;border:1px solid #dadce0;color:#202124}.lJ9FBc input[type=\"submit\"]:focus,.f1pnbf:focus{border:1px solid #4285f4;outline:none}        .WzNHm{font-size:11px;font-style:italic;margin-top:-16px;position:absolute;right:20px;color:var(--IXoxUe)}Report inappropriate predictions      I'm Feeling CuriousI'm Feeling HungryI'm Feeling AdventurousI'm Feeling PlayfulI'm Feeling StellarI'm Feeling DoodleyI'm Feeling TrendyI'm Feeling ArtisticI'm Feeling Funny      (function(){\nvar a=this||self;var c=document.querySelector(\"form\");if(c){var d=function(b){b.key!==\"Enter\"||b.shiftKey||(b.preventDefault(),c.submit&&c.submit())};c.addEventListener(\"keydown\",d);a.sbmlhf=d};}).call(this);(function(){(function(){function e(){d--;d||(google.tick(\"load\",\"dlt\"),google.c.u(\"dlt\"))}for(var b=document.querySelectorAll(\"[data-doodle]\"),c=[],a=0;a<b.length;a++){var f=b[a];google.cv(f)&1&&c.push(f)}var d=c.length;if(d)for(google.c.b(\"dlt\"),b=0;b<c.length;b++)a=c[b],a.complete||!a.src?e():google.rll(a,!0,e)})();}).call(this);",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "submit",
+            "reset"
+          ],
+          "interaction_score": 0.8
+        }
+      ],
+      "categorized": {
+        "clickable": [
+          {
+            "tag_name": "button",
+            "element_type": "button",
+            "selector": "//button[@id='spchx']",
+            "xpath": "//button[@id='spchx']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "button",
+            "element_type": "button",
+            "selector": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+            "xpath": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+            "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'MV3Tnb')]",
+            "xpath": "//a[contains(@class, 'MV3Tnb')]",
+            "text": "About",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'MV3Tnb')]",
+            "xpath": "//a[contains(@class, 'MV3Tnb')]",
+            "text": "Store",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_X')]",
+            "xpath": "//a[contains(@class, 'gb_X')]",
+            "text": "Gmail",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_X')]",
+            "xpath": "//a[contains(@class, 'gb_X')]",
+            "text": "Images",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_B')]",
+            "xpath": "//a[contains(@class, 'gb_B')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_A')]",
+            "xpath": "//a[contains(@class, 'gb_A')]",
+            "text": "Sign in",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+            "xpath": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+            "text": ".lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto;vertical-align:bottom}",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a",
+            "xpath": "//a",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Advertising",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Business",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "How Search works",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Applying AI towards science and the environment",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Privacy",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Terms",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search settings')]",
+            "xpath": "//a[contains(text(), 'Search settings')]",
+            "text": "Search settings",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Advanced search')]",
+            "xpath": "//a[contains(text(), 'Advanced search')]",
+            "text": "Advanced search",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Your data in Search')]",
+            "xpath": "//a[contains(text(), 'Your data in Search')]",
+            "text": "Your data in Search",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search history')]",
+            "xpath": "//a[contains(text(), 'Search history')]",
+            "text": "Search history",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search help')]",
+            "xpath": "//a[contains(text(), 'Search help')]",
+            "text": "Search help",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "Facebook",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "WhatsApp",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "X",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "Email",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'gNO89b')]",
+            "xpath": "//input[contains(@class, 'gNO89b')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'RNmpXc')]",
+            "xpath": "//input[contains(@class, 'RNmpXc')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[@id='gbqfbb']",
+            "xpath": "//input[@id='gbqfbb']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input",
+            "xpath": "//input",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          }
+        ],
+        "editable": [
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'gNO89b')]",
+            "xpath": "//input[contains(@class, 'gNO89b')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'RNmpXc')]",
+            "xpath": "//input[contains(@class, 'RNmpXc')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[@id='gbqfbb']",
+            "xpath": "//input[@id='gbqfbb']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input",
+            "xpath": "//input",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "textarea",
+            "element_type": "textarea",
+            "selector": "//textarea[@id='APjFqb']",
+            "xpath": "//textarea[@id='APjFqb']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": false,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "textarea",
+            "element_type": "textarea",
+            "selector": "//textarea[contains(@class, 'csi')]",
+            "xpath": "//textarea[contains(@class, 'csi')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": false,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          }
+        ],
+        "navigational": [
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'MV3Tnb')]",
+            "xpath": "//a[contains(@class, 'MV3Tnb')]",
+            "text": "About",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'MV3Tnb')]",
+            "xpath": "//a[contains(@class, 'MV3Tnb')]",
+            "text": "Store",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_X')]",
+            "xpath": "//a[contains(@class, 'gb_X')]",
+            "text": "Gmail",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_X')]",
+            "xpath": "//a[contains(@class, 'gb_X')]",
+            "text": "Images",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_B')]",
+            "xpath": "//a[contains(@class, 'gb_B')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_A')]",
+            "xpath": "//a[contains(@class, 'gb_A')]",
+            "text": "Sign in",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+            "xpath": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+            "text": ".lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto;vertical-align:bottom}",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a",
+            "xpath": "//a",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Advertising",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Business",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "How Search works",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Applying AI towards science and the environment",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Privacy",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Terms",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search settings')]",
+            "xpath": "//a[contains(text(), 'Search settings')]",
+            "text": "Search settings",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Advanced search')]",
+            "xpath": "//a[contains(text(), 'Advanced search')]",
+            "text": "Advanced search",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Your data in Search')]",
+            "xpath": "//a[contains(text(), 'Your data in Search')]",
+            "text": "Your data in Search",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search history')]",
+            "xpath": "//a[contains(text(), 'Search history')]",
+            "text": "Search history",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search help')]",
+            "xpath": "//a[contains(text(), 'Search help')]",
+            "text": "Search help",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "Facebook",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "WhatsApp",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "X",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "Email",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          }
+        ],
+        "form_controls": [
+          {
+            "tag_name": "button",
+            "element_type": "button",
+            "selector": "//button[@id='spchx']",
+            "xpath": "//button[@id='spchx']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "button",
+            "element_type": "button",
+            "selector": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+            "xpath": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+            "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'gNO89b')]",
+            "xpath": "//input[contains(@class, 'gNO89b')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'RNmpXc')]",
+            "xpath": "//input[contains(@class, 'RNmpXc')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[@id='gbqfbb']",
+            "xpath": "//input[@id='gbqfbb']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input",
+            "xpath": "//input",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "textarea",
+            "element_type": "textarea",
+            "selector": "//textarea[@id='APjFqb']",
+            "xpath": "//textarea[@id='APjFqb']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": false,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "textarea",
+            "element_type": "textarea",
+            "selector": "//textarea[contains(@class, 'csi')]",
+            "xpath": "//textarea[contains(@class, 'csi')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": false,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          }
+        ],
+        "media_controls": [],
+        "keyboard_accessible": [
+          {
+            "tag_name": "button",
+            "element_type": "button",
+            "selector": "//button[@id='spchx']",
+            "xpath": "//button[@id='spchx']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "button",
+            "element_type": "button",
+            "selector": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+            "xpath": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+            "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'MV3Tnb')]",
+            "xpath": "//a[contains(@class, 'MV3Tnb')]",
+            "text": "About",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'MV3Tnb')]",
+            "xpath": "//a[contains(@class, 'MV3Tnb')]",
+            "text": "Store",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_X')]",
+            "xpath": "//a[contains(@class, 'gb_X')]",
+            "text": "Gmail",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_X')]",
+            "xpath": "//a[contains(@class, 'gb_X')]",
+            "text": "Images",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_B')]",
+            "xpath": "//a[contains(@class, 'gb_B')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'gb_A')]",
+            "xpath": "//a[contains(@class, 'gb_A')]",
+            "text": "Sign in",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+            "xpath": "//a[contains(text(), '.lnXdpd{max-height:100%;max-wi')]",
+            "text": ".lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto;vertical-align:bottom}",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a",
+            "xpath": "//a",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Advertising",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Business",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "How Search works",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Applying AI towards science and the environment",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Privacy",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'pHiOh')]",
+            "xpath": "//a[contains(@class, 'pHiOh')]",
+            "text": "Terms",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search settings')]",
+            "xpath": "//a[contains(text(), 'Search settings')]",
+            "text": "Search settings",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Advanced search')]",
+            "xpath": "//a[contains(text(), 'Advanced search')]",
+            "text": "Advanced search",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Your data in Search')]",
+            "xpath": "//a[contains(text(), 'Your data in Search')]",
+            "text": "Your data in Search",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search history')]",
+            "xpath": "//a[contains(text(), 'Search history')]",
+            "text": "Search history",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(text(), 'Search help')]",
+            "xpath": "//a[contains(text(), 'Search help')]",
+            "text": "Search help",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "Facebook",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "WhatsApp",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "X",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "a",
+            "element_type": "link",
+            "selector": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "xpath": "//a[contains(@class, 'H3ZkHf') and contains(@class, 'wHYlTd')]",
+            "text": "Email",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": false,
+            "confidence": 0.8999999999999999,
+            "interaction_types": [
+              "click",
+              "hover",
+              "navigate"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'gNO89b')]",
+            "xpath": "//input[contains(@class, 'gNO89b')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'RNmpXc')]",
+            "xpath": "//input[contains(@class, 'RNmpXc')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[@id='gbqfbb']",
+            "xpath": "//input[@id='gbqfbb']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input",
+            "xpath": "//input",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "input",
+            "element_type": "input",
+            "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": true,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "textarea",
+            "element_type": "textarea",
+            "selector": "//textarea[@id='APjFqb']",
+            "xpath": "//textarea[@id='APjFqb']",
+            "text": "",
+            "attributes": {},
+            "is_clickable": false,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          },
+          {
+            "tag_name": "textarea",
+            "element_type": "textarea",
+            "selector": "//textarea[contains(@class, 'csi')]",
+            "xpath": "//textarea[contains(@class, 'csi')]",
+            "text": "",
+            "attributes": {},
+            "is_clickable": false,
+            "is_editable": true,
+            "confidence": 0.7999999999999999,
+            "interaction_types": [
+              "type",
+              "clear",
+              "focus"
+            ],
+            "interaction_score": 1.0
+          }
+        ],
+        "touch_interactive": []
+      }
+    },
+    "metadata": {
+      "page_url": "https://www.google.com",
+      "extraction_config": {
+        "enable_shadow_dom": true,
+        "enable_iframe_traversal": true,
+        "enable_dynamic_wait": true,
+        "enable_mutation_observer": false,
+        "max_depth": 10,
+        "max_elements": 1000,
+        "extraction_timeout": 30000,
+        "filter_invisible": true,
+        "filter_duplicates": true,
+        "min_element_size": 5,
+        "enable_stealth": true,
+        "randomize_delays": true,
+        "min_delay": 0.1,
+        "max_delay": 0.5,
+        "batch_size": 100,
+        "enable_caching": true,
+        "cache_ttl": 3600,
+        "include_computed_styles": true,
+        "include_accessibility_info": true,
+        "include_event_listeners": false,
+        "capture_screenshots": false,
+        "screenshot_full_page": true,
+        "screenshot_format": "png",
+        "screenshot_quality": 90,
+        "highlight_elements": true,
+        "highlight_color": "red",
+        "highlight_width": 2,
+        "qa_mode": false,
+        "qa_priority_tags": [
+          "button",
+          "input",
+          "textarea",
+          "select",
+          "a",
+          "form",
+          "label",
+          "option",
+          "datalist",
+          "output"
+        ],
+        "qa_interaction_indicators": [
+          "onclick",
+          "onchange",
+          "oninput",
+          "onsubmit",
+          "ng-click",
+          "v-on:",
+          "@click",
+          "data-action",
+          "data-toggle",
+          "data-target",
+          "href",
+          "formaction"
+        ],
+        "qa_min_interaction_score": 0.7,
+        "qa_include_disabled": true,
+        "qa_include_hidden_toggles": true
+      },
+      "result_metadata": {
+        "config": {
+          "enable_shadow_dom": true,
+          "enable_iframe_traversal": true,
+          "enable_dynamic_wait": true,
+          "enable_mutation_observer": false,
+          "max_depth": 10,
+          "max_elements": 1000,
+          "extraction_timeout": 30000,
+          "filter_invisible": true,
+          "filter_duplicates": true,
+          "min_element_size": 5,
+          "enable_stealth": true,
+          "randomize_delays": true,
+          "min_delay": 0.1,
+          "max_delay": 0.5,
+          "batch_size": 100,
+          "enable_caching": true,
+          "cache_ttl": 3600,
+          "include_computed_styles": true,
+          "include_accessibility_info": true,
+          "include_event_listeners": false,
+          "capture_screenshots": false,
+          "screenshot_full_page": true,
+          "screenshot_format": "png",
+          "screenshot_quality": 90,
+          "highlight_elements": true,
+          "highlight_color": "red",
+          "highlight_width": 2,
+          "qa_mode": false,
+          "qa_priority_tags": [
+            "button",
+            "input",
+            "textarea",
+            "select",
+            "a",
+            "form",
+            "label",
+            "option",
+            "datalist",
+            "output"
+          ],
+          "qa_interaction_indicators": [
+            "onclick",
+            "onchange",
+            "oninput",
+            "onsubmit",
+            "ng-click",
+            "v-on:",
+            "@click",
+            "data-action",
+            "data-toggle",
+            "data-target",
+            "href",
+            "formaction"
+          ],
+          "qa_min_interaction_score": 0.7,
+          "qa_include_disabled": true,
+          "qa_include_hidden_toggles": true
+        },
+        "timestamp": 1757443294.8825388
+      }
+    },
+    "errors": []
+  }
+}

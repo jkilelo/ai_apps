@@ -1,0 +1,405 @@
+{
+  "url": "https://github.com",
+  "total_elements": 0,
+  "interactive_elements": 0,
+  "form_elements": 0,
+  "navigation_elements": 0,
+  "element_count": 0,
+  "has_forms": false,
+  "has_tables": false,
+  "has_media": false,
+  "has_iframes": false,
+  "has_shadow_dom": false,
+  "enriched_elements": [
+    {
+      "base_element": {
+        "id": "feb2bbe4380b",
+        "tag_name": "input",
+        "element_type": "input",
+        "text": "",
+        "inner_html": "",
+        "outer_html": "<input type=\"email\" class=\"Primer_Brand__TextInput-module__TextInput___EtKj3 TextInput Primer_Brand__TextInput-module__TextInput--medium___kJrew CtaFormControl-input\" placeholder=\"you@domain.com\" aria-invalid=\"false\" id=\"hero_user_email\" autocomplete=\"email\" spellcheck=\"false\" name=\"user_email\">",
+        "name": "user_email",
+        "classes": [
+          "Primer_Brand__TextInput-module__TextInput___EtKj3",
+          "TextInput",
+          "Primer_Brand__TextInput-module__TextInput--medium___kJrew",
+          "CtaFormControl-input"
+        ],
+        "placeholder": "you@domain.com",
+        "is_visible": true,
+        "is_enabled": true,
+        "is_selected": false,
+        "is_checked": false,
+        "is_focused": false,
+        "is_required": false,
+        "is_readonly": false,
+        "is_clickable": false,
+        "is_editable": false,
+        "interaction_types": [
+          "type",
+          "clear",
+          "focus"
+        ],
+        "bounding_box": {
+          "x": 610.9166870117188,
+          "y": 443.5833435058594,
+          "width": 260.0,
+          "height": 46.66666793823242
+        },
+        "xpath": "//input[@id='hero_user_email']",
+        "css_selector": "#hero_user_email",
+        "depth": 0,
+        "confidence": 0.6,
+        "importance_score": 0.5,
+        "is_shadow_element": false,
+        "is_iframe_element": false,
+        "is_valid": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Email input field",
+        "interaction_likelihood": "0.9",
+        "accessibility_score": "0.2",
+        "potential_issues": [
+          "Element is flagged as non-interactive, preventing user input.",
+          "No associated <label> or `aria-label` attribute, making it inaccessible to screen reader users.",
+          "Lacks a `placeholder` attribute to provide a visual cue for the expected input."
+        ],
+        "suggested_improvements": [
+          "Ensure the element is enabled and interactive for user input.",
+          "Add a `<label for='hero_user_email'>` element for accessibility and usability.",
+          "Include a `placeholder` attribute, such as 'Enter your email address', for better user guidance."
+        ],
+        "element_purpose": "To capture a user's email address. Based on the ID 'hero_user_email', this is likely a primary call-to-action in the hero section of the page for newsletter signup, account creation, or lead generation.",
+        "user_impact": "Extremely high negative impact. The primary function of the input field is disabled, completely blocking the user from completing a key task. This leads to user frustration and task abandonment.",
+        "confidence": "0.95"
+      },
+      "context": {
+        "siblings_count": 0,
+        "position_in_parent": 0,
+        "visual_prominence": 0.0,
+        "interaction_likelihood": 0.9,
+        "semantic_role": "Email input field",
+        "accessibility_score": 0.2
+      },
+      "confidence_score": 0.95,
+      "extraction_timestamp": "2025-09-15T21:33:27.297671"
+    },
+    {
+      "base_element": {
+        "id": "20e50c9203be",
+        "tag_name": "button",
+        "element_type": "button",
+        "text": "",
+        "inner_html": "<svg aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-x\">\n    <path d=\"M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z\"></path>\n</svg>",
+        "outer_html": "<button data-analytics-event=\"{&quot;category&quot;:&quot;global_banner&quot;,&quot;action&quot;:&quot;Dismiss global_banner_universe_25_1&quot;,&quot;label&quot;:null}\" data-action=\"click:global-banner#close\" aria-label=\"Close\" type=\"button\" data-view-component=\"true\" class=\"close-button\"><svg aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-x\">\n    <path d=\"M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z\"></path>\n</svg></button>",
+        "classes": [
+          "close-button"
+        ],
+        "aria_label": "Close",
+        "is_visible": true,
+        "is_enabled": true,
+        "is_selected": false,
+        "is_checked": false,
+        "is_focused": false,
+        "is_required": false,
+        "is_readonly": false,
+        "is_clickable": false,
+        "is_editable": false,
+        "interaction_types": [
+          "click",
+          "hover",
+          "focus"
+        ],
+        "bounding_box": {
+          "x": 1824.666748046875,
+          "y": 0.1875,
+          "width": 80.0,
+          "height": 42.0
+        },
+        "xpath": "//button[contains(@class, 'close-button')]",
+        "css_selector": "button.close-button",
+        "depth": 0,
+        "confidence": 0.7,
+        "importance_score": 0.5,
+        "is_shadow_element": false,
+        "is_iframe_element": false,
+        "is_valid": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Close button",
+        "interaction_likelihood": "1.0",
+        "accessibility_score": "0.1",
+        "potential_issues": [
+          "Element is flagged as non-interactive, preventing its function.",
+          "Lacks any text or accessible name (e.g., `aria-label`), making it unusable for screen reader users, who would only hear 'button'.",
+          "As an icon-only button, its purpose may be unclear to some users without a tooltip."
+        ],
+        "suggested_improvements": [
+          "Ensure the button is interactive and can be clicked/tapped.",
+          "Add an `aria-label='Close'` or `aria-label='Dismiss'` to provide an accessible name for screen readers.",
+          "Consider adding a tooltip on hover to clarify its function for sighted users."
+        ],
+        "element_purpose": "To dismiss or close a parent component, such as a modal dialog, a notification banner, a pop-up ad, or a cookie consent form. The class 'close-button' is a strong indicator of this function.",
+        "user_impact": "Critical negative impact. If this button is non-functional, the user may be trapped within a modal or overlay, unable to access the content underneath. This often forces the user to reload or abandon the page.",
+        "confidence": "0.98"
+      },
+      "context": {
+        "siblings_count": 0,
+        "position_in_parent": 0,
+        "visual_prominence": 0.0,
+        "interaction_likelihood": 1.0,
+        "semantic_role": "Close button",
+        "accessibility_score": 0.1
+      },
+      "confidence_score": 0.98,
+      "extraction_timestamp": "2025-09-15T21:33:27.297823"
+    },
+    {
+      "base_element": {
+        "id": "4551b557bdc1",
+        "tag_name": "button",
+        "element_type": "button",
+        "text": "Platform",
+        "inner_html": "\n        Platform\n        <svg opacity=\"0.5\" aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-chevron-down HeaderMenu-icon ml-1\">\n    <path d=\"M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z\"></path>\n</svg>\n      ",
+        "outer_html": "<button type=\"button\" class=\"HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target\" aria-expanded=\"false\">\n        Platform\n        <svg opacity=\"0.5\" aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-chevron-down HeaderMenu-icon ml-1\">\n    <path d=\"M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z\"></path>\n</svg>\n      </button>",
+        "classes": [
+          "HeaderMenu-link",
+          "border-0",
+          "width-full",
+          "width-lg-auto",
+          "px-0",
+          "px-lg-2",
+          "py-lg-2",
+          "no-wrap",
+          "d-flex",
+          "flex-items-center",
+          "flex-justify-between",
+          "js-details-target"
+        ],
+        "is_visible": true,
+        "is_enabled": true,
+        "is_selected": false,
+        "is_checked": false,
+        "is_focused": false,
+        "is_required": false,
+        "is_readonly": false,
+        "is_clickable": false,
+        "is_editable": false,
+        "interaction_types": [
+          "click",
+          "hover",
+          "focus"
+        ],
+        "bounding_box": {
+          "x": 80.0,
+          "y": 58.38541793823242,
+          "width": 96.125,
+          "height": 40.0
+        },
+        "xpath": "//button[contains(@class, 'HeaderMenu-link') and contains(@class, 'border-0')]",
+        "css_selector": "button.HeaderMenu-link.border-0",
+        "depth": 0,
+        "confidence": 0.7999999999999999,
+        "importance_score": 0.5,
+        "is_shadow_element": false,
+        "is_iframe_element": false,
+        "is_valid": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Navigation menu trigger",
+        "interaction_likelihood": "0.9",
+        "accessibility_score": "0.4",
+        "potential_issues": [
+          "Element is flagged as non-interactive, preventing website navigation.",
+          "Using a `<button>` tag for direct navigation is semantically incorrect; an `<a>` tag should be used.",
+          "If it triggers a menu, it likely lacks necessary ARIA attributes like `aria-haspopup` and `aria-expanded`."
+        ],
+        "suggested_improvements": [
+          "Ensure the element is interactive.",
+          "If it navigates directly to a '/platform' page, convert it to an `<a href='/platform'>` tag.",
+          "If it opens a dropdown menu, add `aria-haspopup='true'` and programmatically manage the `aria-expanded` state."
+        ],
+        "element_purpose": "To serve as a primary navigation link in the website's header, corresponding to the 'Platform' section. It either navigates the user to that section's page or opens a dropdown menu with related options.",
+        "user_impact": "Severe negative impact. A non-interactive primary navigation element prevents users from exploring a key section of the site, hindering their ability to find information and accomplish their goals.",
+        "confidence": "0.90"
+      },
+      "context": {
+        "siblings_count": 0,
+        "position_in_parent": 0,
+        "visual_prominence": 0.0,
+        "interaction_likelihood": 0.9,
+        "semantic_role": "Navigation menu trigger",
+        "accessibility_score": 0.4
+      },
+      "confidence_score": 0.9,
+      "extraction_timestamp": "2025-09-15T21:33:27.297923"
+    },
+    {
+      "base_element": {
+        "id": "9f0a3520900e",
+        "tag_name": "button",
+        "element_type": "button",
+        "text": "Solutions",
+        "inner_html": "\n        Solutions\n        <svg opacity=\"0.5\" aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-chevron-down HeaderMenu-icon ml-1\">\n    <path d=\"M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z\"></path>\n</svg>\n      ",
+        "outer_html": "<button type=\"button\" class=\"HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target\" aria-expanded=\"false\">\n        Solutions\n        <svg opacity=\"0.5\" aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-chevron-down HeaderMenu-icon ml-1\">\n    <path d=\"M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z\"></path>\n</svg>\n      </button>",
+        "classes": [
+          "HeaderMenu-link",
+          "border-0",
+          "width-full",
+          "width-lg-auto",
+          "px-0",
+          "px-lg-2",
+          "py-lg-2",
+          "no-wrap",
+          "d-flex",
+          "flex-items-center",
+          "flex-justify-between",
+          "js-details-target"
+        ],
+        "is_visible": true,
+        "is_enabled": true,
+        "is_selected": false,
+        "is_checked": false,
+        "is_focused": false,
+        "is_required": false,
+        "is_readonly": false,
+        "is_clickable": false,
+        "is_editable": false,
+        "interaction_types": [
+          "click",
+          "hover",
+          "focus"
+        ],
+        "bounding_box": {
+          "x": 176.125,
+          "y": 58.38541793823242,
+          "width": 101.32292175292969,
+          "height": 40.0
+        },
+        "xpath": "//button[contains(@class, 'HeaderMenu-link') and contains(@class, 'border-0')]",
+        "css_selector": "button.HeaderMenu-link.border-0",
+        "depth": 0,
+        "confidence": 0.7999999999999999,
+        "importance_score": 0.5,
+        "is_shadow_element": false,
+        "is_iframe_element": false,
+        "is_valid": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Navigation menu trigger",
+        "interaction_likelihood": "0.9",
+        "accessibility_score": "0.4",
+        "potential_issues": [
+          "Element is flagged as non-interactive, preventing website navigation.",
+          "Using a `<button>` tag for direct navigation is semantically incorrect; an `<a>` tag should be used.",
+          "If it triggers a menu, it likely lacks necessary ARIA attributes like `aria-haspopup` and `aria-expanded`."
+        ],
+        "suggested_improvements": [
+          "Ensure the element is interactive.",
+          "If it navigates directly to a '/solutions' page, convert it to an `<a href='/solutions'>` tag.",
+          "If it opens a dropdown menu, add `aria-haspopup='true'` and programmatically manage the `aria-expanded` state."
+        ],
+        "element_purpose": "To serve as a primary navigation link in the website's header, corresponding to the 'Solutions' section. It either navigates the user to that section's page or opens a dropdown menu with related options.",
+        "user_impact": "Severe negative impact. A non-interactive primary navigation element prevents users from exploring a key section of the site, hindering their ability to find information and accomplish their goals.",
+        "confidence": "0.90"
+      },
+      "context": {
+        "siblings_count": 0,
+        "position_in_parent": 0,
+        "visual_prominence": 0.0,
+        "interaction_likelihood": 0.9,
+        "semantic_role": "Navigation menu trigger",
+        "accessibility_score": 0.4
+      },
+      "confidence_score": 0.9,
+      "extraction_timestamp": "2025-09-15T21:33:27.298009"
+    },
+    {
+      "base_element": {
+        "id": "a3b047594055",
+        "tag_name": "button",
+        "element_type": "button",
+        "text": "Resources",
+        "inner_html": "\n        Resources\n        <svg opacity=\"0.5\" aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-chevron-down HeaderMenu-icon ml-1\">\n    <path d=\"M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z\"></path>\n</svg>\n      ",
+        "outer_html": "<button type=\"button\" class=\"HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target\" aria-expanded=\"false\">\n        Resources\n        <svg opacity=\"0.5\" aria-hidden=\"true\" height=\"16\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" data-view-component=\"true\" class=\"octicon octicon-chevron-down HeaderMenu-icon ml-1\">\n    <path d=\"M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z\"></path>\n</svg>\n      </button>",
+        "classes": [
+          "HeaderMenu-link",
+          "border-0",
+          "width-full",
+          "width-lg-auto",
+          "px-0",
+          "px-lg-2",
+          "py-lg-2",
+          "no-wrap",
+          "d-flex",
+          "flex-items-center",
+          "flex-justify-between",
+          "js-details-target"
+        ],
+        "is_visible": true,
+        "is_enabled": true,
+        "is_selected": false,
+        "is_checked": false,
+        "is_focused": false,
+        "is_required": false,
+        "is_readonly": false,
+        "is_clickable": false,
+        "is_editable": false,
+        "interaction_types": [
+          "click",
+          "hover",
+          "focus"
+        ],
+        "bounding_box": {
+          "x": 277.44793701171875,
+          "y": 58.38541793823242,
+          "width": 106.80208587646484,
+          "height": 40.0
+        },
+        "xpath": "//button[contains(@class, 'HeaderMenu-link') and contains(@class, 'border-0')]",
+        "css_selector": "button.HeaderMenu-link.border-0",
+        "depth": 0,
+        "confidence": 0.7999999999999999,
+        "importance_score": 0.5,
+        "is_shadow_element": false,
+        "is_iframe_element": false,
+        "is_valid": true
+      },
+      "llm_analysis": {
+        "semantic_role": "Navigation menu trigger",
+        "interaction_likelihood": "0.9",
+        "accessibility_score": "0.4",
+        "potential_issues": [
+          "Element is flagged as non-interactive, preventing website navigation.",
+          "Using a `<button>` tag for direct navigation is semantically incorrect; an `<a>` tag should be used.",
+          "If it triggers a menu, it likely lacks necessary ARIA attributes like `aria-haspopup` and `aria-expanded`."
+        ],
+        "suggested_improvements": [
+          "Ensure the element is interactive.",
+          "If it navigates directly to a '/resources' page, convert it to an `<a href='/resources'>` tag.",
+          "If it opens a dropdown menu, add `aria-haspopup='true'` and programmatically manage the `aria-expanded` state."
+        ],
+        "element_purpose": "To serve as a primary navigation link in the website's header, corresponding to the 'Resources' section. It either navigates the user to that section's page or opens a dropdown menu with related options.",
+        "user_impact": "Severe negative impact. A non-interactive primary navigation element prevents users from exploring a key section of the site, hindering their ability to find information and accomplish their goals.",
+        "confidence": "0.90"
+      },
+      "context": {
+        "siblings_count": 0,
+        "position_in_parent": 0,
+        "visual_prominence": 0.0,
+        "interaction_likelihood": 0.9,
+        "semantic_role": "Navigation menu trigger",
+        "accessibility_score": 0.4
+      },
+      "confidence_score": 0.9,
+      "extraction_timestamp": "2025-09-15T21:33:27.298091"
+    }
+  ],
+  "page_type": "Homepage",
+  "framework_detected": "React",
+  "extraction_time": 0.0,
+  "llm_processing_time": 0.0,
+  "has_aria": false,
+  "has_semantic_html": false
+}

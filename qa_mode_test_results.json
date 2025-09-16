@@ -1,0 +1,42 @@
+[
+  {
+    "url": "https://example.com",
+    "qa_mode_count": 0,
+    "regular_mode_count": 1,
+    "qa_summary": {
+      "total_interactive": 0,
+      "forms": 0,
+      "inputs": 0,
+      "buttons": 0,
+      "links": 0,
+      "required_fields": 0,
+      "disabled_elements": 0,
+      "hidden_interactive": 0,
+      "with_validation": 0,
+      "keyboard_accessible": 0
+    },
+    "qa_categories": {}
+  },
+  {
+    "url": "https://www.google.com",
+    "qa_mode_count": 9,
+    "regular_mode_count": 51,
+    "qa_summary": {
+      "total_interactive": 9,
+      "forms": 0,
+      "inputs": 5,
+      "buttons": 2,
+      "links": 0,
+      "required_fields": 0,
+      "disabled_elements": 0,
+      "hidden_interactive": 6,
+      "with_validation": 0,
+      "keyboard_accessible": 0
+    },
+    "qa_categories": {
+      "input": 7,
+      "action": 7,
+      "form": 9
+    }
+  }
+]

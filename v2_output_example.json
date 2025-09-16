@@ -1,0 +1,83 @@
+{
+  "metadata": {
+    "framework_version": "2.0.0",
+    "export_timestamp": "2025-09-09T14:25:15.000174",
+    "url": "https://www.google.com",
+    "profile": "qa",
+    "element_count": 3
+  },
+  "elements": [
+    {
+      "selector": "#APjFqb",
+      "tag_name": "textarea",
+      "element_type": "ElementType.TEXTAREA",
+      "text": null,
+      "is_visible": true,
+      "is_interactive": true,
+      "interaction_score": 1.0,
+      "attributes": {
+        "id": "APjFqb",
+        "className": "gLFyf",
+        "href": null,
+        "name": "q",
+        "type": "textarea",
+        "role": "combobox",
+        "aria-label": "Search"
+      },
+      "bounding_box": {
+        "x": 716,
+        "y": 377,
+        "width": 443,
+        "height": 50
+      }
+    },
+    {
+      "selector": ".gNO89b",
+      "tag_name": "input",
+      "element_type": "ElementType.INPUT",
+      "text": null,
+      "is_visible": true,
+      "is_interactive": true,
+      "interaction_score": 1.0,
+      "attributes": {
+        "id": null,
+        "className": "gNO89b",
+        "href": null,
+        "name": "btnK",
+        "type": "submit",
+        "role": "button",
+        "aria-label": "Google Search"
+      },
+      "bounding_box": {
+        "x": 821.890625,
+        "y": 457,
+        "width": 124.625,
+        "height": 36
+      }
+    },
+    {
+      "selector": "#gbqfbb",
+      "tag_name": "input",
+      "element_type": "ElementType.INPUT",
+      "text": null,
+      "is_visible": true,
+      "is_interactive": true,
+      "interaction_score": 1.0,
+      "attributes": {
+        "id": "gbqfbb",
+        "className": null,
+        "href": null,
+        "name": "btnI",
+        "type": "submit",
+        "role": "button",
+        "aria-label": "I'm Feeling Lucky"
+      },
+      "bounding_box": {
+        "x": 957.984375,
+        "y": 457,
+        "width": 140.125,
+        "height": 36
+      }
+    }
+  ]
+}

@@ -5,31 +5,26 @@ STRICT DRY: No other module should define its own types
 """
 
 import time
+import functools
+import gc
 from datetime import datetime
 from enum import Enum
-from typing import List, Dict, Any, Optional, Union, Tuple, Set
+from typing import List, Dict, Any, Optional, Union, Tuple
 from pathlib import Path
-from dataclasses import dataclass, field
-import hashlib
+from threading import Lock
 
-# Try to import Pydantic, fall back to dataclasses if not available
-try:
-    from pydantic import BaseModel, Field, ConfigDict
-    PYDANTIC_AVAILABLE = True
-except ImportError:
-    # Fallback for non-Pydantic environments
-    BaseModel = object
-    Field = lambda default=None, **kwargs: default
-    ConfigDict = lambda **kwargs: None
-    PYDANTIC_AVAILABLE = False
+# Pydantic v2 is REQUIRED - no fallbacks
+from pydantic import BaseModel, Field, ConfigDict
 
 
-# ==============================================================================
+# =============================================================================
 # ENUM DEFINITIONS - Single source of truth
-# ==============================================================================
+# =============================================================================
+
 
 class ElementType(str, Enum):
     """Comprehensive element types - unified from browser.py (most complete)"""
+
     # Form Elements
     INPUT = "input"  # Generic input type for compatibility
     TEXT_INPUT = "text_input"
@@ -48,12 +43,12 @@ class ElementType(str, Enum):
     URL_INPUT = "url"
     RANGE = "range"
     COLOR = "color"
-    
+
     # Interactive Elements
     BUTTON = "button"
     LINK = "link"
     SUBMIT = "submit"
-    
+
     # Media Elements
     IMAGE = "image"
     VIDEO = "video"
@@ -61,7 +56,7 @@ class ElementType(str, Enum):
     MEDIA = "media"  # Generic media type
     CANVAS = "canvas"
     SVG = "svg"  # SVG graphics
-    
+
     # Layout Elements
     DIV = "div"
     SPAN = "span"
@@ -74,18 +69,18 @@ class ElementType(str, Enum):
     ASIDE = "aside"
     MAIN = "main"
     DIALOG = "dialog"
-    
+
     # List Elements
     LIST = "list"
     LIST_ITEM = "list_item"
     MENU = "menu"
-    
+
     # Table Elements
     TABLE = "table"
     TABLE_ROW = "table_row"
     TABLE_CELL = "table_cell"
     TABLE_HEADER = "table_header"
-    
+
     # Other Elements
     IFRAME = "iframe"
     FORM = "form"
@@ -96,12 +91,24 @@ class ElementType(str, Enum):
     PRE = "pre"
     TAB = "tab"
     TOOLBAR = "toolbar"
+
+    # UI Components (missing but referenced)
+    CARD = "card"
+    MODAL = "modal"
+    TOOLTIP = "tooltip"
+    ALERT = "alert"
+    BANNER = "banner"
+    SWITCH = "switch"
+    SLIDER = "slider"
+
+    # Generic
     UNKNOWN = "unknown"
     OTHER = "other"
 
 
 class TestCategory(str, Enum):
     """Unified test/QA categories - single source"""
+
     FUNCTIONAL = "functional"
     VALIDATION = "validation"
     ACCESSIBILITY = "accessibility"
@@ -118,12 +125,14 @@ class TestCategory(str, Enum):
     ERROR_SCENARIOS = "error_scenarios"
     EDGE_CASES = "edge_cases"
 
+
 # Alias for backward compatibility
 QACategory = TestCategory
 
 
 class TestPriority(str, Enum):
     """Test priority levels"""
+
     CRITICAL = "critical"
     HIGH = "high"
     MEDIUM = "medium"
@@ -132,6 +141,7 @@ class TestPriority(str, Enum):
 
 class TestFramework(str, Enum):
     """Supported test frameworks"""
+
     PLAYWRIGHT = "playwright"
     SELENIUM = "selenium"
     CYPRESS = "cypress"
@@ -143,6 +153,7 @@ class TestFramework(str, Enum):
 
 class ProfileType(str, Enum):
     """Browser profile types"""
+
     QA = "qa"
     DEVELOPER = "developer"
     ACCESSIBILITY = "accessibility"
@@ -156,6 +167,7 @@ class ProfileType(str, Enum):
 
 class StealthLevel(str, Enum):
     """Browser stealth levels"""
+
     OFF = "off"
     LOW = "low"
     MEDIUM = "medium"
@@ -165,6 +177,7 @@ class StealthLevel(str, Enum):
 
 class ExtractionStrategy(str, Enum):
     """Element extraction strategies"""
+
     FAST = "fast"
     THOROUGH = "thorough"
     INTERACTIVE = "interactive"
@@ -175,6 +188,7 @@ class ExtractionStrategy(str, Enum):
 
 class InteractionType(str, Enum):
     """Types of element interactions"""
+
     CLICK = "click"
     TYPE = "type"
     SELECT = "select"
@@ -191,6 +205,7 @@ class InteractionType(str, Enum):
 
 class LocatorStrategy(str, Enum):
     """Element locator strategies"""
+
     CSS = "css"
     XPATH = "xpath"
     ID = "id"
@@ -211,6 +226,7 @@ class LocatorStrategy(str, Enum):
 
 class ExtractionMethod(str, Enum):
     """Methods for extracting elements"""
+
     DOM = "dom"
     VISUAL = "visual"
     ACCESSIBILITY = "accessibility"
@@ -221,6 +237,7 @@ class ExtractionMethod(str, Enum):
 
 class ConfidenceLevel(str, Enum):
     """Confidence levels for extraction/analysis"""
+
     VERY_LOW = "very_low"
     LOW = "low"
     MEDIUM = "medium"
@@ -231,6 +248,7 @@ class ConfidenceLevel(str, Enum):
 
 class StrategyName(str, Enum):
     """LLM prompt strategy names"""
+
     CHAIN_OF_THOUGHT = "chain_of_thought"
     TREE_OF_THOUGHTS = "tree_of_thoughts"
     REACT = "react"
@@ -255,27 +273,44 @@ class StrategyName(str, Enum):
     QA_ENGINEER_AGENT = "qa_engineer_agent"
 
 
-# ==============================================================================
+# =============================================================================
 # BROWSER CONFIGURATION MODELS
-# ==============================================================================
+# =============================================================================
+
 
 class TimingProfile(BaseModel):
     """Browser timing configuration"""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
-    
-    page_load_timeout: int = Field(30000, description="Page load timeout in ms")
-    script_timeout: int = Field(10000, description="Script execution timeout in ms")
-    wait_for_selector_timeout: int = Field(5000, description="Element wait timeout in ms")
-    network_idle_timeout: int = Field(2000, description="Network idle timeout in ms")
-    animation_timeout: int = Field(1000, description="Animation completion timeout in ms")
-    action_timeout: int = Field(5000, description="Default action timeout in ms")
-    screenshot_timeout: int = Field(3000, description="Screenshot capture timeout in ms")
+
+    page_load_timeout: int = Field(
+        30000, description="Page load timeout in ms"
+    )
+    script_timeout: int = Field(
+        10000, description="Script execution timeout in ms"
+    )
+    wait_for_selector_timeout: int = Field(
+        5000, description="Element wait timeout in ms"
+    )
+    network_idle_timeout: int = Field(
+        2000, description="Network idle timeout in ms"
+    )
+    animation_timeout: int = Field(
+        1000, description="Animation completion timeout in ms"
+    )
+    action_timeout: int = Field(
+        5000, description="Default action timeout in ms"
+    )
+    screenshot_timeout: int = Field(
+        3000, description="Screenshot capture timeout in ms"
+    )
 
 
 class StealthProfile(BaseModel):
     """Browser stealth profile configuration"""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
-    
+
     level: StealthLevel = Field(StealthLevel.MEDIUM)
     randomize_viewport: bool = Field(True)
     randomize_user_agent: bool = Field(True)
@@ -284,105 +319,169 @@ class StealthProfile(BaseModel):
     human_like_delays: bool = Field(True)
     min_delay: int = Field(100, description="Minimum delay in ms")
     max_delay: int = Field(2000, description="Maximum delay in ms")
-    disable_web_security: bool = Field(False, description="Disable web security features")
-    disable_features: List[str] = Field(default_factory=lambda: [
-        "VizDisplayCompositor"
-    ], description="Browser features to disable")
+    disable_web_security: bool = Field(
+        False, description="Disable web security features"
+    )
+    disable_features: List[str] = Field(
+        default_factory=lambda: ["VizDisplayCompositor"],
+        description="Browser features to disable",
+    )
 
 
 class StealthConfig(BaseModel):
     """Complete stealth configuration with browser settings"""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
-    
+
     # Core configurations
     profile: StealthProfile = Field(default_factory=StealthProfile)
     timing: TimingProfile = Field(default_factory=TimingProfile)
-    
+
     # Browser display settings
     headless: bool = Field(False, description="Run browser in headless mode")
     viewport_width: int = Field(1920, description="Browser viewport width")
     viewport_height: int = Field(1080, description="Browser viewport height")
-    viewport: Dict[str, int] = Field(default_factory=lambda: {
-        "width": 1920, 
-        "height": 1080
-    }, description="Browser viewport dimensions")
-    
+    viewport: Dict[str, int] = Field(
+        default_factory=lambda: {"width": 1920, "height": 1080},
+        description="Browser viewport dimensions",
+    )
+
     # Network and headers
-    headers: Dict[str, str] = Field(default_factory=dict, description="Custom HTTP headers")
-    user_agent: Optional[str] = Field(None, description="Custom user agent string")
-    
+    headers: Dict[str, str] = Field(
+        default_factory=dict, description="Custom HTTP headers"
+    )
+    user_agent: Optional[str] = Field(
+        None, description="Custom user agent string"
+    )
+
     # Proxy settings
     proxy_server: Optional[str] = Field(None, description="Proxy server URL")
     proxy_username: Optional[str] = Field(None, description="Proxy username")
     proxy_password: Optional[str] = Field(None, description="Proxy password")
-    
+
     # Stealth behaviors
     enable_stealth: bool = Field(True, description="Enable stealth mode")
-    level: StealthLevel = Field(StealthLevel.MEDIUM, description="Stealth level")
-    
-    bypass_csp: bool = Field(True, description="Bypass Content Security Policy")
-    ignore_https_errors: bool = Field(True, description="Ignore HTTPS certificate errors")
+    level: StealthLevel = Field(
+        StealthLevel.MEDIUM, description="Stealth level"
+    )
+
+    bypass_csp: bool = Field(
+        True, description="Bypass Content Security Policy"
+    )
+    ignore_https_errors: bool = Field(
+        True, description="Ignore HTTPS certificate errors"
+    )
 
     # Localization
     locale: str = Field("en-US", description="Browser locale")
     timezone: str = Field("America/New_York", description="Browser timezone")
 
     # Advanced bypass options
-    bypass_cloudflare: bool = Field(False, description="Bypass Cloudflare detection")
-    bypass_f5_networks: bool = Field(False, description="Bypass F5 Networks detection")
-    prevent_webrtc_leak: bool = Field(True, description="Prevent WebRTC IP leak")
+    bypass_cloudflare: bool = Field(
+        False, description="Bypass Cloudflare detection"
+    )
+    bypass_f5_networks: bool = Field(
+        False, description="Bypass F5 Networks detection"
+    )
+    prevent_webrtc_leak: bool = Field(
+        True, description="Prevent WebRTC IP leak"
+    )
 
     # Spoofing options
-    spoof_canvas_fingerprint: bool = Field(True, description="Spoof canvas fingerprint")
+    spoof_canvas_fingerprint: bool = Field(
+        True, description="Spoof canvas fingerprint"
+    )
     spoof_webgl: bool = Field(True, description="Spoof WebGL fingerprint")
     spoof_battery: bool = Field(True, description="Spoof battery API")
-    spoof_hardware: bool = Field(True, description="Spoof hardware information")
+    spoof_hardware: bool = Field(
+        True, description="Spoof hardware information"
+    )
 
     # Additional bypass options
-    bypass_shape_security: bool = Field(False, description="Bypass Shape Security detection")
-    bypass_datadome: bool = Field(False, description="Bypass DataDome detection")
+    bypass_shape_security: bool = Field(
+        False, description="Bypass Shape Security detection"
+    )
+    bypass_datadome: bool = Field(
+        False, description="Bypass DataDome detection"
+    )
     bypass_kasada: bool = Field(False, description="Bypass Kasada detection")
 
     # Human behavior simulation
-    enable_human_delays: bool = Field(True, description="Enable human-like delays")
-    enable_human_mouse: bool = Field(True, description="Enable human-like mouse movements")
-    enable_human_scrolling: bool = Field(True, description="Enable human-like scrolling")
-    enable_human_typing: bool = Field(True, description="Enable human-like typing")
-    enable_micro_behaviors: bool = Field(False, description="Enable micro-behaviors")
-    use_bspline_mouse: bool = Field(False, description="Use B-spline for mouse movements")
-    use_lognormal_delays: bool = Field(False, description="Use lognormal distribution for delays")
-    human_delay_range: Tuple[int, int] = Field((100, 2000), description="Human delay range in ms")
-    typing_delay_range: Tuple[int, int] = Field((50, 150), description="Typing delay range in ms")
+    enable_human_delays: bool = Field(
+        True, description="Enable human-like delays"
+    )
+    enable_human_mouse: bool = Field(
+        True, description="Enable human-like mouse movements"
+    )
+    enable_human_scrolling: bool = Field(
+        True, description="Enable human-like scrolling"
+    )
+    enable_human_typing: bool = Field(
+        True, description="Enable human-like typing"
+    )
+    enable_micro_behaviors: bool = Field(
+        False, description="Enable micro-behaviors"
+    )
+    use_bspline_mouse: bool = Field(
+        False, description="Use B-spline for mouse movements"
+    )
+    use_lognormal_delays: bool = Field(
+        False, description="Use lognormal distribution for delays"
+    )
+    human_delay_range: Tuple[int, int] = Field(
+        (100, 2000), description="Human delay range in ms"
+    )
+    typing_delay_range: Tuple[int, int] = Field(
+        (50, 150), description="Typing delay range in ms"
+    )
 
     # Timeout settings
-    default_timeout: int = Field(30000, description="Default timeout for operations")
+    default_timeout: int = Field(
+        30000, description="Default timeout for operations"
+    )
 
     # Browser launch args
-    args: List[str] = Field(default_factory=list, description="Additional browser launch arguments")
-    ignore_default_args: List[str] = Field(default_factory=list, description="Default args to ignore")
-    
+    args: List[str] = Field(
+        default_factory=list, description="Additional browser launch arguments"
+    )
+    ignore_default_args: List[str] = Field(
+        default_factory=list, description="Default args to ignore"
+    )
+
     # Performance settings
     slow_mo: int = Field(0, description="Slow down operations by specified ms")
     timeout: int = Field(30000, description="Default timeout for operations")
-    
+
     # Shadow DOM extraction settings
-    enable_shadow_dom_extraction: bool = Field(True, description="Enable shadow DOM element extraction")
-    shadow_dom_max_depth: int = Field(5, description="Maximum shadow DOM traversal depth")
-    shadow_dom_element_limit: int = Field(100, description="Maximum elements per shadow root")
+    enable_shadow_dom_extraction: bool = Field(
+        True, description="Enable shadow DOM element extraction"
+    )
+    shadow_dom_max_depth: int = Field(
+        5, description="Maximum shadow DOM traversal depth"
+    )
+    shadow_dom_element_limit: int = Field(
+        100, description="Maximum elements per shadow root"
+    )
+
+
 # ==================== DATA MODELS ====================
+
 
 class BoundingBox(BaseModel):
     """Element bounding box"""
+
     x: float
     y: float
     width: float
     height: float
-    
+
     def is_visible(self) -> bool:
         return self.width > 0 and self.height > 0
 
+
 class ComputedStyle(BaseModel):
     """Computed CSS styles"""
+
     display: Optional[str] = None
     visibility: Optional[str] = None
     opacity: Optional[str] = None
@@ -391,48 +490,62 @@ class ComputedStyle(BaseModel):
     backgroundColor: Optional[str] = None
     color: Optional[str] = None
     fontSize: Optional[str] = None
-    
+
     def is_visible(self) -> bool:
-        return (self.display != 'none' and 
-                self.visibility != 'hidden' and 
-                self.opacity != '0')
+        return (
+            self.display != "none"
+            and self.visibility != "hidden"
+            and self.opacity != "0"
+        )
+
 
 class ElementSelector(BaseModel):
     """Element selector strategy"""
+
     strategy: LocatorStrategy
     value: str
     score: float = 0.5
     is_unique: bool = False
 
+
 class Element(BaseModel):
     """Unified element data structure - single source of truth"""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
-    
+
     # Core identification (required)
     id: str = Field(description="Unique element identifier")
     tag_name: str = Field(description="HTML tag name")
-    element_type: ElementType = Field(default=ElementType.UNKNOWN, description="Element type classification")
-    
+    element_type: ElementType = Field(
+        default=ElementType.UNKNOWN, description="Element type classification"
+    )
+
     # Content
     text: Optional[str] = Field(default=None, description="Text content")
     inner_html: Optional[str] = Field(default=None, description="Inner HTML")
     outer_html: Optional[str] = Field(default=None, description="Outer HTML")
     value: Optional[str] = Field(default=None, description="Value attribute")
-    
+
     # Key attributes
     name: Optional[str] = Field(default=None, description="Name attribute")
     classes: List[str] = Field(default_factory=list, description="CSS classes")
     href: Optional[str] = Field(default=None, description="Href for links")
-    src: Optional[str] = Field(default=None, description="Source for images/scripts")
+    src: Optional[str] = Field(
+        default=None, description="Source for images/scripts"
+    )
     alt: Optional[str] = Field(default=None, description="Alt text")
     title: Optional[str] = Field(default=None, description="Title attribute")
-    placeholder: Optional[str] = Field(default=None, description="Placeholder text")
+    placeholder: Optional[str] = Field(
+        default=None, description="Placeholder text"
+    )
     type: Optional[str] = Field(default=None, description="Type attribute")
     role: Optional[str] = Field(default=None, description="ARIA role")
     aria_label: Optional[str] = Field(default=None, description="ARIA label")
     data_testid: Optional[str] = Field(default=None, description="Test ID")
-    attributes: Dict[str, Any] = Field(default_factory=dict, description="All attributes")
-    
+    attributes: Dict[str, Any] = Field(
+        default_factory=dict, description="All attributes"
+    )
+
     # State
     is_visible: bool = Field(default=True, description="Visibility state")
     is_enabled: bool = Field(default=True, description="Enabled state")
@@ -441,62 +554,101 @@ class Element(BaseModel):
     is_focused: bool = Field(default=False, description="Focus state")
     is_required: bool = Field(default=False, description="Required field")
     is_readonly: bool = Field(default=False, description="Read-only state")
-    
+
     # Interaction capabilities
     is_clickable: bool = Field(default=False, description="Can be clicked")
     is_editable: bool = Field(default=False, description="Can be edited")
-    interaction_types: List[InteractionType] = Field(default_factory=list, description="Possible interactions")
-    
+    interaction_types: List[InteractionType] = Field(
+        default_factory=list, description="Possible interactions"
+    )
+
     # Position and style
-    bounding_box: Optional[BoundingBox] = Field(default=None, description="Element position")
-    computed_style: Optional[ComputedStyle] = Field(default=None, description="Computed styles")
-    
+    bounding_box: Optional[BoundingBox] = Field(
+        default=None, description="Element position"
+    )
+    computed_style: Optional[ComputedStyle] = Field(
+        default=None, description="Computed styles"
+    )
+
     # Selectors
-    selector: Optional[str] = Field(default=None, description="Primary selector")
+    selector: Optional[str] = Field(
+        default=None, description="Primary selector"
+    )
     xpath: Optional[str] = Field(default=None, description="XPath selector")
-    css_selector: Optional[str] = Field(default=None, description="CSS selector")
-    full_xpath: Optional[str] = Field(default=None, description="Full XPath from root")
-    selectors: List[ElementSelector] = Field(default_factory=list, description="All selector strategies")
-    
+    css_selector: Optional[str] = Field(
+        default=None, description="CSS selector"
+    )
+    full_xpath: Optional[str] = Field(
+        default=None, description="Full XPath from root"
+    )
+    selectors: List[ElementSelector] = Field(
+        default_factory=list, description="All selector strategies"
+    )
+
     # Hierarchy
-    parent_id: Optional[str] = Field(default=None, description="Parent element ID")
-    children_ids: List[str] = Field(default_factory=list, description="Child element IDs")
+    parent_id: Optional[str] = Field(
+        default=None, description="Parent element ID"
+    )
+    children_ids: List[str] = Field(
+        default_factory=list, description="Child element IDs"
+    )
     depth: int = Field(default=0, description="DOM tree depth")
-    shadow_dom_path: List[str] = Field(default_factory=list, description="Shadow DOM path")
-    
+    shadow_dom_path: List[str] = Field(
+        default_factory=list, description="Shadow DOM path"
+    )
+
     # Classification and scoring
     confidence: float = Field(default=0.5, description="Extraction confidence")
-    importance_score: float = Field(default=0.5, description="Element importance")
-    
+    importance_score: float = Field(
+        default=0.5, description="Element importance"
+    )
+
     # Metadata
-    extraction_method: Optional[ExtractionMethod] = Field(default=None, description="How element was extracted")
-    extraction_timestamp: Optional[float] = Field(default=None, description="When element was extracted")
-    is_shadow_element: bool = Field(default=False, description="Is in shadow DOM")
+    extraction_method: Optional[ExtractionMethod] = Field(
+        default=None, description="How element was extracted"
+    )
+    extraction_timestamp: Optional[float] = Field(
+        default=None, description="When element was extracted"
+    )
+    is_shadow_element: bool = Field(
+        default=False, description="Is in shadow DOM"
+    )
     is_iframe_element: bool = Field(default=False, description="Is in iframe")
-    
+
     # Validation
     is_valid: bool = Field(default=True, description="Validation state")
-    validation_errors: List[str] = Field(default_factory=list, description="Validation errors")
-    
+    validation_errors: List[str] = Field(
+        default_factory=list, description="Validation errors"
+    )
+
     # AI/LLM fields
-    ai_description: Optional[str] = Field(default=None, description="AI-generated description")
-    ai_confidence: Optional[float] = Field(default=None, description="AI confidence score")
-    ai_suggested_actions: List[str] = Field(default_factory=list, description="AI-suggested actions")
-    
+    ai_description: Optional[str] = Field(
+        default=None, description="AI-generated description"
+    )
+    ai_confidence: Optional[float] = Field(
+        default=None, description="AI confidence score"
+    )
+    ai_suggested_actions: List[str] = Field(
+        default_factory=list, description="AI-suggested actions"
+    )
+
     def get_best_selector(self) -> Optional[ElementSelector]:
         """Get the best selector based on score"""
         if not self.selectors:
             return None
         return max(self.selectors, key=lambda s: s.score)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         return self.model_dump(exclude_none=True)
 
+
 # ExtractedElement merged into Element above - single source of truth
+
 
 class ScreenshotData(BaseModel):
     """Screenshot information"""
+
     format: str = "png"
     width: int
     height: int
@@ -506,8 +658,10 @@ class ScreenshotData(BaseModel):
     highlighted_elements: List[str] = Field(default_factory=list)
     annotations: Dict[str, Any] = Field(default_factory=dict)
 
+
 class ElementContext(BaseModel):
     """Context information for an element"""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     parent_hierarchy: List[str] = Field(default_factory=list)
@@ -518,8 +672,10 @@ class ElementContext(BaseModel):
     semantic_role: Optional[str] = None
     accessibility_score: float = 0.0
 
+
 class EnrichedElement(BaseModel):
     """Element enriched with LLM analysis"""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     base_element: Dict[str, Any] = Field(default_factory=dict)
@@ -532,8 +688,10 @@ class EnrichedElement(BaseModel):
         default_factory=lambda: datetime.now().isoformat()
     )
 
+
 class PageAnalysis(BaseModel):
     """Comprehensive page analysis result"""
+
     url: str
     title: Optional[str] = None
     description: Optional[str] = None
@@ -571,58 +729,68 @@ class PageAnalysis(BaseModel):
     has_semantic_html: bool = False
     accessibility_score: Optional[float] = None
 
+
 class InteractionResult(BaseModel):
     """Result of element interaction"""
+
     success: bool
     action: InteractionType
     element_selector: str
     timestamp: float
-    
+
     # Outcomes
     page_changed: bool = False
     new_elements: List[str] = Field(default_factory=list)
     removed_elements: List[str] = Field(default_factory=list)
     errors: List[str] = Field(default_factory=list)
-    
+
     # Screenshots
     before_screenshot: Optional[ScreenshotData] = None
     after_screenshot: Optional[ScreenshotData] = None
 
+
 class ValidationResult(BaseModel):
     """Element validation result"""
+
     element_selector: str
     is_valid: bool
     validation_type: str
-    
+
     # Details
     expected: Any = None
     actual: Any = None
     errors: List[str] = Field(default_factory=list)
     warnings: List[str] = Field(default_factory=list)
 
+
 class GherkinStep(BaseModel):
     """Gherkin test step"""
+
     keyword: str  # Given, When, Then, And, But
     text: str
 
+
 class TestScenario(BaseModel):
     """Test scenario definition"""
+
     name: str
     description: Optional[str] = None
     category: TestCategory
     priority: TestPriority = TestPriority.MEDIUM
-    
+
     # Steps - supports both Gherkin and dict formats
     preconditions: List[str] = Field(default_factory=list)
-    steps: List[Union[GherkinStep, Dict[str, Any]]] = Field(default_factory=list)
+    steps: List[Union[GherkinStep, Dict[str, Any]]] = Field(
+        default_factory=list
+    )
     expected_results: List[str] = Field(default_factory=list)
-    
+
     # Elements involved
     target_elements: List[str] = Field(default_factory=list)
-    
+
     # Validation
     validations: List[ValidationResult] = Field(default_factory=list)
-    
+
     # Metadata
     created_at: float = Field(default_factory=lambda: time.time())
     framework: Optional[TestFramework] = None
@@ -633,8 +801,10 @@ class TestScenario(BaseModel):
     confidence_score: float = 0.95
     assertions: List[str] = Field(default_factory=list)
 
+
 class TestSuite(BaseModel):
     """Test suite containing multiple scenarios"""
+
     feature_name: str
     feature_description: str = ""
     url: str
@@ -657,14 +827,20 @@ class TestSuite(BaseModel):
             for step in scenario.steps:
                 if isinstance(step, GherkinStep):
                     lines.append(f"    {step.keyword} {step.text}")
-                elif isinstance(step, dict) and 'keyword' in step and 'text' in step:
+                elif (
+                    isinstance(step, dict)
+                    and "keyword" in step
+                    and "text" in step
+                ):
                     lines.append(f"    {step['keyword']} {step['text']}")
             lines.append("")
 
         return "\n".join(lines)
 
+
 class TestGenerationContract(BaseModel):
     """Contract for test generation"""
+
     url: str
     frameworks: List[str] = Field(default_factory=lambda: ["playwright"])
     categories: List[str] = Field(default_factory=lambda: ["functional"])
@@ -672,8 +848,10 @@ class TestGenerationContract(BaseModel):
     max_elements: int = 10
     include_code: bool = False
 
+
 class TestGenerationResult(BaseModel):
     """Result of test generation"""
+
     url: str
     test_suite: TestSuite
     page_analysis: PageAnalysis
@@ -683,28 +861,33 @@ class TestGenerationResult(BaseModel):
     llm_processing_time: float = 0.0
     code_snippets: Dict[str, str] = Field(default_factory=dict)
 
+
 # Configuration classes
+
+
 class ExtractionConfig(BaseModel):
     """Configuration for browser-based extraction"""
+
     # Browser settings
     headless: bool = False
     viewport_width: int = 1920
     viewport_height: int = 1080
     user_agent: Optional[str] = None
-    
+
     # Extraction settings
     enable_shadow_dom: bool = True
     enable_iframe_traversal: bool = True
     enable_stealth: bool = True
     wait_for_network_idle: bool = True
     timeout: int = 30000
-    
+
     # Element filtering
     filter_invisible: bool = True
     filter_duplicates: bool = True
     min_element_size: int = 5
     max_elements: int = 1000
-    
+    min_confidence: float = 0.0
+
     # Screenshots
     capture_screenshots: bool = False
     screenshot_format: str = "png"
@@ -713,165 +896,202 @@ class ExtractionConfig(BaseModel):
     highlight_elements: bool = False
     highlight_color: str = "red"
     highlight_width: int = 2
-    
+
     # Caching
     enable_caching: bool = True
     cache_ttl: int = 3600
-    
+
     # Performance
     parallel_extraction: bool = False
     batch_size: int = 10
-    
+
     # QA Mode settings
     qa_mode: bool = False
-    qa_priority_tags: List[str] = Field(default_factory=lambda: [
-        'button', 'input', 'select', 'textarea', 'a', 'form'
-    ])
-    qa_interaction_indicators: List[str] = Field(default_factory=lambda: [
-        'click', 'submit', 'change', 'focus', 'blur'
-    ])
+    qa_priority_tags: List[str] = Field(
+        default_factory=lambda: [
+            "button",
+            "input",
+            "select",
+            "textarea",
+            "a",
+            "form",
+        ]
+    )
+    qa_interaction_indicators: List[str] = Field(
+        default_factory=lambda: ["click", "submit", "change", "focus", "blur"]
+    )
     qa_min_interaction_score: float = 0.3
     qa_include_disabled: bool = True
     qa_include_hidden_toggles: bool = True
-    
+
     # Extraction strategies
     extraction_strategy: ExtractionStrategy = ExtractionStrategy.THOROUGH
     fallback_strategies: List[ExtractionStrategy] = Field(default_factory=list)
 
+
 # DOMExtractionConfig removed - use ExtractionConfig directly
+
 
 class ExtractionResult(BaseModel):
     """Result from browser extraction"""
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
-    
+
     url: str
     success: bool
     elements: List[Element] = Field(default_factory=list)
     page_title: Optional[str] = None
     page_description: Optional[str] = None
     page_analysis: Optional[PageAnalysis] = None
-    
+
     # Timing
     extraction_time: float = 0.0
     network_time: float = 0.0
-    
+
     # Statistics
     total_elements_found: int = 0
     elements_filtered: int = 0
     shadow_dom_elements: int = 0
     iframe_elements: int = 0
-    
+
     # Screenshots
     screenshots: List[ScreenshotData] = Field(default_factory=list)
-    
+
     # Metadata
     browser_version: Optional[str] = None
     extraction_strategy: Optional[ExtractionStrategy] = None
     config: Optional[Dict[str, Any]] = None
-    
+
     # Errors
     errors: List[str] = Field(default_factory=list)
     warnings: List[str] = Field(default_factory=list)
-    
+
     # Additional data
     statistics: Dict[str, Any] = Field(default_factory=dict)
     metadata: Dict[str, Any] = Field(default_factory=dict)
-    
+
     def save_screenshots(self, directory: Path) -> List[Path]:
         """Save screenshots to directory"""
         import base64
+
         saved_paths = []
-        
+
         directory.mkdir(parents=True, exist_ok=True)
-        
+
         for i, screenshot in enumerate(self.screenshots):
-            filename = f"screenshot_{i+1}.{screenshot.format}"
+            filename = f"screenshot_{i + 1}.{screenshot.format}"
             filepath = directory / filename
-            
+
             # Decode and save
             image_data = base64.b64decode(screenshot.data)
             filepath.write_bytes(image_data)
             saved_paths.append(filepath)
-        
+
         return saved_paths
+
 
 class CrawlResult(BaseModel):
     """Crawl result for multi-page extraction"""
+
     start_url: str = Field(..., description="Starting URL for crawl")
-    pages_visited: List[str] = Field(default_factory=list, description="URLs visited during crawl")
-    extraction_results: List[ExtractionResult] = Field(default_factory=list, description="Extraction results for each page")
-    total_elements: int = Field(default=0, ge=0, description="Total elements extracted across all pages")
-    crawl_time: float = Field(..., ge=0.0, description="Total crawl time in seconds")
-    max_depth_reached: int = Field(default=0, ge=0, description="Maximum depth reached during crawl")
-    errors: List[str] = Field(default_factory=list, description="Errors encountered during crawl")
+    pages_visited: List[str] = Field(
+        default_factory=list, description="URLs visited during crawl"
+    )
+    extraction_results: List[ExtractionResult] = Field(
+        default_factory=list, description="Extraction results for each page"
+    )
+    total_elements: int = Field(
+        default=0,
+        ge=0,
+        description="Total elements extracted across all pages",
+    )
+    crawl_time: float = Field(
+        ..., ge=0.0, description="Total crawl time in seconds"
+    )
+    max_depth_reached: int = Field(
+        default=0, ge=0, description="Maximum depth reached during crawl"
+    )
+    errors: List[str] = Field(
+        default_factory=list, description="Errors encountered during crawl"
+    )
 
 
 # ==================== EXCEPTIONS ====================
 
+
 class BrowserError(Exception):
     """Base exception for browser-related errors"""
+
     pass
 
 
 class NavigationError(BrowserError):
     """Navigation-specific errors"""
+
     pass
 
 
 class ExtractionError(BrowserError):
     """Element extraction errors"""
+
     pass
 
 
 class TimeoutError(BrowserError):
     """Timeout-related errors"""
+
     pass
 
 
 # ==================== SHARED UTILITIES ====================
 
+
 class ElementSelectorUtils:
-    """Shared utilities for element selector generation and type determination"""
+    """Shared utilities for element selector generation"""
 
     @staticmethod
-    def determine_element_type(tag_name: str, elem_type: Optional[str] = None,
-                              role: Optional[str] = None, input_type: Optional[str] = None) -> ElementType:
+    def determine_element_type(
+        tag_name: str,
+        elem_type: Optional[str] = None,
+        role: Optional[str] = None,
+        input_type: Optional[str] = None,
+    ) -> ElementType:
         """Determine element type from tag and attributes"""
         tag_lower = tag_name.lower()
 
         # Priority 1: Explicit type mapping
         if elem_type:
             type_map = {
-                'button': ElementType.BUTTON,
-                'link': ElementType.LINK,
-                'input': ElementType.INPUT,
-                'text': ElementType.TEXT_INPUT,  # Fixed: TEXT doesn't exist, use TEXT_INPUT
-                'image': ElementType.IMAGE,
-                'video': ElementType.VIDEO,
-                'form': ElementType.FORM,
-                'table': ElementType.TABLE,
-                'list': ElementType.LIST,
-                'navigation': ElementType.NAVIGATION,
-                'heading': ElementType.HEADING,
-                'select': ElementType.SELECT,
-                'checkbox': ElementType.CHECKBOX,
-                'radio': ElementType.RADIO,
-                'textarea': ElementType.TEXTAREA,
-                'iframe': ElementType.IFRAME,
-                'canvas': ElementType.CANVAS,
-                'svg': ElementType.SVG,
-                'dialog': ElementType.DIALOG,
-                'menu': ElementType.MENU,
-                'tab': ElementType.TAB,
-                'card': ElementType.CARD,
-                'modal': ElementType.MODAL,
-                'tooltip': ElementType.TOOLTIP,
-                'alert': ElementType.ALERT,
-                'banner': ElementType.BANNER,
-                'search': ElementType.SEARCH,
-                'switch': ElementType.SWITCH,
-                'slider': ElementType.SLIDER,
-                'code': ElementType.CODE
+                "button": ElementType.BUTTON,
+                "link": ElementType.LINK,
+                "input": ElementType.INPUT,
+                "text": ElementType.TEXT_INPUT,  # Use TEXT_INPUT
+                "image": ElementType.IMAGE,
+                "video": ElementType.VIDEO,
+                "form": ElementType.FORM,
+                "table": ElementType.TABLE,
+                "list": ElementType.LIST,
+                "navigation": ElementType.NAVIGATION,
+                "heading": ElementType.HEADING,
+                "select": ElementType.SELECT,
+                "checkbox": ElementType.CHECKBOX,
+                "radio": ElementType.RADIO,
+                "textarea": ElementType.TEXTAREA,
+                "iframe": ElementType.IFRAME,
+                "canvas": ElementType.CANVAS,
+                "svg": ElementType.SVG,
+                "dialog": ElementType.DIALOG,
+                "menu": ElementType.MENU,
+                "tab": ElementType.TAB,
+                "card": ElementType.CARD,
+                "modal": ElementType.MODAL,
+                "tooltip": ElementType.TOOLTIP,
+                "alert": ElementType.ALERT,
+                "banner": ElementType.BANNER,
+                "search": ElementType.SEARCH,
+                "switch": ElementType.SWITCH,
+                "slider": ElementType.SLIDER,
+                "code": ElementType.CODE,
             }
             if elem_type.lower() in type_map:
                 return type_map[elem_type.lower()]
@@ -879,69 +1099,69 @@ class ElementSelectorUtils:
         # Priority 2: Role-based detection
         if role:
             role_map = {
-                'button': ElementType.BUTTON,
-                'link': ElementType.LINK,
-                'navigation': ElementType.NAVIGATION,
-                'heading': ElementType.HEADING,
-                'img': ElementType.IMAGE,
-                'form': ElementType.FORM,
-                'search': ElementType.SEARCH,
-                'alert': ElementType.ALERT,
-                'dialog': ElementType.DIALOG,
-                'menu': ElementType.MENU,
-                'menuitem': ElementType.MENU,
-                'tab': ElementType.TAB,
-                'tabpanel': ElementType.TAB,
-                'tooltip': ElementType.TOOLTIP,
-                'banner': ElementType.BANNER,
-                'switch': ElementType.SWITCH,
-                'slider': ElementType.SLIDER
+                "button": ElementType.BUTTON,
+                "link": ElementType.LINK,
+                "navigation": ElementType.NAVIGATION,
+                "heading": ElementType.HEADING,
+                "img": ElementType.IMAGE,
+                "form": ElementType.FORM,
+                "search": ElementType.SEARCH,
+                "alert": ElementType.ALERT,
+                "dialog": ElementType.DIALOG,
+                "menu": ElementType.MENU,
+                "menuitem": ElementType.MENU,
+                "tab": ElementType.TAB,
+                "tabpanel": ElementType.TAB,
+                "tooltip": ElementType.TOOLTIP,
+                "banner": ElementType.BANNER,
+                "switch": ElementType.SWITCH,
+                "slider": ElementType.SLIDER,
             }
             if role.lower() in role_map:
                 return role_map[role.lower()]
 
         # Priority 3: Tag-based detection
         tag_map = {
-            'a': ElementType.LINK,
-            'button': ElementType.BUTTON,
-            'input': ElementType.INPUT,
-            'textarea': ElementType.TEXTAREA,
-            'select': ElementType.SELECT,
-            'img': ElementType.IMAGE,
-            'video': ElementType.VIDEO,
-            'audio': ElementType.MEDIA,
-            'form': ElementType.FORM,
-            'table': ElementType.TABLE,
-            'ul': ElementType.LIST,
-            'ol': ElementType.LIST,
-            'nav': ElementType.NAVIGATION,
-            'h1': ElementType.HEADING,
-            'h2': ElementType.HEADING,
-            'h3': ElementType.HEADING,
-            'h4': ElementType.HEADING,
-            'h5': ElementType.HEADING,
-            'h6': ElementType.HEADING,
-            'iframe': ElementType.IFRAME,
-            'canvas': ElementType.CANVAS,
-            'svg': ElementType.SVG,
-            'dialog': ElementType.DIALOG,
-            'code': ElementType.CODE,
-            'pre': ElementType.CODE
+            "a": ElementType.LINK,
+            "button": ElementType.BUTTON,
+            "input": ElementType.INPUT,
+            "textarea": ElementType.TEXTAREA,
+            "select": ElementType.SELECT,
+            "img": ElementType.IMAGE,
+            "video": ElementType.VIDEO,
+            "audio": ElementType.MEDIA,
+            "form": ElementType.FORM,
+            "table": ElementType.TABLE,
+            "ul": ElementType.LIST,
+            "ol": ElementType.LIST,
+            "nav": ElementType.NAVIGATION,
+            "h1": ElementType.HEADING,
+            "h2": ElementType.HEADING,
+            "h3": ElementType.HEADING,
+            "h4": ElementType.HEADING,
+            "h5": ElementType.HEADING,
+            "h6": ElementType.HEADING,
+            "iframe": ElementType.IFRAME,
+            "canvas": ElementType.CANVAS,
+            "svg": ElementType.SVG,
+            "dialog": ElementType.DIALOG,
+            "code": ElementType.CODE,
+            "pre": ElementType.CODE,
         }
 
         if tag_lower in tag_map:
             element_type = tag_map[tag_lower]
 
             # Special handling for input elements
-            if tag_lower == 'input' and input_type:
+            if tag_lower == "input" and input_type:
                 input_type_map = {
-                    'checkbox': ElementType.CHECKBOX,
-                    'radio': ElementType.RADIO,
-                    'button': ElementType.BUTTON,
-                    'submit': ElementType.BUTTON,
-                    'reset': ElementType.BUTTON,
-                    'search': ElementType.SEARCH,
-                    'range': ElementType.SLIDER
+                    "checkbox": ElementType.CHECKBOX,
+                    "radio": ElementType.RADIO,
+                    "button": ElementType.BUTTON,
+                    "submit": ElementType.BUTTON,
+                    "reset": ElementType.BUTTON,
+                    "search": ElementType.SEARCH,
+                    "range": ElementType.SLIDER,
                 }
                 if input_type.lower() in input_type_map:
                     return input_type_map[input_type.lower()]
@@ -952,13 +1172,19 @@ class ElementSelectorUtils:
         return ElementType.OTHER
 
     @staticmethod
-    def generate_xpath(elem_id: Optional[str] = None, elem_classes: List[str] = None,
-                      tag_name: str = 'div', text_content: Optional[str] = None) -> str:
+    def generate_xpath(
+        elem_id: Optional[str] = None,
+        elem_classes: Optional[List[str]] = None,
+        tag_name: str = "div",
+        text_content: Optional[str] = None,
+    ) -> str:
         """Generate XPath selector for element"""
         if elem_id:
             return f"//{tag_name}[@id='{elem_id}']"
         elif elem_classes:
-            class_condition = " and ".join([f"contains(@class, '{cls}')" for cls in elem_classes[:2]])
+            class_condition = " and ".join(
+                [f"contains(@class, '{cls}')" for cls in elem_classes[:2]]
+            )
             return f"//{tag_name}[{class_condition}]"
         elif text_content and len(text_content) < 50:
             return f"//{tag_name}[contains(text(), '{text_content[:30]}')]"
@@ -966,8 +1192,11 @@ class ElementSelectorUtils:
             return f"//{tag_name}"
 
     @staticmethod
-    def generate_css_selector(elem_id: Optional[str] = None, elem_classes: List[str] = None,
-                             tag_name: str = 'div') -> str:
+    def generate_css_selector(
+        elem_id: Optional[str] = None,
+        elem_classes: Optional[List[str]] = None,
+        tag_name: str = "div",
+    ) -> str:
         """Generate CSS selector for element"""
         if elem_id:
             return f"#{elem_id}"
@@ -978,10 +1207,6 @@ class ElementSelectorUtils:
 
 
 # Shared Utilities and Constants
-import functools
-import time
-import gc
-from threading import Lock
 
 
 # Scoring Constants
@@ -998,10 +1223,22 @@ SELECTOR_SCORE_POSITION = 0.3
 
 # Element Interaction Mappings
 ELEMENT_INTERACTIONS = {
-    ElementType.BUTTON: [InteractionType.CLICK, InteractionType.HOVER, InteractionType.FOCUS],
+    ElementType.BUTTON: [
+        InteractionType.CLICK,
+        InteractionType.HOVER,
+        InteractionType.FOCUS,
+    ],
     ElementType.LINK: [InteractionType.CLICK, InteractionType.HOVER],
-    ElementType.INPUT: [InteractionType.TYPE, InteractionType.CLEAR, InteractionType.FOCUS],
-    ElementType.TEXTAREA: [InteractionType.TYPE, InteractionType.CLEAR, InteractionType.FOCUS],
+    ElementType.INPUT: [
+        InteractionType.TYPE,
+        InteractionType.CLEAR,
+        InteractionType.FOCUS,
+    ],
+    ElementType.TEXTAREA: [
+        InteractionType.TYPE,
+        InteractionType.CLEAR,
+        InteractionType.FOCUS,
+    ],
     ElementType.SELECT: [InteractionType.SELECT, InteractionType.FOCUS],
     ElementType.CHECKBOX: [InteractionType.CLICK, InteractionType.FOCUS],
     ElementType.RADIO: [InteractionType.CLICK, InteractionType.FOCUS],
@@ -1019,30 +1256,34 @@ ELEMENT_INTERACTIONS = {
     ElementType.MEDIA: [InteractionType.CLICK, InteractionType.HOVER],
     ElementType.NAVIGATION: [InteractionType.HOVER],
     ElementType.SVG: [InteractionType.HOVER],
-    ElementType.OTHER: [InteractionType.HOVER]
+    ElementType.OTHER: [InteractionType.HOVER],
 }
 
 
 def retry_with_backoff(retries=3, backoff_factor=2):
     """Decorator for retry with exponential backoff"""
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             for attempt in range(retries):
                 try:
                     return func(*args, **kwargs)
-                except Exception as e:
+                except Exception:
                     if attempt == retries - 1:
                         raise
-                    wait_time = backoff_factor ** attempt
+                    wait_time = backoff_factor**attempt
                     time.sleep(wait_time)
             return None
+
         return wrapper
+
     return decorator
 
 
 class ThreadSafeCache:
     """Thread-safe cache implementation"""
+
     def __init__(self, max_size=1000):
         self._cache = {}
         self._lock = Lock()
@@ -1061,7 +1302,9 @@ class ThreadSafeCache:
             if len(self._cache) >= self._max_size:
                 # Remove least accessed item
                 if self._access_count:
-                    min_key = min(self._access_count, key=self._access_count.get)
+                    min_key = min(
+                        self._access_count, key=self._access_count.get
+                    )
                     del self._cache[min_key]
                     del self._access_count[min_key]
             self._cache[key] = value
@@ -1081,15 +1324,107 @@ def memory_cleanup():
         gc.collect(2)
 
 
+def remove_nulls(obj, remove_empty=True):
+    """
+    Recursively remove null values from dictionaries and lists.
+
+    Args:
+        obj: The object to clean (dict, list, or any value)
+        remove_empty: Also remove empty lists and dicts
+
+    Returns:
+        Cleaned object without null values
+    """
+    if isinstance(obj, dict):
+        # Process dictionary
+        cleaned = {}
+        for key, value in obj.items():
+            # Recursively clean the value
+            cleaned_value = remove_nulls(value, remove_empty)
+
+            # Skip null values
+            if cleaned_value is None:
+                continue
+
+            # Skip empty collections if requested
+            if remove_empty:
+                if isinstance(cleaned_value, (dict, list)) and len(cleaned_value) == 0:
+                    continue
+
+            cleaned[key] = cleaned_value
+        return cleaned
+
+    elif isinstance(obj, list):
+        # Process list
+        cleaned = []
+        for item in obj:
+            cleaned_item = remove_nulls(item, remove_empty)
+            # Keep non-null items
+            if cleaned_item is not None:
+                cleaned.append(cleaned_item)
+        return cleaned
+
+    else:
+        # Return the value as-is
+        return obj
+
+
+def clean_for_llm(data):
+    """
+    Clean data structure for LLM processing.
+    Removes nulls, empty collections, and converts Pydantic models.
+
+    Args:
+        data: Data to clean (can be Pydantic model, dict, list, etc.)
+
+    Returns:
+        Cleaned data optimized for LLM processing
+    """
+    # Convert Pydantic models to dict first
+    if hasattr(data, 'model_dump'):
+        data = data.model_dump()
+    elif hasattr(data, 'dict'):  # Fallback for older Pydantic
+        data = data.dict()
+
+    # Remove nulls and empty collections
+    return remove_nulls(data, remove_empty=True)
+
+
 # Interactive Element Classification
-INTERACTIVE_TAGS = {'button', 'a', 'input', 'select', 'textarea', 'label', 'option'}
-INTERACTIVE_ROLES = {'button', 'link', 'checkbox', 'radio', 'textbox', 'combobox', 'listbox'}
-INTERACTIVE_ELEMENT_TYPES = {
-    ElementType.BUTTON, ElementType.LINK, ElementType.INPUT,
-    ElementType.SELECT, ElementType.TEXTAREA, ElementType.CHECKBOX,
-    ElementType.RADIO
+INTERACTIVE_TAGS = {
+    "button",
+    "a",
+    "input",
+    "select",
+    "textarea",
+    "label",
+    "option",
 }
-INTERACTIVE_ATTRIBUTES = ['onclick', 'href', 'ng-click', '@click', 'v-on:click']
+INTERACTIVE_ROLES = {
+    "button",
+    "link",
+    "checkbox",
+    "radio",
+    "textbox",
+    "combobox",
+    "listbox",
+}
+INTERACTIVE_ELEMENT_TYPES = {
+    ElementType.BUTTON,
+    ElementType.LINK,
+    ElementType.INPUT,
+    ElementType.SELECT,
+    ElementType.TEXTAREA,
+    ElementType.CHECKBOX,
+    ElementType.RADIO,
+}
+INTERACTIVE_ATTRIBUTES = [
+    "onclick",
+    "href",
+    "ng-click",
+    "@click",
+    "v-on:click",
+]
 
 
 class ElementClassifier:
@@ -1107,7 +1442,7 @@ class ElementClassifier:
             True if element is interactive
         """
         # Skip null or invalid elements
-        if not element or not hasattr(element, 'tag_name'):
+        if not element or not hasattr(element, "tag_name"):
             return False
 
         # Check by tag name
@@ -1115,23 +1450,26 @@ class ElementClassifier:
             return True
 
         # Check by element type
-        if hasattr(element, 'element_type') and element.element_type in INTERACTIVE_ELEMENT_TYPES:
+        if (
+            hasattr(element, "element_type")
+            and element.element_type in INTERACTIVE_ELEMENT_TYPES
+        ):
             return True
 
         # Check by attributes (role, onclick, href, etc.)
-        if hasattr(element, 'attributes'):
+        if hasattr(element, "attributes"):
             attrs = element.attributes or {}
-            if attrs.get('role') in INTERACTIVE_ROLES:
+            if attrs.get("role") in INTERACTIVE_ROLES:
                 return True
             if any(attrs.get(attr) for attr in INTERACTIVE_ATTRIBUTES):
                 return True
-            if attrs.get('tabindex', '-1') != '-1':
+            if attrs.get("tabindex", "-1") != "-1":
                 return True
 
         # Check by clickable/editable flags
-        if hasattr(element, 'is_clickable') and element.is_clickable:
+        if hasattr(element, "is_clickable") and element.is_clickable:
             return True
-        if hasattr(element, 'is_editable') and element.is_editable:
+        if hasattr(element, "is_editable") and element.is_editable:
             return True
 
         return False
@@ -1147,20 +1485,23 @@ class ElementClassifier:
         Returns:
             Functional purpose string
         """
-        tag = element.tag_name.lower() if hasattr(element, 'tag_name') else ''
-        elem_type = getattr(element, 'element_type', None)
+        tag = element.tag_name.lower() if hasattr(element, "tag_name") else ""
+        elem_type = getattr(element, "element_type", None)
 
-        if tag == 'button' or elem_type == ElementType.BUTTON:
+        if tag == "button" or elem_type == ElementType.BUTTON:
             return "trigger_action"
-        elif tag == 'a' or elem_type == ElementType.LINK:
+        elif tag == "a" or elem_type == ElementType.LINK:
             return "navigate"
-        elif tag in ['input', 'textarea'] or elem_type in [ElementType.INPUT, ElementType.TEXTAREA]:
+        elif tag in ["input", "textarea"] or elem_type in [
+            ElementType.INPUT,
+            ElementType.TEXTAREA,
+        ]:
             return "input_data"
-        elif tag == 'select' or elem_type == ElementType.SELECT:
+        elif tag == "select" or elem_type == ElementType.SELECT:
             return "select_option"
         elif elem_type in [ElementType.CHECKBOX, ElementType.RADIO]:
             return "toggle_option"
-        elif tag == 'form' or elem_type == ElementType.FORM:
+        elif tag == "form" or elem_type == ElementType.FORM:
             return "submit_form"
         else:
             return "unknown"
@@ -1192,14 +1533,18 @@ class ElementPrioritizer:
         others = []
 
         for elem in elements:
-            tag = elem.tag_name.lower() if hasattr(elem, 'tag_name') else ''
-            elem_type = getattr(elem, 'element_type', None)
+            tag = elem.tag_name.lower() if hasattr(elem, "tag_name") else ""
+            elem_type = getattr(elem, "element_type", None)
 
-            if tag in ['input', 'textarea', 'select'] or elem_type in [ElementType.INPUT, ElementType.TEXTAREA, ElementType.SELECT]:
+            if tag in ["input", "textarea", "select"] or elem_type in [
+                ElementType.INPUT,
+                ElementType.TEXTAREA,
+                ElementType.SELECT,
+            ]:
                 forms_inputs.append(elem)
-            elif tag == 'button' or elem_type == ElementType.BUTTON:
+            elif tag == "button" or elem_type == ElementType.BUTTON:
                 buttons.append(elem)
-            elif tag == 'a' or elem_type == ElementType.LINK:
+            elif tag == "a" or elem_type == ElementType.LINK:
                 links.append(elem)
             else:
                 others.append(elem)
@@ -1242,31 +1587,33 @@ class ElementSerializer:
         Returns:
             Dictionary representation
         """
-        if hasattr(element, 'model_dump'):
+        if hasattr(element, "model_dump"):
             # Pydantic v2 model
             return element.model_dump()
-        elif hasattr(element, 'dict'):
+        elif hasattr(element, "dict"):
             # Pydantic v1 model
             return element.dict()
-        elif hasattr(element, '__dict__'):
+        elif hasattr(element, "__dict__"):
             # Regular object
             result = element.__dict__.copy()
             # Convert enums to values
-            if 'element_type' in result and hasattr(result['element_type'], 'value'):
-                result['element_type'] = result['element_type'].value
+            if "element_type" in result and hasattr(
+                result["element_type"], "value"
+            ):
+                result["element_type"] = result["element_type"].value
             return result
         else:
             # Create minimal dict representation
             return {
-                'tag_name': getattr(element, 'tag_name', 'unknown'),
-                'element_type': getattr(element, 'element_type', None),
-                'attributes': getattr(element, 'attributes', {}),
-                'text': getattr(element, 'text', ''),
-                'xpath': getattr(element, 'xpath', ''),
-                'selector': getattr(element, 'selector', ''),
-                'is_clickable': getattr(element, 'is_clickable', False),
-                'is_editable': getattr(element, 'is_editable', False),
-                'is_visible': getattr(element, 'is_visible', True)
+                "tag_name": getattr(element, "tag_name", "unknown"),
+                "element_type": getattr(element, "element_type", None),
+                "attributes": getattr(element, "attributes", {}),
+                "text": getattr(element, "text", ""),
+                "xpath": getattr(element, "xpath", ""),
+                "selector": getattr(element, "selector", ""),
+                "is_clickable": getattr(element, "is_clickable", False),
+                "is_editable": getattr(element, "is_editable", False),
+                "is_visible": getattr(element, "is_visible", True),
             }
 
     @staticmethod
@@ -1281,9 +1628,19 @@ class ElementSerializer:
             Summary dictionary
         """
         return {
-            "tag": element.tag_name if hasattr(element, 'tag_name') else 'unknown',
-            "type": element.element_type.value if hasattr(element, 'element_type') and element.element_type else None,
-            "text": element.text[:50] if hasattr(element, 'text') and element.text else None,
+            "tag": (
+                element.tag_name if hasattr(element, "tag_name") else "unknown"
+            ),
+            "type": (
+                element.element_type.value
+                if hasattr(element, "element_type") and element.element_type
+                else None
+            ),
+            "text": (
+                element.text[:50]
+                if hasattr(element, "text") and element.text
+                else None
+            ),
             "interactive": ElementClassifier.is_interactive(element),
         }
 
@@ -1293,7 +1650,9 @@ class CodeExtractor:
     """Utilities for extracting code from LLM responses"""
 
     @staticmethod
-    def extract_code_from_response(response: str, language: Optional[str] = None) -> str:
+    def extract_code_from_response(
+        response: str, language: Optional[str] = None
+    ) -> str:
         """
         Extract code from LLM response
 
@@ -1308,23 +1667,39 @@ class CodeExtractor:
 
         # Try to find code block with language marker
         if language:
-            pattern = rf'```{language}\n(.*?)```'
+            pattern = rf"```{language}\n(.*?)```"
             match = re.search(pattern, response, re.DOTALL)
             if match:
                 return match.group(1).strip()
 
         # Try generic code block
-        code_match = re.search(r'```(?:python|javascript|typescript)?\n(.*?)```', response, re.DOTALL)
+        code_match = re.search(
+            r"```(?:python|javascript|typescript)?\n(.*?)```",
+            response,
+            re.DOTALL,
+        )
         if code_match:
             return code_match.group(1).strip()
 
         # Try to find function/test definition
-        func_match = re.search(r'((?:async\s+)?(?:def|function|test|describe).*?(?=\n\n|\Z))', response, re.DOTALL)
+        func_match = re.search(
+            r"((?:async\s+)?(?:def|function|test|describe).*?(?=\n\n|\Z))",
+            response,
+            re.DOTALL,
+        )
         if func_match:
             return func_match.group(1).strip()
 
         # Return as-is if it looks like code
-        code_keywords = ['async', 'def', 'function', 'test', 'describe', 'it(', 'expect']
+        code_keywords = [
+            "async",
+            "def",
+            "function",
+            "test",
+            "describe",
+            "it(",
+            "expect",
+        ]
         if any(keyword in response for keyword in code_keywords):
             return response.strip()
 
@@ -1335,7 +1710,9 @@ class TestRelevanceAnalyzer:
     """Utilities for analyzing test relevance"""
 
     @staticmethod
-    def get_relevant_elements(scenario: Any, elements: List[Any], max_relevant: int = 10) -> List[Any]:
+    def get_relevant_elements(
+        scenario: Any, elements: List[Any], max_relevant: int = 10
+    ) -> List[Any]:
         """
         Get elements relevant to a test scenario
 
@@ -1352,13 +1729,12 @@ class TestRelevanceAnalyzer:
 
         # Build scenario context
         scenario_text = ""
-        if hasattr(scenario, 'name'):
+        if hasattr(scenario, "name"):
             scenario_text += f"{scenario.name} "
-        if hasattr(scenario, 'description'):
+        if hasattr(scenario, "description"):
             scenario_text += f"{scenario.description} "
         scenario_text = scenario_text.lower()
 
-        relevant = []
         scored_elements = []
 
         for element in elements:
@@ -1366,9 +1742,9 @@ class TestRelevanceAnalyzer:
 
             # Check text relevance
             elem_text = ""
-            if hasattr(element, 'base_element'):
+            if hasattr(element, "base_element"):
                 elem_text = str(element.base_element.get("text", "")).lower()
-            elif hasattr(element, 'text'):
+            elif hasattr(element, "text"):
                 elem_text = str(element.text).lower()
 
             if elem_text and elem_text[:50] in scenario_text:
@@ -1376,16 +1752,20 @@ class TestRelevanceAnalyzer:
 
             # Check type relevance
             elem_type = ""
-            if hasattr(element, 'base_element'):
-                elem_type = str(element.base_element.get("element_type", "")).lower()
-            elif hasattr(element, 'element_type'):
+            if hasattr(element, "base_element"):
+                elem_type = str(
+                    element.base_element.get("element_type", "")
+                ).lower()
+            elif hasattr(element, "element_type"):
                 elem_type = str(element.element_type).lower()
 
             if elem_type and elem_type in scenario_text:
                 score += 0.3
 
             # Check interaction likelihood
-            if hasattr(element, 'context') and hasattr(element.context, 'interaction_likelihood'):
+            if hasattr(element, "context") and hasattr(
+                element.context, "interaction_likelihood"
+            ):
                 if element.context.interaction_likelihood > 0.7:
                     score += 0.2
 
@@ -1401,7 +1781,9 @@ class ScenarioTemplates:
     """Templates for generating basic test scenarios"""
 
     @staticmethod
-    def get_basic_scenario(element: Any, url: str, index: int = 0) -> Dict[str, Any]:
+    def get_basic_scenario(
+        element: Any, url: str, index: int = 0
+    ) -> Dict[str, Any]:
         """
         Get basic scenario template for an element
 
@@ -1413,93 +1795,123 @@ class ScenarioTemplates:
         Returns:
             Scenario template dictionary
         """
-        from .data_types import TestCategory, TestPriority, GherkinStep
+        from .data_types import TestCategory, TestPriority
 
-        tag = element.tag_name.lower() if hasattr(element, 'tag_name') else ''
+        tag = element.tag_name.lower() if hasattr(element, "tag_name") else ""
         elem_type = ElementClassifier.get_functional_purpose(element)
 
         # Button scenario
-        if tag == 'button' or elem_type == 'trigger_action':
+        if tag == "button" or elem_type == "trigger_action":
             return {
-                "name": f"Test Button Click {index+1}",
+                "name": f"Test Button Click {index + 1}",
                 "description": "Verify button functionality",
                 "category": TestCategory.FUNCTIONAL,
                 "priority": TestPriority.HIGH,
                 "steps": [
                     {"keyword": "Given", "text": f"the user is on {url}"},
                     {"keyword": "When", "text": "the user clicks the button"},
-                    {"keyword": "Then", "text": "the expected action should occur"}
-                ]
+                    {
+                        "keyword": "Then",
+                        "text": "the expected action should occur",
+                    },
+                ],
             }
 
         # Link scenario
-        elif tag == 'a' or elem_type == 'navigate':
+        elif tag == "a" or elem_type == "navigate":
             return {
-                "name": f"Test Link Navigation {index+1}",
+                "name": f"Test Link Navigation {index + 1}",
                 "description": "Verify link navigation",
                 "category": TestCategory.FUNCTIONAL,
                 "priority": TestPriority.HIGH,
                 "steps": [
                     {"keyword": "Given", "text": f"the user is on {url}"},
                     {"keyword": "When", "text": "the user clicks the link"},
-                    {"keyword": "Then", "text": "the browser should navigate to the correct page"}
-                ]
+                    {
+                        "keyword": "Then",
+                        "text": "the browser should navigate to the correct page",
+                    },
+                ],
             }
 
         # Input scenario
-        elif tag in ['input', 'textarea'] or elem_type == 'input_data':
+        elif tag in ["input", "textarea"] or elem_type == "input_data":
             return {
-                "name": f"Test Input Field {index+1}",
+                "name": f"Test Input Field {index + 1}",
                 "description": "Verify input field functionality",
                 "category": TestCategory.FUNCTIONAL,
                 "priority": TestPriority.MEDIUM,
                 "steps": [
                     {"keyword": "Given", "text": f"the user is on {url}"},
-                    {"keyword": "When", "text": "the user enters text in the input field"},
-                    {"keyword": "Then", "text": "the text should be accepted and displayed"}
-                ]
+                    {
+                        "keyword": "When",
+                        "text": "the user enters text in the input field",
+                    },
+                    {
+                        "keyword": "Then",
+                        "text": "the text should be accepted and displayed",
+                    },
+                ],
             }
 
         # Select scenario
-        elif tag == 'select' or elem_type == 'select_option':
+        elif tag == "select" or elem_type == "select_option":
             return {
-                "name": f"Test Dropdown Selection {index+1}",
+                "name": f"Test Dropdown Selection {index + 1}",
                 "description": "Verify dropdown functionality",
                 "category": TestCategory.FUNCTIONAL,
                 "priority": TestPriority.MEDIUM,
                 "steps": [
                     {"keyword": "Given", "text": f"the user is on {url}"},
-                    {"keyword": "When", "text": "the user selects an option from the dropdown"},
-                    {"keyword": "Then", "text": "the selection should be registered"}
-                ]
+                    {
+                        "keyword": "When",
+                        "text": "the user selects an option from the dropdown",
+                    },
+                    {
+                        "keyword": "Then",
+                        "text": "the selection should be registered",
+                    },
+                ],
             }
 
         # Form scenario
-        elif tag == 'form' or elem_type == 'submit_form':
+        elif tag == "form" or elem_type == "submit_form":
             return {
-                "name": f"Test Form Submission {index+1}",
+                "name": f"Test Form Submission {index + 1}",
                 "description": "Verify form submission",
                 "category": TestCategory.FUNCTIONAL,
                 "priority": TestPriority.CRITICAL,
                 "steps": [
                     {"keyword": "Given", "text": f"the user is on {url}"},
-                    {"keyword": "When", "text": "the user fills and submits the form"},
-                    {"keyword": "Then", "text": "the form should be processed successfully"}
-                ]
+                    {
+                        "keyword": "When",
+                        "text": "the user fills and submits the form",
+                    },
+                    {
+                        "keyword": "Then",
+                        "text": "the form should be processed successfully",
+                    },
+                ],
             }
 
         # Default scenario
         else:
             return {
-                "name": f"Test Element Interaction {index+1}",
+                "name": f"Test Element Interaction {index + 1}",
                 "description": "Verify element functionality",
                 "category": TestCategory.FUNCTIONAL,
                 "priority": TestPriority.LOW,
                 "steps": [
                     {"keyword": "Given", "text": f"the user is on {url}"},
-                    {"keyword": "When", "text": "the user interacts with the element"},
-                    {"keyword": "Then", "text": "the element should respond appropriately"}
-                ]
+                    {
+                        "keyword": "When",
+                        "text": "the user interacts with the element",
+                    },
+                    {
+                        "keyword": "Then",
+                        "text": "the element should respond appropriately",
+                    },
+                ],
             }
 
 
@@ -1518,25 +1930,25 @@ class TestPriorityAssigner:
         Returns:
             Test priority
         """
-        from .data_types import TestCategory, TestPriority
+        from .data_types import TestPriority
 
         # Get element purpose
         purpose = ElementClassifier.get_functional_purpose(element)
 
         # Critical priority for forms and security tests
-        if purpose == 'submit_form':
+        if purpose == "submit_form":
             return TestPriority.CRITICAL
-        if hasattr(category, 'value') and category.value == 'security':
+        if hasattr(category, "value") and category.value == "security":
             return TestPriority.CRITICAL
 
         # High priority for navigation and buttons
-        if purpose in ['trigger_action', 'navigate']:
+        if purpose in ["trigger_action", "navigate"]:
             return TestPriority.HIGH
 
         # Medium priority for inputs and validation
-        if purpose in ['input_data', 'select_option', 'toggle_option']:
+        if purpose in ["input_data", "select_option", "toggle_option"]:
             return TestPriority.MEDIUM
-        if hasattr(category, 'value') and category.value == 'validation':
+        if hasattr(category, "value") and category.value == "validation":
             return TestPriority.MEDIUM
 
         # Default to low
@@ -1557,27 +1969,49 @@ class TestContextBuilder:
         Returns:
             Test context dictionary
         """
-        context = {
-            "url": page_analysis.url if hasattr(page_analysis, 'url') else '',
-            "total_elements": page_analysis.total_elements if hasattr(page_analysis, 'total_elements') else 0,
-            "interactive_elements": page_analysis.interactive_elements if hasattr(page_analysis, 'interactive_elements') else 0,
-            "form_elements": page_analysis.form_elements if hasattr(page_analysis, 'form_elements') else 0,
-            "navigation_elements": page_analysis.navigation_elements if hasattr(page_analysis, 'navigation_elements') else 0,
+        context: Dict[str, Any] = {
+            "url": page_analysis.url if hasattr(page_analysis, "url") else "",
+            "total_elements": (
+                page_analysis.total_elements
+                if hasattr(page_analysis, "total_elements")
+                else 0
+            ),
+            "interactive_elements": (
+                page_analysis.interactive_elements
+                if hasattr(page_analysis, "interactive_elements")
+                else 0
+            ),
+            "form_elements": (
+                page_analysis.form_elements
+                if hasattr(page_analysis, "form_elements")
+                else 0
+            ),
+            "navigation_elements": (
+                page_analysis.navigation_elements
+                if hasattr(page_analysis, "navigation_elements")
+                else 0
+            ),
             "element_types": [],
-            "key_features": []
+            "key_features": [],
         }
 
         # Analyze enriched elements if available
-        if hasattr(page_analysis, 'enriched_elements') and page_analysis.enriched_elements:
+        if (
+            hasattr(page_analysis, "enriched_elements")
+            and page_analysis.enriched_elements
+        ):
             element_types = set()
             high_interaction = []
 
-            for element in page_analysis.enriched_elements[:20]:  # Limit for context
-                if hasattr(element, 'base_element'):
+            # Limit for context
+            for element in page_analysis.enriched_elements[:20]:
+                if hasattr(element, "base_element"):
                     elem_data = element.base_element
                     element_types.add(elem_data.get("tag_name", "unknown"))
 
-                    if hasattr(element, 'context') and hasattr(element.context, 'interaction_likelihood'):
+                    if hasattr(element, "context") and hasattr(
+                        element.context, "interaction_likelihood"
+                    ):
                         if element.context.interaction_likelihood > 0.7:
                             high_interaction.append(elem_data.get("tag_name"))
 
@@ -1585,9 +2019,9 @@ class TestContextBuilder:
             context["high_interaction_elements"] = high_interaction
 
         # Add page type and framework if available
-        if hasattr(page_analysis, 'page_type'):
+        if hasattr(page_analysis, "page_type"):
             context["page_type"] = page_analysis.page_type
-        if hasattr(page_analysis, 'framework_detected'):
+        if hasattr(page_analysis, "framework_detected"):
             context["framework"] = page_analysis.framework_detected
 
         return context

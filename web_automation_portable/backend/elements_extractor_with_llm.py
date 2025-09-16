@@ -38,6 +38,8 @@ try:
         ElementClassifier,
         ElementPrioritizer,
         ElementSerializer,
+        clean_for_llm,
+        remove_nulls,
         # Constants
         INTERACTIVE_TAGS,
         INTERACTIVE_ROLES,
@@ -60,6 +62,8 @@ except ImportError:
         ElementClassifier,
         ElementPrioritizer,
         ElementSerializer,
+        clean_for_llm,
+        remove_nulls,
         # Constants
         INTERACTIVE_TAGS,
         INTERACTIVE_ROLES,
@@ -68,15 +72,27 @@ except ImportError:
     )
 
 # Import LLM functionality
+import sys
+from pathlib import Path
+# Add parent directory to path for LLM import
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from llm import call_default_llm
 
 # Import shared utilities and models
-from llm_utils import (
-    LLMResponseParser,
-    StrategySelector,
-    LLMPromptBuilder,
-    prepare_llm_messages
-)
+try:
+    from .llm_utils import (
+        LLMResponseParser,
+        StrategySelector,
+        LLMPromptBuilder,
+        prepare_llm_messages
+    )
+except ImportError:
+    from llm_utils import (
+        LLMResponseParser,
+        StrategySelector,
+        LLMPromptBuilder,
+        prepare_llm_messages
+    )
 
 # Alias for backward compatibility
 ExtractedElement = Element
@@ -125,8 +141,10 @@ class ElementLLMAnalyzer:
                 "role": elem.attributes.get("role") if elem.attributes else None,
             }
             batch_data.append(elem_dict)
-        
-        return json.dumps(batch_data, indent=2)
+
+        # Clean nulls before sending to LLM to reduce tokens
+        cleaned_data = clean_for_llm(batch_data)
+        return json.dumps(cleaned_data, indent=2)
     
     async def analyze_elements(
         self, elements: List[ExtractedElement]
@@ -251,9 +269,12 @@ class PageCharacteristicsAnalyzer:
             "recommendations": ["list", "of", "recommendations"]
         }
         
+        # Clean nulls before sending to LLM
+        cleaned_summary = clean_for_llm(page_summary)
+
         analysis_prompt = self.prompt_builder.build_json_prompt(
             task_description="Analyze this web page to determine its characteristics:",
-            context=page_summary,
+            context=cleaned_summary,
             expected_structure=expected_structure
         )
         
@@ -294,6 +315,82 @@ class ElementsExtractorWithLLM:
         self.page_analyzer = PageCharacteristicsAnalyzer()
         # All interactive element definitions now come from data_types.py
     
+    async def enrich_extracted_elements(
+        self,
+        extraction_result: ExtractionResult,
+        analyze_with_llm: bool = True,
+        max_elements: int = 10
+    ) -> PageAnalysis:
+        """
+        Enrich already extracted elements with LLM analysis
+        NO BROWSER INSTANTIATION - only LLM enrichment
+
+        Args:
+            extraction_result: Already extracted elements from elements_extractor_no_llm
+            analyze_with_llm: Whether to enrich with LLM analysis
+            max_elements: Maximum number of interactive elements to enrich with LLM
+
+        Returns:
+            PageAnalysis with LLM-enriched elements
+        """
+        start_time = datetime.now()
+
+        # Work with already extracted elements - NO BROWSER!
+        elements = extraction_result.elements
+        url = extraction_result.url
+
+        # Filter interactive elements for LLM processing
+        interactive_elements = self._filter_interactive_elements(elements)
+
+        # Limit to max_elements to control LLM costs
+        if len(interactive_elements) > max_elements:
+            print(f"[INFO] Limiting interactive elements from {len(interactive_elements)} to {max_elements} for LLM processing")
+            interactive_elements = self._prioritize_elements(interactive_elements, max_elements)
+
+        # Enrich elements with LLM if requested
+        enriched_elements = []
+        if analyze_with_llm and interactive_elements:
+            if len(interactive_elements) < 5:
+                print(f"[INFO] Skipping LLM enrichment for simple page ({len(interactive_elements)} interactive elements)")
+                # For simple pages, use basic enrichment
+                enriched_elements = [
+                    self._create_basic_enriched_element(elem)
+                    for elem in interactive_elements
+                ]
+            else:
+                print(f"[INFO] Enriching {len(interactive_elements)} interactive elements with LLM...")
+                enriched_elements = await self.element_analyzer.analyze_elements(
+                    interactive_elements
+                )
+
+        # Analyze overall page characteristics
+        page_insights = {}
+        if analyze_with_llm:
+            print(f"[INFO] Analyzing page characteristics...")
+            page_insights = await self.page_analyzer.analyze_page(
+                extraction_result, url
+            )
+
+        # Create PageAnalysis with all results
+        analysis_time = (datetime.now() - start_time).total_seconds()
+
+        return PageAnalysis(
+            url=url,
+            elements=elements,
+            enriched_elements=enriched_elements,
+            page_type=page_insights.get("page_type", "unknown"),
+            framework_detected=page_insights.get("framework"),
+            page_insights=page_insights,
+            extraction_timestamp=datetime.now().timestamp(),
+            metadata={
+                "total_elements": len(elements),
+                "interactive_elements": len(interactive_elements),
+                "enriched_elements": len(enriched_elements),
+                "llm_analysis_time": analysis_time,
+                "extraction_time": extraction_result.extraction_time
+            }
+        )
+
     async def extract_and_analyze(
         self, url: str, analyze_with_llm: bool = True, max_elements: int = 10
     ) -> PageAnalysis:

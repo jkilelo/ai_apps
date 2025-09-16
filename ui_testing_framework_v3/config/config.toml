@@ -1,0 +1,55 @@
+# UI Testing Framework V3 Configuration
+
+[framework]
+version = "3.0.0"
+name = "UI Testing Framework V3"
+
+[browser]
+default = "stealth"
+headless = false           # ALWAYS false for debugging
+timeout = 30000
+max_instances = 3
+anti_bot_level = "maximum"
+shadow_dom_enabled = true
+shadow_dom_max_depth = 5
+
+[extraction]
+default_profile = "qa" # QA-first mindset
+cache_size = 100
+max_elements = 100
+cache_ttl = 3600
+
+[formatter]
+default = "llm_test"
+token_optimization = true
+max_tokens = 4000
+
+[test_generator]
+default = "simple"
+provider = "gemini"
+model = "gemini-2.5-pro"
+temperature = 0.7
+max_tests_per_page = 20
+
+[storage]
+default = "sqlite"
+type = "sqlite"
+path = "data/storage.db"
+cleanup_days = 30
+deduplication = true
+
+[logging]
+level = "INFO"
+format = "json"
+file = "logs/framework.log"
+max_size = "10MB"
+max_files = 5
+
+[events]
+history_size = 1000
+emit_metrics = true
+
+[performance]
+enable_profiling = false
+cache_strategy = "lru"
+async_timeout = 60

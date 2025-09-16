@@ -1,0 +1,1101 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "created": "2025-11-27",
+    "total_sites": 120,
+    "categories": [
+      "Bot Protection",
+      "E-commerce",
+      "Financial",
+      "Social Media",
+      "Testing",
+      "Streaming",
+      "News",
+      "Travel",
+      "Healthcare",
+      "Government"
+    ]
+  },
+  "sites": [
+    {
+      "id": 1,
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com",
+      "category": "Bot Protection",
+      "difficulty": "high",
+      "protection_system": "Cloudflare",
+      "notes": "Cloudflare's own website with advanced protection"
+    },
+    {
+      "id": 2,
+      "name": "DataDome",
+      "url": "https://www.datadome.co",
+      "category": "Bot Protection",
+      "difficulty": "very_high",
+      "protection_system": "DataDome",
+      "notes": "Real-time bot protection with <2ms decision time"
+    },
+    {
+      "id": 3,
+      "name": "Kasada",
+      "url": "https://www.kasada.io",
+      "category": "Bot Protection",
+      "difficulty": "extreme",
+      "protection_system": "Kasada",
+      "notes": "Adaptive AI with client validation"
+    },
+    {
+      "id": 4,
+      "name": "Nike",
+      "url": "https://www.nike.com",
+      "category": "E-commerce",
+      "difficulty": "very_high",
+      "protection_system": "Akamai + Custom",
+      "notes": "Sportswear with aggressive bot protection"
+    },
+    {
+      "id": 5,
+      "name": "Supreme",
+      "url": "https://www.supreme.com",
+      "category": "E-commerce",
+      "difficulty": "extreme",
+      "protection_system": "PerimeterX",
+      "notes": "Limited drops with extreme protection"
+    },
+    {
+      "id": 6,
+      "name": "Adidas",
+      "url": "https://www.adidas.com",
+      "category": "E-commerce",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "Major sportswear retailer"
+    },
+    {
+      "id": 7,
+      "name": "PayPal",
+      "url": "https://www.paypal.com",
+      "category": "Financial",
+      "difficulty": "high",
+      "protection_system": "Akamai + Custom",
+      "notes": "Payment processor with fraud prevention"
+    },
+    {
+      "id": 8,
+      "name": "Chase Bank",
+      "url": "https://www.chase.com",
+      "category": "Financial",
+      "difficulty": "very_high",
+      "protection_system": "F5 Networks",
+      "notes": "Major US bank with F5 protection"
+    },
+    {
+      "id": 9,
+      "name": "Bank of America",
+      "url": "https://www.bankofamerica.com",
+      "category": "Financial",
+      "difficulty": "very_high",
+      "protection_system": "Akamai + F5",
+      "notes": "Large bank with multiple protection layers"
+    },
+    {
+      "id": 10,
+      "name": "Instagram",
+      "url": "https://www.instagram.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "notes": "Meta's platform with custom protection"
+    },
+    {
+      "id": 11,
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Microsoft Azure + Custom",
+      "notes": "Professional network with Azure protection"
+    },
+    {
+      "id": 12,
+      "name": "Twitter/X",
+      "url": "https://www.x.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "notes": "Recently rebranded social platform"
+    },
+    {
+      "id": 13,
+      "name": "Facebook",
+      "url": "https://www.facebook.com",
+      "category": "Social Media",
+      "difficulty": "very_high",
+      "protection_system": "Meta Custom",
+      "notes": "Meta's main social platform"
+    },
+    {
+      "id": 14,
+      "name": "TikTok",
+      "url": "https://www.tiktok.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "notes": "Video platform with custom protection"
+    },
+    {
+      "id": 15,
+      "name": "Bot Test",
+      "url": "https://bot.sannysoft.com",
+      "category": "Testing",
+      "difficulty": "medium",
+      "protection_system": "Detection Showcase",
+      "notes": "Bot detection testing site"
+    },
+    {
+      "id": 16,
+      "name": "FingerprintJS",
+      "url": "https://fingerprint.com/demo",
+      "category": "Testing",
+      "difficulty": "high",
+      "protection_system": "FingerprintJS",
+      "notes": "Browser fingerprinting demo"
+    },
+    {
+      "id": 17,
+      "name": "Browserleaks",
+      "url": "https://browserleaks.com",
+      "category": "Testing",
+      "difficulty": "low",
+      "protection_system": "None",
+      "notes": "WebRTC and browser leak testing"
+    },
+    {
+      "id": 18,
+      "name": "IPLeak",
+      "url": "https://ipleak.net",
+      "category": "Testing",
+      "difficulty": "low",
+      "protection_system": "None",
+      "notes": "IP and DNS leak detection"
+    },
+    {
+      "id": 19,
+      "name": "Amazon",
+      "url": "https://www.amazon.com",
+      "category": "E-commerce",
+      "difficulty": "high",
+      "protection_system": "AWS WAF + Custom",
+      "notes": "World's largest e-commerce platform"
+    },
+    {
+      "id": 20,
+      "name": "Walmart",
+      "url": "https://www.walmart.com",
+      "category": "E-commerce",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "Major US retailer"
+    },
+    {
+      "id": 21,
+      "name": "eBay",
+      "url": "https://www.ebay.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare + Custom",
+      "notes": "Auction and marketplace platform"
+    },
+    {
+      "id": 22,
+      "name": "Target",
+      "url": "https://www.target.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "US retail chain"
+    },
+    {
+      "id": 23,
+      "name": "Best Buy",
+      "url": "https://www.bestbuy.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Electronics retailer"
+    },
+    {
+      "id": 24,
+      "name": "Home Depot",
+      "url": "https://www.homedepot.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Home improvement retailer"
+    },
+    {
+      "id": 25,
+      "name": "Etsy",
+      "url": "https://www.etsy.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Handmade goods marketplace"
+    },
+    {
+      "id": 26,
+      "name": "Shopify",
+      "url": "https://www.shopify.com",
+      "category": "E-commerce",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "E-commerce platform"
+    },
+    {
+      "id": 27,
+      "name": "Wells Fargo",
+      "url": "https://www.wellsfargo.com",
+      "category": "Financial",
+      "difficulty": "very_high",
+      "protection_system": "F5 Networks + Custom",
+      "notes": "Major US bank"
+    },
+    {
+      "id": 28,
+      "name": "Citibank",
+      "url": "https://www.citibank.com",
+      "category": "Financial",
+      "difficulty": "very_high",
+      "protection_system": "Akamai + Custom",
+      "notes": "Global bank with strong protection"
+    },
+    {
+      "id": 29,
+      "name": "American Express",
+      "url": "https://www.americanexpress.com",
+      "category": "Financial",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "Credit card company"
+    },
+    {
+      "id": 30,
+      "name": "Capital One",
+      "url": "https://www.capitalone.com",
+      "category": "Financial",
+      "difficulty": "high",
+      "protection_system": "F5 Networks",
+      "notes": "Digital-first bank"
+    },
+    {
+      "id": 31,
+      "name": "Stripe",
+      "url": "https://stripe.com",
+      "category": "Financial",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare + Custom",
+      "notes": "Payment processing platform"
+    },
+    {
+      "id": 32,
+      "name": "Square",
+      "url": "https://squareup.com",
+      "category": "Financial",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Payment and POS provider"
+    },
+    {
+      "id": 33,
+      "name": "Netflix",
+      "url": "https://www.netflix.com",
+      "category": "Streaming",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "notes": "Video streaming with DRM protection"
+    },
+    {
+      "id": 34,
+      "name": "YouTube",
+      "url": "https://www.youtube.com",
+      "category": "Streaming",
+      "difficulty": "medium",
+      "protection_system": "Google Custom",
+      "notes": "Video platform with Google protection"
+    },
+    {
+      "id": 35,
+      "name": "Spotify",
+      "url": "https://www.spotify.com",
+      "category": "Streaming",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Music streaming platform"
+    },
+    {
+      "id": 36,
+      "name": "Disney+",
+      "url": "https://www.disneyplus.com",
+      "category": "Streaming",
+      "difficulty": "high",
+      "protection_system": "Akamai + DRM",
+      "notes": "Disney streaming service"
+    },
+    {
+      "id": 37,
+      "name": "Hulu",
+      "url": "https://www.hulu.com",
+      "category": "Streaming",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "US streaming service"
+    },
+    {
+      "id": 38,
+      "name": "HBO Max",
+      "url": "https://www.max.com",
+      "category": "Streaming",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "Warner Bros streaming"
+    },
+    {
+      "id": 39,
+      "name": "CNN",
+      "url": "https://www.cnn.com",
+      "category": "News",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "News website"
+    },
+    {
+      "id": 40,
+      "name": "BBC",
+      "url": "https://www.bbc.com",
+      "category": "News",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "UK news broadcaster"
+    },
+    {
+      "id": 41,
+      "name": "New York Times",
+      "url": "https://www.nytimes.com",
+      "category": "News",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare + Paywall",
+      "notes": "Newspaper with paywall"
+    },
+    {
+      "id": 42,
+      "name": "Wall Street Journal",
+      "url": "https://www.wsj.com",
+      "category": "News",
+      "difficulty": "medium",
+      "protection_system": "Akamai + Paywall",
+      "notes": "Financial news with paywall"
+    },
+    {
+      "id": 43,
+      "name": "The Guardian",
+      "url": "https://www.theguardian.com",
+      "category": "News",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "UK newspaper"
+    },
+    {
+      "id": 44,
+      "name": "Reuters",
+      "url": "https://www.reuters.com",
+      "category": "News",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "News agency"
+    },
+    {
+      "id": 45,
+      "name": "Expedia",
+      "url": "https://www.expedia.com",
+      "category": "Travel",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "Travel booking with bot protection"
+    },
+    {
+      "id": 46,
+      "name": "Booking.com",
+      "url": "https://www.booking.com",
+      "category": "Travel",
+      "difficulty": "very_high",
+      "protection_system": "PerimeterX",
+      "notes": "Hotel booking with strong protection"
+    },
+    {
+      "id": 47,
+      "name": "Airbnb",
+      "url": "https://www.airbnb.com",
+      "category": "Travel",
+      "difficulty": "high",
+      "protection_system": "CloudFlare + Custom",
+      "notes": "Vacation rentals platform"
+    },
+    {
+      "id": 48,
+      "name": "United Airlines",
+      "url": "https://www.united.com",
+      "category": "Travel",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "Airline with booking protection"
+    },
+    {
+      "id": 49,
+      "name": "Delta Airlines",
+      "url": "https://www.delta.com",
+      "category": "Travel",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "Major US airline"
+    },
+    {
+      "id": 50,
+      "name": "American Airlines",
+      "url": "https://www.aa.com",
+      "category": "Travel",
+      "difficulty": "high",
+      "protection_system": "Akamai",
+      "notes": "US airline with bot protection"
+    },
+    {
+      "id": 51,
+      "name": "GitHub",
+      "url": "https://github.com",
+      "category": "Development",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare + Custom",
+      "notes": "Code repository platform"
+    },
+    {
+      "id": 52,
+      "name": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "category": "Development",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Developer Q&A platform"
+    },
+    {
+      "id": 53,
+      "name": "GitLab",
+      "url": "https://gitlab.com",
+      "category": "Development",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "DevOps platform"
+    },
+    {
+      "id": 54,
+      "name": "Bitbucket",
+      "url": "https://bitbucket.org",
+      "category": "Development",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Atlassian code repository"
+    },
+    {
+      "id": 55,
+      "name": "npm",
+      "url": "https://www.npmjs.com",
+      "category": "Development",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "JavaScript package registry"
+    },
+    {
+      "id": 56,
+      "name": "PyPI",
+      "url": "https://pypi.org",
+      "category": "Development",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Python package index"
+    },
+    {
+      "id": 57,
+      "name": "Reddit",
+      "url": "https://www.reddit.com",
+      "category": "Social Media",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare + Custom",
+      "notes": "Social news aggregation"
+    },
+    {
+      "id": 58,
+      "name": "Pinterest",
+      "url": "https://www.pinterest.com",
+      "category": "Social Media",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Image sharing platform"
+    },
+    {
+      "id": 59,
+      "name": "Snapchat",
+      "url": "https://www.snapchat.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Custom",
+      "notes": "Ephemeral messaging app"
+    },
+    {
+      "id": 60,
+      "name": "WhatsApp",
+      "url": "https://web.whatsapp.com",
+      "category": "Social Media",
+      "difficulty": "high",
+      "protection_system": "Meta Custom",
+      "notes": "Messaging platform"
+    },
+    {
+      "id": 61,
+      "name": "Apple",
+      "url": "https://www.apple.com",
+      "category": "E-commerce",
+      "difficulty": "high",
+      "protection_system": "Akamai + Custom",
+      "notes": "Tech company store"
+    },
+    {
+      "id": 62,
+      "name": "Microsoft Store",
+      "url": "https://www.microsoft.com/store",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "Azure WAF",
+      "notes": "Microsoft products store"
+    },
+    {
+      "id": 63,
+      "name": "Google Store",
+      "url": "https://store.google.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "Google Cloud Armor",
+      "notes": "Google hardware store"
+    },
+    {
+      "id": 64,
+      "name": "Samsung",
+      "url": "https://www.samsung.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Electronics manufacturer"
+    },
+    {
+      "id": 65,
+      "name": "Newegg",
+      "url": "https://www.newegg.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Computer hardware retailer"
+    },
+    {
+      "id": 66,
+      "name": "Costco",
+      "url": "https://www.costco.com",
+      "category": "E-commerce",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Warehouse club"
+    },
+    {
+      "id": 67,
+      "name": "Kroger",
+      "url": "https://www.kroger.com",
+      "category": "E-commerce",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Grocery chain"
+    },
+    {
+      "id": 68,
+      "name": "CVS",
+      "url": "https://www.cvs.com",
+      "category": "Healthcare",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Pharmacy chain"
+    },
+    {
+      "id": 69,
+      "name": "Walgreens",
+      "url": "https://www.walgreens.com",
+      "category": "Healthcare",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Pharmacy retailer"
+    },
+    {
+      "id": 70,
+      "name": "Kaiser Permanente",
+      "url": "https://www.kaiserpermanente.org",
+      "category": "Healthcare",
+      "difficulty": "high",
+      "protection_system": "F5 Networks",
+      "notes": "Healthcare provider"
+    },
+    {
+      "id": 71,
+      "name": "Mayo Clinic",
+      "url": "https://www.mayoclinic.org",
+      "category": "Healthcare",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Medical center"
+    },
+    {
+      "id": 72,
+      "name": "WebMD",
+      "url": "https://www.webmd.com",
+      "category": "Healthcare",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Health information"
+    },
+    {
+      "id": 73,
+      "name": "IRS",
+      "url": "https://www.irs.gov",
+      "category": "Government",
+      "difficulty": "high",
+      "protection_system": "Government WAF",
+      "notes": "US tax service"
+    },
+    {
+      "id": 74,
+      "name": "USPS",
+      "url": "https://www.usps.com",
+      "category": "Government",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "US Postal Service"
+    },
+    {
+      "id": 75,
+      "name": "DMV",
+      "url": "https://www.dmv.ca.gov",
+      "category": "Government",
+      "difficulty": "medium",
+      "protection_system": "State WAF",
+      "notes": "California DMV"
+    },
+    {
+      "id": 76,
+      "name": "USPTO",
+      "url": "https://www.uspto.gov",
+      "category": "Government",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "US Patent Office"
+    },
+    {
+      "id": 77,
+      "name": "Zoom",
+      "url": "https://zoom.us",
+      "category": "Business",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Video conferencing"
+    },
+    {
+      "id": 78,
+      "name": "Slack",
+      "url": "https://slack.com",
+      "category": "Business",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Team communication"
+    },
+    {
+      "id": 79,
+      "name": "Microsoft Teams",
+      "url": "https://teams.microsoft.com",
+      "category": "Business",
+      "difficulty": "medium",
+      "protection_system": "Azure WAF",
+      "notes": "Collaboration platform"
+    },
+    {
+      "id": 80,
+      "name": "Salesforce",
+      "url": "https://www.salesforce.com",
+      "category": "Business",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "CRM platform"
+    },
+    {
+      "id": 81,
+      "name": "HubSpot",
+      "url": "https://www.hubspot.com",
+      "category": "Business",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Marketing platform"
+    },
+    {
+      "id": 82,
+      "name": "Adobe",
+      "url": "https://www.adobe.com",
+      "category": "Business",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Creative software"
+    },
+    {
+      "id": 83,
+      "name": "Dropbox",
+      "url": "https://www.dropbox.com",
+      "category": "Storage",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "File storage service"
+    },
+    {
+      "id": 84,
+      "name": "Google Drive",
+      "url": "https://drive.google.com",
+      "category": "Storage",
+      "difficulty": "medium",
+      "protection_system": "Google Cloud Armor",
+      "notes": "Cloud storage"
+    },
+    {
+      "id": 85,
+      "name": "OneDrive",
+      "url": "https://onedrive.live.com",
+      "category": "Storage",
+      "difficulty": "medium",
+      "protection_system": "Azure WAF",
+      "notes": "Microsoft cloud storage"
+    },
+    {
+      "id": 86,
+      "name": "Box",
+      "url": "https://www.box.com",
+      "category": "Storage",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Enterprise storage"
+    },
+    {
+      "id": 87,
+      "name": "WeTransfer",
+      "url": "https://wetransfer.com",
+      "category": "Storage",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "File transfer service"
+    },
+    {
+      "id": 88,
+      "name": "Twitch",
+      "url": "https://www.twitch.tv",
+      "category": "Streaming",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Gaming streaming"
+    },
+    {
+      "id": 89,
+      "name": "Vimeo",
+      "url": "https://vimeo.com",
+      "category": "Streaming",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Video platform"
+    },
+    {
+      "id": 90,
+      "name": "SoundCloud",
+      "url": "https://soundcloud.com",
+      "category": "Streaming",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Audio platform"
+    },
+    {
+      "id": 91,
+      "name": "Pandora",
+      "url": "https://www.pandora.com",
+      "category": "Streaming",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Music streaming"
+    },
+    {
+      "id": 92,
+      "name": "Apple Music",
+      "url": "https://music.apple.com",
+      "category": "Streaming",
+      "difficulty": "high",
+      "protection_system": "Akamai + DRM",
+      "notes": "Apple's music service"
+    },
+    {
+      "id": 93,
+      "name": "Uber",
+      "url": "https://www.uber.com",
+      "category": "Transportation",
+      "difficulty": "high",
+      "protection_system": "CloudFlare + Custom",
+      "notes": "Ride-sharing platform"
+    },
+    {
+      "id": 94,
+      "name": "Lyft",
+      "url": "https://www.lyft.com",
+      "category": "Transportation",
+      "difficulty": "high",
+      "protection_system": "CloudFlare",
+      "notes": "Ride-sharing service"
+    },
+    {
+      "id": 95,
+      "name": "DoorDash",
+      "url": "https://www.doordash.com",
+      "category": "Food Delivery",
+      "difficulty": "high",
+      "protection_system": "CloudFlare",
+      "notes": "Food delivery platform"
+    },
+    {
+      "id": 96,
+      "name": "Uber Eats",
+      "url": "https://www.ubereats.com",
+      "category": "Food Delivery",
+      "difficulty": "high",
+      "protection_system": "CloudFlare + Custom",
+      "notes": "Uber's food delivery"
+    },
+    {
+      "id": 97,
+      "name": "Grubhub",
+      "url": "https://www.grubhub.com",
+      "category": "Food Delivery",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Food ordering platform"
+    },
+    {
+      "id": 98,
+      "name": "Postmates",
+      "url": "https://postmates.com",
+      "category": "Food Delivery",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Delivery service"
+    },
+    {
+      "id": 99,
+      "name": "Instacart",
+      "url": "https://www.instacart.com",
+      "category": "Food Delivery",
+      "difficulty": "high",
+      "protection_system": "CloudFlare",
+      "notes": "Grocery delivery"
+    },
+    {
+      "id": 100,
+      "name": "Zillow",
+      "url": "https://www.zillow.com",
+      "category": "Real Estate",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Real estate listings"
+    },
+    {
+      "id": 101,
+      "name": "Realtor.com",
+      "url": "https://www.realtor.com",
+      "category": "Real Estate",
+      "difficulty": "medium",
+      "protection_system": "Akamai",
+      "notes": "Property listings"
+    },
+    {
+      "id": 102,
+      "name": "Redfin",
+      "url": "https://www.redfin.com",
+      "category": "Real Estate",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Real estate brokerage"
+    },
+    {
+      "id": 103,
+      "name": "Trulia",
+      "url": "https://www.trulia.com",
+      "category": "Real Estate",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Home listings"
+    },
+    {
+      "id": 104,
+      "name": "Apartments.com",
+      "url": "https://www.apartments.com",
+      "category": "Real Estate",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Rental listings"
+    },
+    {
+      "id": 105,
+      "name": "Indeed",
+      "url": "https://www.indeed.com",
+      "category": "Jobs",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Job search engine"
+    },
+    {
+      "id": 106,
+      "name": "Monster",
+      "url": "https://www.monster.com",
+      "category": "Jobs",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Job board"
+    },
+    {
+      "id": 107,
+      "name": "Glassdoor",
+      "url": "https://www.glassdoor.com",
+      "category": "Jobs",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Jobs and reviews"
+    },
+    {
+      "id": 108,
+      "name": "ZipRecruiter",
+      "url": "https://www.ziprecruiter.com",
+      "category": "Jobs",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare",
+      "notes": "Job marketplace"
+    },
+    {
+      "id": 109,
+      "name": "CareerBuilder",
+      "url": "https://www.careerbuilder.com",
+      "category": "Jobs",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Employment website"
+    },
+    {
+      "id": 110,
+      "name": "Coursera",
+      "url": "https://www.coursera.org",
+      "category": "Education",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Online courses"
+    },
+    {
+      "id": 111,
+      "name": "Udemy",
+      "url": "https://www.udemy.com",
+      "category": "Education",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Online learning"
+    },
+    {
+      "id": 112,
+      "name": "Khan Academy",
+      "url": "https://www.khanacademy.org",
+      "category": "Education",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Free education"
+    },
+    {
+      "id": 113,
+      "name": "edX",
+      "url": "https://www.edx.org",
+      "category": "Education",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "MOOCs platform"
+    },
+    {
+      "id": 114,
+      "name": "Duolingo",
+      "url": "https://www.duolingo.com",
+      "category": "Education",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Language learning"
+    },
+    {
+      "id": 115,
+      "name": "Medium",
+      "url": "https://medium.com",
+      "category": "Publishing",
+      "difficulty": "medium",
+      "protection_system": "CloudFlare + Paywall",
+      "notes": "Publishing platform"
+    },
+    {
+      "id": 116,
+      "name": "Substack",
+      "url": "https://substack.com",
+      "category": "Publishing",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Newsletter platform"
+    },
+    {
+      "id": 117,
+      "name": "WordPress.com",
+      "url": "https://wordpress.com",
+      "category": "Publishing",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Blog platform"
+    },
+    {
+      "id": 118,
+      "name": "Blogger",
+      "url": "https://www.blogger.com",
+      "category": "Publishing",
+      "difficulty": "low",
+      "protection_system": "Google Cloud Armor",
+      "notes": "Google's blog service"
+    },
+    {
+      "id": 119,
+      "name": "Tumblr",
+      "url": "https://www.tumblr.com",
+      "category": "Publishing",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Microblogging platform"
+    },
+    {
+      "id": 120,
+      "name": "Wikipedia",
+      "url": "https://www.wikipedia.org",
+      "category": "Reference",
+      "difficulty": "low",
+      "protection_system": "CloudFlare",
+      "notes": "Encyclopedia"
+    }
+  ]
+}

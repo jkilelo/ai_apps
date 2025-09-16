@@ -31,20 +31,51 @@ from llm_utils import (
     prepare_llm_messages
 )
 
-# Import shared models
-from data_types import (
-    TestCategory,
-    TestPriority,
-    TestFramework,
-    GherkinStep,
-    TestScenario,
-    TestSuite,
-    PageAnalysis,
-    EnrichedElement,
-    TestGenerationContract,
-    TestGenerationResult,
-    BrowserExtractionConfig as ExtractionConfig
-)
+# Import shared models and utilities from data_types.py for DRY compliance
+try:
+    from .data_types import (
+        # Test types
+        TestCategory,
+        TestPriority,
+        TestFramework,
+        GherkinStep,
+        TestScenario,
+        TestSuite,
+        PageAnalysis,
+        EnrichedElement,
+        TestGenerationContract,
+        TestGenerationResult,
+        BrowserExtractionConfig as ExtractionConfig,
+        # Shared utilities
+        CodeExtractor,
+        TestRelevanceAnalyzer,
+        ScenarioTemplates,
+        TestPriorityAssigner,
+        TestContextBuilder,
+        ElementClassifier
+    )
+except ImportError:
+    from data_types import (
+        # Test types
+        TestCategory,
+        TestPriority,
+        TestFramework,
+        GherkinStep,
+        TestScenario,
+        TestSuite,
+        PageAnalysis,
+        EnrichedElement,
+        TestGenerationContract,
+        TestGenerationResult,
+        BrowserExtractionConfig as ExtractionConfig,
+        # Shared utilities
+        CodeExtractor,
+        TestRelevanceAnalyzer,
+        ScenarioTemplates,
+        TestPriorityAssigner,
+        TestContextBuilder,
+        ElementClassifier
+    )
 
 # Import element extraction
 from elements_extractor_with_llm import extract_and_analyze
@@ -187,39 +218,15 @@ class TestGenerationEngine:
     
     def _summarize_page_elements(self, page_analysis: PageAnalysis) -> Dict[str, Any]:
         """
-        Summarize page elements for LLM context
-        
+        Summarize page elements for LLM context using shared utility
+
         Args:
             page_analysis: Page analysis data
-            
+
         Returns:
             Summary dictionary
         """
-        summary = {
-            "total_elements": page_analysis.total_elements,
-            "interactive_elements": page_analysis.interactive_elements,
-            "form_elements": page_analysis.form_elements,
-            "navigation_elements": page_analysis.navigation_elements,
-            "element_types": [],
-            "key_features": []
-        }
-        
-        # Analyze enriched elements if available
-        if page_analysis.enriched_elements:
-            element_types = set()
-            high_interaction = []
-            
-            for element in page_analysis.enriched_elements[:20]:  # Limit for context
-                elem_data = element.base_element
-                element_types.add(elem_data.get("tag_name", "unknown"))
-                
-                if element.context.interaction_likelihood > 0.7:
-                    high_interaction.append(elem_data.get("tag_name"))
-            
-            summary["element_types"] = list(element_types)
-            summary["high_interaction_elements"] = high_interaction
-        
-        return summary
+        return TestContextBuilder.build_test_context(page_analysis)
     
     async def generate_qa_test_plan(
         self,
@@ -401,116 +408,60 @@ Return ONLY the code, no explanations."""
         elements: List[EnrichedElement]
     ) -> List[EnrichedElement]:
         """
-        Get elements relevant to a test scenario
-        
+        Get elements relevant to a test scenario using shared utility
+
         Args:
             scenario: Test scenario
             elements: All enriched elements
-            
+
         Returns:
             Relevant elements for the scenario
         """
-        if not elements:
-            return []
-        
-        scenario_text = f"{scenario.name} {scenario.description}".lower()
-        relevant = []
-        
-        for element in elements:
-            elem_text = str(element.base_element.get("text", "")).lower()
-            elem_type = str(element.base_element.get("element_type", "")).lower()
-            
-            # Simple relevance check
-            if any(keyword in scenario_text for keyword in [elem_text[:20], elem_type]):
-                relevant.append(element)
-            elif element.context.interaction_likelihood > 0.7:
-                relevant.append(element)
-        
-        return relevant[:10]  # Return top 10 most relevant
+        return TestRelevanceAnalyzer.get_relevant_elements(scenario, elements, max_relevant=10)
     
     def _extract_code(self, response: str) -> str:
-        """Extract code from LLM response"""
-        import re
-        
-        # Try to find code block
-        code_match = re.search(r'```(?:python|javascript|typescript)?\n(.*?)```', response, re.DOTALL)
-        if code_match:
-            return code_match.group(1).strip()
-        
-        # Try to find function definition
-        func_match = re.search(r'((?:async\s+)?(?:def|function|test).*?(?=\n\n|\Z))', response, re.DOTALL)
-        if func_match:
-            return func_match.group(1).strip()
-        
-        # Return as is if it looks like code
-        if any(keyword in response for keyword in ['async', 'def', 'function', 'test', 'describe']):
-            return response.strip()
-        
-        return ""
+        """Extract code from LLM response using shared utility"""
+        return CodeExtractor.extract_code_from_response(response)
     
     def _generate_basic_scenarios(self, page_analysis: PageAnalysis, categories: List[TestCategory]) -> List[TestScenario]:
         """
-        Generate basic test scenarios for simple pages without LLM
-        
+        Generate basic test scenarios for simple pages without LLM using shared templates
+
         Args:
             page_analysis: Page analysis data
             categories: Test categories (will focus on functional only)
-            
+
         Returns:
             List of basic test scenarios
         """
         scenarios = []
-        
+
         if not page_analysis.enriched_elements:
             return scenarios
-        
-        # For each interactive element, create a basic functional test
+
+        # For each interactive element, create a basic functional test using templates
         for i, element in enumerate(page_analysis.enriched_elements[:3]):  # Limit to 3 scenarios
-            if hasattr(element, 'original_element'):
-                elem = element.original_element
-                
-                # Create basic scenario based on element type
-                if elem.tag_name.lower() == 'button':
-                    scenario = TestScenario(
-                        name=f"Test Button Click {i+1}",
-                        description=f"Verify button functionality",
-                        category=TestCategory.FUNCTIONAL,
-                        priority=TestPriority.HIGH,
-                        steps=[
-                            GherkinStep(keyword="Given", text=f"the user is on {page_analysis.url}"),
-                            GherkinStep(keyword="When", text=f"the user clicks the button"),
-                            GherkinStep(keyword="Then", text=f"the expected action should occur")
-                        ]
-                    )
-                elif elem.tag_name.lower() == 'a':
-                    scenario = TestScenario(
-                        name=f"Test Link Navigation {i+1}",
-                        description=f"Verify link navigation",
-                        category=TestCategory.FUNCTIONAL,
-                        priority=TestPriority.HIGH,
-                        steps=[
-                            GherkinStep(keyword="Given", text=f"the user is on {page_analysis.url}"),
-                            GherkinStep(keyword="When", text=f"the user clicks the link"),
-                            GherkinStep(keyword="Then", text=f"the browser should navigate to the correct page")
-                        ]
-                    )
-                elif elem.tag_name.lower() in ['input', 'textarea']:
-                    scenario = TestScenario(
-                        name=f"Test Input Field {i+1}",
-                        description=f"Verify input field functionality",
-                        category=TestCategory.FUNCTIONAL,
-                        priority=TestPriority.MEDIUM,
-                        steps=[
-                            GherkinStep(keyword="Given", text=f"the user is on {page_analysis.url}"),
-                            GherkinStep(keyword="When", text=f"the user enters text in the input field"),
-                            GherkinStep(keyword="Then", text=f"the text should be accepted and displayed")
-                        ]
-                    )
-                else:
-                    continue
-                
+            elem = element.original_element if hasattr(element, 'original_element') else element
+
+            # Get scenario template from shared utility
+            template = ScenarioTemplates.get_basic_scenario(elem, page_analysis.url, i)
+
+            # Convert template to TestScenario
+            if template:
+                steps = [
+                    GherkinStep(keyword=step["keyword"], text=step["text"])
+                    for step in template["steps"]
+                ]
+
+                scenario = TestScenario(
+                    name=template["name"],
+                    description=template["description"],
+                    category=template["category"],
+                    priority=template["priority"],
+                    steps=steps
+                )
                 scenarios.append(scenario)
-        
+
         return scenarios
     
     async def _generate_all_functional_scenarios(

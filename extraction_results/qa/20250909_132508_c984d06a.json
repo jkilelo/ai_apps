@@ -1,0 +1,239 @@
+{
+  "profile": "qa",
+  "version": "1.0.0",
+  "timestamp": "2025-09-09T13:25:08.020797",
+  "url": "https://example.com",
+  "config": {
+    "name": "qa",
+    "description": "QA Engineer Profile - Focus on testable interactive elements",
+    "version": "1.0.0",
+    "element_limit": 500,
+    "timeout": 30.0,
+    "filter_invisible": true,
+    "filter_duplicates": true,
+    "min_element_size": 10,
+    "save_screenshots": false,
+    "save_html": false,
+    "compress_output": false,
+    "custom_settings": {
+      "min_interaction_score": 0.7,
+      "include_disabled": true,
+      "include_hidden_toggles": true,
+      "track_validation": true,
+      "track_error_states": true
+    }
+  },
+  "statistics": {
+    "total_elements": 0,
+    "filtered_elements": 0,
+    "categories": {
+      "input_validation": 0,
+      "navigation": 0,
+      "forms": 0,
+      "actions": 0,
+      "disabled": 0,
+      "hidden_interactive": 0,
+      "aria_elements": 0
+    }
+  },
+  "insights": {
+    "test_coverage": {
+      "total_testable": 0,
+      "input_fields": 0,
+      "navigation_links": 0,
+      "action_buttons": 0,
+      "forms": 0,
+      "disabled_elements": 0,
+      "hidden_interactive": 0,
+      "aria_compliant": 0
+    },
+    "test_recommendations": [
+      "Consider adding ARIA attributes for better accessibility testing"
+    ],
+    "accessibility_score": 0.0,
+    "form_complexity": {
+      "complexity": "none",
+      "fields": 0
+    }
+  },
+  "elements": [],
+  "metadata": {
+    "success": true,
+    "source": "https://example.com",
+    "source_type": "url",
+    "profile": "qa",
+    "timestamp": "2025-09-09T13:25:08.020710",
+    "extraction_time": 4.4387452602386475,
+    "statistics": {
+      "total_extracted": 0,
+      "after_filtering": 0,
+      "categories": {
+        "input_validation": 0,
+        "navigation": 0,
+        "forms": 0,
+        "actions": 0,
+        "disabled": 0,
+        "hidden_interactive": 0,
+        "aria_elements": 0
+      }
+    },
+    "insights": {
+      "test_coverage": {
+        "total_testable": 0,
+        "input_fields": 0,
+        "navigation_links": 0,
+        "action_buttons": 0,
+        "forms": 0,
+        "disabled_elements": 0,
+        "hidden_interactive": 0,
+        "aria_compliant": 0
+      },
+      "test_recommendations": [
+        "Consider adding ARIA attributes for better accessibility testing"
+      ],
+      "accessibility_score": 0.0,
+      "form_complexity": {
+        "complexity": "none",
+        "fields": 0
+      }
+    },
+    "elements": {
+      "all": [],
+      "filtered": [],
+      "categorized": {
+        "input_validation": [],
+        "navigation": [],
+        "forms": [],
+        "actions": [],
+        "disabled": [],
+        "hidden_interactive": [],
+        "aria_elements": []
+      }
+    },
+    "metadata": {
+      "page_url": "https://example.com",
+      "extraction_config": {
+        "enable_shadow_dom": true,
+        "enable_iframe_traversal": true,
+        "enable_dynamic_wait": true,
+        "enable_mutation_observer": false,
+        "max_depth": 10,
+        "max_elements": 1000,
+        "extraction_timeout": 30000,
+        "filter_invisible": true,
+        "filter_duplicates": true,
+        "min_element_size": 10,
+        "enable_stealth": true,
+        "randomize_delays": true,
+        "min_delay": 0.1,
+        "max_delay": 0.5,
+        "batch_size": 100,
+        "enable_caching": true,
+        "cache_ttl": 3600,
+        "include_computed_styles": true,
+        "include_accessibility_info": true,
+        "include_event_listeners": false,
+        "capture_screenshots": false,
+        "screenshot_full_page": true,
+        "screenshot_format": "png",
+        "screenshot_quality": 90,
+        "highlight_elements": true,
+        "highlight_color": "red",
+        "highlight_width": 2,
+        "qa_mode": true,
+        "qa_priority_tags": [
+          "button",
+          "input",
+          "textarea",
+          "select",
+          "a",
+          "form",
+          "label",
+          "option",
+          "datalist",
+          "output"
+        ],
+        "qa_interaction_indicators": [
+          "onclick",
+          "onchange",
+          "oninput",
+          "onsubmit",
+          "ng-click",
+          "v-on:",
+          "@click",
+          "data-action",
+          "data-toggle",
+          "data-target",
+          "href",
+          "formaction"
+        ],
+        "qa_min_interaction_score": 0.7,
+        "qa_include_disabled": true,
+        "qa_include_hidden_toggles": true
+      },
+      "result_metadata": {
+        "config": {
+          "enable_shadow_dom": true,
+          "enable_iframe_traversal": true,
+          "enable_dynamic_wait": true,
+          "enable_mutation_observer": false,
+          "max_depth": 10,
+          "max_elements": 1000,
+          "extraction_timeout": 30000,
+          "filter_invisible": true,
+          "filter_duplicates": true,
+          "min_element_size": 10,
+          "enable_stealth": true,
+          "randomize_delays": true,
+          "min_delay": 0.1,
+          "max_delay": 0.5,
+          "batch_size": 100,
+          "enable_caching": true,
+          "cache_ttl": 3600,
+          "include_computed_styles": true,
+          "include_accessibility_info": true,
+          "include_event_listeners": false,
+          "capture_screenshots": false,
+          "screenshot_full_page": true,
+          "screenshot_format": "png",
+          "screenshot_quality": 90,
+          "highlight_elements": true,
+          "highlight_color": "red",
+          "highlight_width": 2,
+          "qa_mode": true,
+          "qa_priority_tags": [
+            "button",
+            "input",
+            "textarea",
+            "select",
+            "a",
+            "form",
+            "label",
+            "option",
+            "datalist",
+            "output"
+          ],
+          "qa_interaction_indicators": [
+            "onclick",
+            "onchange",
+            "oninput",
+            "onsubmit",
+            "ng-click",
+            "v-on:",
+            "@click",
+            "data-action",
+            "data-toggle",
+            "data-target",
+            "href",
+            "formaction"
+          ],
+          "qa_min_interaction_score": 0.7,
+          "qa_include_disabled": true,
+          "qa_include_hidden_toggles": true
+        },
+        "timestamp": 1757442308.0187712
+      }
+    },
+    "errors": []
+  }
+}

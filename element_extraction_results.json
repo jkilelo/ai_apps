@@ -1,0 +1,30 @@
+{
+  "url": "https://example.com",
+  "page_type": "Placeholder",
+  "framework": null,
+  "total_elements": 1,
+  "interactive_elements": 1,
+  "form_elements": 0,
+  "navigation_elements": 0,
+  "insights": {
+    "page_type": "Placeholder",
+    "framework": null,
+    "functionality": [
+      "Navigation"
+    ],
+    "ui_patterns": [
+      "Call to Action"
+    ],
+    "accessibility_level": "low",
+    "mobile_friendly": "false",
+    "recommendations": [
+      "Add more content and structure to create a functional webpage.",
+      "Use more descriptive text for links to improve accessibility (e.g., instead of 'More information...', specify what the information is about).",
+      "Implement a responsive design to ensure the page is mobile-friendly."
+    ]
+  },
+  "timing": {
+    "extraction": 4.533768,
+    "llm": 33.519324
+  }
+}

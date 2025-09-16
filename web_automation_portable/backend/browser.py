@@ -909,12 +909,7 @@ class HumanSimulator:
 
         # Smooth scroll
         await page.evaluate(
-            f"""
-            window.scrollBy({{
-                top: {scroll_distance},
-                behavior: 'smooth'
-            }});
-        """
+            f"""window.scrollBy({{top: {scroll_distance}, behavior: 'smooth'}});"""
         )
 
         await self.simulate_human_delay(delay_type="scrolling")
@@ -923,12 +918,7 @@ class HumanSimulator:
         if random.random() < 0.2:
             back_distance = random.randint(50, 150)
             await page.evaluate(
-                f"""
-                window.scrollBy({{
-                    top: -{back_distance},
-                    behavior: 'smooth'
-                }});
-            """
+                f"""window.scrollBy({{top: -{back_distance}, behavior: 'smooth'}});"""
             )
             await self.simulate_human_delay(min_ms=200, max_ms=600)
 

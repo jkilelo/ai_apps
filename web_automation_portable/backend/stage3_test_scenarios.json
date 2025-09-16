@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Test Element Interaction 1",
+    "description": "Verify element functionality",
+    "category": "functional",
+    "priority": "low",
+    "steps": [
+      {
+        "keyword": "Given",
+        "text": "the user is on https://github.com"
+      },
+      {
+        "keyword": "When",
+        "text": "the user interacts with the element"
+      },
+      {
+        "keyword": "Then",
+        "text": "the element should respond appropriately"
+      }
+    ],
+    "created_at": 1757990022.8748486,
+    "confidence_score": 0.95
+  },
+  {
+    "name": "Test Element Interaction 2",
+    "description": "Verify element functionality",
+    "category": "functional",
+    "priority": "low",
+    "steps": [
+      {
+        "keyword": "Given",
+        "text": "the user is on https://github.com"
+      },
+      {
+        "keyword": "When",
+        "text": "the user interacts with the element"
+      },
+      {
+        "keyword": "Then",
+        "text": "the element should respond appropriately"
+      }
+    ],
+    "created_at": 1757990022.8748934,
+    "confidence_score": 0.95
+  },
+  {
+    "name": "Test Element Interaction 3",
+    "description": "Verify element functionality",
+    "category": "functional",
+    "priority": "low",
+    "steps": [
+      {
+        "keyword": "Given",
+        "text": "the user is on https://github.com"
+      },
+      {
+        "keyword": "When",
+        "text": "the user interacts with the element"
+      },
+      {
+        "keyword": "Then",
+        "text": "the element should respond appropriately"
+      }
+    ],
+    "created_at": 1757990022.8749192,
+    "confidence_score": 0.95
+  }
+]

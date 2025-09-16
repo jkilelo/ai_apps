@@ -1,0 +1,22 @@
+name: general
+description: Balanced general-purpose extraction
+version: 1.0.0
+
+filters:
+  - type: visible
+    required: false
+  - type: size
+    min_width: 1
+    min_height: 1
+
+scoring:
+  weights:
+    default: 0.5
+
+categories:
+  - all
+
+settings:
+  max_elements: 2000
+  timeout: 60
+  include_all: true

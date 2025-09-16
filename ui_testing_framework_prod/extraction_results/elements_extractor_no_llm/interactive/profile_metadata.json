@@ -1,0 +1,25 @@
+{
+  "profile_name": "interactive",
+  "profile_description": "Pure focus on interactive elements only",
+  "profile_version": "1.0.0",
+  "created_at": "2025-09-09T13:41:30.744169",
+  "config": {
+    "name": "interactive",
+    "description": "Interactive Elements Profile - Extract only clickable, editable, and actionable elements",
+    "version": "1.0.0",
+    "element_limit": 1000,
+    "timeout": 30.0,
+    "filter_invisible": true,
+    "filter_duplicates": true,
+    "min_element_size": 5,
+    "save_screenshots": false,
+    "save_html": false,
+    "compress_output": false,
+    "custom_settings": {
+      "min_interaction_score": 0.5,
+      "include_hover_only": false,
+      "include_focusable": true,
+      "strict_interactive": true
+    }
+  }
+}

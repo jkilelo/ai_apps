@@ -16,17 +16,56 @@ sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import base extractor
-from elements_extractor_no_llm import (
-    ElementsExtractorNoLLM,
-    ExtractedElement,
-    ExtractionResult,
-)
+try:
+    from .elements_extractor_no_llm import ElementsExtractorNoLLM
+except ImportError:
+    from elements_extractor_no_llm import ElementsExtractorNoLLM
 
-# Import types
-from data_types import (
-    ElementType,
-    BrowserExtractionConfig as ExtractionConfig,
-)
+# Import all types from data_types.py for DRY compliance
+try:
+    from .data_types import (
+        # Core types
+        Element,
+        ExtractionResult,
+        ExtractionConfig,
+        ElementType,
+        TestCategory,
+        TestPriority,
+        ElementContext,
+        EnrichedElement,
+        PageAnalysis,
+        # Shared utilities
+        ElementClassifier,
+        ElementPrioritizer,
+        ElementSerializer,
+        # Constants
+        INTERACTIVE_TAGS,
+        INTERACTIVE_ROLES,
+        INTERACTIVE_ELEMENT_TYPES,
+        INTERACTIVE_ATTRIBUTES
+    )
+except ImportError:
+    from data_types import (
+        # Core types
+        Element,
+        ExtractionResult,
+        ExtractionConfig,
+        ElementType,
+        TestCategory,
+        TestPriority,
+        ElementContext,
+        EnrichedElement,
+        PageAnalysis,
+        # Shared utilities
+        ElementClassifier,
+        ElementPrioritizer,
+        ElementSerializer,
+        # Constants
+        INTERACTIVE_TAGS,
+        INTERACTIVE_ROLES,
+        INTERACTIVE_ELEMENT_TYPES,
+        INTERACTIVE_ATTRIBUTES
+    )
 
 # Import LLM functionality
 from llm import call_default_llm
@@ -39,13 +78,8 @@ from llm_utils import (
     prepare_llm_messages
 )
 
-from data_types import (
-    TestCategory,
-    TestPriority,
-    ElementContext,
-    EnrichedElement,
-    PageAnalysis
-)
+# Alias for backward compatibility
+ExtractedElement = Element
 
 
 class ElementLLMAnalyzer:
@@ -170,19 +204,8 @@ class ElementLLMAnalyzer:
         return enriched_elements
     
     def _element_to_dict(self, element: ExtractedElement) -> Dict[str, Any]:
-        """Convert ExtractedElement to dictionary"""
-        return {
-            "tag_name": element.tag_name,
-            "element_type": (
-                element.element_type.value if element.element_type else None
-            ),
-            "text": element.text,
-            "selector": element.selector,
-            "xpath": element.xpath,
-            "attributes": element.attributes,
-            "is_interactive": element.is_clickable or element.is_editable,
-            "is_visible": element.is_visible,
-        }
+        """Convert ExtractedElement to dictionary using shared utility"""
+        return ElementSerializer.element_to_dict(element)
 
 
 class PageCharacteristicsAnalyzer:
@@ -248,13 +271,8 @@ class PageCharacteristicsAnalyzer:
         return insights
     
     def _element_summary(self, element: ExtractedElement) -> Dict[str, Any]:
-        """Create summary of element for analysis"""
-        return {
-            "tag": element.tag_name,
-            "type": element.element_type.value if element.element_type else None,
-            "text": element.text[:50] if element.text else None,
-            "interactive": element.is_clickable or element.is_editable,
-        }
+        """Create summary of element for analysis using shared utility"""
+        return ElementSerializer.element_summary(element)
 
 
 class ElementsExtractorWithLLM:
@@ -274,13 +292,7 @@ class ElementsExtractorWithLLM:
         self.base_extractor = ElementsExtractorNoLLM(self.extraction_config)
         self.element_analyzer = ElementLLMAnalyzer()
         self.page_analyzer = PageCharacteristicsAnalyzer()
-        
-        # Define interactive element criteria inspired by v2
-        self.interactive_tags = {'button', 'a', 'input', 'select', 'textarea', 'label', 'option'}
-        self.interactive_roles = {'button', 'link', 'checkbox', 'radio', 'textbox', 'combobox', 'listbox'}
-        self.interactive_types = {ElementType.BUTTON, ElementType.LINK, ElementType.INPUT, 
-                                 ElementType.SELECT, ElementType.TEXTAREA, ElementType.CHECKBOX,
-                                 ElementType.RADIO}
+        # All interactive element definitions now come from data_types.py
     
     async def extract_and_analyze(
         self, url: str, analyze_with_llm: bool = True, max_elements: int = 10
@@ -298,14 +310,13 @@ class ElementsExtractorWithLLM:
         """
         start_time = datetime.now()
         
-        # Extract base elements
+        # Extract base elements with proper cleanup
         print(f"[INFO] Extracting elements from: {url}")
         try:
             extraction_result = await self.base_extractor.extract_from_url(url)
         finally:
-            # Ensure proper cleanup
-            if hasattr(self.base_extractor, "browser") and self.base_extractor.browser:
-                await self.base_extractor.browser.cleanup()
+            # Ensure proper cleanup using extractor's cleanup method
+            await self.base_extractor.cleanup()
         
         extraction_time = (datetime.now() - start_time).total_seconds()
         
@@ -374,121 +385,24 @@ class ElementsExtractorWithLLM:
     
     def _filter_interactive_elements(self, elements: List[Any]) -> List[Any]:
         """
-        Filter for interactive elements only and remove nulls
-        Inspired by v2 interactive profile
+        Filter for interactive elements only using shared utility
         """
-        interactive_elements = []
-        
-        for elem in elements:
-            # Skip null or invalid elements
-            if not elem or not hasattr(elem, 'tag_name'):
-                continue
-            
-            # Check if element is interactive
-            is_interactive = False
-            
-            # Check by tag name
-            if elem.tag_name.lower() in self.interactive_tags:
-                is_interactive = True
-            
-            # Check by element type
-            elif hasattr(elem, 'element_type') and elem.element_type in self.interactive_types:
-                is_interactive = True
-            
-            # Check by attributes (role, onclick, href, etc.)
-            elif hasattr(elem, 'attributes'):
-                attrs = elem.attributes or {}
-                if attrs.get('role') in self.interactive_roles:
-                    is_interactive = True
-                elif any(attrs.get(attr) for attr in ['onclick', 'href', 'ng-click', '@click']):
-                    is_interactive = True
-                elif attrs.get('tabindex', '-1') != '-1':
-                    is_interactive = True
-            
-            # Check by clickable/editable flags
-            elif hasattr(elem, 'is_clickable') and elem.is_clickable:
-                is_interactive = True
-            elif hasattr(elem, 'is_editable') and elem.is_editable:
-                is_interactive = True
-            
-            if is_interactive:
-                interactive_elements.append(elem)
-        
-        return interactive_elements
+        return [elem for elem in elements if ElementClassifier.is_interactive(elem)]
     
     def _prioritize_elements(self, elements: List[Any], max_count: int) -> List[Any]:
         """
-        Prioritize elements for LLM processing when there are too many
-        Priority: forms/inputs > buttons > links > others
-        
-        Args:
-            elements: List of interactive elements
-            max_count: Maximum number to return
-            
-        Returns:
-            Prioritized list of elements limited to max_count
+        Prioritize elements for LLM processing using shared utility
         """
-        if len(elements) <= max_count:
-            return elements
-        
-        # Categorize elements by priority
-        forms_inputs = []
-        buttons = []
-        links = []
-        others = []
-        
-        for elem in elements:
-            tag = elem.tag_name.lower() if hasattr(elem, 'tag_name') else ''
-            elem_type = getattr(elem, 'element_type', None)
-            
-            if tag in ['input', 'textarea', 'select'] or elem_type == ElementType.INPUT:
-                forms_inputs.append(elem)
-            elif tag == 'button' or elem_type == ElementType.BUTTON:
-                buttons.append(elem)
-            elif tag == 'a' or elem_type == ElementType.LINK:
-                links.append(elem)
-            else:
-                others.append(elem)
-        
-        # Build prioritized list
-        prioritized = []
-        
-        # Add forms/inputs first (most important for testing)
-        prioritized.extend(forms_inputs[:max_count])
-        
-        # Add buttons if we have room
-        remaining = max_count - len(prioritized)
-        if remaining > 0:
-            prioritized.extend(buttons[:remaining])
-        
-        # Add links if we still have room
-        remaining = max_count - len(prioritized)
-        if remaining > 0:
-            prioritized.extend(links[:remaining])
-        
-        # Add others if we still have room
-        remaining = max_count - len(prioritized)
-        if remaining > 0:
-            prioritized.extend(others[:remaining])
-        
-        return prioritized[:max_count]  # Ensure we don't exceed max_count
+        return ElementPrioritizer.prioritize_elements(elements, max_count)
     
     def _create_basic_enriched_element(self, elem: Any) -> EnrichedElement:
         """
         Create a basic enriched element without LLM analysis
         For simple pages with < 5 interactive elements
         """
-        # Determine functional purpose based on element type
-        functional_purpose = "unknown"
-        if elem.tag_name.lower() == 'button':
-            functional_purpose = "trigger_action"
-        elif elem.tag_name.lower() == 'a':
-            functional_purpose = "navigate"
-        elif elem.tag_name.lower() in ['input', 'textarea']:
-            functional_purpose = "input_data"
-        elif elem.tag_name.lower() == 'select':
-            functional_purpose = "select_option"
-        
+        # Determine functional purpose using shared utility
+        functional_purpose = ElementClassifier.get_functional_purpose(elem)
+
         # Create basic context
         context = ElementContext(
             semantic_role=functional_purpose,
@@ -496,21 +410,9 @@ class ElementsExtractorWithLLM:
             siblings_count=0,
             position_in_parent=0
         )
-        
-        # Convert element to dict format for base_element
-        base_element_dict = {}
-        if hasattr(elem, '__dict__'):
-            base_element_dict = elem.__dict__.copy()
-        elif hasattr(elem, 'to_dict'):
-            base_element_dict = elem.to_dict()
-        else:
-            # Create minimal dict representation
-            base_element_dict = {
-                'tag_name': getattr(elem, 'tag_name', 'unknown'),
-                'attributes': getattr(elem, 'attributes', {}),
-                'text': getattr(elem, 'text', ''),
-                'xpath': getattr(elem, 'xpath', '')
-            }
+
+        # Convert element to dict format using shared utility
+        base_element_dict = ElementSerializer.element_to_dict(elem)
         
         return EnrichedElement(
             base_element=base_element_dict,

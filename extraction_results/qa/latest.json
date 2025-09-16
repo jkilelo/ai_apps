@@ -1,0 +1,391 @@
+{
+  "profile": "qa",
+  "version": "1.0.0",
+  "timestamp": "2025-09-09T13:25:49.565010",
+  "url": "https://www.google.com",
+  "config": {
+    "name": "qa",
+    "description": "QA Engineer Profile - Focus on testable interactive elements",
+    "version": "1.0.0",
+    "element_limit": 500,
+    "timeout": 30.0,
+    "filter_invisible": true,
+    "filter_duplicates": true,
+    "min_element_size": 10,
+    "save_screenshots": false,
+    "save_html": false,
+    "compress_output": false,
+    "custom_settings": {
+      "min_interaction_score": 0.7,
+      "include_disabled": true,
+      "include_hidden_toggles": true,
+      "track_validation": true,
+      "track_error_states": true
+    }
+  },
+  "statistics": {
+    "total_elements": 0,
+    "filtered_elements": 0,
+    "categories": {
+      "input_validation": 0,
+      "navigation": 0,
+      "forms": 0,
+      "actions": 0,
+      "disabled": 0,
+      "hidden_interactive": 0,
+      "aria_elements": 0
+    }
+  },
+  "insights": {
+    "test_coverage": {
+      "total_testable": 0,
+      "input_fields": 0,
+      "navigation_links": 0,
+      "action_buttons": 0,
+      "forms": 0,
+      "disabled_elements": 0,
+      "hidden_interactive": 0,
+      "aria_compliant": 0
+    },
+    "test_recommendations": [
+      "Consider adding ARIA attributes for better accessibility testing"
+    ],
+    "accessibility_score": 0.0,
+    "form_complexity": {
+      "complexity": "none",
+      "fields": 0
+    }
+  },
+  "elements": [],
+  "metadata": {
+    "success": true,
+    "source": "https://www.google.com",
+    "source_type": "url",
+    "profile": "qa",
+    "timestamp": "2025-09-09T13:25:49.564958",
+    "extraction_time": 4.88509726524353,
+    "statistics": {
+      "total_extracted": 9,
+      "after_filtering": 0,
+      "categories": {
+        "input_validation": 0,
+        "navigation": 0,
+        "forms": 0,
+        "actions": 0,
+        "disabled": 0,
+        "hidden_interactive": 0,
+        "aria_elements": 0
+      }
+    },
+    "insights": {
+      "test_coverage": {
+        "total_testable": 0,
+        "input_fields": 0,
+        "navigation_links": 0,
+        "action_buttons": 0,
+        "forms": 0,
+        "disabled_elements": 0,
+        "hidden_interactive": 0,
+        "aria_compliant": 0
+      },
+      "test_recommendations": [
+        "Consider adding ARIA attributes for better accessibility testing"
+      ],
+      "accessibility_score": 0.0,
+      "form_complexity": {
+        "complexity": "none",
+        "fields": 0
+      }
+    },
+    "elements": {
+      "all": [
+        {
+          "tag_name": "button",
+          "element_type": "button",
+          "selector": "//button[@id='spchx']",
+          "xpath": "//button[@id='spchx']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "click",
+            "hover"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "button",
+          "element_type": "button",
+          "selector": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+          "xpath": "//button[contains(@class, 'plR5qb') and contains(@class, 'Y5MKCd')]",
+          "text": ".plR5qb{align-self:center;background:inherit;border-radius:100px;cursor:pointer;flex-shrink:0;margin-left:8px;padding:0 12px 0 10px;position:relative;height:36px;}.minidiv .plR5qb{height:24px}.plR5qb:hover::before{background:var(--Lm570b)}.xL0qi,.mTurwe{overflow:hidden;border-radius:100px;position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none}.xL0qi{opacity:0.35;filter:blur(2px)}.iydNQb{background:conic-gradient(#3186ff00 0deg,#34a853 43deg,#ffd314 65deg,#ff4641 105deg,#3186ff 144deg,#3186ff 180deg,#3186ff00 324deg,#3186ff00 360deg);height:200%;top:-50%;right:0;bottom:0;left:0;position:absolute;scale:2 1;opacity:0;transform:rotate(180deg);transition:opacity 400ms linear}.plR5qb:hover .mTurwe .iydNQb{opacity:1}.Y5MKCd .iydNQb{animation:ae-fg 2000ms linear backwards,ae-rg 2000ms cubic-bezier(0.20, 0.00, 0.00, 1.00) backwards}@keyframes ae-fg {0%{opacity:0}30%{opacity:1}50%{opacity:1}100%{opacity:0}}@keyframes ae-rg {from{transform:rotate(0deg)}to{transform:rotate(180deg)}}.bvUkz{position:absolute;top:2px;right:2px;bottom:2px;left:2px;border-radius:100px;clip-path:inset(0 0 0 0 round 100px);background:var(--XKMDxc);transition:filter 1000ms cubic-bezier(0.00, 0.00, 0.00, 1.00),background 400ms linear}.Y5MKCd .bvUkz{animation:ae-bf 2000ms linear backwards}@keyframes ae-bf {0%{background:var(--XKMDxc)}30%{background:inherit}50%{background:inherit}100%{background:var(--XKMDxc)}}.plR5qb:hover .bvUkz{background:inherit;filter:blur(2px)}.plR5qb .bvUkz::after{content:'';top:-10px;right:-10px;bottom:-10px;left:-10px;border-radius:100px;position:absolute;background:inherit;opacity:.5}.u4Uk3c{align-items:center;display:flex;justify-content:center;position:relative;z-index:1}.PD3zdc{padding-right:4px}AI Mode",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": false,
+          "confidence": 0.8999999999999999,
+          "interaction_types": [
+            "click",
+            "hover"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'gNO89b')]",
+          "xpath": "//input[contains(@class, 'gNO89b')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'RNmpXc')]",
+          "xpath": "//input[contains(@class, 'RNmpXc')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[@id='gbqfbb']",
+          "xpath": "//input[@id='gbqfbb']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input",
+          "xpath": "//input",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "input",
+          "element_type": "input",
+          "selector": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+          "xpath": "//input[contains(@class, 'baeIxf') and contains(@class, 'OhScic')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": true,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "textarea",
+          "element_type": "textarea",
+          "selector": "//textarea[@id='APjFqb']",
+          "xpath": "//textarea[@id='APjFqb']",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "qa_score": 0.5
+        },
+        {
+          "tag_name": "textarea",
+          "element_type": "textarea",
+          "selector": "//textarea[contains(@class, 'csi')]",
+          "xpath": "//textarea[contains(@class, 'csi')]",
+          "text": "",
+          "attributes": {},
+          "is_clickable": false,
+          "is_editable": true,
+          "confidence": 0.7999999999999999,
+          "interaction_types": [
+            "type",
+            "clear",
+            "focus"
+          ],
+          "qa_score": 0.5
+        }
+      ],
+      "filtered": [],
+      "categorized": {
+        "input_validation": [],
+        "navigation": [],
+        "forms": [],
+        "actions": [],
+        "disabled": [],
+        "hidden_interactive": [],
+        "aria_elements": []
+      }
+    },
+    "metadata": {
+      "page_url": "https://www.google.com",
+      "extraction_config": {
+        "enable_shadow_dom": true,
+        "enable_iframe_traversal": true,
+        "enable_dynamic_wait": true,
+        "enable_mutation_observer": false,
+        "max_depth": 10,
+        "max_elements": 1000,
+        "extraction_timeout": 30000,
+        "filter_invisible": true,
+        "filter_duplicates": true,
+        "min_element_size": 10,
+        "enable_stealth": true,
+        "randomize_delays": true,
+        "min_delay": 0.1,
+        "max_delay": 0.5,
+        "batch_size": 100,
+        "enable_caching": true,
+        "cache_ttl": 3600,
+        "include_computed_styles": true,
+        "include_accessibility_info": true,
+        "include_event_listeners": false,
+        "capture_screenshots": false,
+        "screenshot_full_page": true,
+        "screenshot_format": "png",
+        "screenshot_quality": 90,
+        "highlight_elements": true,
+        "highlight_color": "red",
+        "highlight_width": 2,
+        "qa_mode": true,
+        "qa_priority_tags": [
+          "button",
+          "input",
+          "textarea",
+          "select",
+          "a",
+          "form",
+          "label",
+          "option",
+          "datalist",
+          "output"
+        ],
+        "qa_interaction_indicators": [
+          "onclick",
+          "onchange",
+          "oninput",
+          "onsubmit",
+          "ng-click",
+          "v-on:",
+          "@click",
+          "data-action",
+          "data-toggle",
+          "data-target",
+          "href",
+          "formaction"
+        ],
+        "qa_min_interaction_score": 0.7,
+        "qa_include_disabled": true,
+        "qa_include_hidden_toggles": true
+      },
+      "result_metadata": {
+        "config": {
+          "enable_shadow_dom": true,
+          "enable_iframe_traversal": true,
+          "enable_dynamic_wait": true,
+          "enable_mutation_observer": false,
+          "max_depth": 10,
+          "max_elements": 1000,
+          "extraction_timeout": 30000,
+          "filter_invisible": true,
+          "filter_duplicates": true,
+          "min_element_size": 10,
+          "enable_stealth": true,
+          "randomize_delays": true,
+          "min_delay": 0.1,
+          "max_delay": 0.5,
+          "batch_size": 100,
+          "enable_caching": true,
+          "cache_ttl": 3600,
+          "include_computed_styles": true,
+          "include_accessibility_info": true,
+          "include_event_listeners": false,
+          "capture_screenshots": false,
+          "screenshot_full_page": true,
+          "screenshot_format": "png",
+          "screenshot_quality": 90,
+          "highlight_elements": true,
+          "highlight_color": "red",
+          "highlight_width": 2,
+          "qa_mode": true,
+          "qa_priority_tags": [
+            "button",
+            "input",
+            "textarea",
+            "select",
+            "a",
+            "form",
+            "label",
+            "option",
+            "datalist",
+            "output"
+          ],
+          "qa_interaction_indicators": [
+            "onclick",
+            "onchange",
+            "oninput",
+            "onsubmit",
+            "ng-click",
+            "v-on:",
+            "@click",
+            "data-action",
+            "data-toggle",
+            "data-target",
+            "href",
+            "formaction"
+          ],
+          "qa_min_interaction_score": 0.7,
+          "qa_include_disabled": true,
+          "qa_include_hidden_toggles": true
+        },
+        "timestamp": 1757442349.563047
+      }
+    },
+    "errors": []
+  }
+}
