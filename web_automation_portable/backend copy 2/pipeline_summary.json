@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-09-15T21:33:42.875996",
+  "url": "https://github.com",
+  "success": true,
+  "total_duration": 61.38103413581848,
+  "stages": {
+    "dom_extraction": {
+      "module": "elements_extractor_no_llm.py",
+      "duration": 10.944979429244995,
+      "success": true,
+      "elements_extracted": 108,
+      "browser_instances": 1
+    },
+    "llm_enrichment": {
+      "module": "elements_extractor_with_llm.py",
+      "duration": 50.40075659751892,
+      "input_type": "ExtractionResult",
+      "output_type": "PageAnalysis",
+      "enriched_elements": 5,
+      "page_type": "Homepage",
+      "browser_instances": 0
+    },
+    "test_generation": {
+      "module": "test_generation_with_llm.py",
+      "duration": 0.0003571510314941406,
+      "input_type": "PageAnalysis",
+      "output_type": "List[TestScenario]",
+      "scenarios_generated": 3,
+      "browser_instances": 0
+    }
+  },
+  "data_flow": {
+    "stage1_output": "stage1_extraction_result.json",
+    "stage2_output": "stage2_page_analysis.json",
+    "stage3_output": "stage3_test_scenarios.json"
+  },
+  "browser_instances": 1,
+  "elements_extracted": 108,
+  "elements_enriched": 5,
+  "test_scenarios_generated": 3
+}

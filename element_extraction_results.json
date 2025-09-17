@@ -1,30 +1,41 @@
 {
-  "url": "https://example.com",
-  "page_type": "Placeholder",
+  "url": "https://uat01.citi.com",
+  "page_type": "Financial Services Portal / Login Page",
   "framework": null,
-  "total_elements": 1,
-  "interactive_elements": 1,
-  "form_elements": 0,
+  "total_elements": 42,
+  "interactive_elements": 42,
+  "form_elements": 1,
   "navigation_elements": 0,
   "insights": {
-    "page_type": "Placeholder",
+    "page_type": "Financial Services Portal / Login Page",
     "framework": null,
     "functionality": [
-      "Navigation"
+      "User Authentication",
+      "Product Discovery (Credit Cards, Banking, Lending)",
+      "New Account Application",
+      "Language Selection",
+      "Customer Support Access",
+      "Branch/ATM Location Finder"
     ],
     "ui_patterns": [
-      "Call to Action"
+      "Header Navigation",
+      "Call-to-Action (CTA) Buttons",
+      "Login Form",
+      "Product Showcase Cards",
+      "Language Selector",
+      "Feedback Widget"
     ],
-    "accessibility_level": "low",
-    "mobile_friendly": "false",
+    "accessibility_level": "medium",
+    "mobile_friendly": "true",
     "recommendations": [
-      "Add more content and structure to create a functional webpage.",
-      "Use more descriptive text for links to improve accessibility (e.g., instead of 'More information...', specify what the information is about).",
-      "Implement a responsive design to ensure the page is mobile-friendly."
+      "Ensure the link without text has an appropriate 'aria-label' for screen readers.",
+      "Consolidate button text for clarity; for example, 'Apply NowUnlock extraordinary value...' should have a more concise and accessible name.",
+      "Verify that all interactive elements have a sufficient touch target size for mobile users.",
+      "Conduct a full review to ensure semantic HTML is used correctly (e.g., using `<a>` for navigation and `<button>` for actions)."
     ]
   },
   "timing": {
-    "extraction": 4.533768,
-    "llm": 33.519324
+    "extraction": 11.818206,
+    "llm": 64.745692
   }
 }
