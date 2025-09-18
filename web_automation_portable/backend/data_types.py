@@ -339,10 +339,10 @@ class StealthConfig(BaseModel):
 
     # Browser display settings
     headless: bool = Field(False, description="Run browser in headless mode")
-    viewport_width: int = Field(1920, description="Browser viewport width")
-    viewport_height: int = Field(1080, description="Browser viewport height")
+    viewport_width: int = Field(968, description="Browser viewport width")
+    viewport_height: int = Field(540, description="Browser viewport height")
     viewport: Dict[str, int] = Field(
-        default_factory=lambda: {"width": 1920, "height": 1080},
+        default_factory=lambda: {"width": 968, "height": 540},
         description="Browser viewport dimensions",
     )
 

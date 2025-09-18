@@ -5,10 +5,12 @@ Handles DOM element extraction and analysis without LLM dependencies
 import asyncio
 import json
 import logging
+import os
+import sys
 import time
-from pathlib import Path
 from typing import List, Optional, Set
 from urllib.parse import urljoin, urlparse
+
 
 # Configure logging
 logging.basicConfig(
@@ -419,78 +421,46 @@ def extract_elements_sync(
 # Main entry points
 async def extract_from_url(
     url: str,
-    headless: bool = True,
-    enable_stealth: bool = True
+    config: Optional[ExtractionConfig] = None,
 ) -> ExtractionResult:
     """
     Main async entry point for element extraction
 
     Args:
         url: URL to extract elements from
-        headless: Run browser in headless mode
-        enable_stealth: Enable stealth features
+        config: Extraction configuration
 
     Returns:
         ExtractionResult (always returns this type)
     """
-    config = ExtractionConfig(
-        headless=headless,
-        enable_stealth=enable_stealth
-    )
     return await extract_elements(url, config)
 
 
 def extract_from_url_sync(
     url: str,
-    headless: bool = True,
-    enable_stealth: bool = True
+    config: Optional[ExtractionConfig] = None
 ) -> ExtractionResult:
     """
     Main sync entry point for element extraction
 
     Args:
         url: URL to extract elements from
-        headless: Run browser in headless mode
-        enable_stealth: Enable stealth features
+        config: Extraction configuration
 
     Returns:
         ExtractionResult (always returns this type)
     """
-    return asyncio.run(extract_from_url(url, headless, enable_stealth))
+    return asyncio.run(extract_from_url(url, config))
 
-
-def main() -> None:
-    """
-    Main function for command-line usage
-    """
-    import sys
-
-    if len(sys.argv) < 2:
-        print("Usage: python elements_extractor_no_llm.py <url>")
-        sys.exit(1)
-
-    url = sys.argv[1]
-    print(f"Extracting elements from: {url}")
-
-    # Run extraction
-    result = extract_elements_sync(url)
-
-    # Output results
-    if result.success:
-        print(f"Success! Extracted {len(result.elements)} elements")
-        print(f"Extraction time: {result.extraction_time:.2f}s")
-
-        # Save to file
-        output_file = Path("extraction_results.json")
-        with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(result.model_dump(), f, indent=2, default=str)
-        print(f"Results saved to: {output_file}")
-    else:
-        print("Extraction failed!")
-        if result.errors:
-            for error in result.errors:
-                print(f"  - {error}")
-
+async def main(url: str):
+    parent=os.path.dirname(os.path.abspath(__file__))
+    filename=os.path.join(parent, "test_elements_extractor_no_llm.json")
+    result = await extract_from_url(url)
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(result.model_dump(), f, ensure_ascii=False, indent=2)
+    print(f"Extracted {len(result.elements)} elements from {url}")
+    print(f"[OK] Results written to: {filename}")
 
 if __name__ == "__main__":
-    main()
+    url="https://uat01.citi.com"
+    asyncio.run(main(url))

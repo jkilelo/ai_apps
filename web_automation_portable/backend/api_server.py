@@ -25,11 +25,14 @@ from web_automation_portable.backend.data_types import (
     ExtractionConfig,
     PageAnalysis,
     TestCategory,
+    Element,
+    EnrichedElement,
     clean_for_llm
 )
 
 from web_automation_portable.backend.elements_extractor_no_llm import (
-    extract_from_url as extract_no_llm
+    extract_from_url as extract_no_llm,
+    extract_elements as extract_elements_async
 )
 
 from web_automation_portable.backend.elements_extractor_with_llm import (
@@ -74,6 +77,11 @@ class ExtractResponse(BaseModel):
     total_found: int
     page_type: str
     extraction_time: float
+
+class AnalyzeElementsRequest(BaseModel):
+    url: str
+    elements: List[Dict[str, Any]]
+    max_elements: int = Field(10, description="Maximum elements for AI analysis")
 
 class TestGenerationRequest(BaseModel):
     url: str
@@ -181,6 +189,105 @@ async def extract_elements(request: ExtractRequest):
 
     except Exception as e:
         logger.error(f"Extraction failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/ui/extract_elements", response_model=ExtractResponse)
+async def extract_elements_ui(request: ExtractRequest):
+    """
+    Extract elements from a URL using the async extract_elements function
+    """
+    try:
+        logger.info(f"Extracting elements from: {request.url}")
+        start_time = datetime.now()
+
+        # Use the async extract_elements function directly
+        # Pass the URL string, not the request object
+        extraction_result = await extract_elements_async(request.url)
+
+        if not extraction_result.success:
+            raise HTTPException(status_code=400, detail="Failed to extract elements from URL")
+
+        # Cache the extraction result
+        pipeline_cache["extraction_result"] = extraction_result
+
+        # Prepare response with cleaned data
+        elements_for_frontend = []
+        for elem in extraction_result.elements[:50]:  # Limit to 50 for frontend
+            # Create simplified element for frontend
+            elem_dict = {
+                "id": elem.id,
+                "type": elem.element_type.value if elem.element_type else "unknown",
+                "selector": elem.css_selector or elem.xpath or f"#{elem.id}",
+                "text": elem.text[:100] if elem.text else "",
+                "tag": elem.tag_name,
+                "classes": elem.classes if elem.classes else [],
+                "is_interactive": elem.is_clickable or elem.is_editable,
+                "confidence": elem.confidence
+            }
+            elements_for_frontend.append(elem_dict)
+
+        duration = (datetime.now() - start_time).total_seconds()
+
+        return ExtractResponse(
+            success=True,
+            elements=elements_for_frontend,
+            total_found=len(extraction_result.elements),
+            page_type="unknown",
+            extraction_time=duration
+        )
+
+    except Exception as e:
+        import traceback
+        logger.error(f"Extraction failed: {e}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/ui/analyze-elements", response_model=PageAnalysis)
+async def analyze_elements_with_ai(request: AnalyzeElementsRequest):
+    """
+    Analyze and enrich extracted elements with AI
+    """
+    try:
+        logger.info(f"Analyzing {len(request.elements)} elements with AI")
+
+        # Create an ElementsExtractorWithLLM instance
+        llm_extractor = ElementsExtractorWithLLM()
+
+        # Convert the raw elements back into Element objects for processing
+        elements = []
+        for elem_dict in request.elements:
+            element = Element(
+                id=elem_dict.get("id", ""),
+                tag_name=elem_dict.get("tag", ""),
+                text=elem_dict.get("text", ""),
+                css_selector=elem_dict.get("selector", ""),
+                classes=elem_dict.get("classes", []),
+                is_clickable=elem_dict.get("is_interactive", False),
+                confidence=elem_dict.get("confidence", 0.5)
+            )
+            elements.append(element)
+
+        # Create an ExtractionResult to pass to the enrichment function
+        extraction_result = ExtractionResult(
+            url=request.url,
+            success=True,
+            elements=elements
+        )
+
+        # Enrich the elements with AI analysis and return PageAnalysis directly
+        page_analysis = await llm_extractor.enrich_extracted_elements(
+            extraction_result,
+            analyze_with_llm=True,
+            max_elements=request.max_elements
+        )
+
+        # Return the PageAnalysis object directly - let Pydantic handle serialization
+        return page_analysis
+
+    except Exception as e:
+        import traceback
+        logger.error(f"AI analysis failed: {e}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/web-automation/generate-tests", response_model=TestGenerationResponse)
@@ -476,4 +583,5 @@ if __name__ == "__main__":
     print("=" * 80)
 
     # Run the server
-    uvicorn.run(app, host="0.0.0.0", port=8003)
+    # localhost:8210
+    uvicorn.run(app, host="localhost", port=8210)

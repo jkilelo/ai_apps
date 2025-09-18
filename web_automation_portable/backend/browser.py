@@ -1,26 +1,11 @@
 #!/usr/bin/env python3
-"""
-ULTIMATE STEALTH BROWSER - INTEGRATED PRODUCTION MODULE
-========================================================
-Comprehensive unified browser automation with maximum anti-detection.
-Integrates browser.py + browser_config.py + browser_contracts.py
-
-Architecture:
-- Foundation Layer: Data models and contracts
-- Configuration Layer: Stealth settings and browser config
-- Implementation Layer: Core browser functionality
-- Production Layer: Error handling, monitoring, and optimization
-
-Version: 5.0.0 (Fully Integrated)
-Status: Production Ready
-"""
-
 # ============================================================================
 # STANDARD LIBRARY IMPORTS
 # ============================================================================
 import asyncio
 import hashlib
 # import json  # Currently unused
+import json
 import logging
 import os
 import platform
@@ -28,11 +13,8 @@ import random
 import sys
 import time
 from abc import ABC, abstractmethod
-from datetime import datetime
-from enum import Enum
 from functools import wraps
-from pathlib import Path
-from typing import Optional, Dict, List, Any, Union, Callable, TypeVar, Tuple
+from typing import Optional, Dict, List, Any, Union, Callable, TypeVar
 
 # ============================================================================
 # LOGGING CONFIGURATION
@@ -55,12 +37,8 @@ try:
     from .data_types import (
         # Core enums
         ElementType,
-        ProfileType,
         StealthLevel,
-        ExtractionStrategy,
         # Data models
-        TimingProfile,
-        StealthProfile,
         StealthConfig,
         ExtractionConfig,  # Added for compatibility
         Element,
@@ -68,7 +46,6 @@ try:
         # Results
         ExtractionResult,
         # Exceptions
-        BrowserError,
         NavigationError,
         ExtractionError,
         TimeoutError,
@@ -80,12 +57,8 @@ except ImportError:
     from data_types import (
         # Core enums
         ElementType,
-        ProfileType,
         StealthLevel,
-        ExtractionStrategy,
         # Data models
-        TimingProfile,
-        StealthProfile,
         StealthConfig,
         ExtractionConfig,  # Added for compatibility
         Element,
@@ -93,7 +66,6 @@ except ImportError:
         # Results
         ExtractionResult,
         # Exceptions
-        BrowserError,
         NavigationError,
         ExtractionError,
         TimeoutError,
@@ -197,37 +169,6 @@ def get_chrome_executable_path() -> Optional[str]:
             return path
 
     return None
-
-
-# ============================================================================
-# FOUNDATION LAYER - ENUMS AND CONSTANTS
-# ============================================================================
-
-
-# ElementType is now imported from data_types.py
-
-
-# ============================================================================
-# DATA MODELS LAYER 
-# All data models are imported from data_types.py to follow DRY principles
-# ============================================================================
-# TimingProfile, StealthProfile, StealthConfig are now imported from data_types.py
-# Element is now imported from data_types.py
-# ExtractionResult is now imported from data_types.py
-
-# ============================================================================
-# CONFIGURATION LAYER (from browser_config.py)
-# ============================================================================
-
-
-
-# ============================================================================
-# ERROR HANDLING LAYER
-# ============================================================================
-
-
-
-
 
 
 def retry_on_error(max_retries: int = 3, delay: float = 1.0, backoff: float = 2.0) -> Any:
@@ -2340,20 +2281,11 @@ async def quick_extract(url: str, headless: bool = False) -> ExtractionResult:
 # ============================================================================
 
 
-async def main():
-    """Main execution for testing"""
-
-    print("[INTEGRATED BROWSER MODULE TEST]")
+async def raw_elements(url:str, config: Optional[StealthConfig] = None) -> ExtractionResult:
     print("=" * 60)
 
-    # Test configuration
-    config = StealthConfig(
-        level=StealthLevel.MEDIUM,
-        headless=False,
-        enable_human_delays=True,
-        enable_human_mouse=True,
-        enable_human_typing=True,
-    )
+    if config is None:
+        config = StealthConfig(level=StealthLevel.MEDIUM, headless=False)
 
     # Create browser instance
     browser = UltimateStealthBrowser(config)
@@ -2364,7 +2296,7 @@ async def main():
         print("[OK] Browser initialized")
 
         # Test extraction
-        result = await browser.extract_elements("https://example.com")
+        result = await browser.extract_elements(url)
 
         print("[OK] Extraction completed")
         print(f"  - URL: {result.url}")
@@ -2388,8 +2320,17 @@ async def main():
 
     print("=" * 60)
     print("[SUCCESS] Integrated browser module is production ready!")
+    return result
 
+async def main(url: str):
+    parent=os.path.dirname(os.path.abspath(__file__))
+    filename=os.path.join(parent, "test_browser.json")
+    result = await raw_elements(url)
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(result.model_dump(), f, ensure_ascii=False, indent=2)
+    print(f"Extracted {len(result.elements)} elements from {url}")
+    print(f"[OK] Results written to: {filename}")
 
 if __name__ == "__main__":
-    # Run test
-    asyncio.run(main())
+    url="https://uat01.citi.com"
+    asyncio.run(main(url))
