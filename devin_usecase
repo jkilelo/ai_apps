@@ -508,3 +508,109 @@ W3C
 The pitch in one line
 
 Devin turns accessibility into a continuous, auditable, and automated part of your SDLC—catching issues in components and critical flows, proposing fixes, generating evidence, and letting your engineers focus on review—so we reduces legal risk, improves usability, and ships faster.
+
+
+
+
+
+
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                               SDLC / GOVERNANCE                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+     Jira/ServiceNow            Git (Bitbucket/GitHub)               CI/CD
+ ┌───────────────────┐       ┌──────────────────────────┐     ┌───────────────────┐
+ │  A) Incident/Tix  │       │  Repos: PySpark, DAGs,   │     │  Tests & Gates    │
+ │  - Schema drift   │──────▶│  GX/PyDeequ checks,      │────▶│  pytest + chispa  │
+ │  - Bug/regression │       │  data contracts, IaC     │     │  GX/PyDeequ runs  │
+ └───────────────────┘       └──────────────────────────┘     │  Lint, SAST, IaC  │
+        ▲                          ▲            ▲             └───────────────────┘
+        │                          │            │                       │
+        │                          │            │                       │
+        │                   ┌──────────────┐    │                 ┌───────────────┐
+        │                   │    DEVIN     │<───┘                 │ HUMAN REVIEW  │
+        │                   │  (agent)     │  opens PRs           │   (approves)  │
+        │                   │  - triage    │──────────────────────▶│   merges      │
+        │                   │  - propose   │                       └───────────────┘
+        │                   │  - self-test │
+        │                   │  - log/evidence                                  Deploy
+        │                   └──────────────┘                                    │
+        │                                                                        ▼
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                             ORCHESTRATION / DATA PLANE                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+    Sources             Airflow (DAGs)            Spark (PySpark Jobs)          Tables
+┌──────────────┐     ┌───────────────────┐     ┌────────────────────────┐   ┌───────────┐
+│ Files/APIs   │───▶ │  Schedules DAGs   │───▶ │  ETL/ELT transforms     │──▶│ Bronze    │
+│ Kafka/DBs    │     │  Retry/alerting   │     │  (batch/stream)         │   ├───────────┤
+└──────────────┘     │  OL hooks emit    │     │  GX/PyDeequ checks      │   │ Silver    │
+                     │  lineage events   │     │  Contracts enforced     │   ├───────────┤
+                     └───────────────────┘     └────────────────────────┘   │ Gold      │
+                               │                     │                       └───────────┘
+                               │ OpenLineage events  │ Metrics/Logs
+                               ▼                     ▼
+                        ┌────────────────┐     ┌───────────────────┐
+                        │ Marquez (UI)   │     │ Prometheus/Graf/  │
+                        │ Lineage Graph  │     │ Datadog (alerts)  │
+                        └────────────────┘     └───────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         TEST DATA / PRIVACY / EVIDENCE                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+   Synthetic data (SDV)  → drives unit/integration tests
+   Presidio → scans/masks PII in logs/samples
+   GX Data Docs + CI artifacts + lineage snapshots → Evidence archive (audit pack)
+============================================================================
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         DESIGN SYSTEM & REPOSITORIES                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+     UI Library / App Repo                   Evidence Repo (Reports/Docs)
+┌───────────────────────────┐            ┌───────────────────────────┐
+│ React/Angular/Vue code    │            │ a11y reports (JSON/HTML)  │
+│ Storybook stories         │            │ Lighthouse, axe, Pa11y     │
+│ eslint-plugin-jsx-a11y    │            │ Manual checklists          │
+└───────────────────────────┘            └───────────────────────────┘
+             ▲                                          ▲
+             │                              artifacts   │
+             │                                          │
+        ┌───────────┐                         ┌───────────────────┐
+        │  DEVIN    │  Ticket→Plan→Fix→PR     │  PySpark Lakehouse│
+        │ (agent)   │────────────────────────▶│  (trend dashboards)│
+        │ - triage  │    (never merges)       │  ingest JSON       │
+        │ - propose │                         └───────────────────┘
+        │ - self-test│
+        └───────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                                   CI PIPELINE                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+             Pre-commit/PR                              Per-PR CI Jobs
+    ┌──────────────────────────┐             ┌─────────────────────────────────┐
+    │ Lint: eslint-plugin-     │             │ E2E: Playwright/Cypress + axe   │
+    │ jsx-a11y                 │             │   - @axe-core/playwright or     │
+    └──────────────────────────┘             │     cypress-axe scans           │
+                                             │ Component: Storybook + a11y     │
+                                             │   - axe-core in stories         │
+                                             │ URL sweeps (as needed): Pa11y   │
+                                             │ Budgets: Lighthouse a11y score  │
+                                             └─────────────────────────────────┘
+                 │                                           │
+                 │ JSON (violations, scores)                 │
+                 ▼                                           ▼
+           Evidence Archive (in repo)  ◀──────────  Failing CI triggers DEVIN
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                              MANUAL ACCESSIBILITY                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+  Keyboard-only  |  Screen readers (NVDA/JAWS/VoiceOver)  |  Focus visibility  |
+  Reduced motion / forced-colors modes  |  Cognitive load checks
+  → Scheduled passes; results stored with PRs and in Evidence Repo
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                                 RELEASE FLOW                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+  DEVIN opens PR with minimal fix + tests  →  HUMAN REVIEW  →  Merge  →  Deploy
+  (All plans, diffs, results, and checklists retained for audit)
