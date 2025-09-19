@@ -1,0 +1,35 @@
+{
+  "url": "https://uat01.citi.com",
+  "success": true,
+  "total_time": 15.088370084762573,
+  "stage_times": {
+    "browser_setup": 13.522499322891235,
+    "element_extraction": 1.4822838306427002,
+    "ai_enrichment": 0.02193164825439453,
+    "test_generation": 0.013721704483032227,
+    "code_generation": 0.000408172607421875
+  },
+  "metrics": {
+    "elements_per_second": 201.71575363562945,
+    "llm_efficiency": 0.0,
+    "test_coverage": 0.0,
+    "total_stages": 5
+  },
+  "browser": {
+    "session_id": "session_1758232066724",
+    "page_title": "Online Banking, Mortgages, Personal Loans, Investing | Citi.com"
+  },
+  "elements": {
+    "total": 299,
+    "interactive": 45
+  },
+  "enrichment": {
+    "enriched_count": 3,
+    "page_type": "unknown",
+    "cache_hits": 0
+  },
+  "tests": {
+    "scenarios": 1,
+    "coverage": 0.0
+  }
+}

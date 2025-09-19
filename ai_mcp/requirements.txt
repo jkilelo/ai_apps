@@ -1,0 +1,5 @@
+# MCP (Model Context Protocol) Dependencies
+mcp>=1.1.0
+
+# Optional: For enhanced features
+python-dotenv>=1.0.0

@@ -1,0 +1,19 @@
+# Core MCP and LangGraph Integration Requirements
+
+# MCP Protocol
+mcp>=1.1.0
+
+# LangChain and LangGraph
+langchain>=0.3.0
+langgraph>=0.2.0
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+
+# MCP-LangGraph Adapter
+langchain-mcp-adapters>=0.1.0
+
+# Optional: For testing without OpenAI
+python-dotenv>=1.0.0
+
+# For async support
+asyncio-utils>=1.0.0

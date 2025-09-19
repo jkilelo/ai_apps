@@ -1,0 +1,140 @@
+{
+  "_id": "example.com",
+  "url": "https://example.com/test",
+  "netloc": "example.com",
+  "created_at": "2025-09-18 18:54:52.957000",
+  "updated_at": "2025-09-18 18:54:54.984000",
+  "session_id": "browser_123",
+  "steps": {
+    "browser_setup": {
+      "step": "browser_setup",
+      "status": "completed",
+      "data": {
+        "session_id": "browser_123",
+        "page_title": "Example Test Page",
+        "url": "https://example.com/test",
+        "browser_type": "chromium",
+        "duration": 2.5
+      },
+      "timestamp": "2025-09-18 18:54:52.961000",
+      "duration": 2.5,
+      "errors": [],
+      "warnings": []
+    },
+    "element_extraction": {
+      "step": "element_extraction",
+      "status": "completed",
+      "data": {
+        "total_elements": 150,
+        "interactive_elements": 45,
+        "form_elements": 12,
+        "elements": [
+          {
+            "id": "btn1",
+            "type": "button",
+            "text": "Submit"
+          },
+          {
+            "id": "input1",
+            "type": "text",
+            "placeholder": "Enter name"
+          }
+        ],
+        "extraction_time": 1.2
+      },
+      "timestamp": "2025-09-18 18:54:53.470000",
+      "duration": 1.2,
+      "errors": [],
+      "warnings": []
+    },
+    "ai_enrichment": {
+      "step": "ai_enrichment",
+      "status": "completed",
+      "data": {
+        "enriched_elements": [
+          {
+            "id": "btn1",
+            "purpose": "form_submission",
+            "priority": "high"
+          },
+          {
+            "id": "input1",
+            "purpose": "user_input",
+            "validation": "required"
+          }
+        ],
+        "page_insights": {
+          "page_type": "form",
+          "functionality": [
+            "data_collection",
+            "user_registration"
+          ]
+        },
+        "enrichment_time": 3.5
+      },
+      "timestamp": "2025-09-18 18:54:53.976000",
+      "duration": 3.5,
+      "errors": [],
+      "warnings": []
+    },
+    "test_generation": {
+      "step": "test_generation",
+      "status": "completed",
+      "data": {
+        "total_scenarios": 8,
+        "scenarios": [
+          {
+            "name": "Test form submission",
+            "steps": [
+              "fill_form",
+              "submit",
+              "verify"
+            ]
+          },
+          {
+            "name": "Test validation",
+            "steps": [
+              "leave_empty",
+              "submit",
+              "check_error"
+            ]
+          }
+        ],
+        "generation_time": 2.0
+      },
+      "timestamp": "2025-09-18 18:54:54.479000",
+      "duration": 2.0,
+      "errors": [],
+      "warnings": []
+    },
+    "code_generation": {
+      "step": "code_generation",
+      "status": "completed",
+      "data": {
+        "frameworks": [
+          "playwright",
+          "selenium"
+        ],
+        "test_files": {
+          "test_main.py": "def test_form():\n    # test code here",
+          "test_validation.py": "def test_validation():\n    # validation tests"
+        },
+        "generation_time": 1.5
+      },
+      "timestamp": "2025-09-18 18:54:54.984000",
+      "duration": 1.5,
+      "errors": [],
+      "warnings": []
+    }
+  },
+  "page_title": "Example Test Page",
+  "total_elements": 150,
+  "interactive_elements": 45,
+  "test_scenarios_count": 8,
+  "frameworks": [
+    "playwright",
+    "selenium"
+  ],
+  "last_successful_step": "code_generation",
+  "is_complete": true
+}

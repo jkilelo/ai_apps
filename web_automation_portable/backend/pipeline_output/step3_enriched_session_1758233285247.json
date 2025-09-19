@@ -1,0 +1,713 @@
+{
+  "elements": [
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": ".alternateSkipNav",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Skip to Content",
+          "id": null,
+          "data_testid": null
+        },
+        "text_content": "Skip to Content",
+        "attributes": {
+          "href": ""
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 0.0,
+          "y": -30.0,
+          "width": 116.61458587646484,
+          "height": 30.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": ".alternateSkipNav",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#sessionFocusUrl",
+          "xpath": "//a",
+          "accessibility": "citi-redesign-sessionfocus",
+          "text": null,
+          "id": "sessionFocusUrl",
+          "data_testid": null
+        },
+        "text_content": null,
+        "attributes": {
+          "href": "/",
+          "aria-label": "citi-redesign-sessionfocus"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 40.0,
+          "y": 72.66667175292969,
+          "width": 88.0,
+          "height": 19.33333396911621
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.7,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.7,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#sessionFocusUrl",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#fdicFocusUrl",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": null,
+          "id": "fdicFocusUrl",
+          "data_testid": null
+        },
+        "text_content": null,
+        "attributes": {
+          "role": "presentation"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 108.0,
+          "y": 46.66666793823242,
+          "width": 467.0,
+          "height": 19.33333396911621
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#fdicFocusUrl",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#atmLink",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "ATM / BRANCH",
+          "id": "atmLink",
+          "data_testid": null
+        },
+        "text_content": "ATM / BRANCH",
+        "attributes": {
+          "href": "/citibank-location-finder"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 1696.4896240234375,
+          "y": 22.0,
+          "width": 78.02083587646484,
+          "height": 50.5
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#atmLink",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "button",
+        "element_type": "button",
+        "selectors": {
+          "css": "#langBtn",
+          "xpath": "//button",
+          "accessibility": "Haz clic para cambiar la pgina al espaol",
+          "text": "ESPAOL",
+          "id": "langBtn",
+          "data_testid": null
+        },
+        "text_content": "ESPAOL",
+        "attributes": {
+          "aria-label": "Haz clic para cambiar la pgina al espaol"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 1798.510498046875,
+          "y": 22.0,
+          "width": 63.15625,
+          "height": 51.5
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "button",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.7,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "button",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.7,
+        "purpose": "button element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#langBtn",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#navcreditCardmainAnchor0",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Credit Cards",
+          "id": "navcreditCardmainAnchor0",
+          "data_testid": null
+        },
+        "text_content": "Credit Cards",
+        "attributes": {
+          "role": "button"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 32.0,
+          "y": 88.0,
+          "width": 132.1354217529297,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#navcreditCardmainAnchor0",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#navbankingmainAnchor1",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Banking",
+          "id": "navbankingmainAnchor1",
+          "data_testid": null
+        },
+        "text_content": "Banking",
+        "attributes": {
+          "role": "button"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 164.1354217529297,
+          "y": 88.0,
+          "width": 99.5,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#navbankingmainAnchor1",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#navlendingmainAnchor2",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Lending",
+          "id": "navlendingmainAnchor2",
+          "data_testid": null
+        },
+        "text_content": "Lending",
+        "attributes": {
+          "role": "button"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 263.63543701171875,
+          "y": 88.0,
+          "width": 98.86458587646484,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#navlendingmainAnchor2",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#investingmainAnchor3",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Investing",
+          "id": "investingmainAnchor3",
+          "data_testid": null
+        },
+        "text_content": "Investing",
+        "attributes": {
+          "role": "button"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 362.5,
+          "y": 88.0,
+          "width": 107.3125,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#investingmainAnchor3",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#wealthMgmntmainAnchor4",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Wealth Management",
+          "id": "wealthMgmntmainAnchor4",
+          "data_testid": null
+        },
+        "text_content": "Wealth Management",
+        "attributes": {
+          "role": "button"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 469.8125,
+          "y": 88.0,
+          "width": 190.52084350585938,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#wealthMgmntmainAnchor4",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#navOpenAccmainAnchor8",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Open an Account",
+          "id": "navOpenAccmainAnchor8",
+          "data_testid": null
+        },
+        "text_content": "Open an Account",
+        "attributes": {
+          "href": "/banking/bank-accounts?intc=citihpmenu_overview_bank-accounts"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 660.3333740234375,
+          "y": 88.0,
+          "width": 186.0104217529297,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "link",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "link",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "link element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": "#navOpenAccmainAnchor8",
+      "confidence_score": 0.6
+    },
+    {
+      "base_element": {
+        "tag_name": "button",
+        "element_type": "button",
+        "selectors": {
+          "css": ".en_US.howCanWeHelpButton.main-links.topNavButton.ng-star-inserted",
+          "xpath": "//button",
+          "accessibility": null,
+          "text": " How can we help? ",
+          "id": null,
+          "data_testid": null
+        },
+        "text_content": " How can we help? ",
+        "attributes": {
+          "type": "button",
+          "name": "how can we help button"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 1668.6458740234375,
+          "y": 88.0,
+          "width": 197.02084350585938,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "button",
+        "page_section": "main",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "button",
+        "interaction_probability": 0.8,
+        "accessibility_score": 0.4,
+        "purpose": "button element",
+        "test_relevance": 0.6,
+        "suggested_tests": [
+          "click_test"
+        ],
+        "potential_issues": [],
+        "confidence": 0.6
+      },
+      "test_relevance": 0.6,
+      "suggested_tests": [
+        "click_test"
+      ],
+      "potential_issues": [],
+      "best_selector": ".en_US.howCanWeHelpButton.main-links.topNavButton.ng-star-inserted",
+      "confidence_score": 0.6
+    }
+  ],
+  "page_insights": {
+    "page_type": "unknown",
+    "detected_framework": null,
+    "functionality": [
+      "general"
+    ],
+    "ui_patterns": [
+      "standard"
+    ],
+    "accessibility_level": "medium",
+    "mobile_friendly": false,
+    "performance_score": 0.5,
+    "security_concerns": [],
+    "recommendations": []
+  },
+  "enrichment_time": 125.77711033821106,
+  "llm_tokens_used": 641,
+  "cache_hits": 0,
+  "confidence_scores": {
+    "overall": 0.6,
+    "min": 0.6,
+    "max": 0.6
+  }
+}

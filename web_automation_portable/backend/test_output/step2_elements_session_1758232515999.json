@@ -1,0 +1,2740 @@
+{
+  "url": "https://uat01.citi.com/",
+  "total_elements": 165,
+  "interactive_elements": 26,
+  "elements": [
+    {
+      "tag_name": "html",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cbolui-ddl",
+        "xpath": "//html",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "\n  \n      {\n        \"@context\": \"https://schema.org\",\n        \"@graph\": [\n          {\n            \"@type\": \"WPHeader\", \n            \"headline\": \"Online Banking, Mortgages, Personal Loans, Investing - ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 2332.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "body",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//body",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "\n  Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Ca",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 2332.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "app-root",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//app-root",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 2332.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "cbol-core",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//cbol-core",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 2332.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-parent-layout",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0",
+        "xpath": "//citi-parent-layout",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 2332.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0.citi-outer-container.cbolui-cds",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 2332.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-header",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0",
+        "xpath": "//citi-header",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 134.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": ".alternateSkipNav",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Skip to Content",
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to Content",
+      "attributes": {
+        "href": ""
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 0.0,
+        "y": -30.0,
+        "width": 116.609375,
+        "height": 30.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".header.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 134.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".primary-header",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 134.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-banner2",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".ng-star-inserted",
+        "xpath": "//citi-banner2",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".banner.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {
+        "role": "banner"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".content-wrap",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1920.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".journeyLogo",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 20.0,
+        "y": 0.0,
+        "width": 555.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#logoDiv",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "logoDiv",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 20.0,
+        "y": 0.0,
+        "width": 88.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#sessionFocusUrl",
+        "xpath": "//a",
+        "accessibility": "citi-redesign-sessionfocus",
+        "text": null,
+        "id": "sessionFocusUrl",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "href": "/",
+        "aria-label": "citi-redesign-sessionfocus"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 40.0,
+        "y": 73.0,
+        "width": 88.0,
+        "height": 19.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": ".ng-star-inserted",
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/citiredesign.svg",
+        "role": "none"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 40.0,
+        "y": 0.0,
+        "width": 88.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#fdicDiv",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "fdicDiv",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 108.0,
+        "y": 0.0,
+        "width": 467.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#fdicFocusUrl",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": null,
+        "id": "fdicFocusUrl",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "role": "presentation"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 108.0,
+        "y": 47.0,
+        "width": 467.0,
+        "height": 19.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": "#fdicLogoA",
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": "fdicLogoA",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/Citi_Icon_Sprite_Banner_v2.svg"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 148.0,
+        "y": 30.0,
+        "width": 427.0,
+        "height": 32.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".buttons.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1699.8125,
+        "y": 0.0,
+        "width": 185.1875,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#butlerATM",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "butlerATM",
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCH",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1707.8125,
+        "y": 15.0,
+        "width": 86.03125,
+        "height": 66.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#atmLink",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "ATM / BRANCH",
+        "id": "atmLink",
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCH",
+      "attributes": {
+        "href": "/citibank-location-finder"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1711.8125,
+        "y": 22.0,
+        "width": 78.03125,
+        "height": 50.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": null,
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/Citi_Icon_Sprite_Banner_v1.svg"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1735.828125,
+        "y": 22.0,
+        "width": 30.0,
+        "height": 26.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "span",
+      "element_type": "span",
+      "selectors": {
+        "css": null,
+        "xpath": "//span",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCH",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1711.8125,
+        "y": 48.0,
+        "width": 78.03125,
+        "height": 24.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#lang",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "lang",
+        "data_testid": null
+      },
+      "text_content": "ESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1809.84375,
+        "y": 15.0,
+        "width": 67.15625,
+        "height": 66.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "button",
+      "element_type": "button",
+      "selectors": {
+        "css": "#langBtn",
+        "xpath": "//button",
+        "accessibility": "Haz clic para cambiar la pgina al espaol",
+        "text": "ESPAOL",
+        "id": "langBtn",
+        "data_testid": null
+      },
+      "text_content": "ESPAOL",
+      "attributes": {
+        "aria-label": "Haz clic para cambiar la pgina al espaol"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1813.84375,
+        "y": 22.0,
+        "width": 63.15625,
+        "height": 51.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": null,
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/Citi_Icon_Sprite_Banner_v1.svg"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1830.421875,
+        "y": 22.0,
+        "width": 30.0,
+        "height": 26.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "span",
+      "element_type": "span",
+      "selectors": {
+        "css": null,
+        "xpath": "//span",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1819.84375,
+        "y": 48.0,
+        "width": 51.15625,
+        "height": 24.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-navigation3",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".citi-navigation",
+        "xpath": "//citi-navigation3",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 1920.0,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".navigationParent.blueTopNavTheme.preLogin.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": "Main",
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {
+        "aria-label": "Main",
+        "role": "navigation"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 1920.0,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#navigationLeft",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "navigationLeft",
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 846.34375,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "ul",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".nav-bar-main-ul",
+        "xpath": "//ul",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 846.34375,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navcreditCardMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navcreditCardMainLI",
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 32.0,
+        "y": 88.0,
+        "width": 132.140625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navcreditCardmainAnchor0",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Credit Cards",
+        "id": "navcreditCardmainAnchor0",
+        "data_testid": null
+      },
+      "text_content": "Credit Cards",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 32.0,
+        "y": 88.0,
+        "width": 132.140625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navbankingMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navbankingMainLI",
+        "data_testid": null
+      },
+      "text_content": "BankingCheckingSavingsBanking Overview Certificates of DepositBanking IRAsRatesSmall Business BankingQuick LinksPersonal Banking GuideCiti Bonus Offers",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 164.140625,
+        "y": 88.0,
+        "width": 99.5,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navbankingmainAnchor1",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Banking",
+        "id": "navbankingmainAnchor1",
+        "data_testid": null
+      },
+      "text_content": "Banking",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 164.140625,
+        "y": 88.0,
+        "width": 99.5,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navlendingMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navlendingMainLI",
+        "data_testid": null
+      },
+      "text_content": "LendingPersonal LoansOverdraft Line of CreditHome LendingBuy a HomeRefinance Your HomeUse Your Home EquitySmall Business LendingQuick LinksMortgage CalculatorsHome Equity CalculatorsMortgage Learning ",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 263.640625,
+        "y": 88.0,
+        "width": 98.859375,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navlendingmainAnchor2",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Lending",
+        "id": "navlendingmainAnchor2",
+        "data_testid": null
+      },
+      "text_content": "Lending",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 263.640625,
+        "y": 88.0,
+        "width": 98.859375,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#investingMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "investingMainLI",
+        "data_testid": null
+      },
+      "text_content": "InvestingInvesting OverviewSelf-Directed InvestingGuided InvestingWorking with an AdvisorQuick LinksPlanning ToolsMarket InsightsInvestments & Insurance",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 362.5,
+        "y": 88.0,
+        "width": 107.3125,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#investingmainAnchor3",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Investing",
+        "id": "investingmainAnchor3",
+        "data_testid": null
+      },
+      "text_content": "Investing",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 362.5,
+        "y": 88.0,
+        "width": 107.3125,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#wealthMgmntMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "wealthMgmntMainLI",
+        "data_testid": null
+      },
+      "text_content": "Wealth ManagementCitigoldCitigold Private ClientCiti PriorityQuick LinksFind a Wealth TeamPlanning Tools",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 469.8125,
+        "y": 88.0,
+        "width": 190.515625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#wealthMgmntmainAnchor4",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Wealth Management",
+        "id": "wealthMgmntmainAnchor4",
+        "data_testid": null
+      },
+      "text_content": "Wealth Management",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 469.8125,
+        "y": 88.0,
+        "width": 190.515625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navOpenAccMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navOpenAccMainLI",
+        "data_testid": null
+      },
+      "text_content": "Open an Account",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 660.328125,
+        "y": 88.0,
+        "width": 186.015625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navOpenAccmainAnchor8",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Open an Account",
+        "id": "navOpenAccmainAnchor8",
+        "data_testid": null
+      },
+      "text_content": "Open an Account",
+      "attributes": {
+        "href": "/banking/bank-accounts?intc=citihpmenu_overview_bank-accounts"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 660.328125,
+        "y": 88.0,
+        "width": 186.015625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#navigationRight",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "navigationRight",
+        "data_testid": null
+      },
+      "text_content": " How can we help? ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1684.984375,
+        "y": 88.0,
+        "width": 235.015625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "button",
+      "element_type": "button",
+      "selectors": {
+        "css": ".en_US.howCanWeHelpButton.main-links.topNavButton.ng-star-inserted",
+        "xpath": "//button",
+        "accessibility": null,
+        "text": " How can we help? ",
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": " How can we help? ",
+      "attributes": {
+        "type": "button",
+        "name": "how can we help button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1683.984375,
+        "y": 88.0,
+        "width": 197.015625,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#maincontent",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "maincontent",
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0.citi-container.cbolui-ddl.theme-light.fullbleedFix.HPfullbleedFix",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".appbody.ng-tns-c3920221554-0.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "app-landingpage",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0.ng-star-inserted",
+        "xpath": "//app-landingpage",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": null,
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {
+        "role": "main"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-simple-layout",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//citi-simple-layout",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".homepage-reskin-container",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back i",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 1364.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "app-hero-reskin",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//app-hero-reskin",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back in a few hours when your credit card infor",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 355.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".heroReskinSection",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back in a few hours when your credit card infor",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1920.0,
+        "height": 355.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".container-fluid.offer-content",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back in a few hours when your credit card infor",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 240.0,
+        "y": 134.0,
+        "width": 1440.0,
+        "height": 340.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".row.noPadding",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back in a few hours when your credit card infor",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 252.0,
+        "y": 134.0,
+        "width": 1416.0,
+        "height": 340.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".col-xs-12.col-md-4.column-one",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 252.0,
+        "y": 172.5,
+        "width": 506.53125,
+        "height": 283.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".loader.eyebrow.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": "Content is loading",
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "aria-label": "Content is loading",
+        "role": "progressbar"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 262.0,
+        "y": 172.5,
+        "width": 230.0,
+        "height": 25.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".loader.heading.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": "Content is loading",
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "aria-label": "Content is loading",
+        "role": "progressbar"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 262.0,
+        "y": 214.5,
+        "width": 390.0,
+        "height": 85.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".loader.intro.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": "Content is loading",
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "aria-label": "Content is loading",
+        "role": "progressbar"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 262.0,
+        "y": 316.5,
+        "width": 440.0,
+        "height": 55.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".loader.herobtn.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": "Content is loading",
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "aria-label": "Content is loading",
+        "role": "progressbar"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 262.0,
+        "y": 388.5,
+        "width": 210.0,
+        "height": 50.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".col-xs-12.col-md-5.column-two.lifestyleImage",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 758.53125,
+        "y": 134.0,
+        "width": 525.46875,
+        "height": 340.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".loader.col2img.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": "Content is loading",
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "aria-label": "Content is loading",
+        "role": "progressbar"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 768.53125,
+        "y": 154.0,
+        "width": 320.0,
+        "height": 320.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".col-xs-12.col-sm-3.col-md-3.column-three.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back in a few hours when your credit card infor",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1284.0,
+        "y": 157.0,
+        "width": 384.0,
+        "height": 294.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "nga-login",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//nga-login",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign OnAttentionWe are undergoing maintenance. Come back in a few hours when your credit card infor",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1284.0,
+        "y": 157.0,
+        "width": 384.0,
+        "height": 294.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign On",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1284.0,
+        "y": 157.0,
+        "width": 384.0,
+        "height": 294.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".passwordLoginBoxContainer",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign On",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1284.0,
+        "y": 157.0,
+        "width": 384.0,
+        "height": 294.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".passwordLoginBoxContainer.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign On",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1284.0,
+        "y": 157.0,
+        "width": 384.0,
+        "height": 294.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "form",
+      "element_type": "form",
+      "selectors": {
+        "css": "#logInForm",
+        "xpath": "//form",
+        "accessibility": null,
+        "text": null,
+        "id": "logInForm",
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or PasswordPasswordless Sign On",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1284.0,
+        "y": 157.0,
+        "width": 384.0,
+        "height": 294.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "cds-signon2",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cds-signon2.cdssignon.reskinLayout.passwordLoginBox.ngaSignon",
+        "xpath": "//cds-signon2",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or Password",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1285.0,
+        "y": 158.0,
+        "width": 382.0,
+        "height": 236.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "section",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".theme-light.SampleErrorStates",
+        "xpath": "//section",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPasswordRemember User ID Sign On  Register / Activate  Forgot User ID or Password",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 160.0,
+        "width": 350.0,
+        "height": 218.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".row",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User IDPassword",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 160.0,
+        "width": 350.0,
+        "height": 78.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".col-sm-6.sign-user",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 160.0,
+        "width": 175.0,
+        "height": 78.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".username",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 160.0,
+        "width": 170.0,
+        "height": 78.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "cds-form-field",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cds-form-field.ng-star-inserted",
+        "xpath": "//cds-form-field",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 160.0,
+        "width": 170.0,
+        "height": 78.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "label",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cds-label.input-field-title",
+        "xpath": "//label",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 166.0,
+        "width": 170.0,
+        "height": 18.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".cds-form-field-infix.cds-form-field-content.cds-form-field-input",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 190.0,
+        "width": 170.0,
+        "height": 48.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "input",
+      "selectors": {
+        "css": "#username",
+        "xpath": "//input",
+        "accessibility": null,
+        "text": null,
+        "id": "username",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "type": "text",
+        "placeholder": "User ID"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": true,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 190.0,
+        "width": 170.0,
+        "height": 48.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".col-sm-6.sign-password",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Password",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 160.0,
+        "width": 175.0,
+        "height": 78.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".password",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Password",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 160.0,
+        "width": 175.0,
+        "height": 78.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "cds-form-field",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cds-form-field",
+        "xpath": "//cds-form-field",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Password",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 160.0,
+        "width": 175.0,
+        "height": 78.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "label",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cds-label.input-field-title",
+        "xpath": "//label",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Password",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 166.0,
+        "width": 175.0,
+        "height": 18.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".cds-form-field-infix.cds-form-field-content.cds-form-field-input",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 190.0,
+        "width": 175.0,
+        "height": 48.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "input",
+      "selectors": {
+        "css": "#password",
+        "xpath": "//input",
+        "accessibility": null,
+        "text": null,
+        "id": "password",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "type": "password",
+        "placeholder": "Password"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": true,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 190.0,
+        "width": 175.0,
+        "height": 48.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".row",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Remember User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 238.0,
+        "width": 350.0,
+        "height": 30.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".col-sm-6.pb-2.mb-1",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Remember User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 238.0,
+        "width": 175.0,
+        "height": 26.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".remember-user.remember.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Remember User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1311.0,
+        "y": 238.0,
+        "width": 155.0,
+        "height": 18.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "cds-form-field",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cds-form-field.ng-star-inserted",
+        "xpath": "//cds-form-field",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Remember User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1313.0,
+        "y": 238.0,
+        "width": 153.0,
+        "height": 34.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".cds-form-field-infix.cds-form-field-content.cds-form-field-checkbox",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Remember User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1313.0,
+        "y": 238.0,
+        "width": 119.328125,
+        "height": 34.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "cds-checkbox2",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#cds-checkbox2-1",
+        "xpath": "//cds-checkbox2",
+        "accessibility": null,
+        "text": null,
+        "id": "cds-checkbox2-1",
+        "data_testid": null
+      },
+      "text_content": "Remember User ID",
+      "attributes": {
+        "name": "remember",
+        "value": "accepted"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 248.0,
+        "width": 131.328125,
+        "height": 24.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "input",
+      "element_type": "checkbox",
+      "selectors": {
+        "css": "#cds-checkbox2-0",
+        "xpath": "//input",
+        "accessibility": null,
+        "text": null,
+        "id": "cds-checkbox2-0",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "type": "checkbox",
+        "name": "remember",
+        "value": "accepted"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": true,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 248.0,
+        "width": 24.0,
+        "height": 24.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "label",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#cds-checkbox2-0-label",
+        "xpath": "//label",
+        "accessibility": null,
+        "text": null,
+        "id": "cds-checkbox2-0-label",
+        "data_testid": null
+      },
+      "text_content": "Remember User ID",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1331.0,
+        "y": 253.0,
+        "width": 101.328125,
+        "height": 18.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".col-sm-6.pb-2.mb-1.pl-0",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 238.0,
+        "width": 175.0,
+        "height": 26.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".remember",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1476.0,
+        "y": 238.0,
+        "width": 165.0,
+        "height": 18.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".form-group.col-xs-12.pl-0.pt-2.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": " Sign On ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 268.0,
+        "width": 350.0,
+        "height": 64.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "button",
+      "element_type": "button",
+      "selectors": {
+        "css": "#signInBtn",
+        "xpath": "//button",
+        "accessibility": null,
+        "text": " Sign On ",
+        "id": "signInBtn",
+        "data_testid": null
+      },
+      "text_content": " Sign On ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 292.0,
+        "width": 350.0,
+        "height": 40.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".row.register-main.align-items-center",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": " Register / Activate  Forgot User ID or Password",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1301.0,
+        "y": 348.0,
+        "width": 350.0,
+        "height": 30.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    }
+  ],
+  "element_tree": {
+    "root": {
+      "tag": "document",
+      "children": [],
+      "element_count": 165
+    },
+    "tag_distribution": {
+      "html": 1,
+      "body": 1,
+      "app-root": 1,
+      "cbol-core": 1,
+      "citi-parent-layout": 1,
+      "div": 106,
+      "citi-header": 1,
+      "a": 14,
+      "citi-banner2": 1,
+      "img": 4,
+      "span": 4,
+      "button": 4,
+      "citi-navigation3": 1,
+      "ul": 1,
+      "li": 6,
+      "app-landingpage": 1,
+      "citi-simple-layout": 1,
+      "app-hero-reskin": 1,
+      "nga-login": 1,
+      "form": 1,
+      "cds-signon2": 1,
+      "section": 1,
+      "cds-form-field": 3,
+      "label": 3,
+      "input": 3,
+      "cds-checkbox2": 1,
+      "citi-footer": 1
+    },
+    "interactive_elements": 21
+  },
+  "extraction_time": 2.3427796363830566,
+  "metadata": {
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "title": "Online Banking, Mortgages, Personal Loans, Investing | Citi.com",
+    "extraction_strategy": [
+      "css",
+      "xpath",
+      "accessibility",
+      "text"
+    ]
+  }
+}

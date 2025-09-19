@@ -1,0 +1,23 @@
+{
+  "session_id": "session_1758233197705",
+  "browser_type": "chromium",
+  "protocol": "webdriver_bidi",
+  "page_title": "Online Banking, Mortgages, Personal Loans, Investing | Citi.com",
+  "page_url": "https://uat01.citi.com/",
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "cookies_count": 26,
+  "console_messages": [],
+  "network_requests": [],
+  "performance_metrics": {
+    "domContentLoaded": 911.3000000119209,
+    "loadComplete": 0.0,
+    "firstPaint": 4212.0,
+    "firstContentfulPaint": 4212.0,
+    "interactive": 4111.5,
+    "resourceCount": 43.0
+  },
+  "screenshots": []
+}

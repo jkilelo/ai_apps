@@ -1,0 +1,1428 @@
+{
+  "url": "https://uat01.citi.com/",
+  "total_elements": 300,
+  "interactive_elements": 42,
+  "elements": [
+    {
+      "tag_name": "html",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".cbolui-ddl",
+        "xpath": "//html",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "\n  \n      {\n        \"@context\": \"https://schema.org\",\n        \"@graph\": [\n          {\n            \"@type\": \"WPHeader\", \n            \"headline\": \"Online Banking, Mortgages, Personal Loans, Investing - ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 3693.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "body",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//body",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "\n  Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Ca",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 3693.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "app-root",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//app-root",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 3693.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "cbol-core",
+      "element_type": "unknown",
+      "selectors": {
+        "css": null,
+        "xpath": "//cbol-core",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 3693.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-parent-layout",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0",
+        "xpath": "//citi-parent-layout",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 3693.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0.citi-outer-container.cbolui-cds",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 3693.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-header",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0",
+        "xpath": "//citi-header",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to ContentATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store Cards",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 134.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": ".alternateSkipNav",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Skip to Content",
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Skip to Content",
+      "attributes": {
+        "href": ""
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 0.0,
+        "y": -30.0,
+        "width": 116.61458587646484,
+        "height": 30.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".header.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 134.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".primary-header",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOLCredit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 134.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-banner2",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".ng-star-inserted",
+        "xpath": "//citi-banner2",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".banner.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {
+        "role": "banner"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".content-wrap",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1904.666748046875,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".journeyLogo",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 20.0,
+        "y": 0.0,
+        "width": 555.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#logoDiv",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "logoDiv",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 20.0,
+        "y": 0.0,
+        "width": 88.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#sessionFocusUrl",
+        "xpath": "//a",
+        "accessibility": "citi-redesign-sessionfocus",
+        "text": null,
+        "id": "sessionFocusUrl",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "href": "/",
+        "aria-label": "citi-redesign-sessionfocus"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 40.0,
+        "y": 72.66667175292969,
+        "width": 88.0,
+        "height": 19.33333396911621
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": ".ng-star-inserted",
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/citiredesign.svg",
+        "role": "none"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 40.0,
+        "y": 0.0,
+        "width": 88.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#fdicDiv",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "fdicDiv",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 108.0,
+        "y": 0.0,
+        "width": 467.0,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#fdicFocusUrl",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": null,
+        "id": "fdicFocusUrl",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "role": "presentation"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 108.0,
+        "y": 46.66666793823242,
+        "width": 467.0,
+        "height": 19.33333396911621
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": "#fdicLogoA",
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": "fdicLogoA",
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/Citi_Icon_Sprite_Banner_v2.svg"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 148.0,
+        "y": 30.0,
+        "width": 427.0,
+        "height": 32.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".buttons.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCHESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1684.4896240234375,
+        "y": 0.0,
+        "width": 185.17709350585938,
+        "height": 88.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#butlerATM",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "butlerATM",
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCH",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1692.4896240234375,
+        "y": 15.0,
+        "width": 86.02083587646484,
+        "height": 66.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#atmLink",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "ATM / BRANCH",
+        "id": "atmLink",
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCH",
+      "attributes": {
+        "href": "/citibank-location-finder"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1696.4896240234375,
+        "y": 22.0,
+        "width": 78.02083587646484,
+        "height": 50.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": null,
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/Citi_Icon_Sprite_Banner_v1.svg"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1720.5,
+        "y": 22.0,
+        "width": 30.0,
+        "height": 26.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "span",
+      "element_type": "span",
+      "selectors": {
+        "css": null,
+        "xpath": "//span",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ATM / BRANCH",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1696.4896240234375,
+        "y": 48.0,
+        "width": 78.02083587646484,
+        "height": 24.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#lang",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "lang",
+        "data_testid": null
+      },
+      "text_content": "ESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1794.510498046875,
+        "y": 15.0,
+        "width": 67.15625,
+        "height": 66.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "button",
+      "element_type": "button",
+      "selectors": {
+        "css": "#langBtn",
+        "xpath": "//button",
+        "accessibility": "Haz clic para cambiar la pgina al espaol",
+        "text": "ESPAOL",
+        "id": "langBtn",
+        "data_testid": null
+      },
+      "text_content": "ESPAOL",
+      "attributes": {
+        "aria-label": "Haz clic para cambiar la pgina al espaol"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1798.510498046875,
+        "y": 22.0,
+        "width": 63.15625,
+        "height": 51.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "img",
+      "element_type": "image",
+      "selectors": {
+        "css": null,
+        "xpath": "//img",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": null,
+      "attributes": {
+        "src": "https://uat01.citi.com/CBOL/IA/Angular/assets/Citi_Icon_Sprite_Banner_v1.svg"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1815.0833740234375,
+        "y": 22.0,
+        "width": 30.0,
+        "height": 26.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "span",
+      "element_type": "span",
+      "selectors": {
+        "css": null,
+        "xpath": "//span",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "ESPAOL",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1804.510498046875,
+        "y": 48.0,
+        "width": 51.15625,
+        "height": 24.5
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "citi-navigation3",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".citi-navigation",
+        "xpath": "//citi-navigation3",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 1904.666748046875,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".navigationParent.blueTopNavTheme.preLogin.ng-star-inserted",
+        "xpath": "//div",
+        "accessibility": "Main",
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {
+        "aria-label": "Main",
+        "role": "navigation"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 1904.666748046875,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#navigationLeft",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "navigationLeft",
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 846.34375,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "ul",
+      "element_type": "unknown",
+      "selectors": {
+        "css": ".nav-bar-main-ul",
+        "xpath": "//ul",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 88.0,
+        "width": 846.34375,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navcreditCardMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navcreditCardMainLI",
+        "data_testid": null
+      },
+      "text_content": "Credit CardsView All Credit CardsBalance Transfer Credit Cards0% Intro APR Credit CardsRewards Credit CardsCash Back Credit CardsTravel Credit CardsRetail Store CardsSmall Business Credit CardsQuick L",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 32.0,
+        "y": 88.0,
+        "width": 132.1354217529297,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navcreditCardmainAnchor0",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Credit Cards",
+        "id": "navcreditCardmainAnchor0",
+        "data_testid": null
+      },
+      "text_content": "Credit Cards",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 32.0,
+        "y": 88.0,
+        "width": 132.1354217529297,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navbankingMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navbankingMainLI",
+        "data_testid": null
+      },
+      "text_content": "BankingCheckingSavingsBanking Overview Certificates of DepositBanking IRAsRatesSmall Business BankingQuick LinksPersonal Banking GuideCiti Bonus Offers",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 164.1354217529297,
+        "y": 88.0,
+        "width": 99.5,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navbankingmainAnchor1",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Banking",
+        "id": "navbankingmainAnchor1",
+        "data_testid": null
+      },
+      "text_content": "Banking",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 164.1354217529297,
+        "y": 88.0,
+        "width": 99.5,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navlendingMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navlendingMainLI",
+        "data_testid": null
+      },
+      "text_content": "LendingPersonal LoansOverdraft Line of CreditHome LendingBuy a HomeRefinance Your HomeUse Your Home EquitySmall Business LendingQuick LinksMortgage CalculatorsHome Equity CalculatorsMortgage Learning ",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 263.63543701171875,
+        "y": 88.0,
+        "width": 98.86458587646484,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navlendingmainAnchor2",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Lending",
+        "id": "navlendingmainAnchor2",
+        "data_testid": null
+      },
+      "text_content": "Lending",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 263.63543701171875,
+        "y": 88.0,
+        "width": 98.86458587646484,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#investingMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "investingMainLI",
+        "data_testid": null
+      },
+      "text_content": "InvestingInvesting OverviewSelf-Directed InvestingGuided InvestingWorking with an AdvisorQuick LinksPlanning ToolsMarket InsightsInvestments & Insurance",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 362.5,
+        "y": 88.0,
+        "width": 107.3125,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#investingmainAnchor3",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Investing",
+        "id": "investingmainAnchor3",
+        "data_testid": null
+      },
+      "text_content": "Investing",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 362.5,
+        "y": 88.0,
+        "width": 107.3125,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#wealthMgmntMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "wealthMgmntMainLI",
+        "data_testid": null
+      },
+      "text_content": "Wealth ManagementCitigoldCitigold Private ClientCiti PriorityQuick LinksFind a Wealth TeamPlanning Tools",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 469.8125,
+        "y": 88.0,
+        "width": 190.52084350585938,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#wealthMgmntmainAnchor4",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Wealth Management",
+        "id": "wealthMgmntmainAnchor4",
+        "data_testid": null
+      },
+      "text_content": "Wealth Management",
+      "attributes": {
+        "role": "button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 469.8125,
+        "y": 88.0,
+        "width": 190.52084350585938,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "li",
+      "element_type": "unknown",
+      "selectors": {
+        "css": "#navOpenAccMainLI",
+        "xpath": "//li",
+        "accessibility": null,
+        "text": null,
+        "id": "navOpenAccMainLI",
+        "data_testid": null
+      },
+      "text_content": "Open an Account",
+      "attributes": {
+        "role": "listitem"
+      },
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 660.3333740234375,
+        "y": 88.0,
+        "width": 186.0104217529297,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "a",
+      "element_type": "link",
+      "selectors": {
+        "css": "#navOpenAccmainAnchor8",
+        "xpath": "//a",
+        "accessibility": null,
+        "text": "Open an Account",
+        "id": "navOpenAccmainAnchor8",
+        "data_testid": null
+      },
+      "text_content": "Open an Account",
+      "attributes": {
+        "href": "/banking/bank-accounts?intc=citihpmenu_overview_bank-accounts"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 660.3333740234375,
+        "y": 88.0,
+        "width": 186.0104217529297,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#navigationRight",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "navigationRight",
+        "data_testid": null
+      },
+      "text_content": " How can we help? ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 1669.6458740234375,
+        "y": 88.0,
+        "width": 235.02084350585938,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "button",
+      "element_type": "button",
+      "selectors": {
+        "css": ".en_US.howCanWeHelpButton.main-links.topNavButton.ng-star-inserted",
+        "xpath": "//button",
+        "accessibility": null,
+        "text": " How can we help? ",
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": " How can we help? ",
+      "attributes": {
+        "type": "button",
+        "name": "how can we help button"
+      },
+      "is_visible": true,
+      "is_clickable": true,
+      "is_editable": false,
+      "is_focusable": true,
+      "bounding_box": {
+        "x": 1668.6458740234375,
+        "y": 88.0,
+        "width": 197.02084350585938,
+        "height": 46.0
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": "#maincontent",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": "maincontent",
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !Alert sectionYour browser is out of date and not supported. We recommend you update your browser for a better online banking experience. Learn More\n CitiCITI ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1904.666748046875,
+        "height": 2745.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !Alert sectionYour browser is out of date and not supported. We recommend you update your browser for a better online banking experience. Learn More\n CitiCITI ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1904.666748046875,
+        "height": 2745.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    },
+    {
+      "tag_name": "div",
+      "element_type": "div",
+      "selectors": {
+        "css": ".ng-tns-c3920221554-0.citi-container.cbolui-ddl.theme-light.fullbleedFix.HPfullbleedFix",
+        "xpath": "//div",
+        "accessibility": null,
+        "text": null,
+        "id": null,
+        "data_testid": null
+      },
+      "text_content": "You've successfully cleared the User ID !Alert sectionYour browser is out of date and not supported. We recommend you update your browser for a better online banking experience. Learn More\n CitiCITI ",
+      "attributes": {},
+      "is_visible": true,
+      "is_clickable": false,
+      "is_editable": false,
+      "is_focusable": false,
+      "bounding_box": {
+        "x": 0.0,
+        "y": 134.0,
+        "width": 1904.666748046875,
+        "height": 2745.08349609375
+      },
+      "parent_selector": null,
+      "children_count": 0
+    }
+  ],
+  "element_tree": {
+    "root": {
+      "tag": "document",
+      "children": [],
+      "element_count": 300
+    },
+    "tag_distribution": {
+      "html": 1,
+      "body": 1,
+      "app-root": 1,
+      "cbol-core": 1,
+      "citi-parent-layout": 1,
+      "div": 152,
+      "citi-header": 1,
+      "a": 26,
+      "citi-banner2": 1,
+      "img": 11,
+      "span": 7,
+      "button": 12,
+      "citi-navigation3": 1,
+      "ul": 1,
+      "li": 6,
+      "app-landingpage": 1,
+      "citi-simple-layout": 1,
+      "citi-alerts": 1,
+      "cds-banner-alert": 1,
+      "cds-icon": 1,
+      "p": 12,
+      "app-hero-reskin": 1,
+      "sup": 9,
+      "b": 1,
+      "nga-login": 1,
+      "form": 1,
+      "cds-signon2": 1,
+      "section": 8,
+      "cds-form-field": 3,
+      "label": 3,
+      "input": 3,
+      "cds-checkbox2": 1,
+      "app-lob-menu": 1,
+      "app-lob-menu-version-a": 1,
+      "cds-tile": 1,
+      "cds-action-bar": 1,
+      "cds-icon-wrapper": 6,
+      "app-three-up-reskin": 1,
+      "app-showcase": 4,
+      "h2": 6,
+      "app-module-seven-reskin": 1,
+      "app-text-header": 3,
+      "app-module-one-reskin": 1,
+      "app-module-three-reskin": 1,
+      "citi-footer": 1
+    },
+    "interactive_elements": 42
+  },
+  "extraction_time": 0.6843624114990234,
+  "metadata": {
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "title": "Online Banking, Mortgages, Personal Loans, Investing | Citi.com",
+    "extraction_strategy": [
+      "css",
+      "xpath",
+      "accessibility",
+      "text"
+    ]
+  }
+}

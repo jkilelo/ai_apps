@@ -1,0 +1,173 @@
+{
+  "elements": [
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": ".alternateSkipNav",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Skip to Content",
+          "id": null,
+          "data_testid": null
+        },
+        "text_content": "Skip to Content",
+        "attributes": {
+          "href": ""
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 0.0,
+          "y": -30.0,
+          "width": 116.61458587646484,
+          "height": 30.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "navigation",
+        "page_section": "main",
+        "interaction_probability": 0.9,
+        "accessibility_score": 0.8,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "navigation",
+        "interaction_probability": 0.9,
+        "accessibility_score": 0.8,
+        "purpose": "Main navigation",
+        "confidence": 0.95
+      },
+      "test_relevance": 0.5,
+      "suggested_tests": [],
+      "potential_issues": [],
+      "best_selector": ".alternateSkipNav",
+      "confidence_score": 0.95
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#navcreditCardmainAnchor0",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Credit Cards",
+          "id": "navcreditCardmainAnchor0",
+          "data_testid": null
+        },
+        "text_content": "Credit Cards",
+        "attributes": {
+          "role": "button"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 32.0,
+          "y": 88.0,
+          "width": 132.1354217529297,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "navigation",
+        "page_section": "main",
+        "interaction_probability": 0.9,
+        "accessibility_score": 0.8,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "navigation",
+        "interaction_probability": 0.9,
+        "accessibility_score": 0.8,
+        "purpose": "Main navigation",
+        "confidence": 0.95
+      },
+      "test_relevance": 0.5,
+      "suggested_tests": [],
+      "potential_issues": [],
+      "best_selector": "#navcreditCardmainAnchor0",
+      "confidence_score": 0.95
+    },
+    {
+      "base_element": {
+        "tag_name": "a",
+        "element_type": "link",
+        "selectors": {
+          "css": "#navOpenAccmainAnchor8",
+          "xpath": "//a",
+          "accessibility": null,
+          "text": "Open an Account",
+          "id": "navOpenAccmainAnchor8",
+          "data_testid": null
+        },
+        "text_content": "Open an Account",
+        "attributes": {
+          "href": "/banking/bank-accounts?intc=citihpmenu_overview_bank-accounts"
+        },
+        "is_visible": true,
+        "is_clickable": true,
+        "is_editable": false,
+        "is_focusable": true,
+        "bounding_box": {
+          "x": 660.3333740234375,
+          "y": 88.0,
+          "width": 186.0104217529297,
+          "height": 46.0
+        },
+        "parent_selector": null,
+        "children_count": 0
+      },
+      "context": {
+        "semantic_role": "navigation",
+        "page_section": "main",
+        "interaction_probability": 0.9,
+        "accessibility_score": 0.8,
+        "parent_chain": [],
+        "related_elements": []
+      },
+      "ai_insights": {
+        "semantic_role": "navigation",
+        "interaction_probability": 0.9,
+        "accessibility_score": 0.8,
+        "purpose": "Main navigation",
+        "confidence": 0.95
+      },
+      "test_relevance": 0.5,
+      "suggested_tests": [],
+      "potential_issues": [],
+      "best_selector": "#navOpenAccmainAnchor8",
+      "confidence_score": 0.95
+    }
+  ],
+  "page_insights": {
+    "page_type": "unknown",
+    "detected_framework": null,
+    "functionality": [],
+    "ui_patterns": [],
+    "accessibility_level": "medium",
+    "mobile_friendly": false,
+    "performance_score": 0.5,
+    "security_concerns": [],
+    "recommendations": []
+  },
+  "enrichment_time": 0.008856773376464844,
+  "llm_tokens_used": 105,
+  "cache_hits": 0,
+  "confidence_scores": {
+    "overall": 0.9499999999999998,
+    "min": 0.95,
+    "max": 0.95
+  }
+}
