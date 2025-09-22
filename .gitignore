@@ -358,3 +358,6 @@ shopping_form_demo.html
 .well-known/
 .git-blame-ignore-revs
 
+.env
+*.env
+**/.env
