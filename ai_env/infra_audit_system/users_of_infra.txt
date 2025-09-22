@@ -1,0 +1,13 @@
+single
+---------
+organization
+role
+project
+user
+  
+many
+---------
+organizatons
+roles
+projects
+users

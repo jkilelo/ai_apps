@@ -1,0 +1,49 @@
+1. long term memory (filesystem[sqlite3,JSON,CSV,Excel...],  postgres17, mongoDB ...)
+2. short term memory (RAM, cacheDict, redis, ...)
+3. brain (llm:gemini,claude,openai,grok...)
+4. knowledge (local [graph: falkordb, vectorDB: Qdrant], global [python playwright MCP server))
+5. interface: mcp, cli, api
+6. Search: meilisearch
+7. frontend: semantic html5, css3, es7, tailwind 4.1, reactJS 19
+8. 21 prompts library  C:\Users\kleiy\OneDrive\Desktop\python-ai-apps\ai_apps\ai_env\prompts.py
+
+Tech Stack
+python 3.12
+langgraph
+pydantic v2
+uv
+ruff
+mypy
+vscode api
+node js v22
+podman
+fastapi
+mcp protocol
+sqlalchemy
+flake8
+typescript
+vite
+
+resources
+all official documentations for all tech stack
+wca accesibility
+
+
+
+
+meilisearch, reacJS
+  Currently Running in podman:
+  1. FalkorDB - Running on port 6379
+    - Container: 
+    - Image: docker.io/falkordb/falkordb:latest
+    - Running as a Redis module
+  2. Meilisearch - Running on port 7700
+    - Container: meilisearch
+    - Image: docker.io/getmeili/meilisearch:latest
+    - Master key: test_master_key
+  3. - Not currently running as a container
+
+  Connection Settings:
+  - FalkorDB: localhost:6379
+  - Meilisearch: localhost:7700 (with master key: test_master_key)
+  - Qdrant: Not deployed

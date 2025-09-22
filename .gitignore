@@ -258,18 +258,6 @@ data/processed/
 *.dmg
 *.pkg
 
-# Document files (especially sensitive ones)
-*.docx
-*.doc
-*.xlsx
-*.xls
-*.pptx
-*.ppt
-Devin_*.docx
-Devin_*.doc
-*Citi*.docx
-*Citi*.doc
-
 # Cache directories
 .cache/
 cache/

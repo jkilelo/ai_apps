@@ -1,0 +1,246 @@
+{
+  "timestamp": "2025-09-21T11:08:17.730976",
+  "summary": {
+    "total": 39,
+    "passed": 37,
+    "warnings": 2,
+    "failed": 0,
+    "pass_rate": 94.87179487179486
+  },
+  "results": [
+    {
+      "test": "PostgreSQL Version",
+      "status": "passed",
+      "details": "Version: PostgreSQL 17.6 (Debian 17.6-1.pgdg13+1) on x86_64-pc-linux-gnu",
+      "timestamp": "2025-09-21T11:08:09.246591"
+    },
+    {
+      "test": "Setting: max_connections",
+      "status": "passed",
+      "details": "Expected: 1000, Actual: 1000",
+      "timestamp": "2025-09-21T11:08:09.247832"
+    },
+    {
+      "test": "Setting: wal_level",
+      "status": "passed",
+      "details": "Expected: logical, Actual: logical",
+      "timestamp": "2025-09-21T11:08:09.248796"
+    },
+    {
+      "test": "Setting: track_io_timing",
+      "status": "passed",
+      "details": "Expected: on, Actual: on",
+      "timestamp": "2025-09-21T11:08:09.249592"
+    },
+    {
+      "test": "Setting: track_functions",
+      "status": "passed",
+      "details": "Expected: all, Actual: all",
+      "timestamp": "2025-09-21T11:08:09.250288"
+    },
+    {
+      "test": "Extension: pgcrypto",
+      "status": "passed",
+      "details": "Installed",
+      "timestamp": "2025-09-21T11:08:09.252716"
+    },
+    {
+      "test": "Extension: pg_stat_statements",
+      "status": "passed",
+      "details": "Installed",
+      "timestamp": "2025-09-21T11:08:09.252752"
+    },
+    {
+      "test": "Extension: uuid-ossp",
+      "status": "passed",
+      "details": "Installed",
+      "timestamp": "2025-09-21T11:08:09.252778"
+    },
+    {
+      "test": "Table: ai_agents",
+      "status": "passed",
+      "details": "Exists",
+      "timestamp": "2025-09-21T11:08:09.269530"
+    },
+    {
+      "test": "Table: agent_actions",
+      "status": "passed",
+      "details": "Exists",
+      "timestamp": "2025-09-21T11:08:09.269582"
+    },
+    {
+      "test": "Table: performance_baselines",
+      "status": "passed",
+      "details": "Exists",
+      "timestamp": "2025-09-21T11:08:09.269607"
+    },
+    {
+      "test": "Table: query_optimizations",
+      "status": "passed",
+      "details": "Exists",
+      "timestamp": "2025-09-21T11:08:09.269635"
+    },
+    {
+      "test": "Table: self_healing_actions",
+      "status": "passed",
+      "details": "Exists",
+      "timestamp": "2025-09-21T11:08:09.269657"
+    },
+    {
+      "test": "Table: dr_checkpoints",
+      "status": "passed",
+      "details": "Exists",
+      "timestamp": "2025-09-21T11:08:09.269760"
+    },
+    {
+      "test": "Master DBA Agent",
+      "status": "passed",
+      "details": "Status: active",
+      "timestamp": "2025-09-21T11:08:09.273023"
+    },
+    {
+      "test": "Performance Indexes",
+      "status": "passed",
+      "details": "Found 13 indexes",
+      "timestamp": "2025-09-21T11:08:09.276462"
+    },
+    {
+      "test": "Row-Level Security: agent_actions",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:09.278666"
+    },
+    {
+      "test": "Row-Level Security: ai_agents",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:09.278691"
+    },
+    {
+      "test": "MCP Server Health",
+      "status": "passed",
+      "details": "Status: healthy",
+      "timestamp": "2025-09-21T11:08:11.370890"
+    },
+    {
+      "test": "Database Connection",
+      "status": "passed",
+      "details": "Connected: True",
+      "timestamp": "2025-09-21T11:08:11.370917"
+    },
+    {
+      "test": "Active Agents",
+      "status": "passed",
+      "details": "Active agents: 1",
+      "timestamp": "2025-09-21T11:08:11.370935"
+    },
+    {
+      "test": "Database Stats Endpoint",
+      "status": "passed",
+      "details": "Database size: 8083 kB",
+      "timestamp": "2025-09-21T11:08:13.449794"
+    },
+    {
+      "test": "Issue Detection Endpoint",
+      "status": "passed",
+      "details": "Status code: 500",
+      "timestamp": "2025-09-21T11:08:15.511234"
+    },
+    {
+      "test": "Capability: database_management",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:15.546644"
+    },
+    {
+      "test": "Capability: query_optimization",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:15.546685"
+    },
+    {
+      "test": "Capability: backup_restore",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:15.546711"
+    },
+    {
+      "test": "Capability: monitoring",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:15.546735"
+    },
+    {
+      "test": "Capability: security",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:15.546758"
+    },
+    {
+      "test": "Capability: self_healing",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:15.546780"
+    },
+    {
+      "test": "Capability: autonomous_operation",
+      "status": "passed",
+      "details": "Enabled",
+      "timestamp": "2025-09-21T11:08:15.546803"
+    },
+    {
+      "test": "pg_stat_statements",
+      "status": "passed",
+      "details": "Tracking 21 statements",
+      "timestamp": "2025-09-21T11:08:15.561523"
+    },
+    {
+      "test": "Performance Baselines",
+      "status": "passed",
+      "details": "Found 0 baselines",
+      "timestamp": "2025-09-21T11:08:15.562941"
+    },
+    {
+      "test": "Metric Collection API",
+      "status": "passed",
+      "details": "Status: 200",
+      "timestamp": "2025-09-21T11:08:17.677663"
+    },
+    {
+      "test": "SSL Configuration",
+      "status": "passed",
+      "details": "SSL: off",
+      "timestamp": "2025-09-21T11:08:17.694293"
+    },
+    {
+      "test": "Row Security Setting",
+      "status": "passed",
+      "details": "Row security: on",
+      "timestamp": "2025-09-21T11:08:17.695405"
+    },
+    {
+      "test": "AI DBA Privileges",
+      "status": "passed",
+      "details": "Has CREATE privilege",
+      "timestamp": "2025-09-21T11:08:17.696713"
+    },
+    {
+      "test": "WAL Archive Mode",
+      "status": "passed",
+      "details": "Archive mode: on",
+      "timestamp": "2025-09-21T11:08:17.727733"
+    },
+    {
+      "test": "DR Checkpoints Table",
+      "status": "passed",
+      "details": "Found 0 checkpoints",
+      "timestamp": "2025-09-21T11:08:17.729230"
+    },
+    {
+      "test": "WAL Level for Replication",
+      "status": "passed",
+      "details": "WAL level: logical",
+      "timestamp": "2025-09-21T11:08:17.730124"
+    }
+  ]
+}

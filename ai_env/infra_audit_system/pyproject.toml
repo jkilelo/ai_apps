@@ -1,0 +1,312 @@
+[project]
+name = "infra-audit-system"
+version = "1.0.0"
+description = "AI-First Infrastructure Audit System with SQLite3 & Pydantic v2"
+authors = [{name = "Infrastructure Audit Team", email = "infra@example.com"}]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+keywords = ["infrastructure", "audit", "ai", "pydantic", "sqlite", "devops"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+]
+
+dependencies = [
+    "pydantic[email]>=2.11.0",
+    "typer[rich]>=0.12.0",
+    "rich>=13.0.0",
+    "click>=8.0.0",
+    "python-dateutil>=2.8.0",
+    "aiofiles>=23.0.0",
+    "httpx>=0.27.0",
+    "PyYAML>=6.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.12.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+    "black>=25.0.0",
+    "isort>=5.13.0",
+    "pre-commit>=3.0.0",
+]
+api = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "python-multipart>=0.0.9",
+    "slowapi>=0.1.9",
+]
+monitoring = [
+    "prometheus-client>=0.20.0",
+    "opentelemetry-api>=1.21.0",
+    "opentelemetry-sdk>=1.21.0",
+    "sentry-sdk>=2.0.0",
+]
+advanced = [
+    "alembic>=1.14.0",
+    "celery>=5.3.0",
+    "redis>=5.0.0",
+    "cryptography>=42.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/company/infra-audit-system"
+Documentation = "https://infra-audit-system.readthedocs.io"
+Repository = "https://github.com/company/infra-audit-system.git"
+Issues = "https://github.com/company/infra-audit-system/issues"
+Changelog = "https://github.com/company/infra-audit-system/blob/main/CHANGELOG.md"
+
+[project.scripts]
+infra-audit = "cli:main"
+
+[build-system]
+requires = ["hatchling>=1.21.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["infra_audit_system"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/infra_audit_system",
+    "/README.md",
+    "/LICENSE",
+    "/schema.sql",
+]
+
+# ============================================
+# Development Tools Configuration
+# ============================================
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "SIM", # flake8-simplify
+    "ICN", # flake8-import-conventions
+    "S",   # flake8-bandit
+]
+ignore = [
+    "E501",   # line too long, handled by black
+    "B008",   # do not perform function calls in argument defaults
+    "S101",   # use of assert detected
+    "S608",   # possible SQL injection vector through string-based query construction
+]
+
+[tool.ruff.per-file-ignores]
+"tests/*" = ["S101", "ARG001", "ARG002"]
+"demo.py" = ["S101", "T201"]
+"cli.py" = ["T201"]
+
+[tool.black]
+target-version = ['py311']
+line-length = 100
+skip-string-normalization = true
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+extra_checks = true
+
+[[tool.mypy.overrides]]
+module = [
+    "rich.*",
+    "typer.*",
+    "yaml.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=infra_audit_system",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+testpaths = ["tests"]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["infra_audit_system"]
+omit = [
+    "*/tests/*",
+    "*/demo.py",
+    "*/cli.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+# ============================================
+# Pre-commit Configuration
+# ============================================
+
+[[tool.pre-commit.repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v4.5.0"
+[[tool.pre-commit.repos.hooks]]
+id = "trailing-whitespace"
+[[tool.pre-commit.repos.hooks]]
+id = "end-of-file-fixer"
+[[tool.pre-commit.repos.hooks]]
+id = "check-yaml"
+[[tool.pre-commit.repos.hooks]]
+id = "check-added-large-files"
+[[tool.pre-commit.repos.hooks]]
+id = "check-json"
+[[tool.pre-commit.repos.hooks]]
+id = "check-toml"
+[[tool.pre-commit.repos.hooks]]
+id = "check-xml"
+
+[[tool.pre-commit.repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "v0.8.0"
+[[tool.pre-commit.repos.hooks]]
+id = "ruff"
+args = ["--fix"]
+[[tool.pre-commit.repos.hooks]]
+id = "ruff-format"
+
+[[tool.pre-commit.repos]]
+repo = "https://github.com/pre-commit/mirrors-mypy"
+rev = "v1.13.0"
+[[tool.pre-commit.repos.hooks]]
+id = "mypy"
+additional_dependencies = ["pydantic>=2.11.0", "types-PyYAML"]
+
+# ============================================
+# Environment Configuration
+# ============================================
+
+[tool.hatch.envs.default]
+dependencies = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "pytest --cov=infra_audit_system {args:tests}"
+test-cov-html = "pytest --cov=infra_audit_system --cov-report=html {args:tests}"
+lint = "ruff check {args:.}"
+format = "ruff format {args:.}"
+type-check = "mypy {args:infra_audit_system}"
+all = ["lint", "type-check", "test-cov"]
+
+[tool.hatch.envs.docs]
+dependencies = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocstrings[python]>=0.24.0",
+]
+
+[tool.hatch.envs.docs.scripts]
+build = "mkdocs build --clean --strict"
+serve = "mkdocs serve --dev-addr localhost:8000"
+
+# ============================================
+# Version Management
+# ============================================
+
+[tool.hatch.version]
+path = "infra_audit_system/__init__.py"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "_version.py"
+
+# ============================================
+# Publication Configuration
+# ============================================
+
+[tool.hatch.publish.index]
+disable = true  # Disable by default for private repos
