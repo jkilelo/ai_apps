@@ -3,6 +3,15 @@ from dotenv import load_dotenv
 import asyncio
 import sys
 import os
+import io
+
+# Force UTF-8 encoding for stdout/stderr to handle emojis and non-ASCII
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+# Set UTF-8 as default encoding for the environment
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+os.environ['PYTHONUTF8'] = '1'
 
 # Add parent directory to path to import llm_gemini_client
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
