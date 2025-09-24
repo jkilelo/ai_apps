@@ -1,3 +1,13 @@
+import sys
+import subprocess
+
+# Ensure 'browser-use' is installed
+try:
+    import browser_use
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "browser-use"])
+    import browser_use
+
 from browser_use import Agent, ChatGoogle
 from dotenv import load_dotenv
 import asyncio
@@ -6,12 +16,13 @@ import os
 import io
 
 # Force UTF-8 encoding for stdout/stderr to handle emojis and non-ASCII
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 # Set UTF-8 as default encoding for the environment
-os.environ['PYTHONIOENCODING'] = 'utf-8'
-os.environ['PYTHONUTF8'] = '1'
+os.environ["PYTHONIOENCODING"] = "utf-8"
+os.environ["PYTHONUTF8"] = "1"
+os.environ["ANONYMIZED_TELEMETRY"] = "false"
 
 # Add parent directory to path to import llm_gemini_client
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -40,6 +51,7 @@ async def main():
     task = "navigate to uat01.citi.com and extract all interactive elements on the homepage"
     agent = Agent(task=task, llm=llm)
     await agent.run()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

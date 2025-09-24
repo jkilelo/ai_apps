@@ -1,11 +1,6 @@
 import dotenv, os
 import logging
-from typing import Optional
 from google.genai import Client
-
-from pydantic_ai import Agent
-from pydantic_ai.models.google import GoogleModel
-from pydantic_ai.providers.google import GoogleProvider
 
 # Load environment from ui_testing_framework
 env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "ui_testing_framework", ".env")
@@ -13,7 +8,7 @@ dotenv.load_dotenv(dotenv_path=env_path)
 
 logger = logging.getLogger(__name__)
 
-model = "gemini-2.5-flash"
+model = "gemini-2.5-pro"
 
 # Initialize client lazily only when needed
 _client = None
