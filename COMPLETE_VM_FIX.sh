@@ -22,104 +22,104 @@ print_error() {
     echo -e "\033[1;31m[ERROR]\033[0m $1"
 }
 
-# PHASE 1: CLEANUP ALL PROBLEMATIC OPTIMIZATIONS
-print_status "Phase 1: Removing all problematic optimizations..."
+# # PHASE 1: CLEANUP ALL PROBLEMATIC OPTIMIZATIONS
+# print_status "Phase 1: Removing all problematic optimizations..."
 
-# Remove all extreme sysctl configs
-rm -f /etc/sysctl.d/99-extreme-optimization.conf
-rm -f /etc/sysctl.d/01-swap-optimization.conf
-rm -f /etc/sysctl.d/02-scheduler.conf
-rm -f /etc/sysctl.d/03-netfilter.conf
-rm -f /etc/sysctl.d/*.conf
+# # Remove all extreme sysctl configs
+# rm -f /etc/sysctl.d/99-extreme-optimization.conf
+# rm -f /etc/sysctl.d/01-swap-optimization.conf
+# rm -f /etc/sysctl.d/02-scheduler.conf
+# rm -f /etc/sysctl.d/03-netfilter.conf
+# rm -f /etc/sysctl.d/*.conf
 
-# Remove problematic scripts
-rm -f /usr/local/bin/smart-extreme-optimize
-rm -f /usr/local/bin/clear-memory
-rm -f /usr/local/bin/vm-maintain
-rm -f /usr/local/bin/vm-recover
-rm -f /usr/local/bin/optimize-memory
-rm -f /usr/local/bin/vm-status
-rm -f /usr/local/bin/vm-health
-rm -f /usr/local/bin/vm-monitor
-rm -f /usr/local/bin/vm-benchmark
+# # Remove problematic scripts
+# rm -f /usr/local/bin/smart-extreme-optimize
+# rm -f /usr/local/bin/clear-memory
+# rm -f /usr/local/bin/vm-maintain
+# rm -f /usr/local/bin/vm-recover
+# rm -f /usr/local/bin/optimize-memory
+# rm -f /usr/local/bin/vm-status
+# rm -f /usr/local/bin/vm-health
+# rm -f /usr/local/bin/vm-monitor
+# rm -f /usr/local/bin/vm-benchmark
 
-# Remove systemd customizations
-rm -rf /etc/systemd/journald.conf.d/
-rm -rf /etc/systemd/system/*.d/
-rm -f /etc/systemd/system/cpu-performance.service
-rm -f /etc/systemd/system/ksm.service
+# # Remove systemd customizations
+# rm -rf /etc/systemd/journald.conf.d/
+# rm -rf /etc/systemd/system/*.d/
+# rm -f /etc/systemd/system/cpu-performance.service
+# rm -f /etc/systemd/system/ksm.service
 
-# Clear bad cron jobs
-crontab -l 2>/dev/null | grep -v vm-maintain | crontab - 2>/dev/null || true
-rm -f /etc/cron.daily/vm-optimize
+# # Clear bad cron jobs
+# crontab -l 2>/dev/null | grep -v vm-maintain | crontab - 2>/dev/null || true
+# rm -f /etc/cron.daily/vm-optimize
 
-print_success "Removed all problematic configurations"
+# print_success "Removed all problematic configurations"
 
-# PHASE 2: RESTORE SYSTEM TO HEALTHY STATE
-print_status "Phase 2: Restoring system to healthy state..."
+# # PHASE 2: RESTORE SYSTEM TO HEALTHY STATE
+# print_status "Phase 2: Restoring system to healthy state..."
 
-# Create safe sysctl settings
-cat > /etc/sysctl.d/60-safe-optimization.conf <<'EOF'
-# Safe optimization for 1GB VM
-vm.swappiness=40
-vm.vfs_cache_pressure=100
-vm.dirty_ratio=15
-vm.dirty_background_ratio=5
-vm.overcommit_memory=0
+# # Create safe sysctl settings
+# cat > /etc/sysctl.d/60-safe-optimization.conf <<'EOF'
+# # Safe optimization for 1GB VM
+# vm.swappiness=40
+# vm.vfs_cache_pressure=100
+# vm.dirty_ratio=15
+# vm.dirty_background_ratio=5
+# vm.overcommit_memory=0
 
-# Safe network settings
-net.core.somaxconn=1024
-net.ipv4.tcp_fin_timeout=30
-net.ipv4.tcp_tw_reuse=1
-net.ipv4.tcp_keepalive_time=600
+# # Safe network settings
+# net.core.somaxconn=1024
+# net.ipv4.tcp_fin_timeout=30
+# net.ipv4.tcp_tw_reuse=1
+# net.ipv4.tcp_keepalive_time=600
 
-# Security settings (keep enabled)
-kernel.randomize_va_space=2
-kernel.yama.ptrace_scope=1
-kernel.kptr_restrict=1
+# # Security settings (keep enabled)
+# kernel.randomize_va_space=2
+# kernel.yama.ptrace_scope=1
+# kernel.kptr_restrict=1
 
-# Enable IPv6 (many services need it)
-net.ipv6.conf.all.disable_ipv6=0
-net.ipv6.conf.default.disable_ipv6=0
-net.ipv6.conf.lo.disable_ipv6=0
-EOF
+# # Enable IPv6 (many services need it)
+# net.ipv6.conf.all.disable_ipv6=0
+# net.ipv6.conf.default.disable_ipv6=0
+# net.ipv6.conf.lo.disable_ipv6=0
+# EOF
 
-sysctl -p /etc/sysctl.d/60-safe-optimization.conf
+# sysctl -p /etc/sysctl.d/60-safe-optimization.conf
 
-# Unmask all systemd services
-systemctl unmask --all 2>/dev/null || true
+# # Unmask all systemd services
+# systemctl unmask --all 2>/dev/null || true
 
-# Enable critical services
-CRITICAL_SERVICES="ssh sshd systemd-networkd systemd-resolved systemd-journald systemd-logind"
-for service in $CRITICAL_SERVICES; do
-    systemctl unmask $service 2>/dev/null || true
-    systemctl enable $service 2>/dev/null || true
-    systemctl start $service 2>/dev/null || true
-done
+# # Enable critical services
+# CRITICAL_SERVICES="ssh sshd systemd-networkd systemd-resolved systemd-journald systemd-logind"
+# for service in $CRITICAL_SERVICES; do
+#     systemctl unmask $service 2>/dev/null || true
+#     systemctl enable $service 2>/dev/null || true
+#     systemctl start $service 2>/dev/null || true
+# done
 
-print_success "System services restored"
+# print_success "System services restored"
 
-# PHASE 3: FIX NETWORKING
-print_status "Phase 3: Ensuring network connectivity..."
+# # # PHASE 3: FIX NETWORKING
+# # print_status "Phase 3: Ensuring network connectivity..."
 
-# Fix DNS resolution
-if [ ! -L /etc/resolv.conf ]; then
-    rm -f /etc/resolv.conf
-    ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-fi
+# # # Fix DNS resolution
+# # if [ ! -L /etc/resolv.conf ]; then
+# #     rm -f /etc/resolv.conf
+# #     ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+# # fi
 
-# Restart network services
-systemctl restart systemd-networkd
-systemctl restart systemd-resolved
+# # # Restart network services
+# # systemctl restart systemd-networkd
+# # systemctl restart systemd-resolved
 
-# Test connectivity
-if ping -c 1 8.8.8.8 > /dev/null 2>&1; then
-    print_success "Network connectivity verified"
-else
-    print_error "Network connectivity issue - attempting manual fix"
-    dhclient -r && dhclient eth0
-    echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
-fi
+# # # Test connectivity
+# # if ping -c 1 8.8.8.8 > /dev/null 2>&1; then
+# #     print_success "Network connectivity verified"
+# # else
+# #     print_error "Network connectivity issue - attempting manual fix"
+# #     dhclient -r && dhclient eth0
+# #     echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" > /etc/resolv.conf
+# # fi
 
 # PHASE 4: APPLY SAFE OPTIMIZATIONS
 print_status "Phase 4: Applying safe optimizations..."
